@@ -1,2 +1,2 @@
 # WeeklyXamarin.mobile
-Mobile Application for Weekly Xamarin
+Mobile Application for the Weekly Xamarin Newsletter
