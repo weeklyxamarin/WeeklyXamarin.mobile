@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="WeeklyXamarin.Mobile.Views.ArticlesListPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:WeeklyXamarin.Mobile.Models"
+    xmlns:viewmodels="clr-namespace:WeeklyXamarin.Mobile.ViewModels"
+    x:Name="BrowseItemsPage"
+    Title="{Binding EditionId, StringFormat='Edition {0}'}"
+    x:DataType="viewmodels:ArticlesListViewModel"
+    BackgroundColor="#F4F2F5"
+    mc:Ignorable="d">
+
+
+
+    <RefreshView Command="{Binding LoadArticlesCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <CollectionView x:Name="EditionsCollectionView" ItemsSource="{Binding Articles}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Article">
+                    <ContentView>
+                        <Grid
+                            Margin="20"
+                            BackgroundColor="White"
+                            ColumnSpacing="20"
+                            RowSpacing="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <BoxView
+                                Grid.Row="0"
+                                Grid.RowSpan="4"
+                                Grid.Column="0"
+                                BackgroundColor="#80BFEB"
+                                HorizontalOptions="Start"
+                                WidthRequest="4" />
+
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="0,10,0,0"
+                                FontAttributes="Bold"
+                                FontSize="16"
+                                Text="{Binding Title}" />
+
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                FontSize="16"
+                                Text="{Binding Author}"
+                                TextColor="#80BFEB" />
+
+                            <Label
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                FontSize="14"
+                                Text="{Binding Description}" />
+
+                            <Frame
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                Margin="0,0,10,10"
+                                Padding="10,3"
+                                BackgroundColor="#EC4327"
+                                CornerRadius="6"
+                                HeightRequest="20"
+                                HorizontalOptions="End"
+                                VerticalOptions="End">
+                                <Label Text="{Binding Category}" TextColor="White" />
+                            </Frame>
+
+
+
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnItemSelected" />
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </ContentView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
+</ContentPage>

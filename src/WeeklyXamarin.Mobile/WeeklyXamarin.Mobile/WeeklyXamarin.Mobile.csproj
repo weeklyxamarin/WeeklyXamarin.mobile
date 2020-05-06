@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="4.6.0.726" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Mono.Android">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v9.0\Mono.Android.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\ArticlesListPage.xaml.cs">
+      <DependentUpon>ArticlesListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\EditionsPage.xaml.cs">
+      <DependentUpon>EditionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ArticleDetailPage.xaml.cs">
+      <DependentUpon>ArticleDetailPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>

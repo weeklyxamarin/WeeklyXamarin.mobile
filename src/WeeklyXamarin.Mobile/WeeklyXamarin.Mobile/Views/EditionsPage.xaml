@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="WeeklyXamarin.Mobile.Views.EditionsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="BrowseItemsPage"
+    Title="{Binding Title}"
+    mc:Ignorable="d">
+
+    <RefreshView Command="{Binding LoadEditionsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <CollectionView x:Name="EditionsCollectionView" ItemsSource="{Binding Editions}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <ContentView>
+                        <Grid Margin="20" BackgroundColor="White">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <BoxView
+                                Grid.Row="0"
+                                Grid.RowSpan="2"
+                                BackgroundColor="#80BFEB"
+                                HorizontalOptions="Start"
+                                WidthRequest="4" />
+
+                            <StackLayout
+                                Margin="20,5,20,0"
+                                Orientation="Horizontal"
+                                Spacing="10">
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="16"
+                                    Text="{Binding Id, StringFormat='#{0}'}"
+                                    TextColor="#80BFEB" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="16"
+                                    Text="{Binding PublishDate, StringFormat='{0:MMM dd, yyyy}'}" />
+                            </StackLayout>
+
+                            <Label
+                                Grid.Row="1"
+                                Margin="20,5,20,20"
+                                Text="{Binding Summary}" />
+
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnItemSelected" />
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </ContentView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
+</ContentPage>
