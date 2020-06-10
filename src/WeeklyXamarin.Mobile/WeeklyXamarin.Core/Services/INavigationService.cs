@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace WeeklyXamarin.Core.Services
+{
+    public interface INavigationService
+    {
+        Task GoToAsync(string uri);
+        Task GoToAsync(string uri, string parameterKey, string parameterValue);
+    }
+}

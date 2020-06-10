@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:WeeklyXamarin.Core.Models;assembly=WeeklyXamarin.Core"
     xmlns:viewmodels="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
-    x:Name="BrowseItemsPage"
+    x:Name="rootPage"
     Title="{Binding EditionId, StringFormat='Edition {0}'}"
     x:DataType="viewmodels:ArticlesListViewModel"
     BackgroundColor="#F4F2F5"
@@ -81,7 +81,11 @@
 
 
                             <Grid.GestureRecognizers>
-                                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnItemSelected" />
+                                <TapGestureRecognizer
+                                    Command="{Binding BindingContext.OpenArticleCommand, Source={x:Reference rootPage}}"
+                                    CommandParameter="{Binding .}"
+                                    NumberOfTapsRequired="1" />
+
                             </Grid.GestureRecognizers>
                         </Grid>
                     </ContentView>

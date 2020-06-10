@@ -1,4 +1,5 @@
-﻿using MvvmHelpers.Commands;
+﻿using MvvmHelpers;
+using MvvmHelpers.Commands;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -11,22 +12,26 @@ namespace WeeklyXamarin.Core.ViewModels
 {
     public class ArticlesListViewModel : ViewModelBase
     {
-        IDataStore DataStore { get; set; } = new MockDataStore();
+        readonly IDataStore dataStore;
+        readonly INavigationService navigationService;
 
-        public ObservableCollection<Article> Articles { get; set; }
+        public ObservableRangeCollection<Article> Articles { get; set; } = new ObservableRangeCollection<Article>();
         public ICommand LoadArticlesCommand { get; set; }
-        public string EditionId { get; }
+        public ICommand OpenArticleCommand { get; set; }
+        public string EditionId { get; set;  }
 
-        public ArticlesListViewModel(string editionId)
+        public ArticlesListViewModel(IDataStore dataStore, INavigationService navigationService)
         {
-            EditionId = editionId;
             Title = "Articles";
-            Articles = new ObservableCollection<Article>();
             LoadArticlesCommand = new AsyncCommand(ExecuteLoadArticlesCommand);
+            OpenArticleCommand = new AsyncCommand<Article>(OpenArticle);
+            this.dataStore = dataStore;
+            this.navigationService = navigationService;
         }
-        public ArticlesListViewModel()
-        {
 
+        private async Task OpenArticle(Article article)
+        {
+            await navigationService.GoToAsync("articledetail", "article", article.Id);
         }
 
         async Task ExecuteLoadArticlesCommand()
@@ -36,11 +41,8 @@ namespace WeeklyXamarin.Core.ViewModels
             try
             {
                 Articles.Clear();
-                var articles = await DataStore.GetArticlesForEditionAsync(EditionId, true);
-                foreach (var item in articles)
-                {
-                    Articles.Add(item);
-                }
+                var articles = await dataStore.GetArticlesForEditionAsync(EditionId, true);
+                Articles.AddRange(articles);
             }
             catch (Exception ex)
             {

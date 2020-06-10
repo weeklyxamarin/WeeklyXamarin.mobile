@@ -14,13 +14,23 @@ namespace WeeklyXamarin.Core.ViewModels
     {
         public ObservableRangeCollection<Edition> Editions { get; set; }
         public ICommand LoadEditionsCommand { get; set; }
-        IDataStore DataStore { get; set; } = new MockDataStore();
+        public ICommand OpenEditionCommand { get;  set; }
+        IDataStore dataStore;
+        INavigationService navigationService;
 
-        public EditionsViewModel()
+        public EditionsViewModel(IDataStore dataStore, INavigationService navigationService)
         {
             Title = "Editions";
             Editions = new ObservableRangeCollection<Edition>();
             LoadEditionsCommand = new AsyncCommand(ExecuteLoadEditionsCommand);
+                OpenEditionCommand = new AsyncCommand<Edition>(OpenEdition);
+            this.dataStore = dataStore;
+            this.navigationService = navigationService;
+        }
+
+        private async Task OpenEdition(Edition edition)
+        {
+            await navigationService.GoToAsync($"articles", "edition", edition.Id);
         }
 
         async Task ExecuteLoadEditionsCommand()
@@ -30,7 +40,7 @@ namespace WeeklyXamarin.Core.ViewModels
             try
             {
                 Editions.Clear();
-                var editions = await DataStore.GetEditionsAsync(true);
+                var editions = await dataStore.GetEditionsAsync(true);
                 Editions.AddRange(editions);
             }
             catch (Exception ex)

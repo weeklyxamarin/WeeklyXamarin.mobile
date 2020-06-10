@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="BrowseItemsPage"
+    x:Name="rootPage"
     Title="{Binding Title}"
     mc:Ignorable="d">
 
@@ -48,7 +48,10 @@
                                 Text="{Binding Summary}" />
 
                             <Grid.GestureRecognizers>
-                                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnItemSelected" />
+                                <TapGestureRecognizer 
+                                    Command="{Binding BindingContext.OpenEditionCommand, Source={x:Reference rootPage}}" NumberOfTapsRequired="1" 
+                                    CommandParameter="{Binding .}"
+                                    />
                             </Grid.GestureRecognizers>
                         </Grid>
                     </ContentView>

@@ -9,6 +9,8 @@ using Xamarin.Forms.Xaml;
 using WeeklyXamarin.Mobile.Views;
 using WeeklyXamarin.Core.Models;
 using WeeklyXamarin.Core.ViewModels;
+using Container = WeeklyXamarin.Core.Services.Container;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace WeeklyXamarin.Mobile.Views
 {
@@ -23,15 +25,9 @@ namespace WeeklyXamarin.Mobile.Views
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new EditionsViewModel();
+            BindingContext = viewModel = Container.Instance.ServiceProvider.GetRequiredService<EditionsViewModel>();
         }
 
-        async void OnItemSelected(object sender, EventArgs args)
-        {
-            var layout = (BindableObject)sender;
-            var edition = (Edition)layout.BindingContext;
-            await Navigation.PushAsync(new ArticlesListPage(edition.Id));
-        }
 
         protected override void OnAppearing()
         {
