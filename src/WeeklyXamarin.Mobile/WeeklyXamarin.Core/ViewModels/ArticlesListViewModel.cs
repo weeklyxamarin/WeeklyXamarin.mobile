@@ -1,16 +1,20 @@
-﻿using System;
+﻿using MvvmHelpers.Commands;
+using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Xamarin.Forms;
-using WeeklyXamarin.Mobile.Models;
+using System.Windows.Input;
+using WeeklyXamarin.Core.Models;
+using WeeklyXamarin.Core.Services;
 
-namespace WeeklyXamarin.Mobile.ViewModels
+namespace WeeklyXamarin.Core.ViewModels
 {
-    public class ArticlesListViewModel : BaseViewModel
+    public class ArticlesListViewModel : ViewModelBase
     {
-        public ObservableCollection<Article> Articles{ get; set; }
-        public Command LoadArticlesCommand { get; set; }
+        IDataStore DataStore { get; set; } = new MockDataStore();
+
+        public ObservableCollection<Article> Articles { get; set; }
+        public ICommand LoadArticlesCommand { get; set; }
         public string EditionId { get; }
 
         public ArticlesListViewModel(string editionId)
@@ -18,7 +22,7 @@ namespace WeeklyXamarin.Mobile.ViewModels
             EditionId = editionId;
             Title = "Articles";
             Articles = new ObservableCollection<Article>();
-            LoadArticlesCommand = new Command(async () => await ExecuteLoadArticlesCommand());
+            LoadArticlesCommand = new AsyncCommand(ExecuteLoadArticlesCommand);
         }
         public ArticlesListViewModel()
         {

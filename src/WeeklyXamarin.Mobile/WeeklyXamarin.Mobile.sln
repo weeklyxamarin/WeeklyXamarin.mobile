@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeeklyXamarin.Mobile.Androi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeeklyXamarin.Mobile.iOS", "WeeklyXamarin.Mobile.iOS\WeeklyXamarin.Mobile.iOS.csproj", "{92943836-C4EA-431B-BF3A-DD49737EED24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeeklyXamarin.Mobile", "WeeklyXamarin.Mobile\WeeklyXamarin.Mobile.csproj", "{D36E000B-0F38-4958-847C-1AAC5E249DA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeeklyXamarin.Mobile", "WeeklyXamarin.Mobile\WeeklyXamarin.Mobile.csproj", "{D36E000B-0F38-4958-847C-1AAC5E249DA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeeklyXamarin.Core", "WeeklyXamarin.Core\WeeklyXamarin.Core.csproj", "{03BC973C-14B4-465F-8436-DC396A927382}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +75,18 @@ Global
 		{D36E000B-0F38-4958-847C-1AAC5E249DA0}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{D36E000B-0F38-4958-847C-1AAC5E249DA0}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{D36E000B-0F38-4958-847C-1AAC5E249DA0}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
+		{03BC973C-14B4-465F-8436-DC396A927382}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03BC973C-14B4-465F-8436-DC396A927382}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03BC973C-14B4-465F-8436-DC396A927382}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{03BC973C-14B4-465F-8436-DC396A927382}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{03BC973C-14B4-465F-8436-DC396A927382}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{03BC973C-14B4-465F-8436-DC396A927382}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{03BC973C-14B4-465F-8436-DC396A927382}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03BC973C-14B4-465F-8436-DC396A927382}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03BC973C-14B4-465F-8436-DC396A927382}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{03BC973C-14B4-465F-8436-DC396A927382}.Release|iPhone.Build.0 = Release|Any CPU
+		{03BC973C-14B4-465F-8436-DC396A927382}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{03BC973C-14B4-465F-8436-DC396A927382}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

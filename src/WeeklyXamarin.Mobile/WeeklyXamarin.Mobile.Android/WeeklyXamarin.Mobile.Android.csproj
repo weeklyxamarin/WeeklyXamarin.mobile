@@ -89,6 +89,10 @@
     <AndroidResource Include="Resources\drawable\tab_feed.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WeeklyXamarin.Core\WeeklyXamarin.Core.csproj">
+      <Project>{03bc973c-14b4-465f-8436-dc396a927382}</Project>
+      <Name>WeeklyXamarin.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WeeklyXamarin.Mobile\WeeklyXamarin.Mobile.csproj">
       <Project>{E8DE2362-C66E-46A4-B735-260D20E64795}</Project>
       <Name>WeeklyXamarin.Mobile</Name>

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using WeeklyXamarin.Mobile.Models;
+using WeeklyXamarin.Core.Models;
 
-namespace WeeklyXamarin.Mobile.Services
+namespace WeeklyXamarin.Core.Services
 {
     public interface IDataStore
     {

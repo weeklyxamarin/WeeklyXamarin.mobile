@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using WeeklyXamarin.Mobile.Models;
+using WeeklyXamarin.Core.Models;
 
-namespace WeeklyXamarin.Mobile.Services
+namespace WeeklyXamarin.Core.Services
 {
     public class MockDataStore : IDataStore
     {

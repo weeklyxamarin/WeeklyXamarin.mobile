@@ -3,8 +3,8 @@ using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-using WeeklyXamarin.Mobile.Models;
-using WeeklyXamarin.Mobile.ViewModels;
+using WeeklyXamarin.Core.ViewModels;
+using WeeklyXamarin.Core.Models;
 
 namespace WeeklyXamarin.Mobile.Views
 {

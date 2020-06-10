@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WeeklyXamarin.Mobile.Models
+namespace WeeklyXamarin.Core.Models
 {
     public class Article
     {

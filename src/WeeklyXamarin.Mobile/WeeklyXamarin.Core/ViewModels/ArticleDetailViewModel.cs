@@ -1,10 +1,9 @@
 ﻿using System;
+using WeeklyXamarin.Core.Models;
 
-using WeeklyXamarin.Mobile.Models;
-
-namespace WeeklyXamarin.Mobile.ViewModels
+namespace WeeklyXamarin.Core.ViewModels
 {
-    public class ArticleDetailViewModel : BaseViewModel
+    public class ArticleDetailViewModel : ViewModelBase
     {
         public Article Article { get; set; }
         public ArticleDetailViewModel(Article article = null)

@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="WeeklyXamarin.Mobile.Views.AboutPage"
-             xmlns:vm="clr-namespace:WeeklyXamarin.Mobile.ViewModels"
+             xmlns:vm="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
              Title="{Binding Title}">
     
     <ContentPage.BindingContext>

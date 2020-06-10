@@ -6,10 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
-using WeeklyXamarin.Mobile.Models;
 using WeeklyXamarin.Mobile.Views;
-using WeeklyXamarin.Mobile.ViewModels;
+using WeeklyXamarin.Core.Models;
+using WeeklyXamarin.Core.ViewModels;
 
 namespace WeeklyXamarin.Mobile.Views
 {

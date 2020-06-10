@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using WeeklyXamarin.Mobile.Services;
+using WeeklyXamarin.Core.Services;
 using WeeklyXamarin.Mobile.Views;
 
 namespace WeeklyXamarin.Mobile
