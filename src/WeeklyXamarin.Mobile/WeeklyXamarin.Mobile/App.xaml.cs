@@ -6,6 +6,7 @@ using WeeklyXamarin.Mobile.Views;
 using Microsoft.Extensions.DependencyInjection;
 using WeeklyXamarin.Core.ViewModels;
 using WeeklyXamarin.Mobile.Services;
+using System.Net.Http;
 
 namespace WeeklyXamarin.Mobile
 {
@@ -18,7 +19,9 @@ namespace WeeklyXamarin.Mobile
 
             //DependencyService.Register<MockDataStore>();
             var services = new ServiceCollection();
-            services.AddSingleton<IDataStore, MockDataStore>();
+            services.AddSingleton<HttpClient>();
+            //services.AddSingleton<IDataStore, MockDataStore>();
+            services.AddSingleton<IDataStore, GithubDataStore>();
             services.AddTransient<EditionsViewModel, EditionsViewModel>();
             services.AddTransient<ArticlesListViewModel, ArticlesListViewModel>();
             services.AddTransient<ArticleDetailViewModel, ArticleDetailViewModel>();
