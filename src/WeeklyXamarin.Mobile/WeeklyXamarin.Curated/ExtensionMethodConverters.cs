@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
+using WeeklyXamarin.Core.Models;
 
 namespace WeeklyXamarin.Curated
 {
@@ -15,6 +16,8 @@ namespace WeeklyXamarin.Curated
             ed.Name = edition?.Title;
             ed.Id = edition.Number.ToString();
             ed.Curators = "";
+            ed.Articles = new List<Article>();
+
             return ed;
         }
     }
