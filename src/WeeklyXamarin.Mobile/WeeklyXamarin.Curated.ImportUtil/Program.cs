@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using WeeklyXamarin.Core.Models;
 using WeeklyXamarin.Core.Responses;
-using WeeklyXamarin.Core.ViewModels;
 
 
 namespace WeeklyXamarin.Curated.ImportUtil
@@ -13,48 +13,60 @@ namespace WeeklyXamarin.Curated.ImportUtil
     class Program
     {
         static List<Edition> CuratedEditions = new List<Edition>();
-        //static List<Author> Authors = new List<Author>();
         static AuthorResponse AuthorLookup;
         static Core.Models.Index indexLookup;
-        
 
-        static string curatedExportPath;
         static string basePath;
-        static string outputPath = "Output";
+        static string curatedDataPath;
+        static string outputPath;
         static string lookupDataPath;
         const string AuthorsFile = "authors.json";
         const string IndexFile = "index.json";
 
         static void Main(string[] args)
         {
+            // work out our paths
+            // TODO: These should probably by derived from args
             string executeLocation = System.Reflection.Assembly.GetExecutingAssembly().Location;
             basePath = System.IO.Path.GetDirectoryName(executeLocation);
-
             outputPath = Path.Combine(basePath, "Output");
-            curatedExportPath = Path.Combine(basePath, "CuratedExport");
+            curatedDataPath = Path.Combine(basePath, "CuratedExport");
             lookupDataPath = Path.Combine(basePath, "LookupData");
 
-            // load up the authors
-            Program.AuthorLookup = LoadAuthorLookup(Path.Combine(lookupDataPath, AuthorsFile));
+            // load up the editions from curated files
+            CuratedEditions = LoadupCuratedEditions(curatedDataPath);
 
-            CuratedEditions = LoadupCuratedEditions(curatedExportPath);
-
-            // create the index file
+            // create the index file - before we have the articles
             Core.Models.Index indexLookup = CreateIndex(CuratedEditions);
             WriteIndexFile(Path.Combine(outputPath, IndexFile), indexLookup);
 
+            // load up the authors lookup file which is used
+            // to try and identify authors via multiple means
+            AuthorLookup = LoadAuthorLookup(Path.Combine(lookupDataPath, AuthorsFile));
 
+            // work through all the editions we have found.
+            // process them and write them out
+            ProcessEditions();
+
+            // finally we have an authors
+            WriteAuthorsFile(Path.Combine(outputPath, AuthorsFile), AuthorLookup);
+        }
+
+        private static void ProcessEditions()
+        {
             // pull out all the editions
             foreach (var curatedEdition in CuratedEditions)
             {
                 Core.Models.Edition newEdition = new Core.Models.Edition();
                 newEdition = curatedEdition.ToCoreEdition();
 
+                // process all the categories
                 foreach (var category in curatedEdition.Categories)
                 {
+                    // process each article for the category
                     foreach (var article in category.Items)
                     {
-                        // only process link types
+                        // only process link types, ignore the text types
                         if (article.Type == TypeEnum.Text) continue;
 
                         Article newArticle = new Article();
@@ -63,8 +75,8 @@ namespace WeeklyXamarin.Curated.ImportUtil
                         newArticle.Title = article.Title;
                         newArticle.Description = article.Description;
                         newArticle.EditionId = curatedEdition.Number.ToString();
-                        
-                        // try and find the author
+
+                        // try and find the author. We usually have these as links in the description
                         if (article?.EmbeddedLinks?.Count > 1)
                         {
                             foreach (var link in article.EmbeddedLinks)
@@ -80,28 +92,21 @@ namespace WeeklyXamarin.Curated.ImportUtil
                         }
 
                         newEdition.Articles.Add(newArticle);
-
-
                     }
                 }
 
                 WriteEditionFile(Path.Combine(outputPath, $"{newEdition.Id}.json"), newEdition);
-
             }
-
-            WriteAuthorsFile(Path.Combine(outputPath, AuthorsFile), AuthorLookup);
-
-
         }
 
         private static void WriteEditionFile(string filename, Core.Models.Edition newEdition)
         {
             string editionJson = JsonConvert.SerializeObject(newEdition,
-        Formatting.Indented,
-        new JsonSerializerSettings
-        {
-            NullValueHandling = NullValueHandling.Ignore
-        });
+                                    Formatting.Indented,
+                                    new JsonSerializerSettings
+                                    {
+                                        NullValueHandling = NullValueHandling.Ignore
+                                    });
             File.WriteAllText(filename, editionJson);
         }
 
@@ -125,7 +130,7 @@ namespace WeeklyXamarin.Curated.ImportUtil
                 Formatting.Indented,
                 new JsonSerializerSettings
                 {
-                    NullValueHandling = NullValueHandling.Ignore
+                    NullValueHandling = NullValueHandling.Ignore,
                 });
             File.WriteAllText(filename, indexJson);
         }
@@ -151,10 +156,10 @@ namespace WeeklyXamarin.Curated.ImportUtil
         private static Author FindOrCreateAuthor(string authorKey, string authorDisplayName)
         {
             Author author;
-            
+
             // see if we can find an auther with the id
             author = AuthorLookup.Authors.FirstOrDefault(a => a.Id.ToLower() == authorKey.ToLower());
-            
+
             if (author != null)
             {
                 System.Diagnostics.Debug.WriteLine($"Found Existing Author by key: {authorKey}");
@@ -181,7 +186,6 @@ namespace WeeklyXamarin.Curated.ImportUtil
             {
                 System.Diagnostics.Debug.WriteLine($"Found an author by name match, so you'll want to add an alias - Name: {authorDisplayName}, {authorKey}");
             }
-
 
             // at this point we can't find an author so we need to create a new one
             author = new Author();
@@ -211,7 +215,7 @@ namespace WeeklyXamarin.Curated.ImportUtil
                     return "github";
                 default:
                     return "blog";
-            }    
+            }
         }
 
         private static Core.Models.Index CreateIndex(List<Edition> curatedEditions)
