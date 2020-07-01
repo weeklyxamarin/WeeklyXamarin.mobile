@@ -8,5 +8,6 @@ namespace WeeklyXamarin.Core.Models
     {
         public DateTime UpdatedTimeStamp { get; set; }
         public List<Edition> Editions { get; set; }
+        public DateTime FetchedDate { get; set; }
     }
 }

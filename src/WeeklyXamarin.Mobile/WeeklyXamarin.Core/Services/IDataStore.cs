@@ -8,7 +8,7 @@ namespace WeeklyXamarin.Core.Services
     public interface IDataStore
     {
         // Editions
-        Task<Edition> GetEditionAsync(string id);
+        Task<Edition> GetEditionAsync(string id, bool forceRefresh = false);
         Task<IEnumerable<Edition>> GetEditionsAsync(bool forceRefresh = false);
 
         // Articles

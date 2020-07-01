@@ -7,6 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using WeeklyXamarin.Core.ViewModels;
 using WeeklyXamarin.Mobile.Services;
 using System.Net.Http;
+using MonkeyCache.FileStore;
+using Xamarin.Essentials.Interfaces;
+using Xamarin.Essentials.Implementation;
 
 namespace WeeklyXamarin.Mobile
 {
@@ -17,6 +20,9 @@ namespace WeeklyXamarin.Mobile
         {
             InitializeComponent();
 
+            // Register our MonkeyBarrel
+            Barrel.ApplicationId = "WeeklyXamarin";
+
             //DependencyService.Register<MockDataStore>();
             var services = new ServiceCollection();
             services.AddSingleton<HttpClient>();
@@ -26,6 +32,7 @@ namespace WeeklyXamarin.Mobile
             services.AddTransient<ArticlesListViewModel, ArticlesListViewModel>();
             services.AddTransient<ArticleDetailViewModel, ArticleDetailViewModel>();
             services.AddSingleton<INavigationService, NavigationService>();
+            services.AddSingleton<IConnectivity, ConnectivityImplementation>();
 
             var serviceProvider = services.BuildServiceProvider();
             serviceProvider.CreateScope();

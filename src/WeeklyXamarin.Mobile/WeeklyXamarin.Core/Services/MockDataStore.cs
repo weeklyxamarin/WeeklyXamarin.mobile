@@ -69,5 +69,10 @@ namespace WeeklyXamarin.Core.Services
         {
             return await Task.FromResult(articles.Where(e => e.EditionId == editionId));
         }
+
+        public Task<Edition> GetEditionAsync(string id, bool forceRefresh = false)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

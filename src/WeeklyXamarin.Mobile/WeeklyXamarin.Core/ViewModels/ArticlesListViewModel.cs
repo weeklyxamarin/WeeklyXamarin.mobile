@@ -41,8 +41,9 @@ namespace WeeklyXamarin.Core.ViewModels
             try
             {
                 Articles.Clear();
-                var articles = await dataStore.GetArticlesForEditionAsync(EditionId, true);
-                Articles.AddRange(articles);
+                //var articles = await dataStore.GetArticlesForEditionAsync(EditionId, true);
+                var edition = await dataStore.GetEditionAsync(EditionId);
+                Articles.AddRange(edition.Articles);
             }
             catch (Exception ex)
             {
