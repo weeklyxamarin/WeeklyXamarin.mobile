@@ -10,6 +10,7 @@ namespace WeeklyXamarin.Core.Models
         public DateTime UpdatedTimeStamp { get; set; }
         public string Summary { get; set; }
         public DateTime PublishDate { get; set; }
+        public string PublishUrl { get; set; }
         public string Curators { get; set; }
         public List<Article> Articles { get; set; }
     }
