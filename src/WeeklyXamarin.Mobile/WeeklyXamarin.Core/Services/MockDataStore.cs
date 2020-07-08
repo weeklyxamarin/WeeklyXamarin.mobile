@@ -60,10 +60,6 @@ namespace WeeklyXamarin.Core.Services
             return await Task.FromResult(editions);
         }
 
-        public async Task<Article> GetArticleAsync(string id)
-        {
-            return await Task.FromResult(articles.FirstOrDefault(s => s.Id == id));
-        }
 
         public async Task<IEnumerable<Article>> GetArticlesForEditionAsync(string editionId, bool forceRefresh = false)
         {
@@ -73,6 +69,11 @@ namespace WeeklyXamarin.Core.Services
         public Task<Edition> GetEditionAsync(string id, bool forceRefresh = false)
         {
             throw new NotImplementedException();
+        }
+
+        public Task<Article> GetArticleAsync(string editionId, string articleId)
+        {
+            return Task.FromResult(articles.FirstOrDefault(s => s.Id == articleId));
         }
     }
 }

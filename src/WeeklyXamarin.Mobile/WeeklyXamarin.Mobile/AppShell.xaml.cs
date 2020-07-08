@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using WeeklyXamarin.Core.Helpers;
 using WeeklyXamarin.Mobile.Views;
 using Xamarin.Forms;
 
@@ -10,8 +11,8 @@ namespace WeeklyXamarin.Mobile
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute("articles",typeof(ArticlesListPage));
-            Routing.RegisterRoute("articledetail", typeof(ArticleDetailPage));
+            Routing.RegisterRoute(Constants.Navigation.Paths.Articles,typeof(ArticlesListPage));
+            Routing.RegisterRoute(Constants.Navigation.Paths.ArticleDetail, typeof(ArticleDetailPage));
         }
     }
 }

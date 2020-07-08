@@ -35,7 +35,7 @@ namespace WeeklyXamarin.Core.Services
             var editionFile = $"{id}.json";
             var edition = Barrel.Current.Get<Edition>(key: editionFile);
 
-            if (await CachedEditionUpToDate(edition))
+            if (await CachedEditionUpToDate(edition) && !forceRefresh)
                 return edition;
 
             if (_connectivity.NetworkAccess != NetworkAccess.Internet)
@@ -48,6 +48,7 @@ namespace WeeklyXamarin.Core.Services
                 var editionResponse = await _httpClient.GetStringAsync(editionFile);
 
                 edition = JsonConvert.DeserializeObject<Edition>(editionResponse);
+
                 Barrel.Current.Add(key: editionFile, data: edition, expireIn: TimeSpan.FromDays(999));
                 return edition;
             }
@@ -97,9 +98,11 @@ namespace WeeklyXamarin.Core.Services
             }
         }
 
-        public Task<Article> GetArticleAsync(string id)
+        public async Task<Article> GetArticleAsync(string editionId, string articleId)
         {
-            throw new NotImplementedException();
+            var edition = await GetEditionAsync(editionId);
+            var article = edition.Articles.FirstOrDefault(x => x.Id == articleId);
+            return article;
         }
 
         public Task<IEnumerable<Article>> GetArticlesForEditionAsync(string editionId, bool forceRefresh = false)

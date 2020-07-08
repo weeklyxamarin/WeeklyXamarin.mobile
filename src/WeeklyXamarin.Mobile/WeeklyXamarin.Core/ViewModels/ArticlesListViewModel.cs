@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using WeeklyXamarin.Core.Models;
 using WeeklyXamarin.Core.Services;
+using WeeklyXamarin.Core.Helpers;
+using System.Collections.Generic;
 
 namespace WeeklyXamarin.Core.ViewModels
 {
@@ -16,33 +18,43 @@ namespace WeeklyXamarin.Core.ViewModels
         readonly INavigationService navigationService;
 
         public ObservableRangeCollection<Article> Articles { get; set; } = new ObservableRangeCollection<Article>();
-        public ICommand LoadArticlesCommand { get; set; }
+        public AsyncCommand<bool> LoadArticlesCommand { get; set; }
         public ICommand OpenArticleCommand { get; set; }
         public string EditionId { get; set;  }
 
         public ArticlesListViewModel(IDataStore dataStore, INavigationService navigationService)
         {
             Title = "Articles";
-            LoadArticlesCommand = new AsyncCommand(ExecuteLoadArticlesCommand);
+            LoadArticlesCommand = new AsyncCommand<bool>(ExecuteLoadArticlesCommand, CanRefresh);
             OpenArticleCommand = new AsyncCommand<Article>(OpenArticle);
             this.dataStore = dataStore;
             this.navigationService = navigationService;
         }
 
-        private async Task OpenArticle(Article article)
+        private bool CanRefresh(object arg)
         {
-            await navigationService.GoToAsync("articledetail", "article", article.Id);
+            return !IsBusy;
         }
 
-        async Task ExecuteLoadArticlesCommand()
+        private async Task OpenArticle(Article article)
+        {
+            var navigationParameters = new Dictionary<string,  string>
+            {
+                {Constants.Navigation.ParameterNames.ArticleId, article.Id },
+                {Constants.Navigation.ParameterNames.EditionId, EditionId },
+            };
+
+            await navigationService.GoToAsync(Constants.Navigation.Paths.ArticleDetail, navigationParameters);
+        }
+
+        async Task ExecuteLoadArticlesCommand(bool forceRefresh = false)
         {
             IsBusy = true;
 
             try
             {
                 Articles.Clear();
-                //var articles = await dataStore.GetArticlesForEditionAsync(EditionId, true);
-                var edition = await dataStore.GetEditionAsync(EditionId);
+                var edition = await dataStore.GetEditionAsync(EditionId,forceRefresh);
                 Articles.AddRange(edition.Articles);
             }
             catch (Exception ex)

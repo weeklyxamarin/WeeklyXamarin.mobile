@@ -14,14 +14,16 @@ namespace WeeklyXamarin.Core.ViewModels
             get => article;
             set => SetProperty(ref article, value);
         }
+
+
         public ArticleDetailViewModel(IDataStore dataStore)
         {
             this.dataStore = dataStore;
         }
 
-        public async Task Initialize(string articleId)
+        public async Task Initialize(string editionId, string articleId)
         {
-            var article = await dataStore.GetArticleAsync(articleId);
+            var article = await dataStore.GetArticleAsync(editionId, articleId);
 
             Title = article.Title;
             Article = article;

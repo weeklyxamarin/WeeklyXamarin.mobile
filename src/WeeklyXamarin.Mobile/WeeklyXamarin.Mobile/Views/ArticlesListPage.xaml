@@ -16,6 +16,11 @@
 
 
     <RefreshView Command="{Binding LoadArticlesCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <RefreshView.CommandParameter>
+            <x:Boolean>
+                True
+            </x:Boolean>
+        </RefreshView.CommandParameter>
         <CollectionView x:Name="EditionsCollectionView" ItemsSource="{Binding Articles}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Article">

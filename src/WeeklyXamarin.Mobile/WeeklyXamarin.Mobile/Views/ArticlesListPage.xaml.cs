@@ -17,11 +17,11 @@ namespace WeeklyXamarin.Mobile.Views
     // Learn more about making custom code visible in the Xamarin.Forms previewer
     // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(false)]
-    [QueryProperty(nameof(edition), nameof(edition))]
+    [QueryProperty(nameof(EditionId), nameof(EditionId))]
     public partial class ArticlesListPage : ContentPage
     {
         ArticlesListViewModel viewModel;
-        public string edition { get; set; }
+        public string EditionId { get; set; }
         public ArticlesListPage()
         {
             InitializeComponent();
@@ -36,12 +36,12 @@ namespace WeeklyXamarin.Mobile.Views
         //    await Navigation.PushAsync(new ArticleDetailPage(new ArticleDetailViewModel(article)));
         //}
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
-            viewModel.EditionId = edition;
+            viewModel.EditionId = EditionId;
             if (viewModel.Articles.Count == 0)
-                viewModel.IsBusy = true;
+                await viewModel.LoadArticlesCommand.ExecuteAsync(false);
         }
     }
 }

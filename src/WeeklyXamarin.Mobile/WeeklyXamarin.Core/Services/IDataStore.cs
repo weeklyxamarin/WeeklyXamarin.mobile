@@ -12,7 +12,7 @@ namespace WeeklyXamarin.Core.Services
         Task<IEnumerable<Edition>> GetEditionsAsync(bool forceRefresh = false);
 
         // Articles
-        Task<Article> GetArticleAsync(string id);
         Task<IEnumerable<Article>> GetArticlesForEditionAsync(string editionId, bool forceRefresh = false);
+        Task<Article> GetArticleAsync(string editionId, string articleId);
     }
 }

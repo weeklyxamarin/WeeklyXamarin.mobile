@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using WeeklyXamarin.Core.Models;
 using WeeklyXamarin.Core.Services;
+using WeeklyXamarin.Core.Helpers;
 
 namespace WeeklyXamarin.Core.ViewModels
 {
@@ -30,7 +31,7 @@ namespace WeeklyXamarin.Core.ViewModels
 
         private async Task OpenEdition(Edition edition)
         {
-            await navigationService.GoToAsync($"articles", "edition", edition.Id);
+            await navigationService.GoToAsync(Constants.Navigation.Paths.Articles, Constants.Navigation.ParameterNames.EditionId, edition.Id);
         }
 
         async Task ExecuteLoadEditionsCommand()

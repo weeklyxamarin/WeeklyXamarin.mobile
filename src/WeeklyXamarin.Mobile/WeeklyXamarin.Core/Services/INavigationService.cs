@@ -9,5 +9,9 @@ namespace WeeklyXamarin.Core.Services
     {
         Task GoToAsync(string uri);
         Task GoToAsync(string uri, string parameterKey, string parameterValue);
+        Task GoToAsync(string uri, Dictionary<string, string> parameters);
+
     }
+
+    
 }
