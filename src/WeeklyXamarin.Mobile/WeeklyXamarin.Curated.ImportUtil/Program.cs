@@ -1,9 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using HtmlAgilityPack;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using WeeklyXamarin.Core.Models;
 using WeeklyXamarin.Core.Responses;
 
@@ -15,6 +18,7 @@ namespace WeeklyXamarin.Curated.ImportUtil
         static List<Edition> CuratedEditions = new List<Edition>();
         static AuthorResponse AuthorLookup;
         static Core.Models.Index indexLookup;
+        static List<Core.Models.Edition> Editions = new List<Core.Models.Edition>();
 
         static string basePath;
         static string curatedDataPath;
@@ -33,23 +37,51 @@ namespace WeeklyXamarin.Curated.ImportUtil
             curatedDataPath = Path.Combine(basePath, "CuratedExport");
             lookupDataPath = Path.Combine(basePath, "LookupData");
 
+            // for debug override the basepath
+            basePath = @"C:\dev\GitHub\weeklyxamarin\WeeklyXamarin.content\content";
+            outputPath = basePath;
+            curatedDataPath = @"C:\curateddata";
+            lookupDataPath = basePath;
+
             // load up the editions from curated files
             CuratedEditions = LoadupCuratedEditions(curatedDataPath);
 
             // create the index file - before we have the articles
-            Core.Models.Index indexLookup = CreateIndex(CuratedEditions);
+            Core.Models.Index indexLookup = LoadIndexFile(Path.Combine(lookupDataPath, IndexFile));
+            UpdateIndexFile(indexLookup, CuratedEditions);
             WriteIndexFile(Path.Combine(outputPath, IndexFile), indexLookup);
 
             // load up the authors lookup file which is used
             // to try and identify authors via multiple means
             AuthorLookup = LoadAuthorLookup(Path.Combine(lookupDataPath, AuthorsFile));
 
-            // work through all the editions we have found.
-            // process them and write them out
             ProcessEditions();
 
             // finally we have an authors
             WriteAuthorsFile(Path.Combine(outputPath, AuthorsFile), AuthorLookup);
+
+            OutputEditions(outputPath, Editions);
+
+        }
+
+        private static Core.Models.Index LoadIndexFile(string indexPath)
+        {
+            if (File.Exists(indexPath))
+            {
+                var json = File.ReadAllText(indexPath);
+                var index = JsonConvert.DeserializeObject<Core.Models.Index>(json);
+                return index;
+            }
+            else
+                return new Core.Models.Index();
+        }
+
+        private static void OutputEditions(string outputPath, List<Core.Models.Edition> editions)
+        {
+            foreach (var edition in editions)
+            {
+                WriteEditionFile(Path.Combine(outputPath, $"{edition.Id}.json"), edition);
+            }
         }
 
         private static void ProcessEditions()
@@ -59,7 +91,7 @@ namespace WeeklyXamarin.Curated.ImportUtil
             {
                 Core.Models.Edition newEdition = new Core.Models.Edition();
                 newEdition = curatedEdition.ToCoreEdition();
-
+                var articleCount = 0;
                 // process all the categories
                 foreach (var category in curatedEdition.Categories)
                 {
@@ -69,12 +101,18 @@ namespace WeeklyXamarin.Curated.ImportUtil
                         // only process link types, ignore the text types
                         if (article.Type == TypeEnum.Text) continue;
 
+                        articleCount++;
                         Article newArticle = new Article();
                         newArticle.Category = category.Name;
                         newArticle.Url = article.Url.ToString();
                         newArticle.Title = article.Title;
-                        newArticle.Description = article.Description;
+
+                        newArticle.Description = RemoveMarkdownFormatting(article.DescriptionMarkdown);
+                        //newArticle.Description = article.DescriptionMarkdown;
+                        //newArticle.Description = RemoveHTMLFormatting(article.Description);
+                        //newArticle.Description = article.Description;
                         newArticle.EditionId = curatedEdition.Number.ToString();
+                        newArticle.Id = $"{newArticle.EditionId}-{articleCount}";
 
                         // try and find the author. We usually have these as links in the description
                         if (article?.EmbeddedLinks?.Count > 1)
@@ -93,10 +131,34 @@ namespace WeeklyXamarin.Curated.ImportUtil
 
                         newEdition.Articles.Add(newArticle);
                     }
+
+                    Editions.Add(newEdition);
                 }
 
-                WriteEditionFile(Path.Combine(outputPath, $"{newEdition.Id}.json"), newEdition);
             }
+        }
+
+        private static string RemoveMarkdownFormatting(string descriptionMarkdown)
+        {
+            // get one line at a time
+            // see if it is in the format [**
+            var l = descriptionMarkdown.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+            foreach (var line in l)
+            {
+                // is this a by line
+                if (line.Contains(" by ") && line.StartsWith("[**") && line.EndsWith(")"))
+                    continue;
+
+                if (line.Trim().Length == 0)
+                    sb.Append(" ");
+                else
+                    sb.Append(line);
+            }
+
+            return sb.ToString().Trim();
         }
 
         private static void WriteEditionFile(string filename, Core.Models.Edition newEdition)
@@ -126,6 +188,8 @@ namespace WeeklyXamarin.Curated.ImportUtil
 
         private static void WriteIndexFile(string filename, Core.Models.Index index)
         {
+            index.Editions = index.Editions.OrderByDescending(o => o.Id).ToList(); 
+
             string indexJson = JsonConvert.SerializeObject(index,
                 Formatting.Indented,
                 new JsonSerializerSettings
@@ -218,19 +282,28 @@ namespace WeeklyXamarin.Curated.ImportUtil
             }
         }
 
-        private static Core.Models.Index CreateIndex(List<Edition> curatedEditions)
+        private static void UpdateIndexFile(Core.Models.Index indexData, List<Edition> curatedEditions)
         {
             // create an index file
-            var indexData = new WeeklyXamarin.Core.Models.Index();
-            indexData.UpdatedTimeStamp = DateTime.UtcNow;
+            //var indexData = new WeeklyXamarin.Core.Models.Index();
+            //indexData.UpdatedTimeStamp = DateTime.UtcNow;
 
-            indexData.Editions = new List<Core.Models.Edition>();
+            //indexData.Editions = new List<Core.Models.Edition>();
             foreach (var edition in CuratedEditions)
             {
-                var ed = edition.ToCoreEdition();
-                indexData.Editions.Add(ed);
+                Core.Models.Edition ed;
+                ed = indexData.Editions.FirstOrDefault(e => e.Id == edition.Number.ToString());
+                if (ed == null)
+                {
+                    ed = edition.ToCoreEdition();
+                    indexData.Editions.Add(ed);
+                }
+                else
+                {
+                    // update data?
+                }
             }
-            return indexData;
+            
         }
 
         private static List<Edition> LoadupCuratedEditions(string directory)

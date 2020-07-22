@@ -12,7 +12,13 @@ namespace WeeklyXamarin.Curated
         {
             Core.Models.Edition ed = new Core.Models.Edition();
             ed.PublishDate = edition.PublishedAt.UtcDateTime;
-            ed.Summary = edition.Summary?.ToString();
+            ed.UpdatedTimeStamp = edition.UpdatedAt.UtcDateTime;
+
+            if (edition.Summary == null)
+                ed.Summary = "No Edition Summary";
+            else
+                ed.Summary = edition.Summary?.ToString();
+
             ed.Name = edition?.Title;
             ed.Id = edition.Number.ToString();
             ed.Curators = "";

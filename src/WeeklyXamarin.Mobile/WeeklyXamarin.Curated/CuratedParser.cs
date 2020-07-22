@@ -82,6 +82,8 @@ namespace WeeklyXamarin.Curated
 
         [JsonProperty("url", NullValueHandling = NullValueHandling.Ignore)]
         public Uri Url { get; set; }
+
+
     }
 
     public partial class EmbeddedLink
