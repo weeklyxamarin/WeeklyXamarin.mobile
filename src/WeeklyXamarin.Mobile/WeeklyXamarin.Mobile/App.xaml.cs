@@ -4,40 +4,24 @@ using Xamarin.Forms.Xaml;
 using WeeklyXamarin.Core.Services;
 using WeeklyXamarin.Mobile.Views;
 using Microsoft.Extensions.DependencyInjection;
-using WeeklyXamarin.Core.ViewModels;
-using WeeklyXamarin.Mobile.Services;
-using System.Net.Http;
 using MonkeyCache.FileStore;
-using Xamarin.Essentials.Interfaces;
-using Xamarin.Essentials.Implementation;
+using WeeklyXamarin.Mobile.Services;
 
 namespace WeeklyXamarin.Mobile
 {
     public partial class App : Application
     {
-        public static IServiceProvider ServiceProvider {get;}
-        public App()
+        public App() : this(null) { }
+
+        public App(Action<ServiceCollection> configure)
         {
             InitializeComponent();
 
-            // Register our MonkeyBarrel
             Barrel.ApplicationId = "WeeklyXamarin";
+           
+            Container.Instance.ServiceProvider 
+                = ContainerExtension.ConfigureServices(configure);
 
-            //DependencyService.Register<MockDataStore>();
-            var services = new ServiceCollection();
-            services.AddSingleton<HttpClient>();
-            //services.AddSingleton<IDataStore, MockDataStore>();
-            services.AddSingleton<IDataStore, GithubDataStore>();
-            services.AddTransient<EditionsViewModel, EditionsViewModel>();
-            services.AddTransient<ArticlesListViewModel, ArticlesListViewModel>();
-            services.AddTransient<ArticleDetailViewModel, ArticleDetailViewModel>();
-            services.AddSingleton<INavigationService, NavigationService>();
-            services.AddSingleton<IConnectivity, ConnectivityImplementation>();
-
-            var serviceProvider = services.BuildServiceProvider();
-            serviceProvider.CreateScope();
-
-            Container.Instance.ServiceProvider = serviceProvider;
             MainPage = new AppShell();
         }
 

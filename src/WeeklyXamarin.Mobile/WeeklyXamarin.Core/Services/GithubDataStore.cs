@@ -1,4 +1,5 @@
-﻿using MonkeyCache.FileStore;
+﻿using MonkeyCache;
+using MonkeyCache.FileStore;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,28 +13,34 @@ using System.Threading.Tasks;
 using WeeklyXamarin.Core.Models;
 using Xamarin.Essentials;
 using Xamarin.Essentials.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace WeeklyXamarin.Core.Services
 {
     public class GithubDataStore : IDataStore
     {
-        readonly HttpClient _httpClient;
-        private IConnectivity _connectivity;
+        private readonly HttpClient _httpClient;
+        private readonly IConnectivity _connectivity;
+        private readonly IBarrel _barrel;
+        private readonly ILogger<GithubDataStore> _logger;
+
         const string baseUrl = @"https://raw.githubusercontent.com/weeklyxamarin/WeeklyXamarin.content/master/content/";
         const string indexFile = "index.json";
 
-        public GithubDataStore(HttpClient httpClient, IConnectivity connectivity)
+        public GithubDataStore(HttpClient httpClient, IConnectivity connectivity, IBarrel barrel, ILogger<GithubDataStore> logger)
         {
             _httpClient = httpClient;
-            httpClient.BaseAddress = new Uri(baseUrl);
-
             _connectivity = connectivity;
+            _barrel = barrel;
+            _logger = logger;
+
+            httpClient.BaseAddress = new Uri(baseUrl);
         }
 
         public async Task<Edition> GetEditionAsync(string id, bool forceRefresh = false)
         {
             var editionFile = $"{id}.json";
-            var edition = Barrel.Current.Get<Edition>(key: editionFile);
+            var edition = _barrel.Get<Edition>(key: editionFile);
 
             if (await CachedEditionUpToDate(edition) && !forceRefresh)
                 return edition;
@@ -49,13 +56,12 @@ namespace WeeklyXamarin.Core.Services
 
                 edition = JsonConvert.DeserializeObject<Edition>(editionResponse);
 
-                Barrel.Current.Add(key: editionFile, data: edition, expireIn: TimeSpan.FromDays(999));
+                _barrel.Add(key: editionFile, data: edition, expireIn: TimeSpan.FromDays(999));
                 return edition;
             }
             catch (Exception ex)
             {
-                //TODO Add a logging framework
-                Debug.WriteLine($"error getting edition \n{ex}\n{ex.StackTrace}");
+                _logger.LogError(ex, nameof(GetEditionsAsync));
                 return edition;
             }
         }
@@ -71,7 +77,7 @@ namespace WeeklyXamarin.Core.Services
 
         public async Task<IEnumerable<Edition>> GetEditionsAsync(bool forceRefresh = false)
         {
-            var index = Barrel.Current.Get<Index>(key: indexFile);
+            var index = _barrel.Get<Index>(key: indexFile);
 
             if (_connectivity.NetworkAccess != NetworkAccess.Internet ||
                  (index?.FetchedDate > DateTime.UtcNow.AddMinutes(-5) &&
@@ -86,14 +92,14 @@ namespace WeeklyXamarin.Core.Services
 
                 index = JsonConvert.DeserializeObject<Index>(indexResponse);
                 index.FetchedDate = DateTime.UtcNow;
-                Barrel.Current.Add(key: indexFile, data: index, expireIn: TimeSpan.FromMinutes(5));
+                _barrel.Add(key: indexFile, data: index, expireIn: TimeSpan.FromMinutes(5));
 
                 return index.Editions;
             }
             catch (Exception ex)
             {
-                //TODO Add a logging framework
-                Debug.WriteLine($"error getting index \n{ex}\n{ex.StackTrace}");
+                _logger.LogError(ex, nameof(GetEditionsAsync));
+
                 return index?.Editions;
             }
         }

@@ -14,24 +14,21 @@ namespace WeeklyXamarin.Mobile.Views
     [DesignTimeVisible(false)]
     [QueryProperty(nameof(ArticleId), Constants.Navigation.ParameterNames.ArticleId)]
     [QueryProperty(nameof(EditionId), Constants.Navigation.ParameterNames.EditionId)]
-    public partial class ArticleDetailPage : ContentPage
+    public partial class ArticleDetailPage : PageBase<ArticleDetailViewModel>
     {
-        ArticleDetailViewModel viewModel;
         public string ArticleId { get; set; }
         public string EditionId { get; set; }
 
         public ArticleDetailPage()
         {
             InitializeComponent();
-
-            BindingContext = viewModel = Container.Instance.ServiceProvider.GetRequiredService<ArticleDetailViewModel>();
         }
 
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await viewModel.Initialize(EditionId, ArticleId);
+            await ViewModel.Initialize(EditionId, ArticleId);
         }
     }
 }

@@ -18,15 +18,12 @@ namespace WeeklyXamarin.Mobile.Views
     // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(false)]
     [QueryProperty(nameof(EditionId), nameof(EditionId))]
-    public partial class ArticlesListPage : ContentPage
+    public partial class ArticlesListPage : PageBase<ArticlesListViewModel>
     {
-        ArticlesListViewModel viewModel;
         public string EditionId { get; set; }
         public ArticlesListPage()
         {
             InitializeComponent();
-
-            BindingContext = viewModel = Container.Instance.ServiceProvider.GetRequiredService<ArticlesListViewModel>();
         }
 
         //async void OnItemSelected(object sender, EventArgs args)
@@ -39,9 +36,9 @@ namespace WeeklyXamarin.Mobile.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            viewModel.EditionId = EditionId;
-            if (viewModel.Articles.Count == 0)
-                await viewModel.LoadArticlesCommand.ExecuteAsync(false);
+            ViewModel.EditionId = EditionId;
+            if (ViewModel.Articles.Count == 0)
+                await ViewModel.LoadArticlesCommand.ExecuteAsync(false);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Microsoft.Extensions.DependencyInjection;
 using UIKit;
 
 namespace WeeklyXamarin.Mobile.iOS
@@ -24,9 +25,14 @@ namespace WeeklyXamarin.Mobile.iOS
         {
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+            LoadApplication(new App(ConfigureServices));
 
             return base.FinishedLaunching(app, options);
+        }
+
+        private void ConfigureServices(ServiceCollection container)
+        {
+            container.AddSingleton<UIViewController>();
         }
     }
 }
