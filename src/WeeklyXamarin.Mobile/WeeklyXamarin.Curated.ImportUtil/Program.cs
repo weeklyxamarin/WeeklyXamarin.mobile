@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -99,8 +100,21 @@ namespace WeeklyXamarin.Curated.ImportUtil
                     // process each article for the category
                     foreach (var article in category.Items)
                     {
+                        //if (category.Code == "")
+
                         // only process link types, ignore the text types
-                        if (article.Type == TypeEnum.Text) continue;
+                        if (article.Type == TypeEnum.Text)
+                        {
+                            if (IsCuratorElementCategory(category.Code))
+                            {
+                                string introText = RemoveMarkdownFormatting(article.DescriptionMarkdown);
+                                newEdition.Introduction = introText;
+                                newEdition.Curators = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(category.Name.ToLower());
+                                continue;
+                            }
+                            else
+                                continue;
+                        };
 
                         // check if this is a sponsored link
                         if (category.Code == sponsoredCategory)
@@ -145,6 +159,11 @@ namespace WeeklyXamarin.Curated.ImportUtil
                 Editions.Add(newEdition);
 
             }
+        }
+
+        private static bool IsCuratorElementCategory( string categoryName)
+        {
+            return categoryName == "kymphillpotts" || categoryName == "lucecarter";
         }
 
         private static string RemoveMarkdownFormatting(string descriptionMarkdown)

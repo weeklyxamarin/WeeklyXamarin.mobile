@@ -14,7 +14,7 @@ namespace WeeklyXamarin.Curated
             ed.PublishDate = edition.PublishedAt.UtcDateTime;
             ed.UpdatedTimeStamp = edition.UpdatedAt.UtcDateTime;
 
-            if (edition.Summary == null)
+            if (String.IsNullOrEmpty(edition.Summary?.ToString()))
                 ed.Summary = "No Edition Summary";
             else
                 ed.Summary = edition.Summary?.ToString();
