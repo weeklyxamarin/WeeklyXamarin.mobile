@@ -17,12 +17,9 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <ContentView>
-                        <Grid Margin="20" BackgroundColor="White">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-
+                        <Grid Margin="20"
+                              BackgroundColor="White"
+                              RowDefinitions="Auto, Auto">
                             <BoxView
                                 Grid.Row="0"
                                 Grid.RowSpan="2"

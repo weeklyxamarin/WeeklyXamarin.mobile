@@ -29,18 +29,9 @@
                             Margin="20"
                             BackgroundColor="White"
                             ColumnSpacing="20"
-                            RowSpacing="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="4" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-
+                            RowSpacing="10"
+                            RowDefinitions="Auto, Auto, Auto, Auto"
+                            ColumnDefinitions="4, *">
                             <BoxView
                                 Grid.Row="0"
                                 Grid.RowSpan="4"
