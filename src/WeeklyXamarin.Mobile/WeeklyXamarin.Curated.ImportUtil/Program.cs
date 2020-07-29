@@ -26,10 +26,11 @@ namespace WeeklyXamarin.Curated.ImportUtil
         static string lookupDataPath;
         const string AuthorsFile = "authors.json";
         const string IndexFile = "index.json";
+        const string sponsoredCategory = "sponsored";
 
         static void Main(string[] args)
         {
-            // work out our paths
+                        // work out our paths
             // TODO: These should probably by derived from args
             string executeLocation = System.Reflection.Assembly.GetExecutingAssembly().Location;
             basePath = System.IO.Path.GetDirectoryName(executeLocation);
@@ -38,9 +39,9 @@ namespace WeeklyXamarin.Curated.ImportUtil
             lookupDataPath = Path.Combine(basePath, "LookupData");
 
             // for debug override the basepath
-            basePath = @"C:\dev\GitHub\weeklyxamarin\WeeklyXamarin.content\content";
+            basePath = @"D:\GitHub\weeklyxamarin\WeeklyXamarin.content\content";
             outputPath = basePath;
-            curatedDataPath = @"C:\curateddata";
+            curatedDataPath = @"D:\github\WeeklyXamarin\WeeklyXamarin.content\curateddata\published";
             lookupDataPath = basePath;
 
             // load up the editions from curated files
@@ -101,6 +102,14 @@ namespace WeeklyXamarin.Curated.ImportUtil
                         // only process link types, ignore the text types
                         if (article.Type == TypeEnum.Text) continue;
 
+                        // check if this is a sponsored link
+                        if (category.Code == sponsoredCategory)
+                        {
+                            // we should treat this a little different
+                            continue;
+                        }
+                        
+
                         articleCount++;
                         Article newArticle = new Article();
                         newArticle.Category = category.Name;
@@ -125,15 +134,15 @@ namespace WeeklyXamarin.Curated.ImportUtil
 
                                 // try and find an author with the link url
                                 Author author = FindOrCreateAuthor(link.Url.ToString(), link.Title);
-                                newArticle.Author = author.Id;
+                                newArticle.Author = author.Name;
                             }
                         }
 
                         newEdition.Articles.Add(newArticle);
                     }
 
-                    Editions.Add(newEdition);
                 }
+                Editions.Add(newEdition);
 
             }
         }
@@ -226,7 +235,6 @@ namespace WeeklyXamarin.Curated.ImportUtil
 
             if (author != null)
             {
-                System.Diagnostics.Debug.WriteLine($"Found Existing Author by key: {authorKey}");
                 return author;
             }
 
@@ -237,7 +245,6 @@ namespace WeeklyXamarin.Curated.ImportUtil
                 {
                     if (alias.Name.ToLower() == authorKey.ToLower())
                     {
-                        System.Diagnostics.Debug.WriteLine($"Found Existing Author by alias: {authorKey}");
                         return auth;
                     }
                 }
@@ -245,10 +252,9 @@ namespace WeeklyXamarin.Curated.ImportUtil
 
             // try and find author by actual name (just for warning output)
             author = AuthorLookup.Authors.FirstOrDefault(a => a.Name.ToLower() == authorDisplayName.ToLower());
-
             if (author != null)
             {
-                System.Diagnostics.Debug.WriteLine($"Found an author by name match, so you'll want to add an alias - Name: {authorDisplayName}, {authorKey}");
+                return author;
             }
 
             // at this point we can't find an author so we need to create a new one
