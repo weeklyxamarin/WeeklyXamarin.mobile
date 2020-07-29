@@ -10,6 +10,7 @@ namespace WeeklyXamarin.Mobile.Services
 {
     public class NavigationService : INavigationService
     {
+
         public async Task GoToAsync(string uri)
         {
             await Shell.Current.GoToAsync(uri);
@@ -22,12 +23,26 @@ namespace WeeklyXamarin.Mobile.Services
 
         public async Task GoToAsync(string uri, Dictionary<string, string> parameters)
         {
+            var fullUrl = BuildUri(uri, parameters);
+            await Shell.Current.GoToAsync(fullUrl);
+        }
+
+        public async Task GoBackAsync()
+        {
+            // TODO: Work out why GoToAsync("..") throws an exception with modal pages
+            if (Shell.Current.Navigation.ModalStack.Count > 0)
+                await Shell.Current.Navigation.PopModalAsync();
+            else
+                await Shell.Current.Navigation.PopAsync();
+        }
+
+        private string BuildUri(string uri, Dictionary<string, string> parameters)
+        {
             var fullUrl = new StringBuilder();
             fullUrl.Append(uri);
             fullUrl.Append("?");
             fullUrl.Append(string.Join("&", parameters.Select(kvp => $"{kvp.Key}={kvp.Value}")));
-
-            await Shell.Current.GoToAsync(fullUrl.ToString());
+            return fullUrl.ToString();
         }
     }
 }

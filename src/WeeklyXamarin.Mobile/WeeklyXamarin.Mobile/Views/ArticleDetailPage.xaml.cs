@@ -30,5 +30,15 @@ namespace WeeklyXamarin.Mobile.Views
             base.OnAppearing();
             await ViewModel.Initialize(EditionId, ArticleId);
         }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ScrollView_Scrolled(object sender, ScrolledEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine($"Imma scrolling {e.ScrollY}");
+        }
     }
 }

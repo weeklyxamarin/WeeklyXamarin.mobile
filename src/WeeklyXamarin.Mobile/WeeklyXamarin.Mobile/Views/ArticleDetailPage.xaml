@@ -2,13 +2,14 @@
 <views:PageBase
     x:Class="WeeklyXamarin.Mobile.Views.ArticleDetailPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:views="clr-namespace:WeeklyXamarin.Mobile.Views"
-    xmlns:viewmodels="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:TypeArguments="viewmodels:ArticleDetailViewModel"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
+    xmlns:views="clr-namespace:WeeklyXamarin.Mobile.Views"
     Title="{Binding Title}"
+    x:TypeArguments="viewmodels:ArticleDetailViewModel"
+    Shell.PresentationMode="ModalAnimated"
     mc:Ignorable="d">
 
 

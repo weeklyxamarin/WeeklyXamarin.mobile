@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:PageBase
     x:Class="WeeklyXamarin.Mobile.Views.EditionsPage"
-     xmlns:views="clr-namespace:WeeklyXamarin.Mobile.Views"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodels="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
-    x:TypeArguments="viewmodels:EditionsViewModel"
+    xmlns:views="clr-namespace:WeeklyXamarin.Mobile.Views"
     x:Name="rootPage"
     Title="{Binding Title}"
+    x:TypeArguments="viewmodels:EditionsViewModel"
     mc:Ignorable="d">
 
     <RefreshView Command="{Binding LoadEditionsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">

@@ -15,20 +15,18 @@ namespace WeeklyXamarin.Core.ViewModels
     public class ArticlesListViewModel : ViewModelBase
     {
         readonly IDataStore dataStore;
-        readonly INavigationService navigationService;
 
         public ObservableRangeCollection<Article> Articles { get; set; } = new ObservableRangeCollection<Article>();
         public AsyncCommand<bool> LoadArticlesCommand { get; set; }
         public ICommand OpenArticleCommand { get; set; }
         public string EditionId { get; set;  }
 
-        public ArticlesListViewModel(IDataStore dataStore, INavigationService navigationService)
+        public ArticlesListViewModel(INavigationService navigation, IDataStore dataStore) : base(navigation)
         {
             Title = "Articles";
             LoadArticlesCommand = new AsyncCommand<bool>(ExecuteLoadArticlesCommand, CanRefresh);
             OpenArticleCommand = new AsyncCommand<Article>(OpenArticle);
             this.dataStore = dataStore;
-            this.navigationService = navigationService;
         }
 
         private bool CanRefresh(object arg)
@@ -44,7 +42,7 @@ namespace WeeklyXamarin.Core.ViewModels
                 {Constants.Navigation.ParameterNames.EditionId, EditionId },
             };
 
-            await navigationService.GoToAsync(Constants.Navigation.Paths.ArticleDetail, navigationParameters);
+            await navigation.GoToAsync(Constants.Navigation.Paths.ArticleDetail, navigationParameters);
         }
 
         async Task ExecuteLoadArticlesCommand(bool forceRefresh = false)

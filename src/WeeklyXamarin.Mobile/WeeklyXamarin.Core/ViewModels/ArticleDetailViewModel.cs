@@ -8,6 +8,7 @@ namespace WeeklyXamarin.Core.ViewModels
     public class ArticleDetailViewModel : ViewModelBase
     {
         private readonly IDataStore dataStore;
+        
         private Article article;
 
         public Article Article {
@@ -16,7 +17,7 @@ namespace WeeklyXamarin.Core.ViewModels
         }
 
 
-        public ArticleDetailViewModel(IDataStore dataStore)
+        public ArticleDetailViewModel(INavigationService navigation, IDataStore dataStore) : base (navigation)
         {
             this.dataStore = dataStore;
         }

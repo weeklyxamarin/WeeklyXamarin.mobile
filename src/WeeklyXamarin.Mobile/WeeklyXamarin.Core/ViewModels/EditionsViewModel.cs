@@ -17,21 +17,19 @@ namespace WeeklyXamarin.Core.ViewModels
         public ICommand LoadEditionsCommand { get; set; }
         public ICommand OpenEditionCommand { get;  set; }
         IDataStore dataStore;
-        INavigationService navigationService;
 
-        public EditionsViewModel(IDataStore dataStore, INavigationService navigationService)
+        public EditionsViewModel(INavigationService navigation, IDataStore dataStore) : base(navigation)
         {
             Title = "Editions";
             Editions = new ObservableRangeCollection<Edition>();
             LoadEditionsCommand = new AsyncCommand(ExecuteLoadEditionsCommand);
                 OpenEditionCommand = new AsyncCommand<Edition>(OpenEdition);
             this.dataStore = dataStore;
-            this.navigationService = navigationService;
         }
 
         private async Task OpenEdition(Edition edition)
         {
-            await navigationService.GoToAsync(Constants.Navigation.Paths.Articles, Constants.Navigation.ParameterNames.EditionId, edition.Id);
+            await navigation.GoToAsync(Constants.Navigation.Paths.Articles, Constants.Navigation.ParameterNames.EditionId, edition.Id);
         }
 
         async Task ExecuteLoadEditionsCommand()
