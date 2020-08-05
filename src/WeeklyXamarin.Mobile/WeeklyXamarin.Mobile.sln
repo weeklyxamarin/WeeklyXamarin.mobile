@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeeklyXamarin.Mobile", "Wee
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeeklyXamarin.Core", "WeeklyXamarin.Core\WeeklyXamarin.Core.csproj", "{03BC973C-14B4-465F-8436-DC396A927382}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeeklyXamarin.Curated", "WeeklyXamarin.Curated\WeeklyXamarin.Curated.csproj", "{E035101F-3893-4D6E-AAE3-C79F9118C054}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeeklyXamarin.Curated", "WeeklyXamarin.Curated\WeeklyXamarin.Curated.csproj", "{E035101F-3893-4D6E-AAE3-C79F9118C054}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeeklyXamarin.Curated.ImportUtil", "WeeklyXamarin.Curated.ImportUtil\WeeklyXamarin.Curated.ImportUtil.csproj", "{C36CE3BF-A6D4-46AD-BA6B-E9514DF16A46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeeklyXamarin.Curated.ImportUtil", "WeeklyXamarin.Curated.ImportUtil\WeeklyXamarin.Curated.ImportUtil.csproj", "{C36CE3BF-A6D4-46AD-BA6B-E9514DF16A46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,9 +43,9 @@ Global
 		{C09D9135-44BE-4B51-B4A4-DA7C39035F2C}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{C09D9135-44BE-4B51-B4A4-DA7C39035F2C}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{C09D9135-44BE-4B51-B4A4-DA7C39035F2C}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
-		{92943836-C4EA-431B-BF3A-DD49737EED24}.Debug|Any CPU.ActiveCfg = Debug|iPhone
-		{92943836-C4EA-431B-BF3A-DD49737EED24}.Debug|Any CPU.Build.0 = Debug|iPhone
-		{92943836-C4EA-431B-BF3A-DD49737EED24}.Debug|Any CPU.Deploy.0 = Debug|iPhone
+		{92943836-C4EA-431B-BF3A-DD49737EED24}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
+		{92943836-C4EA-431B-BF3A-DD49737EED24}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
+		{92943836-C4EA-431B-BF3A-DD49737EED24}.Debug|Any CPU.Deploy.0 = Debug|iPhoneSimulator
 		{92943836-C4EA-431B-BF3A-DD49737EED24}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{92943836-C4EA-431B-BF3A-DD49737EED24}.Debug|iPhone.Build.0 = Debug|iPhone
 		{92943836-C4EA-431B-BF3A-DD49737EED24}.Debug|iPhone.Deploy.0 = Debug|iPhone

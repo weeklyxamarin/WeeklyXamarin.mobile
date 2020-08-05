@@ -12,7 +12,6 @@ namespace WeeklyXamarin.Mobile
         {
             InitializeComponent();
             Routing.RegisterRoute(Constants.Navigation.Paths.Articles,typeof(ArticlesListPage));
-            Routing.RegisterRoute(Constants.Navigation.Paths.ArticleDetail, typeof(ArticleDetailPage));
         }
     }
 }

@@ -20,9 +20,9 @@ namespace WeeklyXamarin.Mobile.Services
             services.AddSingleton<IDataStore, GithubDataStore>();
             services.AddTransient<EditionsViewModel, EditionsViewModel>();
             services.AddTransient<ArticlesListViewModel, ArticlesListViewModel>();
-            services.AddTransient<ArticleDetailViewModel, ArticleDetailViewModel>();
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<IConnectivity, ConnectivityImplementation>();
+            services.AddSingleton<IBrowser, BrowserImplementation>();
             services.AddSingleton(_ => Barrel.Current);
 
             services.AddLogging(x => x.AddConsole());

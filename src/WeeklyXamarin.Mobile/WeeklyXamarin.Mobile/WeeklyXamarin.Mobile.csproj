@@ -31,8 +31,5 @@
     <Compile Update="Views\EditionsPage.xaml.cs">
       <DependentUpon>EditionsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\ArticleDetailPage.xaml.cs">
-      <DependentUpon>ArticleDetailPage.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
 </Project>

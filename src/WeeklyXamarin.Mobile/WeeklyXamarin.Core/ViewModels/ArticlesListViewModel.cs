@@ -9,24 +9,27 @@ using WeeklyXamarin.Core.Models;
 using WeeklyXamarin.Core.Services;
 using WeeklyXamarin.Core.Helpers;
 using System.Collections.Generic;
+using Xamarin.Essentials.Interfaces;
+using Xamarin.Essentials;
 
 namespace WeeklyXamarin.Core.ViewModels
 {
     public class ArticlesListViewModel : ViewModelBase
     {
         readonly IDataStore dataStore;
-
+        readonly IBrowser browser;
         public ObservableRangeCollection<Article> Articles { get; set; } = new ObservableRangeCollection<Article>();
         public AsyncCommand<bool> LoadArticlesCommand { get; set; }
         public ICommand OpenArticleCommand { get; set; }
         public string EditionId { get; set;  }
 
-        public ArticlesListViewModel(INavigationService navigation, IDataStore dataStore) : base(navigation)
+        public ArticlesListViewModel(INavigationService navigation, IDataStore dataStore, IBrowser browser) : base(navigation)
         {
             Title = "Articles";
             LoadArticlesCommand = new AsyncCommand<bool>(ExecuteLoadArticlesCommand, CanRefresh);
             OpenArticleCommand = new AsyncCommand<Article>(OpenArticle);
             this.dataStore = dataStore;
+            this.browser = browser;
         }
 
         private bool CanRefresh(object arg)
@@ -36,13 +39,11 @@ namespace WeeklyXamarin.Core.ViewModels
 
         private async Task OpenArticle(Article article)
         {
-            var navigationParameters = new Dictionary<string,  string>
+            await browser.OpenAsync(article.Url, new BrowserLaunchOptions
             {
-                {Constants.Navigation.ParameterNames.ArticleId, article.Id },
-                {Constants.Navigation.ParameterNames.EditionId, EditionId },
-            };
-
-            await navigation.GoToAsync(Constants.Navigation.Paths.ArticleDetail, navigationParameters);
+                LaunchMode = BrowserLaunchMode.SystemPreferred,
+                TitleMode = BrowserTitleMode.Show
+            });
         }
 
         async Task ExecuteLoadArticlesCommand(bool forceRefresh = false)
