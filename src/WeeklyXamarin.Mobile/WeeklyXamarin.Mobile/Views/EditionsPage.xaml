@@ -5,55 +5,67 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:rv="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:viewmodels="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
     xmlns:views="clr-namespace:WeeklyXamarin.Mobile.Views"
     x:Name="rootPage"
     Title="{Binding Title}"
     x:TypeArguments="viewmodels:EditionsViewModel"
+    BackgroundColor="#eeeeee"
     mc:Ignorable="d">
 
     <RefreshView Command="{Binding LoadEditionsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <CollectionView x:Name="EditionsCollectionView" ItemsSource="{Binding Editions}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="0" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <ContentView>
-                        <Grid Margin="20"
-                              BackgroundColor="White"
-                              RowDefinitions="Auto, Auto">
-                            <BoxView
-                                Grid.Row="0"
-                                Grid.RowSpan="2"
-                                BackgroundColor="#80BFEB"
-                                HorizontalOptions="Start"
-                                WidthRequest="4" />
+                        <rv:MaterialFrame
+                            Margin="20"
+                            Padding="0"
+                            CornerRadius="4"
+                            HasShadow="True"
+                            IsClippedToBounds="True"
+                            MaterialTheme="Acrylic">
+                            <Grid IsClippedToBounds="True" RowDefinitions="Auto, Auto">
+                                <BoxView
+                                    Grid.Row="0"
+                                    Grid.RowSpan="2"
+                                    BackgroundColor="#80BFEB"
+                                    CornerRadius="4,0,4,0"
+                                    HorizontalOptions="Start"
+                                    WidthRequest="4" />
 
-                            <StackLayout
-                                Margin="20,5,20,0"
-                                Orientation="Horizontal"
-                                Spacing="10">
+                                <StackLayout
+                                    Margin="20,5,20,0"
+                                    Orientation="Horizontal"
+                                    Spacing="10">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="16"
+                                        Text="{Binding Id, StringFormat='#{0}'}"
+                                        TextColor="#80BFEB" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="16"
+                                        Text="{Binding PublishDate, StringFormat='{0:MMM dd, yyyy}'}" />
+                                </StackLayout>
+
                                 <Label
-                                    FontAttributes="Bold"
-                                    FontSize="16"
-                                    Text="{Binding Id, StringFormat='#{0}'}"
-                                    TextColor="#80BFEB" />
-                                <Label
-                                    FontAttributes="Bold"
-                                    FontSize="16"
-                                    Text="{Binding PublishDate, StringFormat='{0:MMM dd, yyyy}'}" />
-                            </StackLayout>
+                                    Grid.Row="1"
+                                    Margin="20,5,20,20"
+                                    Text="{Binding Summary}" />
 
-                            <Label
-                                Grid.Row="1"
-                                Margin="20,5,20,20"
-                                Text="{Binding Summary}" />
-
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer
-                                    Command="{Binding BindingContext.OpenEditionCommand, Source={x:Reference rootPage}}"
-                                    CommandParameter="{Binding .}"
-                                    NumberOfTapsRequired="1" />
-                            </Grid.GestureRecognizers>
-                        </Grid>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding BindingContext.OpenEditionCommand, Source={x:Reference rootPage}}"
+                                        CommandParameter="{Binding .}"
+                                        NumberOfTapsRequired="1" />
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </rv:MaterialFrame>
                     </ContentView>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

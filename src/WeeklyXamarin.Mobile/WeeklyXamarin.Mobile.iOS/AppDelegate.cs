@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using Microsoft.Extensions.DependencyInjection;
+using Sharpnado.MaterialFrame.iOS;
 using UIKit;
 
 namespace WeeklyXamarin.Mobile.iOS
@@ -24,7 +25,9 @@ namespace WeeklyXamarin.Mobile.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
+            
             global::Xamarin.Forms.Forms.Init();
+            iOSMaterialFrameRenderer.Init();
             LoadApplication(new App(ConfigureServices));
 
             return base.FinishedLaunching(app, options);
