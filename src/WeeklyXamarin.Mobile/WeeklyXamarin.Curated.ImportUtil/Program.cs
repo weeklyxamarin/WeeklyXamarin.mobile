@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using WeeklyXamarin.Core.Models;
 using WeeklyXamarin.Core.Responses;
-
+using Xamarin.Essentials;
 
 namespace WeeklyXamarin.Curated.ImportUtil
 {
@@ -23,6 +23,7 @@ namespace WeeklyXamarin.Curated.ImportUtil
 
         static string basePath;
         static string curatedDataPath;
+        private static string planetXamarinAuthorsDataPath;
         static string outputPath;
         static string lookupDataPath;
         const string AuthorsFile = "authors.json";
@@ -31,7 +32,7 @@ namespace WeeklyXamarin.Curated.ImportUtil
 
         static void Main(string[] args)
         {
-                        // work out our paths
+            // work out our paths
             // TODO: These should probably by derived from args
             string executeLocation = System.Reflection.Assembly.GetExecutingAssembly().Location;
             basePath = System.IO.Path.GetDirectoryName(executeLocation);
@@ -43,6 +44,7 @@ namespace WeeklyXamarin.Curated.ImportUtil
             basePath = @"D:\GitHub\weeklyxamarin\WeeklyXamarin.content\content";
             outputPath = basePath;
             curatedDataPath = @"D:\github\WeeklyXamarin\WeeklyXamarin.content\curateddata\published";
+            planetXamarinAuthorsDataPath = @"D:\github\planetxamarin\planetxamarin\src\Firehose.Web\Authors";
             lookupDataPath = basePath;
 
             // load up the editions from curated files
@@ -58,12 +60,87 @@ namespace WeeklyXamarin.Curated.ImportUtil
             AuthorLookup = LoadAuthorLookup(Path.Combine(lookupDataPath, AuthorsFile));
 
             ProcessEditions();
+            //ProcessPlanetXamarinAuthors();
+
 
             // finally we have an authors
             WriteAuthorsFile(Path.Combine(outputPath, AuthorsFile), AuthorLookup);
 
             OutputEditions(outputPath, Editions);
 
+        }
+
+        private static void ProcessPlanetXamarinAuthors()
+        {
+            // read all files in PlanetXamarinAuthors path
+            string[] files = Directory.GetFiles(planetXamarinAuthorsDataPath, "*.cs", SearchOption.AllDirectories);
+            foreach (var item in files)
+            {
+                var authorFileText = File.ReadAllText(Path.Combine(planetXamarinAuthorsDataPath, item));
+
+                System.Diagnostics.Debug.WriteLine($"Parsing {item}");
+                // find the token we are looking for
+                var fn = GetTokenValue(authorFileText, "FirstName");
+                var ln = GetTokenValue(authorFileText, "LastName");
+                var name = $"{fn} {ln}".Trim();
+                var th = GetTokenValue(authorFileText, "TwitterHandle");
+                var gh = GetTokenValue(authorFileText, "GitHubHandle");
+                var ws = GetTokenValue(authorFileText, "WebSite");
+                
+                var user = FindOrCreateAuthorByName(name);
+                if (user != null)
+                {
+                    user.TwitterHandle = th;
+                    user.GitHubHandle = gh;
+                    user.Website = ws;
+                    if (String.IsNullOrEmpty(user.Id))
+                    {
+                        if (!string.IsNullOrEmpty(user.TwitterHandle))
+                        {
+                            user.Id = $"https://twitter.com/{th}";
+                        }
+                        else if (!string.IsNullOrEmpty(user.GitHubHandle))
+                        {
+                            user.Id = $"https://github.com/{gh}";
+                        }
+
+                    }
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine($"Could not find user {name}");
+                }
+            }
+        }
+
+        private static string GetTokenValue(string authorFileText, string token)
+        {
+            //var fullToken = $"{token} => ";
+            var index = authorFileText.IndexOf(token);
+            if (index != -1)
+            {
+                var startIndex = index + token.Length;
+                var endIndex = authorFileText.IndexOf(";", index);
+                string lineText = authorFileText.Substring(index, endIndex - index).Trim();
+                var valStart = lineText.IndexOf('"');
+                if (valStart != -1)
+                {
+                    var valEnd = lineText.LastIndexOf('"');
+                    var val = lineText.Substring(valStart+1, (valEnd-1) - valStart);
+                    System.Diagnostics.Debug.WriteLine($"  {token}: {val}");
+                    return val;
+                }
+                return "";
+
+                //var val = authorFileText.Substring(startIndex, (endIndex-1) - startIndex);
+                
+                
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine($"*** UNABLE TO FIND {token}");
+                return "";
+            }
         }
 
         private static Core.Models.Index LoadIndexFile(string indexPath)
@@ -245,6 +322,23 @@ namespace WeeklyXamarin.Curated.ImportUtil
             }
         }
 
+        private static Author FindOrCreateAuthorByName(string name)
+        {
+            Author author;
+
+            author = AuthorLookup.Authors.FirstOrDefault(a => a.Name.ToLower() == name.ToLower());
+            if (author != null)
+            {
+                return author;
+            }
+            else
+            {
+                author = new Author() { Name = name };
+                AuthorLookup.Authors.Add(author);
+                return author;
+            }
+        }
+
         private static Author FindOrCreateAuthor(string authorKey, string authorDisplayName)
         {
             Author author;
@@ -260,11 +354,14 @@ namespace WeeklyXamarin.Curated.ImportUtil
             // now we need to see if we can find an author by alias matching
             foreach (var auth in AuthorLookup.Authors)
             {
-                foreach (var alias in auth.Aliases)
+                if (auth.Aliases != null)
                 {
-                    if (alias.Name.ToLower() == authorKey.ToLower())
+                    foreach (var alias in auth?.Aliases)
                     {
-                        return auth;
+                        if (alias.Name.ToLower() == authorKey.ToLower())
+                        {
+                            return auth;
+                        }
                     }
                 }
             }
@@ -295,16 +392,20 @@ namespace WeeklyXamarin.Curated.ImportUtil
 
         private static string AuthorUrlType(string url)
         {
-            Uri uri = new Uri(url);
-            switch (uri.Host)
+            if (Uri.TryCreate(url, UriKind.Absolute, out Uri uri))
             {
-                case "twitter.com":
-                    return "twitter";
-                case "github.com":
-                    return "github";
-                default:
-                    return "blog";
+                switch (uri.Host)
+                {
+                    case "twitter.com":
+                        return "twitter";
+                    case "github.com":
+                        return "github";
+                    default:
+                        return "blog";
+                }
             }
+            return null;
+
         }
 
         private static void UpdateIndexFile(Core.Models.Index indexData, List<Edition> curatedEditions)
