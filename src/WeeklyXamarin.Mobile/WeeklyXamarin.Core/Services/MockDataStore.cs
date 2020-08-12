@@ -75,5 +75,20 @@ namespace WeeklyXamarin.Core.Services
         {
             return Task.FromResult(articles.FirstOrDefault(s => s.Id == articleId));
         }
+
+        public void SaveArticle(Article articleToSave)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnSaveArticle(Article articleToRemove)
+        {
+            throw new NotImplementedException();
+        }
+
+        SavedArticleThing IDataStore.GetSavedArticles(bool forceRefresh)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -14,6 +14,7 @@ using WeeklyXamarin.Core.Models;
 using Xamarin.Essentials;
 using Xamarin.Essentials.Interfaces;
 using Microsoft.Extensions.Logging;
+using WeeklyXamarin.Core.Helpers;
 
 namespace WeeklyXamarin.Core.Services
 {
@@ -37,33 +38,44 @@ namespace WeeklyXamarin.Core.Services
             httpClient.BaseAddress = new Uri(baseUrl);
         }
 
+        public void CheckEditionForSavedArticles(Edition edition)
+        {
+            var saved = GetSavedArticles(false);
+            foreach(var article in edition.Articles)
+            {
+                article.IsSaved = saved.Articles.FirstOrDefault(x => x.Id == article.Id) != null;
+            }
+        }
+
         public async Task<Edition> GetEditionAsync(string id, bool forceRefresh = false)
         {
             var editionFile = $"{id}.json";
             var edition = _barrel.Get<Edition>(key: editionFile);
 
-            if (await CachedEditionUpToDate(edition) && !forceRefresh)
-                return edition;
-
-            if (_connectivity.NetworkAccess != NetworkAccess.Internet)
+            var cacheInvalid = !await CachedEditionUpToDate(edition);
+            
+            if ((cacheInvalid || forceRefresh) && 
+                _connectivity.NetworkAccess == NetworkAccess.Internet)
             {
-                return edition; 
+                try
+                {
+                    // get from the interwebs
+                    var editionResponse = await _httpClient.GetStringAsync(editionFile);
+
+                    edition = JsonConvert.DeserializeObject<Edition>(editionResponse);
+
+                    _barrel.Add(key: editionFile, data: edition, expireIn: TimeSpan.FromDays(999));
+                    //return edition;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, nameof(GetEditionsAsync));
+                    //return edition;
+                }
             }
 
-            try
-            {
-                var editionResponse = await _httpClient.GetStringAsync(editionFile);
-
-                edition = JsonConvert.DeserializeObject<Edition>(editionResponse);
-
-                _barrel.Add(key: editionFile, data: edition, expireIn: TimeSpan.FromDays(999));
-                return edition;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, nameof(GetEditionsAsync));
-                return edition;
-            }
+            CheckEditionForSavedArticles(edition);
+            return edition;
         }
 
         private async Task<bool> CachedEditionUpToDate(Edition cachedEdition)
@@ -111,9 +123,35 @@ namespace WeeklyXamarin.Core.Services
             return article;
         }
 
-        public Task<IEnumerable<Article>> GetArticlesForEditionAsync(string editionId, bool forceRefresh = false)
+        public SavedArticleThing GetSavedArticles(bool forceRefresh)
         {
-            throw new NotImplementedException();
+            // pull the articles out of monkeycache
+            SavedArticleThing savedArticleList = _barrel.Get<SavedArticleThing>(key: Constants.BarrelNames.SavedArticles);
+            
+            if (savedArticleList == null)
+                savedArticleList = new SavedArticleThing();
+
+            return savedArticleList;
+        }          
+
+
+        public void SaveArticle(Article articleToSave)
+        {
+            var savedArticleList = GetSavedArticles(false);
+            articleToSave.IsSaved = true;
+            savedArticleList.Add(articleToSave);
+
+            _barrel.Add(key: Constants.BarrelNames.SavedArticles, data: savedArticleList, expireIn: TimeSpan.FromDays(999));
         }
+        public void UnSaveArticle(Article articleToRemove)
+        {
+            var savedArticleList = GetSavedArticles(false);
+            savedArticleList.Remove(articleToRemove);
+            articleToRemove.IsSaved = false;
+
+            // update the barrel
+            _barrel.Add(key: Constants.BarrelNames.SavedArticles, data: savedArticleList, expireIn: TimeSpan.FromDays(999));
+        }
+
     }
 }

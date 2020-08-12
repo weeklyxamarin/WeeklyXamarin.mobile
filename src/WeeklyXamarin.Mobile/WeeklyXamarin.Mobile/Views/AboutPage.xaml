@@ -22,8 +22,14 @@
     </ContentPage.Resources>
 
     <Grid RowDefinitions="Auto, *">
-        <StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+        <StackLayout
+            BackgroundColor="{StaticResource Accent}"
+            HorizontalOptions="Fill"
+            VerticalOptions="FillAndExpand">
+            <StackLayout
+                HorizontalOptions="Center"
+                Orientation="Horizontal"
+                VerticalOptions="Center">
                 <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
                     <Image
                         HeightRequest="64"

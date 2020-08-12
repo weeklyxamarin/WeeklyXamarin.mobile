@@ -20,10 +20,16 @@ namespace WeeklyXamarin.Mobile.Views
     [QueryProperty(nameof(EditionId), nameof(EditionId))]
     public partial class ArticlesListPage : PageBase<ArticlesListViewModel>
     {
+        private readonly bool showSaved;
+
         public string EditionId { get; set; }
         public ArticlesListPage()
         {
             InitializeComponent();
+        }
+        public ArticlesListPage(bool showSaved) : this()
+        {
+            this.showSaved = showSaved;
         }
 
         //async void OnItemSelected(object sender, EventArgs args)
@@ -36,9 +42,13 @@ namespace WeeklyXamarin.Mobile.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+
+            ViewModel.ShowSaved = showSaved;
             ViewModel.EditionId = EditionId;
+
             if (ViewModel.Articles.Count == 0)
                 await ViewModel.LoadArticlesCommand.ExecuteAsync(false);
+
         }
     }
 }

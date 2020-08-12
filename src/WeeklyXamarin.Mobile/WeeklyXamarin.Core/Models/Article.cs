@@ -1,11 +1,14 @@
-﻿using System;
+﻿using MvvmHelpers;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace WeeklyXamarin.Core.Models
 {
-    public class Article
+    public class Article : ObservableObject
     {
+        private bool isSaved;
+
         public string Title { get; set; }
         public string Url { get; set; }
         public string Description { get; set; }
@@ -13,5 +16,6 @@ namespace WeeklyXamarin.Core.Models
         public string Author { get; set; }
         public string Id { get; set; }
         public string Category { get; set; }
+        public bool IsSaved { get => isSaved; set => SetProperty(ref isSaved, value); }
     }
 }

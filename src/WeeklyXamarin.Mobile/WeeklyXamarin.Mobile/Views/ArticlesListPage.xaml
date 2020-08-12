@@ -25,79 +25,97 @@
         <CollectionView x:Name="EditionsCollectionView" ItemsSource="{Binding Articles}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Article">
-                    <ContentView>
-                        <rv:MaterialFrame
-                            Margin="20"
-                            Padding="0"
-                            CornerRadius="4"
-                            HasShadow="True"
-                            IsClippedToBounds="True"
-                            MaterialTheme="Acrylic">
-                            <Grid
-                                ColumnDefinitions="4, *"
-                                ColumnSpacing="20"
-                                RowDefinitions="Auto, Auto, Auto, Auto"
-                                RowSpacing="10">
-                                <BoxView
-                                    Grid.Row="0"
-                                    Grid.RowSpan="4"
-                                    Grid.Column="0"
-                                    BackgroundColor="#80BFEB"
-                                    CornerRadius="4,0,4,0"
-                                    HorizontalOptions="Start"
-                                    WidthRequest="4" />
 
-                                <Label
-                                    Grid.Row="0"
-                                    Grid.Column="1"
-                                    Margin="0,10,0,0"
-                                    FontAttributes="Bold"
-                                    FontSize="16"
-                                    Text="{Binding Title}" />
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem
+                                    BackgroundColor="LightGreen"
+                                    Command="{Binding BindingContext.SaveArticleCommand, Source={x:Reference rootPage}}"
+                                    CommandParameter="{Binding .}"
+                                    IconImageSource="favorite.png"
+                                    Text="Favorite" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                        <ContentView>
+                            <rv:MaterialFrame
+                                Margin="20"
+                                Padding="0"
+                                CornerRadius="4"
+                                HasShadow="True"
+                                IsClippedToBounds="True"
+                                MaterialTheme="Acrylic">
+                                <Grid
+                                    ColumnDefinitions="4, *"
+                                    ColumnSpacing="20"
+                                    RowDefinitions="Auto, Auto, Auto, Auto"
+                                    RowSpacing="10">
+                                    <BoxView
+                                        Grid.Row="0"
+                                        Grid.RowSpan="4"
+                                        Grid.Column="0"
+                                        BackgroundColor="#80BFEB"
+                                        CornerRadius="4,0,4,0"
+                                        HorizontalOptions="Start"
+                                        WidthRequest="4" />
 
-                                <Label
-                                    Grid.Row="1"
-                                    Grid.Column="1"
-                                    FontSize="16"
-                                    Text="{Binding Author}"
-                                    TextColor="#80BFEB" />
-
-                                <Label
-                                    Grid.Row="2"
-                                    Grid.Column="1"
-                                    FontSize="14"
-                                    Text="{Binding Description}" />
-
-
-                                <rv:MaterialFrame
-                                    Grid.Row="3"
-                                    Grid.Column="1"
-                                    Margin="0,0,10,10"
-                                    Padding="10,3"
-                                    CornerRadius="6"
-                                    HeightRequest="20"
-                                    HorizontalOptions="End"
-                                    LightThemeBackgroundColor="#EC4327"
-                                    MaterialTheme="Acrylic"
-                                    VerticalOptions="End">
                                     <Label
-                                        BackgroundColor="#EC4327"
-                                        Text="{Binding Category}"
-                                        TextColor="White" />
-                                </rv:MaterialFrame>
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Margin="0,10,0,0"
+                                        FontAttributes="Bold"
+                                        FontSize="16"
+                                        Text="{Binding Title}" />
+
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        FontSize="16"
+                                        Text="{Binding Author}"
+                                        TextColor="#80BFEB" />
+
+                                    <Label
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        FontSize="14"
+                                        Text="{Binding Description}" />
+
+                                    <Label
+                                        Grid.Row="3"
+                                        Grid.Column="1"
+                                        IsVisible="{Binding IsSaved}"
+                                        Text="Saved" />
+
+                                    <rv:MaterialFrame
+                                        Grid.Row="3"
+                                        Grid.Column="1"
+                                        Margin="0,0,10,10"
+                                        Padding="10,3"
+                                        CornerRadius="6"
+                                        HeightRequest="20"
+                                        HorizontalOptions="End"
+                                        LightThemeBackgroundColor="#EC4327"
+                                        MaterialTheme="Acrylic"
+                                        VerticalOptions="End">
+                                        <Label
+                                            BackgroundColor="#EC4327"
+                                            Text="{Binding Category}"
+                                            TextColor="White" />
+                                    </rv:MaterialFrame>
 
 
 
-                                <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer
-                                        Command="{Binding BindingContext.OpenArticleCommand, Source={x:Reference rootPage}}"
-                                        CommandParameter="{Binding .}"
-                                        NumberOfTapsRequired="1" />
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding BindingContext.OpenArticleCommand, Source={x:Reference rootPage}}"
+                                            CommandParameter="{Binding .}"
+                                            NumberOfTapsRequired="1" />
 
-                                </Grid.GestureRecognizers>
-                            </Grid>
-                        </rv:MaterialFrame>
-                    </ContentView>
+                                    </Grid.GestureRecognizers>
+                                </Grid>
+                            </rv:MaterialFrame>
+                        </ContentView>
+                    </SwipeView>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

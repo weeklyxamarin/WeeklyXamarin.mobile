@@ -4,8 +4,8 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-    xmlns:local="clr-namespace:WeeklyXamarin.Mobile.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="clr-namespace:WeeklyXamarin.Mobile.Views"
     Title="WeeklyXamarin.Mobile"
     mc:Ignorable="d">
 
@@ -33,16 +33,26 @@
     <!--  Your Pages  -->
     <TabBar>
         <Tab Title="Editions" Icon="tab_issues.png">
-            <ShellContent ContentTemplate="{DataTemplate local:EditionsPage}" />
+            <ShellContent ContentTemplate="{DataTemplate views:EditionsPage}" />
         </Tab>
         <Tab Title="Saved" Icon="tab_saved.png">
-            <ShellContent ContentTemplate="{DataTemplate local:AboutPage}" />
+            <ShellContent>
+                <ShellContent.ContentTemplate>
+                    <DataTemplate>
+                        <views:ArticlesListPage>
+                            <x:Arguments>
+                                <x:Boolean>True</x:Boolean>
+                            </x:Arguments>
+                        </views:ArticlesListPage>
+                    </DataTemplate>
+                </ShellContent.ContentTemplate>
+            </ShellContent>
         </Tab>
         <Tab Title="Events" Icon="tab_events.png">
-            <ShellContent ContentTemplate="{DataTemplate local:AboutPage}" />
+            <ShellContent ContentTemplate="{DataTemplate views:AboutPage}" />
         </Tab>
         <Tab Title="Settings" Icon="tab_settings.png">
-            <ShellContent ContentTemplate="{DataTemplate local:AboutPage}" />
+            <ShellContent ContentTemplate="{DataTemplate views:AboutPage}" />
         </Tab>
     </TabBar>
 

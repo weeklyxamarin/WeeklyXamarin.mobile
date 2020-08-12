@@ -17,6 +17,7 @@ namespace WeeklyXamarin.Mobile
         {
             InitializeComponent();
 
+            Device.SetFlags(new[] { "SwipeView_Experimental" });
             Barrel.ApplicationId = "WeeklyXamarin";
            
             Container.Instance.ServiceProvider 

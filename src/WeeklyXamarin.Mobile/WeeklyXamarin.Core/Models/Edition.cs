@@ -15,4 +15,5 @@ namespace WeeklyXamarin.Core.Models
         public string Curators { get; set; }
         public List<Article> Articles { get; set; }
     }
+
 }
