@@ -18,35 +18,55 @@ namespace WeeklyXamarin.Core.ViewModels
     {
         readonly IDataStore dataStore;
         readonly IBrowser browser;
+        readonly IPreferences preferences;
+        readonly IShare share;
+
         public ObservableRangeCollection<Article> Articles { get; set; } = new ObservableRangeCollection<Article>();
         public AsyncCommand<bool> LoadArticlesCommand { get; set; }
         public ICommand OpenArticleCommand { get; set; }
-        public ICommand SaveArticleCommand { get; set; }
-
-
-
+        public ICommand ToggleBookmarkCommand { get; set; }
+        public ICommand ShareCommand { get;  set; }
         public string EditionId { get; set;  }
         public bool ShowSaved { get; set; }
 
-        public ArticlesListViewModel(INavigationService navigation, IDataStore dataStore, IBrowser browser) : base(navigation)
+        public ArticlesListViewModel(INavigationService navigation, IDataStore dataStore, IBrowser browser, IPreferences preferences, IShare share) : base(navigation)
         {
             Title = "Articles";
             LoadArticlesCommand = new AsyncCommand<bool>(ExecuteLoadArticlesCommand, CanRefresh);
             OpenArticleCommand = new AsyncCommand<Article>(OpenArticle);
-            SaveArticleCommand = new Command<Article>(ExecuteSaveArticleCommand);
+            ToggleBookmarkCommand = new Command<Article>(ExecuteToggleBookmarkArticle);
+            ShareCommand = new AsyncCommand<Article>(ExecuteShareCommand);
             this.dataStore = dataStore;
             this.browser = browser;
+            this.preferences = preferences;
+            this.share = share;
         }
 
-        private void ExecuteSaveArticleCommand(Article article)
+        private async Task ExecuteShareCommand(Article article)
+        {
+
+            await share.RequestAsync(new ShareTextRequest
+            {
+                Uri = article.Url,
+                Title = article.Title
+            });
+        }
+
+        private void ExecuteToggleBookmarkArticle(Article article)
         {
             if (article.IsSaved)
             {
-                dataStore.UnSaveArticle(article);
+                dataStore.UnbookmarkArticle(article);
+                article.IsSaved = false;
+
+                if (ShowSaved)
+                    Articles.Remove(article);
+
             }
             else
             {
-                dataStore.SaveArticle(article);
+                dataStore.BookmarkArticle(article);
+                article.IsSaved = true;
             }
         }
 
@@ -56,10 +76,10 @@ namespace WeeklyXamarin.Core.ViewModels
         }
 
         private async Task OpenArticle(Article article)
-        {
+        { 
             await browser.OpenAsync(article.Url, new BrowserLaunchOptions
             {
-                LaunchMode = BrowserLaunchMode.SystemPreferred,
+                LaunchMode = preferences.Get(Constants.Preferences.OpenLinksInApp, true) ? BrowserLaunchMode.SystemPreferred : BrowserLaunchMode.External,
                 TitleMode = BrowserTitleMode.Show
             });
         }

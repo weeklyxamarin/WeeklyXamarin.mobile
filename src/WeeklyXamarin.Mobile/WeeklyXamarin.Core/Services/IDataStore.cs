@@ -13,7 +13,7 @@ namespace WeeklyXamarin.Core.Services
         // Articles
         Task<Article> GetArticleAsync(string editionId, string articleId);
         SavedArticleThing GetSavedArticles(bool forceRefresh);
-        void SaveArticle(Article articleToSave);
-        void UnSaveArticle(Article articleToRemove);
+        void BookmarkArticle(Article articleToSave);
+        void UnbookmarkArticle(Article articleToRemove);
     }
 }

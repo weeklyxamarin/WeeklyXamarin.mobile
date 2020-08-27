@@ -11,6 +11,11 @@ namespace WeeklyXamarin.Core.Helpers
             public const string SavedArticles = "SavedArticleThing";
         }
 
+        public static class Preferences
+        {
+            public const string OpenLinksInApp = "OpenLinksInApp";
+        }
+
         public static class Navigation
         {
             public static class Paths

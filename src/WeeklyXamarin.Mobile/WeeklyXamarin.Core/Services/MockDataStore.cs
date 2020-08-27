@@ -76,12 +76,12 @@ namespace WeeklyXamarin.Core.Services
             return Task.FromResult(articles.FirstOrDefault(s => s.Id == articleId));
         }
 
-        public void SaveArticle(Article articleToSave)
+        public void BookmarkArticle(Article articleToSave)
         {
             throw new NotImplementedException();
         }
 
-        public void UnSaveArticle(Article articleToRemove)
+        public void UnbookmarkArticle(Article articleToRemove)
         {
             throw new NotImplementedException();
         }

@@ -135,7 +135,7 @@ namespace WeeklyXamarin.Core.Services
         }          
 
 
-        public void SaveArticle(Article articleToSave)
+        public void BookmarkArticle(Article articleToSave)
         {
             var savedArticleList = GetSavedArticles(false);
             articleToSave.IsSaved = true;
@@ -143,7 +143,7 @@ namespace WeeklyXamarin.Core.Services
 
             _barrel.Add(key: Constants.BarrelNames.SavedArticles, data: savedArticleList, expireIn: TimeSpan.FromDays(999));
         }
-        public void UnSaveArticle(Article articleToRemove)
+        public void UnbookmarkArticle(Article articleToRemove)
         {
             var savedArticleList = GetSavedArticles(false);
             savedArticleList.Remove(articleToRemove);

@@ -32,13 +32,6 @@ namespace WeeklyXamarin.Mobile.Views
             this.showSaved = showSaved;
         }
 
-        //async void OnItemSelected(object sender, EventArgs args)
-        //{
-        //    var layout = (BindableObject)sender;
-        //    var article = (Article)layout.BindingContext;
-        //    await Navigation.PushAsync(new ArticleDetailPage(new ArticleDetailViewModel(article)));
-        //}
-
         protected override async void OnAppearing()
         {
             base.OnAppearing();
@@ -46,9 +39,8 @@ namespace WeeklyXamarin.Mobile.Views
             ViewModel.ShowSaved = showSaved;
             ViewModel.EditionId = EditionId;
 
-            if (ViewModel.Articles.Count == 0)
-                await ViewModel.LoadArticlesCommand.ExecuteAsync(false);
-
+            await ViewModel.LoadArticlesCommand.ExecuteAsync(false);
+            
         }
     }
 }

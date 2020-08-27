@@ -30,8 +30,13 @@
                         <SwipeView.RightItems>
                             <SwipeItems>
                                 <SwipeItem
+                                    BackgroundColor="CadetBlue"
+                                    Command="{Binding BindingContext.ShareCommand, Source={x:Reference rootPage}}"
+                                    CommandParameter="{Binding .}"
+                                    Text="Share" />
+                                <SwipeItem
                                     BackgroundColor="LightGreen"
-                                    Command="{Binding BindingContext.SaveArticleCommand, Source={x:Reference rootPage}}"
+                                    Command="{Binding BindingContext.ToggleBookmarkCommand, Source={x:Reference rootPage}}"
                                     CommandParameter="{Binding .}"
                                     IconImageSource="favorite.png"
                                     Text="Favorite" />
