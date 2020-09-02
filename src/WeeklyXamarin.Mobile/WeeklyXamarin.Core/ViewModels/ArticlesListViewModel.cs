@@ -26,6 +26,7 @@ namespace WeeklyXamarin.Core.ViewModels
         public ICommand OpenArticleCommand { get; set; }
         public ICommand ToggleBookmarkCommand { get; set; }
         public ICommand ShareCommand { get;  set; }
+        public ICommand NavigateBackCommand { get;  set; }
         public string EditionId { get; set;  }
         public bool ShowSaved { get; set; }
 
@@ -36,10 +37,17 @@ namespace WeeklyXamarin.Core.ViewModels
             OpenArticleCommand = new AsyncCommand<Article>(OpenArticle);
             ToggleBookmarkCommand = new Command<Article>(ExecuteToggleBookmarkArticle);
             ShareCommand = new AsyncCommand<Article>(ExecuteShareCommand);
+            NavigateBackCommand = new AsyncCommand(ExecuteNavigateBackCommand);
             this.dataStore = dataStore;
             this.browser = browser;
             this.preferences = preferences;
             this.share = share;
+        }
+
+        private async Task ExecuteNavigateBackCommand()
+        {
+            await navigation.GoToAsync(Constants.Navigation.Paths.Editions);
+            //await navigation.GoBackAsync();
         }
 
         private async Task ExecuteShareCommand(Article article)

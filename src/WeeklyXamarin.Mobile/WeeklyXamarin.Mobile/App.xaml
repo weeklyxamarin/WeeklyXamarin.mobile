@@ -11,6 +11,16 @@
             <Style ApplyToDerivedTypes="True" TargetType="Page">
                 <Setter Property="BackgroundColor" Value="#F4F2F5" />
             </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value="Black" />
+            </Style>
+
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -15,6 +15,9 @@
     x:TypeArguments="viewmodels:ArticlesListViewModel"
     BackgroundColor="#F4F2F5"
     mc:Ignorable="d">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding NavigateBackCommand}" Text="Back" />
+    </ContentPage.ToolbarItems>
 
     <RefreshView Command="{Binding LoadArticlesCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <RefreshView.CommandParameter>
@@ -90,6 +93,26 @@
                                         Grid.Column="1"
                                         IsVisible="{Binding IsSaved}"
                                         Text="Saved" />
+
+                                    <StackLayout
+                                        Grid.Row="3"
+                                        Grid.Column="1"
+                                        IsVisible="{OnPlatform UWP=True,
+                                                               Default=False}"
+                                        Orientation="Horizontal">
+                                        <Label HorizontalOptions="Start" Text="Share">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding BindingContext.ShareCommand, Source={x:Reference rootPage}}" CommandParameter="{Binding .}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                        <Label HorizontalOptions="Start" Text="Bookmark">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding BindingContext.ToggleBookmarkCommand, Source={x:Reference rootPage}}" CommandParameter="{Binding .}" />
+                                            </Label.GestureRecognizers>
+
+                                        </Label>
+                                    </StackLayout>
+
 
                                     <rv:MaterialFrame
                                         Grid.Row="3"

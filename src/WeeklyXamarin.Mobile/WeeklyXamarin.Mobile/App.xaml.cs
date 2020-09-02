@@ -17,11 +17,29 @@ namespace WeeklyXamarin.Mobile
         {
             InitializeComponent();
 
-            Device.SetFlags(new[] { "SwipeView_Experimental" });
+            Device.SetFlags(new[] { "SwipeView_Experimental",
+            "Shell_UWP_Experimental"});
             Barrel.ApplicationId = "WeeklyXamarin";
            
             Container.Instance.ServiceProvider 
                 = ContainerExtension.ConfigureServices(configure);
+
+
+            //MainPage = new ContentPage
+            //{
+            //    Content = new StackLayout
+            //    {
+            //        Children =
+            //        {
+            //            new Label
+            //            {
+            //                Text = "HELLLOOOOOO",
+            //                VerticalOptions = LayoutOptions.CenterAndExpand,
+            //                HorizontalOptions = LayoutOptions.Center
+            //            }
+            //        }
+            //    }
+            //};
 
             MainPage = new AppShell();
         }

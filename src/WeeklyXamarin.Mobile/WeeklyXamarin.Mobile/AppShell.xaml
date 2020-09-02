@@ -32,8 +32,11 @@
 
     <!--  Your Pages  -->
     <TabBar>
-        <Tab Title="Editions" Icon="tab_issues.png">
-            <ShellContent ContentTemplate="{DataTemplate views:EditionsPage}" />
+        <Tab
+            Title="Editions"
+            Icon="tab_issues.png"
+            Route="editions">
+            <ShellContent ContentTemplate="{DataTemplate views:EditionsPage}" Route="editions" />
         </Tab>
         <Tab Title="Saved" Icon="tab_saved.png">
             <ShellContent>

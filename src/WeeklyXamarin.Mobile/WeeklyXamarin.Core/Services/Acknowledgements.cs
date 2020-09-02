@@ -11,7 +11,9 @@ namespace WeeklyXamarin.Core.Services
         Raid,
         PullRequest,
         Bitties,
-        DerailedEverything
+        DerailedEverything,
+        GiftSub,
+        WriteTheThemeTune
     }
 
     public class Acknowledgement
@@ -29,6 +31,24 @@ namespace WeeklyXamarin.Core.Services
             Thanks = new List<Acknowledgement>()
             {
                 // new Acknowledgement() {Person="", Activity=Activity.Follow},
+
+
+                // 2 September 2020
+                new Acknowledgement() {Person="TendedDinosaur2", Activity=Activity.Follow },
+                new Acknowledgement() {Person="AndikaRizary", Activity=Activity.Follow },
+                new Acknowledgement() {Person="jazteng2", Activity=Activity.Follow },
+                new Acknowledgement() {Person="GlennStephens", Activity=Activity.WriteTheThemeTune },
+                new Acknowledgement() {Person="Iceist", Activity=Activity.Follow },
+                new Acknowledgement() {Person="ScottDev", Activity=Activity.DerailedEverything },
+                new Acknowledgement() {Person="ScottDev", Activity=Activity.GiftSub },
+                new Acknowledgement() {Person="ScottDev", Activity=Activity.Subscribe },
+                new Acknowledgement() {Person="varrathien", Activity=Activity.Subscribe },
+                new Acknowledgement() {Person="jhsebas", Activity=Activity.Follow },
+                new Acknowledgement() {Person="varrathien", Activity=Activity.Follow },
+                new Acknowledgement() {Person="DavidWengier", Activity=Activity.Raid},
+                new Acknowledgement() {Person="BitwyzeGaming", Activity=Activity.Follow},
+                new Acknowledgement() {Person="eldoen", Activity=Activity.Follow},
+
 
                 // 26 August 2020
                 new Acknowledgement() {Person="kenthtet", Activity=Activity.Follow},

@@ -35,7 +35,6 @@ namespace WeeklyXamarin.Mobile.iOS
 
         private void ConfigureServices(ServiceCollection container)
         {
-            container.AddSingleton<UIViewController>();
         }
     }
 }
