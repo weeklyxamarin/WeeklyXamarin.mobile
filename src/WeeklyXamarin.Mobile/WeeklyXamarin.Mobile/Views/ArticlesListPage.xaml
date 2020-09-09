@@ -10,14 +10,11 @@
     xmlns:viewmodels="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
     xmlns:views="clr-namespace:WeeklyXamarin.Mobile.Views"
     x:Name="rootPage"
-    Title="{Binding EditionId, StringFormat='Edition {0}'}"
+    Title="{Binding Title}"
     x:DataType="viewmodels:ArticlesListViewModel"
     x:TypeArguments="viewmodels:ArticlesListViewModel"
     BackgroundColor="#F4F2F5"
     mc:Ignorable="d">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding NavigateBackCommand}" Text="Back" />
-    </ContentPage.ToolbarItems>
 
     <RefreshView Command="{Binding LoadArticlesCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <RefreshView.CommandParameter>
@@ -32,28 +29,53 @@
                     <SwipeView>
                         <SwipeView.RightItems>
                             <SwipeItems>
-                                <SwipeItem
-                                    BackgroundColor="CadetBlue"
-                                    Command="{Binding BindingContext.ShareCommand, Source={x:Reference rootPage}}"
-                                    CommandParameter="{Binding .}"
-                                    Text="Share" />
-                                <SwipeItem
-                                    BackgroundColor="LightGreen"
-                                    Command="{Binding BindingContext.ToggleBookmarkCommand, Source={x:Reference rootPage}}"
-                                    CommandParameter="{Binding .}"
-                                    IconImageSource="favorite.png"
-                                    Text="Favorite" />
+                                <SwipeItemView Command="{Binding BindingContext.ShareCommand, Source={x:Reference rootPage}}" CommandParameter="{Binding .}">
+                                    <Grid BackgroundColor="#3598DB" WidthRequest="60">
+                                        <Image
+                                            HorizontalOptions="Center"
+                                            Source="Share"
+                                            VerticalOptions="Center" />
+
+                                    </Grid>
+                                </SwipeItemView>
+                                <SwipeItemView Command="{Binding BindingContext.ToggleBookmarkCommand, Source={x:Reference rootPage}}" CommandParameter="{Binding .}">
+                                    <Grid BackgroundColor="#3598DB" WidthRequest="60">
+                                        <Grid.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding IsSaved}"
+                                                TargetType="Grid"
+                                                Value="True">
+                                                <Setter Property="BackgroundColor" Value="#9B58B5" />
+                                            </DataTrigger>
+                                        </Grid.Triggers>
+                                        <Image
+                                            HorizontalOptions="Center"
+                                            Source="Bookmark"
+                                            VerticalOptions="Center">
+                                            <Image.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding IsSaved}"
+                                                    TargetType="Image"
+                                                    Value="True">
+                                                    <Setter Property="Source" Value="Unbookmark" />
+                                                </DataTrigger>
+                                            </Image.Triggers>
+                                        </Image>
+
+                                    </Grid>
+                                </SwipeItemView>
                             </SwipeItems>
                         </SwipeView.RightItems>
                         <ContentView>
                             <rv:MaterialFrame
-                                Margin="20"
+                                Margin="{StaticResource CardMargin}"
                                 Padding="0"
                                 CornerRadius="4"
                                 HasShadow="True"
                                 IsClippedToBounds="True"
                                 MaterialTheme="Acrylic">
                                 <Grid
+                                    Margin="0,0,10,0"
                                     ColumnDefinitions="4, *"
                                     ColumnSpacing="20"
                                     RowDefinitions="Auto, Auto, Auto, Auto"
@@ -62,7 +84,7 @@
                                         Grid.Row="0"
                                         Grid.RowSpan="4"
                                         Grid.Column="0"
-                                        BackgroundColor="#80BFEB"
+                                        BackgroundColor="{Binding Category, Converter={StaticResource categoryToColorConverter}}"
                                         CornerRadius="4,0,4,0"
                                         HorizontalOptions="Start"
                                         WidthRequest="4" />
@@ -71,21 +93,20 @@
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         Margin="0,10,0,0"
-                                        FontAttributes="Bold"
-                                        FontSize="16"
+                                        Style="{StaticResource ArticleTitle}"
                                         Text="{Binding Title}" />
 
                                     <Label
                                         Grid.Row="1"
                                         Grid.Column="1"
-                                        FontSize="16"
+                                        Style="{StaticResource ArticleAuthor}"
                                         Text="{Binding Author}"
-                                        TextColor="#80BFEB" />
+                                        TextColor="{Binding Category, Converter={StaticResource categoryToColorConverter}}" />
 
                                     <Label
                                         Grid.Row="2"
                                         Grid.Column="1"
-                                        FontSize="14"
+                                        Style="{StaticResource ArticleDescription}"
                                         Text="{Binding Description}" />
 
                                     <Label
@@ -122,11 +143,11 @@
                                         CornerRadius="6"
                                         HeightRequest="20"
                                         HorizontalOptions="End"
-                                        LightThemeBackgroundColor="#EC4327"
+                                        LightThemeBackgroundColor="{Binding Category, Converter={StaticResource categoryToColorConverter}}"
                                         MaterialTheme="Acrylic"
                                         VerticalOptions="End">
                                         <Label
-                                            BackgroundColor="#EC4327"
+                                            Style="{StaticResource CategoryLozenge}"
                                             Text="{Binding Category}"
                                             TextColor="White" />
                                     </rv:MaterialFrame>

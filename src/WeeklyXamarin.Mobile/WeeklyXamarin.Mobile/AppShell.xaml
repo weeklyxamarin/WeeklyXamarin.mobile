@@ -38,7 +38,7 @@
             Route="editions">
             <ShellContent ContentTemplate="{DataTemplate views:EditionsPage}" Route="editions" />
         </Tab>
-        <Tab Title="Saved" Icon="tab_saved.png">
+        <Tab Title="Bookmarks" Icon="Bookmark.png">
             <ShellContent>
                 <ShellContent.ContentTemplate>
                     <DataTemplate>

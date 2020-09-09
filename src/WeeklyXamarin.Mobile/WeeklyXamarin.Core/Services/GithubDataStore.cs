@@ -127,7 +127,6 @@ namespace WeeklyXamarin.Core.Services
         {
             // pull the articles out of monkeycache
             SavedArticleThing savedArticleList = _barrel.Get<SavedArticleThing>(key: Constants.BarrelNames.SavedArticles);
-            
             if (savedArticleList == null)
                 savedArticleList = new SavedArticleThing();
 

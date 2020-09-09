@@ -26,11 +26,11 @@
     </ContentPage.Resources>
 
     <ScrollView>
-        <StackLayout Padding="20">
+        <StackLayout Padding="{StaticResource MarginValue}">
 
             <Label Style="{StaticResource Header}" Text="Preferences" />
             <rv:MaterialFrame
-                Padding="20"
+                Padding="{StaticResource MarginValue}"
                 CornerRadius="4"
                 HasShadow="True"
                 IsClippedToBounds="True"
@@ -51,7 +51,7 @@
                 Style="{StaticResource Header}"
                 Text="Contributors" />
             <rv:MaterialFrame
-                Padding="20"
+                Padding="{StaticResource MarginValue}"
                 CornerRadius="4"
                 HasShadow="True"
                 IsClippedToBounds="True"
@@ -75,7 +75,7 @@
                 Style="{StaticResource Header}"
                 Text="Libraries Used" />
             <rv:MaterialFrame
-                Padding="20"
+                Padding="{StaticResource MarginValue}"
                 CornerRadius="4"
                 HasShadow="True"
                 IsClippedToBounds="True"
@@ -91,7 +91,7 @@
                 Style="{StaticResource Header}"
                 Text="About" />
             <rv:MaterialFrame
-                Padding="20"
+                Padding="{StaticResource MarginValue}"
                 CornerRadius="4"
                 HasShadow="True"
                 IsClippedToBounds="True"

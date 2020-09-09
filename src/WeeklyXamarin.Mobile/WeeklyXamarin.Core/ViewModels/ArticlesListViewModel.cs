@@ -105,9 +105,11 @@ namespace WeeklyXamarin.Core.ViewModels
                     // get the saved
                     var articles = dataStore.GetSavedArticles(forceRefresh);
                     Articles.AddRange(articles.Articles);
+                    Title = "Bookmarks";
                 }
                 else
                 {
+                    Title = $"Edition {EditionId}";
                     var edition = await dataStore.GetEditionAsync(EditionId, forceRefresh);
                     Articles.AddRange(edition.Articles);
                 }

@@ -23,7 +23,7 @@
                 <DataTemplate>
                     <ContentView>
                         <rv:MaterialFrame
-                            Margin="20"
+                            Margin="{StaticResource MarginValue}"
                             Padding="0"
                             CornerRadius="4"
                             HasShadow="True"
@@ -43,19 +43,16 @@
                                     Orientation="Horizontal"
                                     Spacing="10">
                                     <Label
-                                        FontAttributes="Bold"
-                                        FontSize="16"
+                                        Style="{StaticResource EditionTitle}"
                                         Text="{Binding Id, StringFormat='#{0}'}"
                                         TextColor="#80BFEB" />
-                                    <Label
-                                        FontAttributes="Bold"
-                                        FontSize="16"
-                                        Text="{Binding PublishDate, StringFormat='{0:MMM dd, yyyy}'}" />
+                                    <Label Style="{StaticResource EditionTitle}" Text="{Binding PublishDate, StringFormat='{0:MMM dd, yyyy}'}" />
                                 </StackLayout>
 
                                 <Label
                                     Grid.Row="1"
                                     Margin="20,5,20,20"
+                                    Style="{StaticResource EditionDescription}"
                                     Text="{Binding Summary}" />
 
                                 <Grid.GestureRecognizers>

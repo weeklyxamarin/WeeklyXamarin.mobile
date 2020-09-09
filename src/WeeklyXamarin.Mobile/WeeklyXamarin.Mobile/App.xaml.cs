@@ -7,6 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using MonkeyCache.FileStore;
 using WeeklyXamarin.Mobile.Services;
 
+[assembly: ExportFont("OpenSans-Regular.ttf", Alias = "RegularFont")]
+[assembly: ExportFont("OpenSans-SemiBold.ttf", Alias = "SemiBoldFont")]
+
 namespace WeeklyXamarin.Mobile
 {
     public partial class App : Application

@@ -32,6 +32,27 @@ namespace WeeklyXamarin.Core.Services
             {
                 // new Acknowledgement() {Person="", Activity=Activity.Follow},
 
+                // 9 September 2020
+                new Acknowledgement() {Person="ThisIsDavid", Activity=Activity.Follow},
+                new Acknowledgement() {Person="KlausDevWalker", Activity=Activity.Follow},
+                new Acknowledgement() {Person="TheXtremePerson", Activity=Activity.Follow},
+                new Acknowledgement() {Person="KickInThePocket", Activity=Activity.Follow},
+                new Acknowledgement() {Person="FBoucheros", Activity=Activity.Raid},
+                new Acknowledgement() {Person="xami3shah", Activity=Activity.Follow},
+                new Acknowledgement() {Person="functionjarvis20", Activity=Activity.Follow},
+                new Acknowledgement() {Person="Willairways", Activity=Activity.Follow},
+                new Acknowledgement() {Person="BjornOveBremmnes", Activity=Activity.Follow},
+                new Acknowledgement() {Person="Scratch2k", Activity=Activity.Follow},
+                new Acknowledgement() {Person="lubdubw", Activity=Activity.Follow},
+                new Acknowledgement() {Person="r2_au", Activity=Activity.Bitties},
+
+                new Acknowledgement() {Person="RMauroDev", Activity=Activity.Follow},
+                new Acknowledgement() {Person="SurlyDev", Activity=Activity.Follow},
+                new Acknowledgement() {Person="TheGrumpyGameDev", Activity=Activity.Raid},
+                new Acknowledgement() {Person="LachlanWGordon", Activity=Activity.Bitties},
+                new Acknowledgement() {Person="InquisitorJax", Activity=Activity.Follow},
+                new Acknowledgement() {Person="AdenEarnshaw", Activity=Activity.Subscribe},
+
 
                 // 2 September 2020
                 new Acknowledgement() {Person="TendedDinosaur2", Activity=Activity.Follow },

@@ -12,7 +12,10 @@ using Android.OS;
 
 namespace WeeklyXamarin.Mobile.Droid
 {
-    [Activity(Label = "WeeklyXamarin.Mobile", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "WeeklyXamarin.Mobile", 
+        Icon = "@mipmap/ic_launcher", 
+        RoundIcon ="@mipmap/icon_round",
+        Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)

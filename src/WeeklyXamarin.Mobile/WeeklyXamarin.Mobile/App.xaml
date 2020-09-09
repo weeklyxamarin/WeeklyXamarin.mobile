@@ -3,22 +3,131 @@
     x:Class="WeeklyXamarin.Mobile.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:WeeklyXamarin.Mobile.Converters"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <Application.Resources>
         <ResourceDictionary>
-            <Style ApplyToDerivedTypes="True" TargetType="Page">
-                <Setter Property="BackgroundColor" Value="#F4F2F5" />
+            <Thickness x:Key="MarginValue">20,10,20,10</Thickness>
+            <Thickness x:Key="CardMargin">20,10,20,10</Thickness>
+            <converters:CategoryToColorConverter x:Key="categoryToColorConverter" />
+
+            <!--  Colors  -->
+            <Color x:Key="RedLight">#E84C3D</Color>
+            <Color x:Key="RedDark">#C1392B</Color>
+
+            <Color x:Key="OrangeLight">#E77E23</Color>
+            <Color x:Key="OrangeDark">#D35400</Color>
+
+            <Color x:Key="YellowLight">#FFCD02</Color>
+            <Color x:Key="YellowDark">#FFA800</Color>
+
+            <Color x:Key="SandLight">#F0DFB4</Color>
+            <Color x:Key="SandDark">#D5C395</Color>
+
+            <Color x:Key="NavyBlueLight">#34495E</Color>
+            <Color x:Key="NavyBlueDark">#2D3E50</Color>
+
+            <Color x:Key="BlackLight">#2B2B2B</Color>
+            <Color x:Key="BlackDark">#262626</Color>
+
+            <Color x:Key="MagentaLight">#9B58B5</Color>
+            <Color x:Key="MagentaDark">#8F44AD</Color>
+
+            <Color x:Key="TealLight">#3A6F81</Color>
+            <Color x:Key="TealDark">#346272</Color>
+
+            <Color x:Key="SkyBlueLight">#3598DB</Color>
+            <Color x:Key="SkyBlueDark">#2A80B9</Color>
+
+            <Color x:Key="GreenLight">#2DCC70</Color>
+            <Color x:Key="GreenDark">#27AE61</Color>
+
+            <Color x:Key="MintLight">#1BBC9B</Color>
+            <Color x:Key="MintDark">#16A086</Color>
+
+            <Color x:Key="WhiteLight">#ECF0F1</Color>
+            <Color x:Key="WhiteDark">#BEC3C7</Color>
+
+            <Color x:Key="GrayLight">#95A5A5</Color>
+            <Color x:Key="GrayDark">#7E8C8D</Color>
+
+            <Color x:Key="ForestGreenLight">#345F41</Color>
+            <Color x:Key="ForestGreenDark">#2E5037</Color>
+
+            <Color x:Key="PurpleLight">#745DC5</Color>
+            <Color x:Key="PurpleDark">#5B48A2</Color>
+
+            <Color x:Key="BrownLight">#5F4534</Color>
+            <Color x:Key="BrownDark">#513B2D</Color>
+
+            <Color x:Key="PlumLight">#5E335E</Color>
+            <Color x:Key="PlumDark">#4F2B4F</Color>
+
+            <Color x:Key="WatermelonLight">#EF727A</Color>
+            <Color x:Key="WatermelonDark">#D95459</Color>
+
+            <Color x:Key="LimeLight">#A5C63B</Color>
+            <Color x:Key="LimeDark">#8FB021</Color>
+
+            <Color x:Key="PinkLight">#F47CC3</Color>
+            <Color x:Key="PinkDark">#D45B9E</Color>
+
+            <Color x:Key="MaroonLight">#79302A</Color>
+            <Color x:Key="MaroonDark">#662722</Color>
+
+            <Color x:Key="CoffeeLight">#A28671</Color>
+            <Color x:Key="CoffeeDark">#8E725D</Color>
+
+            <Color x:Key="PowderBlueLight">#B8CAF2</Color>
+            <Color x:Key="PowderBlueDark">#99AAD5</Color>
+
+            <Color x:Key="BlueLight">#5165A2</Color>
+            <Color x:Key="BlueDark">#384C81</Color>
+
+            <!--  Styles  -->
+            <Style x:Key="PageHeader" TargetType="Label">
+                <Setter Property="FontFamily" Value="SemiBoldFont" />
             </Style>
 
-            <Style TargetType="Label">
-                <Setter Property="TextColor" Value="Black" />
+            <Style x:Key="EditionTitle" TargetType="Label">
+                <Setter Property="FontFamily" Value="SemiBoldFont" />
+                <Setter Property="FontSize" Value="16" />
             </Style>
 
-            <Style TargetType="Button">
-                <Setter Property="TextColor" Value="Black" />
+            <Style x:Key="EditionDescription" TargetType="Label">
+                <Setter Property="FontFamily" Value="RegularFont" />
+                <Setter Property="FontSize" Value="14" />
             </Style>
+
+            <Style x:Key="ArticleTitle" TargetType="Label">
+                <Setter Property="FontFamily" Value="SemiBoldFont" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+
+            <Style x:Key="ArticleDescription" TargetType="Label">
+                <Setter Property="FontFamily" Value="RegularFont" />
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+
+            <Style x:Key="ArticleAuthor" TargetType="Label">
+                <Setter Property="FontFamily" Value="SemiBoldFont" />
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+
+            <Style x:Key="CategoryLozenge" TargetType="Label">
+                <Setter Property="FontFamily" Value="RegularFont" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+
+            </Style>
+
+
+            <!--  Implicit Styles  -->
+
+            <!--  Margins  -->
 
 
         </ResourceDictionary>
