@@ -51,9 +51,6 @@
                 </ShellContent.ContentTemplate>
             </ShellContent>
         </Tab>
-        <Tab Title="Events" Icon="tab_events.png">
-            <ShellContent ContentTemplate="{DataTemplate views:AboutPage}" />
-        </Tab>
         <Tab Title="Settings" Icon="tab_settings.png">
             <ShellContent ContentTemplate="{DataTemplate views:AboutPage}" />
         </Tab>

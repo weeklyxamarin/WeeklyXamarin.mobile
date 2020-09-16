@@ -89,6 +89,8 @@
             <!--  Styles  -->
             <Style x:Key="PageHeader" TargetType="Label">
                 <Setter Property="FontFamily" Value="SemiBoldFont" />
+                <Setter Property="FontSize" Value="36" />
+                <Setter Property="TextColor" Value="{StaticResource BlackLight}" />
             </Style>
 
             <Style x:Key="EditionTitle" TargetType="Label">
@@ -126,6 +128,9 @@
 
 
             <!--  Implicit Styles  -->
+            <Style ApplyToDerivedTypes="True" TargetType="Page">
+                <Setter Property="BackgroundColor" Value="{StaticResource WhiteLight}" />
+            </Style>
 
             <!--  Margins  -->
 

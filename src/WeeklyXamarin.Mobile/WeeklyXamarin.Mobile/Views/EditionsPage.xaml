@@ -11,7 +11,7 @@
     x:Name="rootPage"
     Title="{Binding Title}"
     x:TypeArguments="viewmodels:EditionsViewModel"
-    BackgroundColor="#eeeeee"
+    BackgroundColor="{StaticResource WhiteLight}"
     mc:Ignorable="d">
 
     <RefreshView Command="{Binding LoadEditionsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
@@ -19,6 +19,7 @@
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout ItemSpacing="0" Orientation="Vertical" />
             </CollectionView.ItemsLayout>
+
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <ContentView>
@@ -33,10 +34,10 @@
                                 <BoxView
                                     Grid.Row="0"
                                     Grid.RowSpan="2"
-                                    BackgroundColor="#80BFEB"
+                                    BackgroundColor="{StaticResource SkyBlueLight}"
                                     CornerRadius="4,0,4,0"
                                     HorizontalOptions="Start"
-                                    WidthRequest="4" />
+                                    WidthRequest="8" />
 
                                 <StackLayout
                                     Margin="20,5,20,0"
@@ -45,7 +46,7 @@
                                     <Label
                                         Style="{StaticResource EditionTitle}"
                                         Text="{Binding Id, StringFormat='#{0}'}"
-                                        TextColor="#80BFEB" />
+                                        TextColor="{StaticResource SkyBlueLight}" />
                                     <Label Style="{StaticResource EditionTitle}" Text="{Binding PublishDate, StringFormat='{0:MMM dd, yyyy}'}" />
                                 </StackLayout>
 

@@ -13,7 +13,6 @@
     Title="{Binding Title}"
     x:DataType="viewmodels:ArticlesListViewModel"
     x:TypeArguments="viewmodels:ArticlesListViewModel"
-    BackgroundColor="#F4F2F5"
     mc:Ignorable="d">
 
     <RefreshView Command="{Binding LoadArticlesCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
@@ -23,10 +22,11 @@
             </x:Boolean>
         </RefreshView.CommandParameter>
         <CollectionView x:Name="EditionsCollectionView" ItemsSource="{Binding Articles}">
+
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Article">
 
-                    <SwipeView>
+                    <SwipeView BackgroundColor="{StaticResource WhiteLight}">
                         <SwipeView.RightItems>
                             <SwipeItems>
                                 <SwipeItemView Command="{Binding BindingContext.ShareCommand, Source={x:Reference rootPage}}" CommandParameter="{Binding .}">
@@ -45,7 +45,7 @@
                                                 Binding="{Binding IsSaved}"
                                                 TargetType="Grid"
                                                 Value="True">
-                                                <Setter Property="BackgroundColor" Value="#9B58B5" />
+                                                <Setter Property="BackgroundColor" Value="{StaticResource RedLight}" />
                                             </DataTrigger>
                                         </Grid.Triggers>
                                         <Image
@@ -76,7 +76,7 @@
                                 MaterialTheme="Acrylic">
                                 <Grid
                                     Margin="0,0,10,0"
-                                    ColumnDefinitions="4, *"
+                                    ColumnDefinitions="8, *"
                                     ColumnSpacing="20"
                                     RowDefinitions="Auto, Auto, Auto, Auto"
                                     RowSpacing="10">
@@ -87,7 +87,7 @@
                                         BackgroundColor="{Binding Category, Converter={StaticResource categoryToColorConverter}}"
                                         CornerRadius="4,0,4,0"
                                         HorizontalOptions="Start"
-                                        WidthRequest="4" />
+                                        WidthRequest="8" />
 
                                     <Label
                                         Grid.Row="0"
@@ -142,7 +142,7 @@
                                         Padding="10,3"
                                         CornerRadius="6"
                                         HeightRequest="20"
-                                        HorizontalOptions="End"
+                                        HorizontalOptions="Start"
                                         LightThemeBackgroundColor="{Binding Category, Converter={StaticResource categoryToColorConverter}}"
                                         MaterialTheme="Acrylic"
                                         VerticalOptions="End">

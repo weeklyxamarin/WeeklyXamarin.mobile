@@ -21,10 +21,20 @@ namespace WeeklyXamarin.Mobile.Converters
 
             var resourceName = input switch
             {
-                // todo: add some colors
-                "XAMARIN FORMS" => "NavyBlueDark",
-                "DESIGN" => "OrangeDark",
-                _ => "SkyBlueDark"
+                "XAMARIN FORMS" => "BlueLight",
+                "DESIGN" => "OrangeLight",
+                "DEVOPS" => "LimeLight",
+                "TOOLS" => "MagentaLight",
+                "ANDROID" => "SkyBlueLight",
+                "IOS" => "GreenLight",
+                "PODCASTS & VIDEOS" => "WatermelonLight",
+                "NEWS" => "PowderBlueDark",
+                "TESTING" => "RedLight",
+                "ANALYTICS" => "RedLight",
+                "APP OF THE WEEK" => "PinkLight",
+                "CODE" => "TealLight",
+                "GETTING STARTED" => "YellowDark",
+                _ => "SkyBlueLight"
             };
 
             return (Color)Application.Current.Resources[resourceName];

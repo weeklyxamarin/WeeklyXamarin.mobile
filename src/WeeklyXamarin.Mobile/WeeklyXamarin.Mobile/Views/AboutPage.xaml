@@ -10,7 +10,6 @@
     xmlns:vm="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
     Title="{Binding Title}"
     x:TypeArguments="viewmodels:AboutViewModel"
-    BackgroundColor="#F4F2F5"
     mc:Ignorable="d">
 
     <ContentPage.Resources>
