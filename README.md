@@ -1,6 +1,8 @@
 # WeeklyXamarin.mobile
 Mobile Application for the Weekly Xamarin Newsletter
 
+[![Build status](https://build.appcenter.ms/v0.1/apps/09fc316d-728a-4ff7-a71a-b45530485cc2/branches/master/badge)](https://appcenter.ms)
+
 # Functional Requirements
 * View Issues
 * View Articles 
