@@ -33,6 +33,17 @@ namespace WeeklyXamarin.Core.Services
                 // new Acknowledgement() {Person="", Activity=Activity.Follow},
 
                 // 16 September 2020
+                new Acknowledgement() {Person="smokinGears", Activity=Activity.Follow},
+                new Acknowledgement() {Person="funcdev", Activity=Activity.Follow},
+                new Acknowledgement() {Person="Uraitz_Olaizola", Activity=Activity.Follow},
+                new Acknowledgement() {Person="jorginhobanana", Activity=Activity.Follow},
+                new Acknowledgement() {Person="bigglid", Activity=Activity.Follow},
+                new Acknowledgement() {Person="TimBeaudet", Activity=Activity.Raid},
+                new Acknowledgement() {Person="TimBeaudet", Activity=Activity.Raid},
+                new Acknowledgement() {Person="DavidWengier", Activity=Activity.Raid},
+                new Acknowledgement() {Person="KevinQAnderson", Activity=Activity.Bitties},
+                new Acknowledgement() {Person="r2_au", Activity=Activity.Bitties},
+                new Acknowledgement() {Person="blackclaw404", Activity=Activity.Follow},
                 new Acknowledgement() {Person="yuvarajcena26", Activity=Activity.Follow},
                 new Acknowledgement() {Person="johandeveloper", Activity=Activity.Follow},
                 new Acknowledgement() {Person="mandragoraX", Activity=Activity.Follow},

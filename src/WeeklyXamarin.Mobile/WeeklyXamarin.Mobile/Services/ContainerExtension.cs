@@ -16,7 +16,7 @@ namespace WeeklyXamarin.Mobile.Services
         {
             var services = new ServiceCollection();
 
-            services.AddSingleton<HttpClient>();
+            services.AddSingleton<HttpClient>(_ => new HttpClient());
             services.AddSingleton<IDataStore, GithubDataStore>();
             services.AddTransient<EditionsViewModel, EditionsViewModel>();
             services.AddTransient<ArticlesListViewModel, ArticlesListViewModel>();

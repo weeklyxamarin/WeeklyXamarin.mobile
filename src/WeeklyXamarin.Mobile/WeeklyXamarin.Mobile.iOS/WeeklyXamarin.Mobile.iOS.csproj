@@ -51,7 +51,7 @@
     <CodesignKey>Apple Development: Kym Phillpotts (FAY47Y7AK4)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <MtouchLink>None</MtouchLink>
+    <MtouchLink>Full</MtouchLink>
     <MtouchInterpreter>-all</MtouchInterpreter>
     <CodesignProvision>VS: WildCard Development</CodesignProvision>
   </PropertyGroup>
@@ -64,6 +64,8 @@
     <MtouchArch>ARM64</MtouchArch>
     <CodesignKey>iPhone Developer</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchLink>Full</MtouchLink>
+    <MtouchInterpreter>-all</MtouchInterpreter>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <AppExtensionDebugBundleId />
@@ -269,5 +271,8 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\SplashLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <LinkDescription Include="Properties\linker.xml" />
   </ItemGroup>
 </Project>

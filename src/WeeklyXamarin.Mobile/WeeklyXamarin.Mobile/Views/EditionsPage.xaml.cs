@@ -11,6 +11,7 @@ using WeeklyXamarin.Core.Models;
 using WeeklyXamarin.Core.ViewModels;
 using Container = WeeklyXamarin.Core.Services.Container;
 using Microsoft.Extensions.DependencyInjection;
+using Xamarin.Forms.Internals;
 
 namespace WeeklyXamarin.Mobile.Views
 {
@@ -19,6 +20,7 @@ namespace WeeklyXamarin.Mobile.Views
     [DesignTimeVisible(false)]
     public partial class EditionsPage : PageBase<EditionsViewModel>
     { 
+        [Preserve]
         public EditionsPage()
         {
             InitializeComponent();
