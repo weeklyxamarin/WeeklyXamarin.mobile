@@ -29,6 +29,7 @@
     <MtouchDebug>true</MtouchDebug>
     <CodesignKey>Apple Development: Kym Phillpotts (FAY47Y7AK4)</CodesignKey>
     <CodesignProvision>VS: WildCard Development</CodesignProvision>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
