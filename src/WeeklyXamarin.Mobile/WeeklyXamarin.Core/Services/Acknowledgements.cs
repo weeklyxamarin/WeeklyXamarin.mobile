@@ -13,7 +13,8 @@ namespace WeeklyXamarin.Core.Services
         Bitties,
         DerailedEverything,
         GiftSub,
-        WriteTheThemeTune
+        WriteTheThemeTune,
+        SavedTheDay
     }
 
     public class Acknowledgement
@@ -33,6 +34,8 @@ namespace WeeklyXamarin.Core.Services
                 // new Acknowledgement() {Person="", Activity=Activity.Follow},
 
                 // 16 September 2020
+                new Acknowledgement() {Person="r2_au", Activity=Activity.SavedTheDay},
+                new Acknowledgement() {Person="AdenEarnshaw", Activity=Activity.Bitties},
                 new Acknowledgement() {Person="smokinGears", Activity=Activity.Follow},
                 new Acknowledgement() {Person="funcdev", Activity=Activity.Follow},
                 new Acknowledgement() {Person="Uraitz_Olaizola", Activity=Activity.Follow},
