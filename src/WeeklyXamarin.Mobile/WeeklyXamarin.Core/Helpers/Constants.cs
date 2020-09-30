@@ -6,6 +6,22 @@ namespace WeeklyXamarin.Core.Helpers
 {
     public static class Constants
     {
+        public static class Analytics
+        {
+            public static class Events
+            {
+                public const string PageOpened = "Page Opened";
+            }
+
+            public static class Properties
+            {
+                public const string PageName = "Page Name";
+                public const string FileName = "Edition File";
+                public const string EditionId = "Edition Id";
+                public const string ShowSaved = "Show Saved";
+            }
+        }
+
         public static class BarrelNames
         {
             public const string SavedArticles = "SavedArticleThing";
@@ -14,6 +30,7 @@ namespace WeeklyXamarin.Core.Helpers
         public static class Preferences
         {
             public const string OpenLinksInApp = "OpenLinksInApp";
+            public const string Analytics = "Analytics";
         }
 
         public static class Navigation

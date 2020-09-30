@@ -26,6 +26,8 @@ namespace WeeklyXamarin.Mobile.Services
             services.AddSingleton<IPreferences, PreferencesImplementation>();
             services.AddSingleton<IShare, ShareImplementation>();
             services.AddSingleton<IBrowser, BrowserImplementation>();
+            services.AddSingleton<IAnalytics, AppCenterAnalyticsImplementation>();
+
             services.AddSingleton(_ => Barrel.Current);
 
             services.AddLogging(x => x.AddConsole());

@@ -30,7 +30,7 @@ namespace WeeklyXamarin.Core.ViewModels
         public string EditionId { get; set;  }
         public bool ShowSaved { get; set; }
 
-        public ArticlesListViewModel(INavigationService navigation, IDataStore dataStore, IBrowser browser, IPreferences preferences, IShare share) : base(navigation)
+        public ArticlesListViewModel(INavigationService navigation, IDataStore dataStore, IBrowser browser, IAnalytics analytics, IPreferences preferences, IShare share) : base(navigation, analytics)
         {
             Title = "Articles";
             LoadArticlesCommand = new AsyncCommand<bool>(ExecuteLoadArticlesCommand, CanRefresh);
@@ -117,6 +117,10 @@ namespace WeeklyXamarin.Core.ViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
+                analytics.TrackError(ex, new Dictionary<string, string> { 
+                    { Constants.Analytics.Properties.EditionId, EditionId }, 
+                    { Constants.Analytics.Properties.ShowSaved, ShowSaved.ToString() } });
+
             }
             finally
             {

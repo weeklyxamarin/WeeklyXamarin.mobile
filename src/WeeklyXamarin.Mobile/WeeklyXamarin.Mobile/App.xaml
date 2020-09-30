@@ -113,6 +113,12 @@
                 <Setter Property="FontSize" Value="14" />
             </Style>
 
+            <Style x:Key="SettingsText" TargetType="Label">
+                <Setter Property="FontFamily" Value="RegularFont" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
             <Style x:Key="ArticleAuthor" TargetType="Label">
                 <Setter Property="FontFamily" Value="SemiBoldFont" />
                 <Setter Property="FontSize" Value="14" />

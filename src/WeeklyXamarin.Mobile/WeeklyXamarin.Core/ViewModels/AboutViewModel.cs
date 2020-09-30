@@ -11,8 +11,7 @@ namespace WeeklyXamarin.Core.ViewModels
     public class AboutViewModel : ViewModelBase
     {
         private readonly IPreferences preferences;
-
-        public AboutViewModel(INavigationService navigation, IPreferences preferences) : base(navigation)
+        public AboutViewModel(INavigationService navigation, IAnalytics analytics, IPreferences preferences) : base(navigation, analytics)
         {
             Title = "About";
             //OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://xamarin.com"));
@@ -25,6 +24,16 @@ namespace WeeklyXamarin.Core.ViewModels
         {
             get => preferences.Get(Constants.Preferences.OpenLinksInApp, true);
             set => preferences.Set(Constants.Preferences.OpenLinksInApp, value);
+        }
+
+        public bool Analytics
+        {
+            get => preferences.Get(Constants.Preferences.Analytics, true);
+            set
+            {
+                _ = analytics.SetEnabledAsync(value);
+                preferences.Set(Constants.Preferences.Analytics, value);
+            }
         }
 
         public List<Acknowledgement> Acknowledgements { get; set; }

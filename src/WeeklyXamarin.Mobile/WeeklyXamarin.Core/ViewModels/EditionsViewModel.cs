@@ -8,6 +8,7 @@ using System.Windows.Input;
 using WeeklyXamarin.Core.Models;
 using WeeklyXamarin.Core.Services;
 using WeeklyXamarin.Core.Helpers;
+using System.Collections.Generic;
 
 namespace WeeklyXamarin.Core.ViewModels
 {
@@ -18,7 +19,7 @@ namespace WeeklyXamarin.Core.ViewModels
         public ICommand OpenEditionCommand { get;  set; }
         IDataStore dataStore;
 
-        public EditionsViewModel(INavigationService navigation, IDataStore dataStore) : base(navigation)
+        public EditionsViewModel(INavigationService navigation, IAnalytics analytics, IDataStore dataStore) : base(navigation, analytics)
         {
             Title = "Editions";
             Editions = new ObservableRangeCollection<Edition>();
@@ -45,6 +46,7 @@ namespace WeeklyXamarin.Core.ViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
+                analytics.TrackError(ex);
             }
             finally
             {

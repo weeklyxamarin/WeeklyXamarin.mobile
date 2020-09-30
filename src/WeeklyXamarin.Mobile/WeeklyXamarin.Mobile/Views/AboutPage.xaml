@@ -36,12 +36,22 @@
                 MaterialTheme="Acrylic">
 
                 <StackLayout Spacing="20">
-                    <Grid ColumnDefinitions="*,*">
-                        <Label Text="Open Links in App" VerticalOptions="Center" />
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Style="{StaticResource SettingsText}" Text="Open Links in App" />
                         <Switch
                             Grid.Column="1"
                             HorizontalOptions="End"
                             IsToggled="{Binding OpenLinksInApp}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="*,*">
+                        <Label
+                            LineBreakMode="WordWrap"
+                            Style="{StaticResource SettingsText}"
+                            Text="Crash Reporting and Analytics" />
+                        <Switch
+                            Grid.Column="1"
+                            HorizontalOptions="End"
+                            IsToggled="{Binding Analytics}" />
                     </Grid>
                 </StackLayout>
             </rv:MaterialFrame>

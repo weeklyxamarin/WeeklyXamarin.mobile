@@ -24,16 +24,18 @@ namespace WeeklyXamarin.Core.Services
         private readonly IConnectivity _connectivity;
         private readonly IBarrel _barrel;
         private readonly ILogger<GithubDataStore> _logger;
+        private readonly IAnalytics _analytics;
 
         const string baseUrl = @"https://raw.githubusercontent.com/weeklyxamarin/WeeklyXamarin.content/master/content/";
         const string indexFile = "index.json";
 
-        public GithubDataStore(HttpClient httpClient, IConnectivity connectivity, IBarrel barrel, ILogger<GithubDataStore> logger)
+        public GithubDataStore(HttpClient httpClient, IConnectivity connectivity, IBarrel barrel, ILogger<GithubDataStore> logger, IAnalytics analytics)
         {
             _httpClient = httpClient;
             _connectivity = connectivity;
             _barrel = barrel;
             _logger = logger;
+            _analytics = analytics;
 
             httpClient.BaseAddress = new Uri(baseUrl);
         }
@@ -65,12 +67,11 @@ namespace WeeklyXamarin.Core.Services
                     edition = JsonConvert.DeserializeObject<Edition>(editionResponse);
 
                     _barrel.Add(key: editionFile, data: edition, expireIn: TimeSpan.FromDays(999));
-                    //return edition;
                 }
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, nameof(GetEditionsAsync));
-                    //return edition;
+                    _analytics.TrackError(ex, new Dictionary<string, string> { { Constants.Analytics.Properties.FileName, editionFile } });
                 }
             }
 
@@ -111,6 +112,7 @@ namespace WeeklyXamarin.Core.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex, nameof(GetEditionsAsync));
+                _analytics.TrackError(ex, new Dictionary<string, string> { { Constants.Analytics.Properties.FileName, indexFile } });
 
                 return index?.Editions;
             }
