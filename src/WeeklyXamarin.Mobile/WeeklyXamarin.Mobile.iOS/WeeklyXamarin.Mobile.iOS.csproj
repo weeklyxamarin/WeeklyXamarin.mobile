@@ -81,6 +81,9 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <BundleResource Include="Resources\bookmarkanimation.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </BundleResource>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\tab_about.png" />
@@ -103,6 +106,9 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
+      <Version>4.0.4</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Analytics">
       <Version>3.4.3</Version>
     </PackageReference>
@@ -281,6 +287,9 @@
   </ItemGroup>
   <ItemGroup>
     <LinkDescription Include="Properties\linker.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bookmarkanimation.gif" />
   </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>

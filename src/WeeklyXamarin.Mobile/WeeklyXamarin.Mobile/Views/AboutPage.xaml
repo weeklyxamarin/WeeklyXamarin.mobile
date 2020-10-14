@@ -34,7 +34,6 @@
                 HasShadow="True"
                 IsClippedToBounds="True"
                 MaterialTheme="Acrylic">
-
                 <StackLayout Spacing="20">
                     <Grid ColumnDefinitions="*,Auto">
                         <Label Style="{StaticResource SettingsText}" Text="Open Links in App" />
@@ -47,7 +46,7 @@
                         <Label
                             LineBreakMode="WordWrap"
                             Style="{StaticResource SettingsText}"
-                            Text="Crash Reporting and Analytics" />
+                            Text="Analytics" />
                         <Switch
                             Grid.Column="1"
                             HorizontalOptions="End"

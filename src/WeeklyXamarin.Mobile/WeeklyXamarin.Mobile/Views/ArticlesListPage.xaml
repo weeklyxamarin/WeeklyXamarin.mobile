@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:WeeklyXamarin.Core.Models;assembly=WeeklyXamarin.Core"
     xmlns:rv="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
@@ -167,6 +168,36 @@
                     </SwipeView>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+
+            <CollectionView.EmptyView>
+                <StackLayout IsVisible="{Binding ShowSaved}" VerticalOptions="Fill">
+                    <Label
+                        Margin="40"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource InformationText}"
+                        Text="There's nothing here yet."
+                        VerticalOptions="CenterAndExpand" />
+
+
+                    <lottie:AnimationView
+                        x:Name="animationView"
+                        Animation="bookmarkanimation.json"
+                        AutoPlay="True"
+                        HeightRequest="200"
+                        HorizontalOptions="FillAndExpand"
+                        RepeatMode="Infinite"
+                        VerticalOptions="FillAndExpand"
+                        WidthRequest="200" />
+
+                    <Label
+                        Margin="40"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource InformationText}"
+                        Text="Swipe on an article to bookmark it and it will show up here."
+                        VerticalOptions="CenterAndExpand" />
+                </StackLayout>
+            </CollectionView.EmptyView>
         </CollectionView>
     </RefreshView>
 </views:PageBase>

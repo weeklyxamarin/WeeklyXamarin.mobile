@@ -129,7 +129,12 @@
                 <Setter Property="FontSize" Value="12" />
                 <Setter Property="VerticalTextAlignment" Value="Center" />
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
 
+            <Style x:Key="InformationText" TargetType="Label">
+                <Setter Property="FontFamily" Value="RegularFont" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="TextColor" Value="{StaticResource BlackLight}" />
             </Style>
 
 
