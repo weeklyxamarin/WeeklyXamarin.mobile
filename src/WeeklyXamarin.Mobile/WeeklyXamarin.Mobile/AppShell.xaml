@@ -45,8 +45,7 @@
                     <DataTemplate>
                         <views:ArticlesListPage>
                             <x:Arguments>
-                                <x:String>bookmarks</x:String>
-                                <!--<x:Static DataType="{x:Type x:String}" Member="helpers:Constants.Navigation.PageMode.Bookmarks" />-->
+                                <x:String x:FactoryMethod="{x:Static helpers:Constants.Navigation.PageMode.Bookmarks}"></x:String>                                
                             </x:Arguments>
                         </views:ArticlesListPage>
                     </DataTemplate>
