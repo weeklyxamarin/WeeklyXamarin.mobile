@@ -90,5 +90,10 @@ namespace WeeklyXamarin.Core.Services
         {
             throw new NotImplementedException();
         }
+
+        public IAsyncEnumerable<Article> GetArticleFromSearchAsync(string searchText, bool forceRefresh)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

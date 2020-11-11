@@ -15,6 +15,22 @@
     x:DataType="viewmodels:ArticlesListViewModel"
     x:TypeArguments="viewmodels:ArticlesListViewModel"
     mc:Ignorable="d">
+    <Shell.TitleView>
+        <Entry
+            ClearButtonVisibility="WhileEditing"
+            IsVisible="{Binding ShowSearch}"
+            Placeholder="Search"
+            PlaceholderColor="White"
+            ReturnCommand="{Binding LoadArticlesCommand}"
+            Text="{Binding SearchText}"
+            TextColor="White">
+            <Entry.ReturnCommandParameter>
+                <x:Boolean>
+                    False
+                </x:Boolean>
+            </Entry.ReturnCommandParameter>
+        </Entry>
+    </Shell.TitleView>
 
     <RefreshView Command="{Binding LoadArticlesCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <RefreshView.CommandParameter>

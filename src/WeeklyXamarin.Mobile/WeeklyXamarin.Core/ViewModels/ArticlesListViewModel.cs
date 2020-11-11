@@ -20,6 +20,7 @@ namespace WeeklyXamarin.Core.ViewModels
         readonly IBrowser browser;
         readonly IPreferences preferences;
         readonly IShare share;
+        private bool _showSearch;
 
         public ObservableRangeCollection<Article> Articles { get; set; } = new ObservableRangeCollection<Article>();
         public AsyncCommand<bool> LoadArticlesCommand { get; set; }
@@ -29,6 +30,13 @@ namespace WeeklyXamarin.Core.ViewModels
         public ICommand NavigateBackCommand { get;  set; }
         public string EditionId { get; set;  }
         public bool ShowSaved { get; set; }
+
+        public string SearchText { get; set; }
+        public bool ShowSearch 
+        {
+            get => _showSearch;
+            set => SetProperty(ref _showSearch, value);
+        }
 
         public ArticlesListViewModel(INavigationService navigation, IDataStore dataStore, IBrowser browser, IAnalytics analytics, IPreferences preferences, IShare share) : base(navigation, analytics)
         {
@@ -44,10 +52,10 @@ namespace WeeklyXamarin.Core.ViewModels
             this.share = share;
         }
 
+        
         private async Task ExecuteNavigateBackCommand()
         {
             await navigation.GoToAsync(Constants.Navigation.Paths.Editions);
-            //await navigation.GoBackAsync();
         }
 
         private async Task ExecuteShareCommand(Article article)
@@ -100,12 +108,21 @@ namespace WeeklyXamarin.Core.ViewModels
             {
                 Articles.Clear();
 
+
                 if (ShowSaved)
                 {
                     // get the saved
                     var articles = dataStore.GetSavedArticles(forceRefresh);
                     Articles.AddRange(articles.Articles);
                     Title = "Bookmarks";
+                }
+                else if (ShowSearch)
+                {
+                    var articlesAsync = dataStore.GetArticleFromSearchAsync(SearchText, forceRefresh);
+                    await foreach (Article article in articlesAsync)
+                    {
+                        Articles.Add(article);
+                    }
                 }
                 else
                 {

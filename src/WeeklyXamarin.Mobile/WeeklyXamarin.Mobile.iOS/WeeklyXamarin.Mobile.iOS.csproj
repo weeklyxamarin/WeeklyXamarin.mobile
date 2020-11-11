@@ -49,7 +49,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>Apple Development: Kym Phillpotts (FAY47Y7AK4)</CodesignKey>
+    <CodesignKey>Apple Development: Kym Phillpotts %28FAY47Y7AK4%29</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchLink>Full</MtouchLink>
@@ -290,6 +290,15 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\bookmarkanimation.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_search%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_search%403x.png" />
   </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>

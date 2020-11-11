@@ -6,6 +6,9 @@ namespace WeeklyXamarin.Core.Helpers
 {
     public static class Constants
     {
+        public static string HelloWorld = "hi";
+
+
         public static class Analytics
         {
             public static class Events
@@ -41,6 +44,13 @@ namespace WeeklyXamarin.Core.Helpers
                 public const string ArticleDetail = "articles/article-detail";
                 public const string Editions = "///editions";
 
+            }
+
+            public static class PageMode
+            {
+                public const string Edition = "edition";
+                public const string Bookmarks = "bookmarks";
+                public const string Search = "search";
             }
 
             public static class ParameterNames

@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 using System.Reflection;
 using Lottie.Forms;
+using WeeklyXamarin.Core.Helpers;
 
 namespace WeeklyXamarin.Mobile.Views
 {
@@ -24,15 +25,17 @@ namespace WeeklyXamarin.Mobile.Views
     public partial class ArticlesListPage : PageBase<ArticlesListViewModel>
     {
         private readonly bool showSaved;
+        private readonly bool showSearch;
 
         public string EditionId { get; set; }
         public ArticlesListPage()
         {
             InitializeComponent();
         }
-        public ArticlesListPage(bool showSaved) : this()
+        public ArticlesListPage(string pageMode) : this()
         {
-            this.showSaved = showSaved;
+            this.showSaved = pageMode == Constants.Navigation.PageMode.Bookmarks;
+            this.showSearch = pageMode == Constants.Navigation.PageMode.Search;
         }
 
         protected override async void OnAppearing()
@@ -40,6 +43,7 @@ namespace WeeklyXamarin.Mobile.Views
             base.OnAppearing();
 
             ViewModel.ShowSaved = showSaved;
+            ViewModel.ShowSearch = showSearch;
             ViewModel.EditionId = EditionId;
 
             await ViewModel.LoadArticlesCommand.ExecuteAsync(false);

@@ -154,5 +154,22 @@ namespace WeeklyXamarin.Core.Services
             _barrel.Add(key: Constants.BarrelNames.SavedArticles, data: savedArticleList, expireIn: TimeSpan.FromDays(999));
         }
 
+        public async IAsyncEnumerable<Article> GetArticleFromSearchAsync(string searchText, bool forceRefresh)
+        {
+            var editions = await GetEditionsAsync(forceRefresh);
+
+            foreach (var edition in editions)
+            {
+                var articles = await GetEditionAsync(edition.Id, forceRefresh);
+
+                foreach (var article in articles.Articles)
+                {
+                    if (article.Matches(searchText))
+                    {
+                        yield return article;
+                    }
+                }
+            }
+        }
     }
 }

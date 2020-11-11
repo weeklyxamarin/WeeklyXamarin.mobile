@@ -33,6 +33,32 @@ namespace WeeklyXamarin.Core.Services
             {
                 // new Acknowledgement() {Person="", Activity=Activity.Follow},
 
+                // 11 November 2020
+                new Acknowledgement() {Person="lukaspanni", Activity=Activity.Follow},
+                new Acknowledgement() {Person="m0rde0n", Activity=Activity.Follow},
+                new Acknowledgement() {Person="dreener", Activity=Activity.Follow},
+                new Acknowledgement() {Person="Gamedeveloper0", Activity=Activity.Follow},
+                new Acknowledgement() {Person="mayyhhem", Activity=Activity.Follow},
+                new Acknowledgement() {Person="DerNerd", Activity=Activity.Follow},
+                new Acknowledgement() {Person="WillyWutz", Activity=Activity.Follow},
+                new Acknowledgement() {Person="alenussgipfele27", Activity=Activity.Follow},
+                new Acknowledgement() {Person="Messmeryzed", Activity=Activity.Follow},
+                new Acknowledgement() {Person="muerc", Activity=Activity.Follow},
+                new Acknowledgement() {Person="noobrunner", Activity=Activity.Follow},
+                new Acknowledgement() {Person="l4zy_pigeon", Activity=Activity.Follow},
+                new Acknowledgement() {Person="ravenonj", Activity=Activity.Follow},
+                new Acknowledgement() {Person="gabse191", Activity=Activity.Follow},
+                new Acknowledgement() {Person="ProfAHeil", Activity=Activity.Follow},
+                new Acknowledgement() {Person="ProfAHeil", Activity=Activity.Raid},
+                new Acknowledgement() {Person="ProfAHeil", Activity=Activity.DerailedEverything},
+
+                new Acknowledgement() {Person="moijjo", Activity=Activity.Follow},
+                new Acknowledgement() {Person="BenBtg", Activity=Activity.Subscribe},
+                new Acknowledgement() {Person="DavidWengier", Activity=Activity.Raid},
+                new Acknowledgement() {Person="correiavictor92", Activity=Activity.Follow},
+
+
+
                 // 30 September 2020
                 new Acknowledgement() {Person="r2_au", Activity=Activity.DerailedEverything },
                 new Acknowledgement() {Person="AbhishekSY", Activity=Activity.Follow},

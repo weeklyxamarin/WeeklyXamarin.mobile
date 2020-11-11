@@ -12324,19 +12324,22 @@ namespace WeeklyXamarin.Mobile.Droid
 			public const int tab_saved = 2131165526;
 			
 			// aapt resource value: 0x7F070157
-			public const int tab_settings = 2131165527;
+			public const int tab_search = 2131165527;
 			
 			// aapt resource value: 0x7F070158
-			public const int tooltip_frame_dark = 2131165528;
+			public const int tab_settings = 2131165528;
 			
 			// aapt resource value: 0x7F070159
-			public const int tooltip_frame_light = 2131165529;
+			public const int tooltip_frame_dark = 2131165529;
 			
 			// aapt resource value: 0x7F07015A
-			public const int Unbookmark = 2131165530;
+			public const int tooltip_frame_light = 2131165530;
 			
 			// aapt resource value: 0x7F07015B
-			public const int xamarin_logo = 2131165531;
+			public const int Unbookmark = 2131165531;
+			
+			// aapt resource value: 0x7F07015C
+			public const int xamarin_logo = 2131165532;
 			
 			static Drawable()
 			{
