@@ -27,6 +27,7 @@
     <ScrollView>
         <StackLayout Padding="{StaticResource MarginValue}">
 
+            <Button Text="Test Background Job" Clicked="Button_Clicked" />
             <Label Style="{StaticResource Header}" Text="Preferences" />
             <rv:MaterialFrame
                 Padding="{StaticResource MarginValue}"

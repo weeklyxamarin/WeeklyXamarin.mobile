@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:helpers="clr-namespace:WeeklyXamarin.Core.Helpers;assembly=WeeklyXamarin.Core"
     xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:WeeklyXamarin.Core.Models;assembly=WeeklyXamarin.Core"
@@ -18,7 +19,7 @@
     <Shell.TitleView>
         <Entry
             ClearButtonVisibility="WhileEditing"
-            IsVisible="{Binding ShowSearch}"
+            IsVisible="False"
             Placeholder="Search"
             PlaceholderColor="White"
             ReturnCommand="{Binding LoadArticlesCommand}"
@@ -29,6 +30,14 @@
                     False
                 </x:Boolean>
             </Entry.ReturnCommandParameter>
+            <Entry.Triggers>
+                <DataTrigger
+                    Binding="{Binding PageMode}"
+                    TargetType="Entry"
+                    Value="{x:Static helpers:ArticlesPageMode.Search}">
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+            </Entry.Triggers>
         </Entry>
     </Shell.TitleView>
 
@@ -186,7 +195,15 @@
             </CollectionView.ItemTemplate>
 
             <CollectionView.EmptyView>
-                <StackLayout IsVisible="{Binding ShowSaved}" VerticalOptions="Fill">
+                <StackLayout IsVisible="false" VerticalOptions="Fill">
+                    <StackLayout.Triggers>
+                        <DataTrigger
+                            Binding="{Binding PageMode}"
+                            TargetType="StackLayout"
+                            Value="{x:Static helpers:ArticlesPageMode.Bookmarks}">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </StackLayout.Triggers>
                     <Label
                         Margin="40"
                         HorizontalTextAlignment="Center"

@@ -45,8 +45,7 @@
                     <DataTemplate>
                         <views:ArticlesListPage>
                             <x:Arguments>
-                                <x:String>bookmarks</x:String>
-                                <!--<x:Static DataType="{x:Type x:String}" Member="helpers:Constants.Navigation.PageMode.Bookmarks" />-->
+                                <helpers:ArticlesPageMode>Bookmarks</helpers:ArticlesPageMode>
                             </x:Arguments>
                         </views:ArticlesListPage>
                     </DataTemplate>
@@ -59,7 +58,7 @@
                     <DataTemplate>
                         <views:ArticlesListPage>
                             <x:Arguments>
-                                <x:String>search</x:String>
+                                <helpers:ArticlesPageMode>Search</helpers:ArticlesPageMode>
                             </x:Arguments>
                         </views:ArticlesListPage>
                     </DataTemplate>

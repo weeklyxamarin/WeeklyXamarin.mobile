@@ -20,7 +20,7 @@ namespace WeeklyXamarin.Core.ViewModels
         readonly IBrowser browser;
         readonly IPreferences preferences;
         readonly IShare share;
-        private bool _showSearch;
+        private ArticlesPageMode _pageMode;
 
         public ObservableRangeCollection<Article> Articles { get; set; } = new ObservableRangeCollection<Article>();
         public AsyncCommand<bool> LoadArticlesCommand { get; set; }
@@ -29,13 +29,11 @@ namespace WeeklyXamarin.Core.ViewModels
         public ICommand ShareCommand { get;  set; }
         public ICommand NavigateBackCommand { get;  set; }
         public string EditionId { get; set;  }
-        public bool ShowSaved { get; set; }
-
         public string SearchText { get; set; }
-        public bool ShowSearch 
+        public ArticlesPageMode PageMode
         {
-            get => _showSearch;
-            set => SetProperty(ref _showSearch, value);
+            get => _pageMode;
+            set => SetProperty(ref _pageMode, value);
         }
 
         public ArticlesListViewModel(INavigationService navigation, IDataStore dataStore, IBrowser browser, IAnalytics analytics, IPreferences preferences, IShare share) : base(navigation, analytics)
@@ -75,7 +73,7 @@ namespace WeeklyXamarin.Core.ViewModels
                 dataStore.UnbookmarkArticle(article);
                 article.IsSaved = false;
 
-                if (ShowSaved)
+                if (PageMode == ArticlesPageMode.Bookmarks)
                     Articles.Remove(article);
 
             }
@@ -109,14 +107,14 @@ namespace WeeklyXamarin.Core.ViewModels
                 Articles.Clear();
 
 
-                if (ShowSaved)
+                if (PageMode == ArticlesPageMode.Bookmarks)
                 {
                     // get the saved
                     var articles = dataStore.GetSavedArticles(forceRefresh);
                     Articles.AddRange(articles.Articles);
                     Title = "Bookmarks";
                 }
-                else if (ShowSearch)
+                else if (PageMode == ArticlesPageMode.Search)
                 {
                     var articlesAsync = dataStore.GetArticleFromSearchAsync(SearchText, forceRefresh);
                     await foreach (Article article in articlesAsync)
@@ -134,9 +132,9 @@ namespace WeeklyXamarin.Core.ViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                analytics.TrackError(ex, new Dictionary<string, string> { 
-                    { Constants.Analytics.Properties.EditionId, EditionId }, 
-                    { Constants.Analytics.Properties.ShowSaved, ShowSaved.ToString() } });
+                analytics.TrackError(ex, new Dictionary<string, string> {
+                    { Constants.Analytics.Properties.EditionId, EditionId },
+                    { nameof(PageMode), PageMode.ToString() } });
 
             }
             finally

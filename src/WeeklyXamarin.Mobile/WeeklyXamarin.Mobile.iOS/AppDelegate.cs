@@ -5,6 +5,7 @@ using System.Linq;
 using Foundation;
 using Microsoft.Extensions.DependencyInjection;
 using Sharpnado.MaterialFrame.iOS;
+using Shiny;
 using UIKit;
 
 namespace WeeklyXamarin.Mobile.iOS
@@ -25,12 +26,20 @@ namespace WeeklyXamarin.Mobile.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
-            
+            // in your FinishedLaunching method
+            iOSShinyHost.Init(new WeeklyXamarin.Mobile.Services.WeeklyXamarinStartup());
+
             global::Xamarin.Forms.Forms.Init();
             iOSMaterialFrameRenderer.Init();
             LoadApplication(new App(ConfigureServices));
 
             return base.FinishedLaunching(app, options);
+        }
+
+
+        public override void PerformFetch(UIApplication application, Action<UIBackgroundFetchResult> completionHandler)
+        {
+            Shiny.Jobs.JobManager.OnBackgroundFetch(completionHandler);
         }
 
         private void ConfigureServices(ServiceCollection container)

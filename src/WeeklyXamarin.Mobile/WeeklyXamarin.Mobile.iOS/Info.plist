@@ -34,5 +34,9 @@
 	<string>WeeklyXamarin.Mobile</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
+  <key>UIBackgroundModes</key>
+  <array>
+    <string>fetch</string>
+  </array>
 </dict>
 </plist>

@@ -46,13 +46,6 @@ namespace WeeklyXamarin.Core.Helpers
 
             }
 
-            public static class PageMode
-            {
-                public const string Edition = "edition";
-                public const string Bookmarks = "bookmarks";
-                public const string Search = "search";
-            }
-
             public static class ParameterNames
             {
                 public const string ArticleId = "ArticleId";

@@ -7,7 +7,7 @@ using WeeklyXamarin.Core.Models;
 
 namespace WeeklyXamarin.Core.Services
 {
-    public class MockDataStore : IDataStore
+    public class MockDataStore //: IDataStore
     {
         //readonly List<Item> items;
         readonly IList<Edition> editions;
@@ -86,10 +86,10 @@ namespace WeeklyXamarin.Core.Services
             throw new NotImplementedException();
         }
 
-        SavedArticleThing IDataStore.GetSavedArticles(bool forceRefresh)
-        {
-            throw new NotImplementedException();
-        }
+        //SavedArticleThing IDataStore.GetSavedArticles(bool forceRefresh)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public IAsyncEnumerable<Article> GetArticleFromSearchAsync(string searchText, bool forceRefresh)
         {

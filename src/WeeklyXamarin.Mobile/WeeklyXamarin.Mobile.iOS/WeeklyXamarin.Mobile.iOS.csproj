@@ -127,6 +127,12 @@
     <PackageReference Include="Sharpnado.MaterialFrame">
       <Version>1.1.2</Version>
     </PackageReference>
+    <PackageReference Include="Shiny.Core">
+      <Version>1.2.0.1755</Version>
+    </PackageReference>
+    <PackageReference Include="Shiny.Notifications">
+      <Version>1.2.0.1755</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Essentials.Interfaces">
       <Version>1.5.3.2</Version>
     </PackageReference>

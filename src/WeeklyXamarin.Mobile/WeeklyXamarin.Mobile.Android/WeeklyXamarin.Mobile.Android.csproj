@@ -75,6 +75,12 @@
     <PackageReference Include="Sharpnado.MaterialFrame">
       <Version>1.1.2</Version>
     </PackageReference>
+    <PackageReference Include="Shiny.Core">
+      <Version>1.2.0.1755</Version>
+    </PackageReference>
+    <PackageReference Include="Shiny.Notifications">
+      <Version>1.2.0.1755</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Essentials.Interfaces">
       <Version>1.5.3.2</Version>
     </PackageReference>
@@ -84,6 +90,7 @@
   <ItemGroup>
     <Compile Include="Effects\ScrollNotifierEffect.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="MainApplication.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -305,4 +312,9 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\tab_search.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties TriggeredFromHotReload="False" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

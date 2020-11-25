@@ -24,73 +24,26 @@ namespace WeeklyXamarin.Mobile.Views
     [QueryProperty(nameof(EditionId), nameof(EditionId))]
     public partial class ArticlesListPage : PageBase<ArticlesListViewModel>
     {
-        private readonly bool showSaved;
-        private readonly bool showSearch;
+        private ArticlesPageMode PageMode = ArticlesPageMode.Edition;
 
         public string EditionId { get; set; }
         public ArticlesListPage()
         {
             InitializeComponent();
         }
-        public ArticlesListPage(string pageMode) : this()
+        public ArticlesListPage(ArticlesPageMode pageMode) : this()
         {
-            this.showSaved = pageMode == Constants.Navigation.PageMode.Bookmarks;
-            this.showSearch = pageMode == Constants.Navigation.PageMode.Search;
+            PageMode = pageMode;
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
 
-            ViewModel.ShowSaved = showSaved;
-            ViewModel.ShowSearch = showSearch;
+            ViewModel.PageMode = PageMode;
             ViewModel.EditionId = EditionId;
 
             await ViewModel.LoadArticlesCommand.ExecuteAsync(false);
-
-            //// read the json
-            //var assembly = Assembly.GetExecutingAssembly();
-            //var resourceName = "WeeklyXamarin.Mobile.bookmarkanimation.json";
-
-            //string json;
-
-            //using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            //using (StreamReader reader = new StreamReader(stream))
-            //{
-            //    json = reader.ReadToEnd();
-            //}
-
-            ////animationView.SetAnimationFromJson(json);
-
-            //animationView.AnimationSource = AnimationSource.Json;
-            //animationView.Animation = json;
-            //animationView.PlayAnimation();
-
-        }
-
-        //public void SetAnimationFromEmbeddedResource(string resourceName, Assembly assembly = null)
-        //{
-        //    var animationSource = AnimationSource.EmbeddedResource;
-        //    if (assembly == null) 
-        //        assembly = Xamarin.Forms.Application.Current.GetType().Assembly; 
-        //    Animation = $"resource://{resourceName}?assembly={Uri.EscapeUriString(assembly.FullName)}";
-        //}
-
-        private void animationView_OnFailure(object sender, Exception e)
-        {
-            System.Diagnostics.Debug.WriteLine(e.StackTrace);
-        }
-
-        private void animationView_OnAnimationLoaded(object sender, object e)
-        {
-            System.Diagnostics.Debug.WriteLine("Animation Loaded");
-
-        }
-
-        private void animationView_OnPlayAnimation(object sender, EventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine("Playing Animation");
-
         }
     }
 }

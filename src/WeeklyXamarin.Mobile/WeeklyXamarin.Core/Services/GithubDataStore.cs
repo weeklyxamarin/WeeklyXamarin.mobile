@@ -75,7 +75,9 @@ namespace WeeklyXamarin.Core.Services
                 }
             }
 
-            CheckEditionForSavedArticles(edition);
+            if (edition != null) // smelly??!?!
+                CheckEditionForSavedArticles(edition);
+
             return edition;
         }
 
@@ -87,6 +89,18 @@ namespace WeeklyXamarin.Core.Services
             var indexEdition = index.FirstOrDefault(edition => edition.Id == cachedEdition.Id);
             return (cachedEdition.UpdatedTimeStamp == indexEdition?.UpdatedTimeStamp);
         }
+
+        public async Task<bool> PreloadNextEdition()
+        {
+            var index = _barrel.Get<Index>(key: indexFile);
+            var lastCachedEdition = index.Editions.FirstOrDefault();
+            var newEdition = await GetEditionsAsync(true);
+            
+            var hasNew = lastCachedEdition.Id != newEdition.FirstOrDefault().Id;
+
+            return hasNew;
+        }
+
 
         public async Task<IEnumerable<Edition>> GetEditionsAsync(bool forceRefresh = false)
         {

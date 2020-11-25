@@ -8,7 +8,7 @@ using Android.Widget;
 using Android.OS;
 
 // cool trick from hl15iso to enable http
-[assembly: Application(UsesCleartextTraffic = true)]
+//[assembly: Application(UsesCleartextTraffic = true)]
 
 namespace WeeklyXamarin.Mobile.Droid
 {
