@@ -51,6 +51,7 @@ namespace WeeklyXamarin.Core.Services
 
         public async Task<Edition> GetEditionAsync(string id, bool forceRefresh = false)
         {
+            _logger.Log(LogLevel.Information, $"Getting Edition {id}");
             var editionFile = $"{id}.json";
             var edition = _barrel.Get<Edition>(key: editionFile);
 
@@ -61,6 +62,7 @@ namespace WeeklyXamarin.Core.Services
             {
                 try
                 {
+                    _logger.Log(LogLevel.Information, $"  Getting {id} from the web");
                     // get from the interwebs
                     var editionResponse = await _httpClient.GetStringAsync(editionFile);
 
@@ -93,43 +95,60 @@ namespace WeeklyXamarin.Core.Services
         public async Task<bool> PreloadNextEdition()
         {
             var index = _barrel.Get<Index>(key: indexFile);
-            var lastCachedEdition = index.Editions.FirstOrDefault();
-            var newEdition = await GetEditionsAsync(true);
-            
-            var hasNew = lastCachedEdition.Id != newEdition.FirstOrDefault().Id;
 
+            if (index is null)
+                return false;
+            
+            var lastCachedEdition = index.Editions.FirstOrDefault();
+            var allEditions = await GetEditionsAsync(true);
+            var hasNew = lastCachedEdition.Id != allEditions.FirstOrDefault().Id;
             return hasNew;
         }
 
 
+
         public async Task<IEnumerable<Edition>> GetEditionsAsync(bool forceRefresh = false)
         {
-            var index = _barrel.Get<Index>(key: indexFile);
-
-            if (_connectivity.NetworkAccess != NetworkAccess.Internet ||
-                 (index?.FetchedDate > DateTime.UtcNow.AddMinutes(-5) &&
-                 forceRefresh == false))
-            {
-                return index?.Editions;
-            }
-
             try
             {
-                var indexResponse = await _httpClient.GetStringAsync(indexFile);
-
-                index = JsonConvert.DeserializeObject<Index>(indexResponse);
-                index.FetchedDate = DateTime.UtcNow;
-                _barrel.Add(key: indexFile, data: index, expireIn: TimeSpan.FromMinutes(5));
-
-                return index.Editions;
+                var index = await GetIndexAsync(forceRefresh);
+                return index?.Editions;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, nameof(GetEditionsAsync));
                 _analytics.TrackError(ex, new Dictionary<string, string> { { Constants.Analytics.Properties.FileName, indexFile } });
 
-                return index?.Editions;
+                return null;
             }
+        }
+
+        private async Task<Index> GetIndexAsync(bool forceRefresh)
+        {
+            // try and get the index from cache
+            var index = _barrel.Get<Index>(key: indexFile);
+
+            // if we need to get it from the internet
+            if (forceRefresh || index is null || index.IsStale)
+            {
+                // if we have internet
+                if (_connectivity.NetworkAccess == NetworkAccess.Internet)
+                {
+                    try
+                    {
+                        // get it and cache it
+                        var indexResponse = await _httpClient.GetStringAsync(indexFile);
+                        index = JsonConvert.DeserializeObject<Index>(indexResponse);
+                        index.FetchedDate = DateTime.UtcNow;
+                        _barrel.Add(key: indexFile, data: index, expireIn: TimeSpan.FromMinutes(5));
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Failed to get index");
+                    }
+                }
+            }
+            return index;
         }
 
         public async Task<Article> GetArticleAsync(string editionId, string articleId)

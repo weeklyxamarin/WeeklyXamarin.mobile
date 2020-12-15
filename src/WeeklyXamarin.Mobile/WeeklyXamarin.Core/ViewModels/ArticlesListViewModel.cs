@@ -116,10 +116,16 @@ namespace WeeklyXamarin.Core.ViewModels
                 }
                 else if (PageMode == ArticlesPageMode.Search)
                 {
-                    var articlesAsync = dataStore.GetArticleFromSearchAsync(SearchText, forceRefresh);
-                    await foreach (Article article in articlesAsync)
+                    // don't search for bad things
+
+
+                    if( SearchText is {Length: >1})
                     {
-                        Articles.Add(article);
+                        var articlesAsync = dataStore.GetArticleFromSearchAsync(SearchText, forceRefresh);
+                        await foreach (Article article in articlesAsync)
+                        {
+                            Articles.Add(article);
+                        }
                     }
                 }
                 else

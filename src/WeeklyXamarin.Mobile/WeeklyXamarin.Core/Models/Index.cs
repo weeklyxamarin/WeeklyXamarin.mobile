@@ -9,5 +9,7 @@ namespace WeeklyXamarin.Core.Models
         public DateTime UpdatedTimeStamp { get; set; }
         public List<Edition> Editions { get; set; }
         public DateTime FetchedDate { get; set; }
+
+        public bool IsStale => FetchedDate > DateTime.UtcNow.AddMinutes(-5);
     }
 }
