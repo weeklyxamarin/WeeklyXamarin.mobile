@@ -21,14 +21,15 @@ namespace WeeklyXamarin.Core.ViewModels
         readonly IPreferences preferences;
         readonly IShare share;
         private ArticlesPageMode _pageMode;
+        private bool shouldForceRefresh;
 
         public ObservableRangeCollection<Article> Articles { get; set; } = new ObservableRangeCollection<Article>();
-        public AsyncCommand<bool> LoadArticlesCommand { get; set; }
+        public ICommand LoadArticlesCommand { get; set; }
         public ICommand OpenArticleCommand { get; set; }
         public ICommand ToggleBookmarkCommand { get; set; }
-        public ICommand ShareCommand { get;  set; }
-        public ICommand NavigateBackCommand { get;  set; }
-        public string EditionId { get; set;  }
+        public ICommand ShareCommand { get; set; }
+        public ICommand NavigateBackCommand { get; set; }
+        public string EditionId { get; set; }
         public string SearchText { get; set; }
         public ArticlesPageMode PageMode
         {
@@ -39,7 +40,7 @@ namespace WeeklyXamarin.Core.ViewModels
         public ArticlesListViewModel(INavigationService navigation, IDataStore dataStore, IBrowser browser, IAnalytics analytics, IPreferences preferences, IShare share) : base(navigation, analytics)
         {
             Title = "Articles";
-            LoadArticlesCommand = new AsyncCommand<bool>(ExecuteLoadArticlesCommand, CanRefresh);
+            LoadArticlesCommand = new AsyncCommand(ExecuteLoadArticlesCommand);
             OpenArticleCommand = new AsyncCommand<Article>(OpenArticle);
             ToggleBookmarkCommand = new Command<Article>(ExecuteToggleBookmarkArticle);
             ShareCommand = new AsyncCommand<Article>(ExecuteShareCommand);
@@ -50,7 +51,7 @@ namespace WeeklyXamarin.Core.ViewModels
             this.share = share;
         }
 
-        
+
         private async Task ExecuteNavigateBackCommand()
         {
             await navigation.GoToAsync(Constants.Navigation.Paths.Editions);
@@ -84,13 +85,19 @@ namespace WeeklyXamarin.Core.ViewModels
             }
         }
 
-        private bool CanRefresh(object arg)
-        {
-            return !IsBusy;
-        }
+        // public bool ShouldForceRefresh 
+        // { 
+        //     get => shouldForceRefresh; 
+        //     set => SetProperty(ref shouldForceRefresh, value); 
+        // }
+
+        //private bool CanRefresh(object arg)
+        //{
+        //    return !IsBusy;
+        //}
 
         private async Task OpenArticle(Article article)
-        { 
+        {
             await browser.OpenAsync(article.Url, new BrowserLaunchOptions
             {
                 LaunchMode = preferences.Get(Constants.Preferences.OpenLinksInApp, true) ? BrowserLaunchMode.SystemPreferred : BrowserLaunchMode.External,
@@ -98,9 +105,10 @@ namespace WeeklyXamarin.Core.ViewModels
             });
         }
 
-        async Task ExecuteLoadArticlesCommand(bool forceRefresh = false)
+        async Task ExecuteLoadArticlesCommand()
         {
             IsBusy = true;
+            var forceRefresh = shouldForceRefresh;
 
             try
             {
@@ -119,7 +127,7 @@ namespace WeeklyXamarin.Core.ViewModels
                     // don't search for bad things
 
 
-                    if( SearchText is {Length: >1})
+                    if (SearchText is { Length: > 1 })
                     {
                         var articlesAsync = dataStore.GetArticleFromSearchAsync(SearchText, forceRefresh);
                         await foreach (Article article in articlesAsync)
@@ -146,6 +154,7 @@ namespace WeeklyXamarin.Core.ViewModels
             finally
             {
                 IsBusy = false;
+                shouldForceRefresh = true;
             }
         }
     }

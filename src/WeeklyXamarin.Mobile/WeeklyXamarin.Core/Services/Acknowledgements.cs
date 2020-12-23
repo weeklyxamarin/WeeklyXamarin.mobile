@@ -14,7 +14,8 @@ namespace WeeklyXamarin.Core.Services
         DerailedEverything,
         GiftSub,
         WriteTheThemeTune,
-        SavedTheDay
+        SavedTheDay,
+        Hygiene
     }
 
     public class Acknowledgement
@@ -31,6 +32,15 @@ namespace WeeklyXamarin.Core.Services
         {
             Thanks = new List<Acknowledgement>()
             {
+
+                // 23 December 2020
+                new Acknowledgement() {Person="CodingWithLuce", Activity=Activity.Subscribe},
+                new Acknowledgement() {Person="natiginfo", Activity=Activity.Follow},
+                new Acknowledgement() {Person="silentcoder1", Activity=Activity.Follow},
+                new Acknowledgement() {Person="mallibone", Activity=Activity.Follow},
+                new Acknowledgement() {Person="mallibone", Activity=Activity.Hygiene},
+                new Acknowledgement() {Person="Stoyan_gm", Activity=Activity.Follow},
+                new Acknowledgement() {Person="tbdgamer", Activity=Activity.Subscribe},
 
                 // 15 December 2020
                 new Acknowledgement() {Person="devleifr", Activity=Activity.Follow},

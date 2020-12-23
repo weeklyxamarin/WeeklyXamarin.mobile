@@ -8,6 +8,7 @@
     xmlns:viewmodels="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
     xmlns:views="clr-namespace:WeeklyXamarin.Mobile.Views"
     xmlns:vm="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
+    x:Name="rootPage"
     Title="{Binding Title}"
     x:TypeArguments="viewmodels:AboutViewModel"
     mc:Ignorable="d">
@@ -26,8 +27,6 @@
 
     <ScrollView>
         <StackLayout Padding="{StaticResource MarginValue}">
-
-            <Button Text="Test Background Job" Clicked="Button_Clicked" />
             <Label Style="{StaticResource Header}" Text="Preferences" />
             <rv:MaterialFrame
                 Padding="{StaticResource MarginValue}"
@@ -55,6 +54,53 @@
                     </Grid>
                 </StackLayout>
             </rv:MaterialFrame>
+
+            <Label
+                Margin="0,20,0,0"
+                Style="{StaticResource Header}"
+                Text="Libraries Used" />
+            <rv:MaterialFrame
+                Padding="{StaticResource MarginValue}"
+                CornerRadius="4"
+                HasShadow="True"
+                IsClippedToBounds="True"
+                MaterialTheme="Acrylic">
+                <StackLayout BindableLayout.ItemsSource="{Binding Libraries}" Spacing="20">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding Text}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.OpenUrlCommand, Source={x:Reference rootPage}}" CommandParameter="{Binding Url}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </rv:MaterialFrame>
+
+            <Label
+                Margin="0,20,0,0"
+                Style="{StaticResource Header}"
+                Text="About" />
+            <rv:MaterialFrame
+                Padding="{StaticResource MarginValue}"
+                CornerRadius="4"
+                HasShadow="True"
+                IsClippedToBounds="True"
+                MaterialTheme="Acrylic">
+                <StackLayout BindableLayout.ItemsSource="{Binding AboutLinks}" Spacing="20">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding Text}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.OpenUrlCommand, Source={x:Reference rootPage}}" CommandParameter="{Binding Url}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </rv:MaterialFrame>
+
             <Label
                 Margin="0,20,0,0"
                 Style="{StaticResource Header}"
@@ -79,37 +125,11 @@
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
             </rv:MaterialFrame>
-            <Label
-                Margin="0,20,0,0"
-                Style="{StaticResource Header}"
-                Text="Libraries Used" />
-            <rv:MaterialFrame
-                Padding="{StaticResource MarginValue}"
-                CornerRadius="4"
-                HasShadow="True"
-                IsClippedToBounds="True"
-                MaterialTheme="Acrylic">
-                <StackLayout Spacing="20">
-                    <Label Text="Community Toolkit" />
-                    <Label Text="Pancake View" />
-                </StackLayout>
-            </rv:MaterialFrame>
 
-            <Label
-                Margin="0,20,0,0"
-                Style="{StaticResource Header}"
-                Text="About" />
-            <rv:MaterialFrame
-                Padding="{StaticResource MarginValue}"
-                CornerRadius="4"
-                HasShadow="True"
-                IsClippedToBounds="True"
-                MaterialTheme="Acrylic">
-                <StackLayout Spacing="20">
-                    <Label Text="Github Repo" />
-                </StackLayout>
-            </rv:MaterialFrame>
+            <Image IsAnimationPlaying="True" Source="mark.gif" />
+
         </StackLayout>
+
 
     </ScrollView>
 

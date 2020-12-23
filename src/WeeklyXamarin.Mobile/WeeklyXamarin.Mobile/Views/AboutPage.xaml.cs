@@ -15,10 +15,5 @@ namespace WeeklyXamarin.Mobile.Views
         {
             InitializeComponent();
         }
-
-        private async void Button_Clicked(object sender, EventArgs e)
-        {
-            var results = await Shiny.ShinyHost.Resolve<Shiny.Jobs.IJobManager>().RunAll();
-        }
     }
 }

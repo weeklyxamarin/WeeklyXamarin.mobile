@@ -43,7 +43,8 @@ namespace WeeklyXamarin.Mobile.Views
             ViewModel.PageMode = PageMode;
             ViewModel.EditionId = EditionId;
 
-            await ViewModel.LoadArticlesCommand.ExecuteAsync(false);
+            if (ViewModel.Articles.Count == 0)
+                ViewModel.IsBusy = true;
         }
     }
 }
