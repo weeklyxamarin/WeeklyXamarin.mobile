@@ -15,6 +15,7 @@ using Xamarin.Essentials;
 using Xamarin.Essentials.Interfaces;
 using Microsoft.Extensions.Logging;
 using WeeklyXamarin.Core.Helpers;
+using Index = WeeklyXamarin.Core.Models.Index;
 
 namespace WeeklyXamarin.Core.Services
 {

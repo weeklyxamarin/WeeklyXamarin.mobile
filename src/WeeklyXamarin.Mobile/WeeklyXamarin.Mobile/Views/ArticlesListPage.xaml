@@ -22,7 +22,7 @@
             IsVisible="False"
             Placeholder="Search"
             PlaceholderColor="White"
-            ReturnCommand="{Binding LoadArticlesCommand}"
+            ReturnCommand="{Binding SearchArticlesCommand}"
             Text="{Binding SearchText}"
             TextColor="White">
             <Entry.ReturnCommandParameter>

@@ -35,8 +35,6 @@ namespace WeeklyXamarin.Core.ViewModels
 
         async Task ExecuteLoadEditionsCommand()
         {
-            IsBusy = true;
-
             try
             {
                 Editions.Clear();

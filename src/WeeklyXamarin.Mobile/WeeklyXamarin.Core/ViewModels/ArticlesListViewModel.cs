@@ -25,6 +25,7 @@ namespace WeeklyXamarin.Core.ViewModels
 
         public ObservableRangeCollection<Article> Articles { get; set; } = new ObservableRangeCollection<Article>();
         public ICommand LoadArticlesCommand { get; set; }
+        public ICommand SearchArticlesCommand { get; set; }
         public ICommand OpenArticleCommand { get; set; }
         public ICommand ToggleBookmarkCommand { get; set; }
         public ICommand ShareCommand { get; set; }
@@ -41,6 +42,7 @@ namespace WeeklyXamarin.Core.ViewModels
         {
             Title = "Articles";
             LoadArticlesCommand = new AsyncCommand(ExecuteLoadArticlesCommand);
+            SearchArticlesCommand = new AsyncCommand(ExecuteSearchArticlesCommand);
             OpenArticleCommand = new AsyncCommand<Article>(OpenArticle);
             ToggleBookmarkCommand = new Command<Article>(ExecuteToggleBookmarkArticle);
             ShareCommand = new AsyncCommand<Article>(ExecuteShareCommand);
@@ -50,6 +52,7 @@ namespace WeeklyXamarin.Core.ViewModels
             this.preferences = preferences;
             this.share = share;
         }
+
 
 
         private async Task ExecuteNavigateBackCommand()
@@ -105,9 +108,14 @@ namespace WeeklyXamarin.Core.ViewModels
             });
         }
 
+        private Task ExecuteSearchArticlesCommand()
+        {
+            shouldForceRefresh = false;
+            return ExecuteLoadArticlesCommand();
+        }
+
         async Task ExecuteLoadArticlesCommand()
         {
-            IsBusy = true;
             var forceRefresh = shouldForceRefresh;
 
             try
@@ -126,8 +134,9 @@ namespace WeeklyXamarin.Core.ViewModels
                 {
                     // don't search for bad things
 
-
-                    if (SearchText is { Length: > 1 })
+                    //C# 8 Goodness
+                    // if (SearchText is { Length: > 1 })
+                    if(SearchText?.Length > 1)
                     {
                         var articlesAsync = dataStore.GetArticleFromSearchAsync(SearchText, forceRefresh);
                         await foreach (Article article in articlesAsync)
