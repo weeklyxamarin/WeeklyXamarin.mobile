@@ -7,12 +7,6 @@
   <assembly fullname="WeeklyXamarin.Core">
     <type fullname="WeeklyXamarin.*"/>
   </assembly>
-  <assembly fullname="Lottie.Android">
-    <type fullname="*"/>
-  </assembly>
-  <assembly fullname="Lottie.Forms">
-    <type fullname="*"/>
-  </assembly>
   <assembly fullname="Shiny.Core">
     <type fullname="*"/>
   </assembly>
