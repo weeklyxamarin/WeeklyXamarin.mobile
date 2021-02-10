@@ -56,11 +56,7 @@
             <ShellContent>
                 <ShellContent.ContentTemplate>
                     <DataTemplate>
-                        <views:ArticlesListPage>
-                            <x:Arguments>
-                                <helpers:ArticlesPageMode>Search</helpers:ArticlesPageMode>
-                            </x:Arguments>
-                        </views:ArticlesListPage>
+                        <views:SearchPage />
                     </DataTemplate>
                 </ShellContent.ContentTemplate>
             </ShellContent>

@@ -12,6 +12,7 @@
             <Thickness x:Key="MarginValue">20,10,20,10</Thickness>
             <Thickness x:Key="CardMargin">20,10,20,10</Thickness>
             <converters:CategoryToColorConverter x:Key="categoryToColorConverter" />
+            <converters:ListStateToLayoutStateConverter x:Key="listStateToLayoutStateConverter" />
 
             <!--  Colors  -->
             <Color x:Key="RedLight">#E84C3D</Color>

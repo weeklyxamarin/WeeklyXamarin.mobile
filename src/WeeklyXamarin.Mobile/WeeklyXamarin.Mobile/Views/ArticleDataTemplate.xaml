@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SwipeView
+    x:Class="WeeklyXamarin.Mobile.Views.ArticleDataTemplate"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:rv="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:viewmodels="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
+    BackgroundColor="{StaticResource WhiteLight}">
+    <SwipeView.RightItems>
+        <SwipeItems>
+            <!--<SwipeItemView Command="{Binding BindingContext.ShareCommand, Source={x:Reference rootPage}}" CommandParameter="{Binding .}">
+                <Grid BackgroundColor="#3598DB" WidthRequest="60">
+                    <Image
+                        HorizontalOptions="Center"
+                        Source="Share"
+                        VerticalOptions="Center" />
+
+                </Grid>
+            </SwipeItemView>
+            <SwipeItemView Command="{Binding BindingContext.ToggleBookmarkCommand, Source={x:Reference rootPage}}" CommandParameter="{Binding .}">
+                <Grid BackgroundColor="#3598DB" WidthRequest="60">
+                    <Grid.Triggers>
+                        <DataTrigger
+                            Binding="{Binding IsSaved}"
+                            TargetType="Grid"
+                            Value="True">
+                            <Setter Property="BackgroundColor" Value="{StaticResource RedLight}" />
+                        </DataTrigger>
+                    </Grid.Triggers>
+                    <Image
+                        HorizontalOptions="Center"
+                        Source="Bookmark"
+                        VerticalOptions="Center">
+                        <Image.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsSaved}"
+                                TargetType="Image"
+                                Value="True">
+                                <Setter Property="Source" Value="Unbookmark" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+
+                </Grid>
+            </SwipeItemView>-->
+        </SwipeItems>
+    </SwipeView.RightItems>
+    <ContentView>
+        <rv:MaterialFrame
+            Margin="{StaticResource CardMargin}"
+            Padding="0"
+            CornerRadius="4"
+            HasShadow="True"
+            IsClippedToBounds="True"
+            MaterialTheme="Acrylic">
+            <Grid
+                Margin="0,0,10,0"
+                ColumnDefinitions="8, *"
+                ColumnSpacing="20"
+                RowDefinitions="Auto, Auto, Auto, Auto"
+                RowSpacing="10">
+                <BoxView
+                    Grid.Row="0"
+                    Grid.RowSpan="4"
+                    Grid.Column="0"
+                    BackgroundColor="{Binding Category, Converter={StaticResource categoryToColorConverter}}"
+                    CornerRadius="4,0,4,0"
+                    HorizontalOptions="Start"
+                    WidthRequest="8" />
+
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="0,10,0,0"
+                    Style="{StaticResource ArticleTitle}"
+                    Text="{Binding Title}" />
+
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Style="{StaticResource ArticleAuthor}"
+                    Text="{Binding Author}"
+                    TextColor="{Binding Category, Converter={StaticResource categoryToColorConverter}}" />
+
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Style="{StaticResource ArticleDescription}"
+                    Text="{Binding Description}" />
+
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    IsVisible="{Binding IsSaved}"
+                    Text="Saved" />
+
+                <StackLayout
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    IsVisible="{OnPlatform UWP=True,
+                                           Default=False}"
+                    Orientation="Horizontal">
+                    <Label HorizontalOptions="Start" Text="Share">
+                        <!--<Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BindingContext.ShareCommand, Source={x:Reference rootPage}}" CommandParameter="{Binding .}" />
+                        </Label.GestureRecognizers>-->
+                    </Label>
+                    <Label HorizontalOptions="Start" Text="Bookmark">
+                        <!--<Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BindingContext.ToggleBookmarkCommand, Source={x:Reference rootPage}}" CommandParameter="{Binding .}" />
+                        </Label.GestureRecognizers>-->
+
+                    </Label>
+                </StackLayout>
+
+
+                <rv:MaterialFrame
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Margin="0,0,10,10"
+                    Padding="10,3"
+                    CornerRadius="6"
+                    HeightRequest="20"
+                    HorizontalOptions="Start"
+                    LightThemeBackgroundColor="{Binding Category, Converter={StaticResource categoryToColorConverter}}"
+                    MaterialTheme="Acrylic"
+                    VerticalOptions="End">
+                    <Label
+                        Style="{StaticResource CategoryLozenge}"
+                        Text="{Binding Category}"
+                        TextColor="White" />
+                </rv:MaterialFrame>
+
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding OpenArticleCommand, Source={RelativeSource AncestorType={x:Type viewmodels:ArticleListViewModelBase}, Mode=FindAncestorBindingContext}}"
+                        CommandParameter="{Binding .}"
+                        NumberOfTapsRequired="1" />
+
+                </Grid.GestureRecognizers>
+            </Grid>
+        </rv:MaterialFrame>
+    </ContentView>
+
+</SwipeView>

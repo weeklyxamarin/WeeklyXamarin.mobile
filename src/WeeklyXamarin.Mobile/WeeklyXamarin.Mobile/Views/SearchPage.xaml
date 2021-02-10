@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:PageBase
+    x:Class="WeeklyXamarin.Mobile.Views.SearchPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:WeeklyXamarin.Core.Models;assembly=WeeklyXamarin.Core"
+    xmlns:rv="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:viewmodels="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
+    xmlns:views="clr-namespace:WeeklyXamarin.Mobile.Views"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Name="rootPage"
+    x:DataType="viewmodels:SearchViewModel"
+    x:TypeArguments="viewmodels:SearchViewModel">
+
+    <Grid RowDefinitions="Auto,*">
+        <Entry
+            Margin="20,20,20,0"
+            ClearButtonVisibility="WhileEditing"
+            Placeholder="Search..."
+            ReturnCommand="{Binding SearchArticlesCommand}"
+            Text="{Binding SearchText}">
+            <Entry.Behaviors>
+                <xct:UserStoppedTypingBehavior
+                    Command="{Binding SearchArticlesCommand}"
+                    MinimumLengthThreshold="2"
+                    ShouldDismissKeyboardAutomatically="False"
+                    StoppedTypingTimeThreshold="1000" />
+            </Entry.Behaviors>
+        </Entry>
+
+        <RefreshView
+            x:Name="refreshView"
+            Grid.Row="1"
+            Command="{Binding SearchArticlesCommand}"
+            IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+
+            <CollectionView ItemsSource="{Binding Articles}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Article">
+                        <views:ArticleDataTemplate />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView />
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</views:PageBase>

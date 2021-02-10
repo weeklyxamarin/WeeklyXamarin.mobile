@@ -6,9 +6,6 @@ namespace WeeklyXamarin.Core.Helpers
 {
     public static class Constants
     {
-        public static string HelloWorld = "hi";
-
-
         public static class Analytics
         {
             public static class Events
