@@ -30,6 +30,7 @@ namespace WeeklyXamarin.Core.ViewModels
         {
             OpenArticleCommand = new AsyncCommand<Article>(OpenArticle);
             ShareCommand = new AsyncCommand<Article>(ExecuteShareCommand);
+            ToggleBookmarkCommand = new Command<Article>(ExecuteToggleBookmarkArticle);
 
             this.dataStore = dataStore;
             this.browser = browser;
@@ -55,6 +56,20 @@ namespace WeeklyXamarin.Core.ViewModels
                 Uri = article.Url,
                 Title = article.Title
             });
+        }
+
+        protected virtual void ExecuteToggleBookmarkArticle(Article article)
+        {
+            if (article.IsSaved)
+            {
+                dataStore.UnbookmarkArticle(article);
+                article.IsSaved = false;
+            }
+            else
+            {
+                dataStore.BookmarkArticle(article);
+                article.IsSaved = true;
+            }
         }
 
         private async Task OpenArticle(Article article)

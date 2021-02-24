@@ -52,28 +52,6 @@ namespace WeeklyXamarin.Core.ViewModels
             await navigation.GoToAsync(Constants.Navigation.Paths.Editions);
         }
 
-        private void ExecuteToggleBookmarkArticle(Article article)
-        {
-            if (article.IsSaved)
-            {
-                dataStore.UnbookmarkArticle(article);
-                article.IsSaved = false;
-
-                if (PageMode == ArticlesPageMode.Bookmarks)
-                {
-                    Articles.Remove(article);
-                    if (Articles.Count == 0) CurrentState = ListState.Error;
-                }
-
-            }
-            else
-            {
-                dataStore.BookmarkArticle(article);
-                article.IsSaved = true;
-            }
-        }
-
-
         async Task ExecuteLoadArticlesCommand()
         {
             var forceRefresh = shouldForceRefresh;

@@ -8,7 +8,7 @@
     BackgroundColor="{StaticResource WhiteLight}">
     <SwipeView.RightItems>
         <SwipeItems>
-            <!--<SwipeItemView Command="{Binding BindingContext.ShareCommand, Source={x:Reference rootPage}}" CommandParameter="{Binding .}">
+            <SwipeItemView Command="{Binding ShareCommand, Source={RelativeSource AncestorType={x:Type viewmodels:ArticleListViewModelBase}, Mode=FindAncestorBindingContext}}" CommandParameter="{Binding .}">
                 <Grid BackgroundColor="#3598DB" WidthRequest="60">
                     <Image
                         HorizontalOptions="Center"
@@ -17,7 +17,7 @@
 
                 </Grid>
             </SwipeItemView>
-            <SwipeItemView Command="{Binding BindingContext.ToggleBookmarkCommand, Source={x:Reference rootPage}}" CommandParameter="{Binding .}">
+            <SwipeItemView Command="{Binding ToggleBookmarkCommand, Source={RelativeSource AncestorType={x:Type viewmodels:ArticleListViewModelBase}, Mode=FindAncestorBindingContext}}" CommandParameter="{Binding .}">
                 <Grid BackgroundColor="#3598DB" WidthRequest="60">
                     <Grid.Triggers>
                         <DataTrigger
@@ -42,16 +42,16 @@
                     </Image>
 
                 </Grid>
-            </SwipeItemView>-->
+            </SwipeItemView>
         </SwipeItems>
     </SwipeView.RightItems>
-    <ContentView>
+    <ContentView BackgroundColor="{StaticResource WhiteLight}">
         <rv:MaterialFrame
             Margin="{StaticResource CardMargin}"
             Padding="0"
             CornerRadius="4"
             HasShadow="True"
-            IsClippedToBounds="True"
+            IsClippedToBounds="False"
             MaterialTheme="Acrylic">
             <Grid
                 Margin="0,0,10,0"
@@ -74,6 +74,15 @@
                     Margin="0,10,0,0"
                     Style="{StaticResource ArticleTitle}"
                     Text="{Binding Title}" />
+
+                <Image
+                    Grid.Column="1"
+                    Margin="-4,0"
+                    HorizontalOptions="End"
+                    IsVisible="{Binding IsSaved}"
+                    Source="BookmarkIndicator"
+                    TranslationY="-5"
+                    VerticalOptions="Start" />
 
                 <Label
                     Grid.Row="1"

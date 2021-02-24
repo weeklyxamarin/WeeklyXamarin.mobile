@@ -312,9 +312,18 @@
   <ItemGroup>
     <BundleResource Include="Resources\mark.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\BookmarkIndicator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\BookmarkIndicator%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\BookmarkIndicator%403x.png" />
+  </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties TriggeredFromHotReload="False" XamarinHotReloadUnhandledDeviceExceptionWeeklyXamarinMobileiOSHideInfoBar="True" />
+      <UserProperties XamarinHotReloadUnhandledDeviceExceptionWeeklyXamarinMobileiOSHideInfoBar="True" TriggeredFromHotReload="False" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

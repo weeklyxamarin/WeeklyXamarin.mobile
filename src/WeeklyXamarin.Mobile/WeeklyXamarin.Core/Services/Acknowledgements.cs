@@ -16,6 +16,7 @@ namespace WeeklyXamarin.Core.Services
         WriteTheThemeTune,
         SavedTheDay,
         Hygiene,
+        Host
     }
 
     public class Acknowledgement
@@ -32,6 +33,10 @@ namespace WeeklyXamarin.Core.Services
         {
             Thanks = new List<Acknowledgement>()
             {
+
+                new Acknowledgement() {Person="TendedDinosaur3", Activity=Activity.Host},
+
+
                 // 10 Feb 2021
                 new Acknowledgement() {Person="ortunado", Activity=Activity.Follow},
                 new Acknowledgement() {Person="TendedDinosaur3", Activity=Activity.Raid},

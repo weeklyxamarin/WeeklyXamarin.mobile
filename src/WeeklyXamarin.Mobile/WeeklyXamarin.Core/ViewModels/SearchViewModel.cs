@@ -13,7 +13,7 @@ namespace WeeklyXamarin.Core.ViewModels
 {
     public class SearchViewModel : ArticleListViewModelBase
     {
-        private string searchText;
+        string searchText;
         public ICommand SearchArticlesCommand { get; set; }
         public SearchViewModel(INavigationService navigation, IAnalytics analytics, IDataStore dataStore, IBrowser browser, IPreferences preferences, IShare share) : base(navigation, analytics, dataStore, browser, preferences, share)
         {
@@ -27,15 +27,26 @@ namespace WeeklyXamarin.Core.ViewModels
             {
                 searchText = value;
                 if (value is { Length: 0 })
+                {
                     _ = ExecuteSearchArticlesCommand();
+                }
             }
         }
+
+        string lastSearchTerm;
 
         private async Task ExecuteSearchArticlesCommand()
         {
             try
             {
+                
+                if (string.Equals(lastSearchTerm, SearchText, StringComparison.InvariantCultureIgnoreCase))
+                    return;
+                lastSearchTerm = SearchText;
+                if (IsBusy) return; //don't run a search if one is already in progress
+                IsBusy = true;
                 Articles.Clear();
+                
                 if (SearchText?.Length > 1)
                 {
                     CurrentState = ListState.Loading;
@@ -43,14 +54,15 @@ namespace WeeklyXamarin.Core.ViewModels
                     await foreach (Article article in articlesAsync)
                     {
                         Articles.Add(article);
-                        CurrentState = ListState.None;
+                        CurrentState = ListState.None; // show the results
                     }
+                    //lastSearchTerm =  SearchText;
                     if (Articles.Count == 0)
                         CurrentState = ListState.Empty; // you found nada
                 }
                 else
                 {
-                    CurrentState = ListState.Empty; // enter 2 or characters
+                    CurrentState = ListState.None; // go to collectionview empty state
                 }
             }
             catch (Exception ex)

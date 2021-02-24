@@ -3,12 +3,14 @@
     x:Class="WeeklyXamarin.Mobile.Views.SearchPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
     xmlns:models="clr-namespace:WeeklyXamarin.Core.Models;assembly=WeeklyXamarin.Core"
     xmlns:rv="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:viewmodels="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
     xmlns:views="clr-namespace:WeeklyXamarin.Mobile.Views"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="rootPage"
+    Title="Search"
     x:DataType="viewmodels:SearchViewModel"
     x:TypeArguments="viewmodels:SearchViewModel">
 
@@ -16,7 +18,7 @@
         <Entry
             Margin="20,20,20,0"
             ClearButtonVisibility="WhileEditing"
-            Placeholder="Search..."
+            Placeholder="Enter your search term"
             ReturnCommand="{Binding SearchArticlesCommand}"
             Text="{Binding SearchText}">
             <Entry.Behaviors>
@@ -28,11 +30,34 @@
             </Entry.Behaviors>
         </Entry>
 
-        <RefreshView
-            x:Name="refreshView"
-            Grid.Row="1"
-            Command="{Binding SearchArticlesCommand}"
-            IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <Grid Grid.Row="1" xct:StateLayout.CurrentState="{Binding CurrentState, Converter={StaticResource listStateToLayoutStateConverter}}">
+            <xct:StateLayout.StateViews>
+                <xct:StateView StateKey="Loading">
+                    <ActivityIndicator
+                        HorizontalOptions="Center"
+                        IsRunning="True"
+                        VerticalOptions="Center" />
+                </xct:StateView>
+                <xct:StateView StateKey="Empty">
+                    <StackLayout VerticalOptions="Center">
+                        <Label
+                            Margin="40"
+                            HorizontalTextAlignment="Center"
+                            Style="{StaticResource InformationText}"
+                            Text="{Binding SearchText, StringFormat='No results for &quot;{0}&quot;.'}"
+                            VerticalOptions="CenterAndExpand" />
+                        <lottie:AnimationView
+                            x:Name="animationView"
+                            Animation="bookmarkanimation.json"
+                            AutoPlay="True"
+                            HeightRequest="200"
+                            HorizontalOptions="FillAndExpand"
+                            RepeatMode="Infinite"
+                            VerticalOptions="FillAndExpand"
+                            WidthRequest="200" />
+                    </StackLayout>
+                </xct:StateView>
+            </xct:StateLayout.StateViews>
 
             <CollectionView ItemsSource="{Binding Articles}">
                 <CollectionView.ItemTemplate>
@@ -40,8 +65,16 @@
                         <views:ArticleDataTemplate />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-                <CollectionView.EmptyView />
+                <CollectionView.EmptyView>
+                    <Label
+                        Margin="40"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource InformationText}"
+                        Text="What are you looking for?"
+                        VerticalOptions="Fill"
+                        VerticalTextAlignment="Center" />
+                </CollectionView.EmptyView>
             </CollectionView>
-        </RefreshView>
+        </Grid>
     </Grid>
 </views:PageBase>
