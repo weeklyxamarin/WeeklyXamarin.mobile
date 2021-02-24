@@ -43,11 +43,7 @@
             <ShellContent>
                 <ShellContent.ContentTemplate>
                     <DataTemplate>
-                        <views:ArticlesListPage>
-                            <x:Arguments>
-                                <helpers:ArticlesPageMode>Bookmarks</helpers:ArticlesPageMode>
-                            </x:Arguments>
-                        </views:ArticlesListPage>
+                        <views:BookmarksPage />
                     </DataTemplate>
                 </ShellContent.ContentTemplate>
             </ShellContent>

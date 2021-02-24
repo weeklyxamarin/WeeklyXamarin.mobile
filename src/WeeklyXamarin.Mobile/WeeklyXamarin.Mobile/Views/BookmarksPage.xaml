@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:PageBase
+    x:Class="WeeklyXamarin.Mobile.Views.BookmarksPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+    xmlns:models="clr-namespace:WeeklyXamarin.Core.Models;assembly=WeeklyXamarin.Core"
+    xmlns:viewmodels="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
+    xmlns:views="clr-namespace:WeeklyXamarin.Mobile.Views"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    Title="Bookmarks"
+    x:DataType="viewmodels:BookmarksViewModel"
+    x:TypeArguments="viewmodels:BookmarksViewModel">
+
+    <Grid xct:StateLayout.CurrentState="{Binding CurrentState, Converter={StaticResource listStateToLayoutStateConverter}}">
+        <xct:StateLayout.StateViews>
+            <xct:StateView StateKey="Loading">
+                <ActivityIndicator
+                    HorizontalOptions="Center"
+                    IsRunning="True"
+                    VerticalOptions="Center" />
+            </xct:StateView>
+            <xct:StateView StateKey="Empty">
+                <StackLayout VerticalOptions="Center">
+                    <Label
+                        Margin="40"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource InformationText}"
+                        Text="{Binding SearchText, StringFormat='No results for &quot;{0}&quot;.'}"
+                        VerticalOptions="CenterAndExpand" />
+                    <lottie:AnimationView
+                        x:Name="animationView"
+                        Animation="bookmarkanimation.json"
+                        AutoPlay="True"
+                        HeightRequest="200"
+                        HorizontalOptions="FillAndExpand"
+                        RepeatMode="Infinite"
+                        VerticalOptions="FillAndExpand"
+                        WidthRequest="200" />
+                </StackLayout>
+            </xct:StateView>
+        </xct:StateLayout.StateViews>
+
+        <CollectionView ItemsSource="{Binding Articles}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Article">
+                    <views:ArticleDataTemplate />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <Label
+                    Margin="40"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource InformationText}"
+                    Text="You haven't bookmarked anything yet."
+                    VerticalOptions="Fill"
+                    VerticalTextAlignment="Center" />
+            </CollectionView.EmptyView>
+        </CollectionView>
+    </Grid>
+
+</views:PageBase>
