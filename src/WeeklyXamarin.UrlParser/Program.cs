@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -76,7 +77,7 @@ namespace WeeklyXamarin.UrlParser
             lookupDataPath = Path.Combine(basePath, "LookupData");
 
             // for debug override the basepath
-            basePath = @"D:\GitHub\weeklyxamarin\WeeklyXamarin.content\content";
+            basePath = @"c:\dev\GitHub\weeklyxamarin\WeeklyXamarin.content\content";
             outputPath = basePath;
             planetXamarinAuthorsDataPath = @"D:\github\planetxamarin\planetxamarin\src\Firehose.Web\Authors";
             lookupDataPath = basePath;
@@ -109,9 +110,24 @@ namespace WeeklyXamarin.UrlParser
 
         private static Author GetAuthorFromUrl(string url)
         {
-            Author author = new Author();
 
             var uri = new Uri(url);
+            Author author = new Author();
+
+            // handle special cases
+            if (uri.Host.Equals("devblogs.microsoft.com", StringComparison.InvariantCultureIgnoreCase))
+            {
+                // have a look at the metadata for the URL
+                string authorName = GetMetaTag(uri.ToString(), "twitter:data1");
+
+                if (!string.IsNullOrEmpty(authorName))
+                {
+                    author = FindAuthorByName(authorName);
+                    if (author != null)
+                        return author;
+                }
+            }
+
 
             
 
@@ -145,6 +161,10 @@ namespace WeeklyXamarin.UrlParser
             return author;
         }
 
+        private static Author FindAuthorByName(string authorName)
+        {
+            return AuthorLookup.Authors.FirstOrDefault(n => string.Equals(authorName, n.Name, StringComparison.OrdinalIgnoreCase));
+        }
 
         private static Author FindAuthor (string key)
         {
@@ -197,6 +217,36 @@ namespace WeeklyXamarin.UrlParser
 
                 return authorResponse;
             }
+        }
+
+        // dad is a fat stinky that comes from a hairy hole.
+        // thanks rose... that's very kind.
+
+        public static string GetMetaTag (string url, string name)
+        {
+            var webGet = new HtmlWeb();
+            var document = webGet.Load(url);
+            var metaTags = document.DocumentNode.SelectNodes("//meta");
+            //return metaTags.ToString();
+
+            var val = document.DocumentNode.SelectSingleNode($"//meta[@name='{name}']").GetAttributeValue("content", String.Empty);
+            return val;
+            //foreach (var tag in metaTags)
+            //{
+            //    foreach (var attr in tag.Attributes)
+            //    {
+            //        if (attr.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))
+            //            return attr.Value;
+            //    }
+            //}
+            //return null;
+
+
+            //var link = document.DocumentNode.SelectSingleNode("//link[@itemprop='twitter:data1']");
+            //var d = document.DocumentNode.SelectNodes("//meta/twitter:data1/@content");
+            //var href = link.Attributes["content"].Value;
+            //return href;
+
         }
 
         /// <summary>
