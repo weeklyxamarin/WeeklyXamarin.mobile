@@ -41,10 +41,10 @@ namespace WeeklyXamarin.Curated.ImportUtil
             lookupDataPath = Path.Combine(basePath, "LookupData");
 
             // for debug override the basepath
-            basePath = @"D:\GitHub\weeklyxamarin\WeeklyXamarin.content\content";
+            basePath = @"C:\dev\GitHub\weeklyxamarin\WeeklyXamarin.content\content";
             outputPath = basePath;
-            curatedDataPath = @"D:\github\WeeklyXamarin\WeeklyXamarin.content\curateddata\published";
-            planetXamarinAuthorsDataPath = @"D:\github\planetxamarin\planetxamarin\src\Firehose.Web\Authors";
+            curatedDataPath = @"C:\dev\GitHub\weeklyxamarin\WeeklyXamarin.content\curateddata\published";
+            planetXamarinAuthorsDataPath = @"c:\github\planetxamarin\planetxamarin\src\Firehose.Web\Authors";
             lookupDataPath = basePath;
 
             // load up the editions from curated files
