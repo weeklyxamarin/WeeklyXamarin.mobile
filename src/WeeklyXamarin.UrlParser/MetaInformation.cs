@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Text;
 
 namespace WeeklyXamarin.UrlParser
@@ -13,6 +14,8 @@ namespace WeeklyXamarin.UrlParser
         public string Keywords { get; set; }
         public string ImageUrl { get; set; }
         public string SiteName { get; set; }
+        public string Author { get; set; }
+        public string AuthorTwitter { get; set; }
 
         public MetaInformation(string url)
         {

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Web;
 using WeeklyXamarin.Core.Models;
 using WeeklyXamarin.Core.Responses;
+using Xamarin.Essentials;
 using YoutubeExplode;
 
 namespace WeeklyXamarin.UrlParser
@@ -23,7 +24,8 @@ namespace WeeklyXamarin.UrlParser
         static string outputPath;
         static string lookupDataPath;
         const string AuthorsFile = "authors.json";
-
+        static MetaInformation meta;
+        static Author author;
 
         static async Task Main(string[] args)
         {
@@ -34,12 +36,8 @@ namespace WeeklyXamarin.UrlParser
             //string url = args[0];
             Uri articleUri = new Uri(url);
             
-            Author author;
-
             // load authors
             LoadAuthors();
-
-            MetaInformation meta;
 
             if (string.Equals(articleUri.Host,"www.youtube.com", StringComparison.OrdinalIgnoreCase))
             {
@@ -50,8 +48,12 @@ namespace WeeklyXamarin.UrlParser
             }
             else
             {
-                author = GetAuthorFromUrl(articleUri.GetLeftPart(UriPartial.Path));
                 meta = GetMetaDataFromUrl(url);
+                author = GetAuthorFromMeta(meta);
+                if (author == null)
+                    author = GetAuthorFromUrl(articleUri.GetLeftPart(UriPartial.Path));
+                if (author == null)
+                    author = new Author() { Name = meta.Author, TwitterHandle = meta.AuthorTwitter };
             }
 
             
@@ -67,6 +69,26 @@ namespace WeeklyXamarin.UrlParser
 
 
 
+        }
+
+        private static Author GetAuthorFromMeta(MetaInformation meta)
+        {
+            if (!string.IsNullOrEmpty(meta?.Author))
+            {
+                var auth = FindAuthorByName(meta.Author);
+                if (auth != null)
+                    return auth;
+            }
+
+            if (!string.IsNullOrEmpty(meta?.AuthorTwitter))
+            {
+
+                var auth = FindAuthor(meta.AuthorTwitter);
+                if (auth != null)
+                    return auth;
+            }
+
+            return null;
         }
 
         private static void LoadAuthors()
@@ -128,8 +150,8 @@ namespace WeeklyXamarin.UrlParser
                 }
             }
 
-
             
+
 
             string host = $"{uri.Scheme}://{uri.Host}";
 
@@ -158,6 +180,8 @@ namespace WeeklyXamarin.UrlParser
                 if (author != null)
                     break;
             }
+
+
             return author;
         }
 
@@ -177,6 +201,10 @@ namespace WeeklyXamarin.UrlParser
             if (author != null)
                 return author;
 
+            author = AuthorLookup.Authors.FirstOrDefault(u => string.Equals(key, u.TwitterHandle, StringComparison.OrdinalIgnoreCase));
+            if (author != null)
+                return author;
+
 
             // now we need to see if we can find an author by alias matching
             foreach (var auth in AuthorLookup.Authors)
@@ -192,8 +220,6 @@ namespace WeeklyXamarin.UrlParser
                     }
                 }
             }
-
-            
 
             return null;
         }
@@ -219,7 +245,7 @@ namespace WeeklyXamarin.UrlParser
             }
         }
 
-        // dad is a fat stinky that comes from a hairy hole.
+        // Kym Phillpotts is a fat stinky that comes from a hairy hole hahahaha
         // thanks rose... that's very kind.
 
         public static string GetMetaTag (string url, string name)
@@ -281,12 +307,23 @@ namespace WeeklyXamarin.UrlParser
                                 metaInfo.Description = string.IsNullOrEmpty(metaInfo.Description) ? tagContent.Value : metaInfo.Description;
                                 matchCount++;
                                 break;
+                            case "author":
+                                metaInfo.Author = tagContent.Value;
+                                matchCount++;
+                                break;
                             case "twitter:title":
                                 metaInfo.Title = string.IsNullOrEmpty(metaInfo.Title) ? tagContent.Value : metaInfo.Title;
                                 matchCount++;
                                 break;
                             case "twitter:description":
                                 metaInfo.Description = string.IsNullOrEmpty(metaInfo.Description) ? tagContent.Value : metaInfo.Description;
+                                matchCount++;
+                                break;
+                            case "twitter:creator":
+                                if (tagContent.Value.StartsWith('@'))
+                                    metaInfo.AuthorTwitter = tagContent.Value.Substring(1);
+                                else
+                                    metaInfo.AuthorTwitter = tagContent.Value;
                                 matchCount++;
                                 break;
                             case "keywords":
@@ -302,6 +339,7 @@ namespace WeeklyXamarin.UrlParser
                     else if (tagProperty != null && tagContent != null)
                     {
                         switch (tagProperty.Value.ToLower())
+
                         {
                             case "og:title":
                                 metaInfo.Title = string.IsNullOrEmpty(metaInfo.Title) ? tagContent.Value : metaInfo.Title;
@@ -320,6 +358,7 @@ namespace WeeklyXamarin.UrlParser
                 }
                 metaInfo.HasData = matchCount > 0;
             }
+                
             return metaInfo;
         }
     }
