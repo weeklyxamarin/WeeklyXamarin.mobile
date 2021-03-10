@@ -167,8 +167,7 @@ namespace WeeklyXamarin.Core.Services
                 savedArticleList = new SavedArticleThing();
 
             return savedArticleList;
-        }          
-
+        }
 
         public void BookmarkArticle(Article articleToSave)
         {

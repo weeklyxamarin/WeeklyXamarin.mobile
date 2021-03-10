@@ -15,6 +15,7 @@ using System.IO;
 using System.Reflection;
 using Lottie.Forms;
 using WeeklyXamarin.Core.Helpers;
+using MvvmHelpers.Commands;
 
 namespace WeeklyXamarin.Mobile.Views
 {
@@ -24,27 +25,29 @@ namespace WeeklyXamarin.Mobile.Views
     [QueryProperty(nameof(EditionId), nameof(EditionId))]
     public partial class ArticlesListPage : PageBase<ArticlesListViewModel>
     {
-        private ArticlesPageMode PageMode = ArticlesPageMode.Edition;
-
         public string EditionId { get; set; }
         public ArticlesListPage()
         {
             InitializeComponent();
         }
-        public ArticlesListPage(ArticlesPageMode pageMode) : this()
+
+        private int firstVisibleItemIndex;
+
+        private void ArticlesCollectionView_Scrolled(object sender, ItemsViewScrolledEventArgs e)
         {
-            PageMode = pageMode;
+            firstVisibleItemIndex = e.FirstVisibleItemIndex;
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
 
-            ViewModel.PageMode = PageMode;
             ViewModel.EditionId = EditionId;
 
-            if (ViewModel.Articles.Count == 0)
-                ViewModel.IsBusy = true;
+            if (!ViewModel.Articles.Any())
+                await (ViewModel.LoadArticlesCommand as AsyncCommand)?.ExecuteAsync();
         }
+
+        
     }
 }

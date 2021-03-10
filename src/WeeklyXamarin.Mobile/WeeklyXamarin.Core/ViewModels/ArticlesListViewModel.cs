@@ -16,21 +16,9 @@ namespace WeeklyXamarin.Core.ViewModels
 {
     public class ArticlesListViewModel : ArticleListViewModelBase
     {
-        private ArticlesPageMode _pageMode;
         private bool shouldForceRefresh;
-
-        
         public ICommand NavigateBackCommand { get; set; }
         public string EditionId { get; set; }
-
-
-
-
-        public ArticlesPageMode PageMode
-        {
-            get => _pageMode;
-            set => SetProperty(ref _pageMode, value);
-        }
 
         public ArticlesListViewModel(INavigationService navigation,
             IAnalytics analytics,
@@ -45,8 +33,6 @@ namespace WeeklyXamarin.Core.ViewModels
             NavigateBackCommand = new AsyncCommand(ExecuteNavigateBackCommand);
         }
 
-
-
         private async Task ExecuteNavigateBackCommand()
         {
             await navigation.GoToAsync(Constants.Navigation.Paths.Editions);
@@ -54,39 +40,21 @@ namespace WeeklyXamarin.Core.ViewModels
 
         async Task ExecuteLoadArticlesCommand()
         {
-            var forceRefresh = shouldForceRefresh;
-
             try
             {
                 Articles.Clear();
+                CurrentState = ListState.Loading; 
+                Title = $"Edition {EditionId}";
+                var edition = await dataStore.GetEditionAsync(EditionId);
+                Articles.AddRange(edition.Articles);
+                CurrentState = ListState.Success;
 
-
-                if (PageMode == ArticlesPageMode.Bookmarks)
-                {
-                    // get the saved
-                    CurrentState = ListState.Loading;
-                    var articles = dataStore.GetSavedArticles(forceRefresh);
-                    Articles.AddRange(articles.Articles);
-                    Title = "Bookmarks";
-                    CurrentState = Articles.Count == 0 ? ListState.Error : ListState.Success;
-                }
-                else
-                {
-                    CurrentState = ListState.Loading; 
-                    Title = $"Edition {EditionId}";
-                    var edition = await dataStore.GetEditionAsync(EditionId, forceRefresh);
-                    Articles.AddRange(edition.Articles);
-                    CurrentState = ListState.Success;
-
-                }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
                 analytics.TrackError(ex, new Dictionary<string, string> {
-                    { Constants.Analytics.Properties.EditionId, EditionId },
-                    { nameof(PageMode), PageMode.ToString() } });
-
+                    { Constants.Analytics.Properties.EditionId, EditionId }});
             }
             finally
             {

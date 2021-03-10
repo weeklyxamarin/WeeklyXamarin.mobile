@@ -4,12 +4,18 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:rv="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
-    xmlns:viewmodels="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
-    BackgroundColor="{StaticResource WhiteLight}">
+    xmlns:viewmodels="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core">
     <SwipeView.RightItems>
         <SwipeItems>
             <SwipeItemView Command="{Binding ShareCommand, Source={RelativeSource AncestorType={x:Type viewmodels:ArticleListViewModelBase}, Mode=FindAncestorBindingContext}}" CommandParameter="{Binding .}">
-                <Grid BackgroundColor="#3598DB" WidthRequest="60">
+                <Grid Margin="10,0">
+                    <BoxView
+                        CornerRadius="30"
+                        HeightRequest="60"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        WidthRequest="60"
+                        Color="#27AE61" />
                     <Image
                         HorizontalOptions="Center"
                         Source="Share"
@@ -18,15 +24,23 @@
                 </Grid>
             </SwipeItemView>
             <SwipeItemView Command="{Binding ToggleBookmarkCommand, Source={RelativeSource AncestorType={x:Type viewmodels:ArticleListViewModelBase}, Mode=FindAncestorBindingContext}}" CommandParameter="{Binding .}">
-                <Grid BackgroundColor="#3598DB" WidthRequest="60">
-                    <Grid.Triggers>
-                        <DataTrigger
-                            Binding="{Binding IsSaved}"
-                            TargetType="Grid"
-                            Value="True">
-                            <Setter Property="BackgroundColor" Value="{StaticResource RedLight}" />
-                        </DataTrigger>
-                    </Grid.Triggers>
+                <Grid>
+                    <BoxView
+                        CornerRadius="30"
+                        HeightRequest="60"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        WidthRequest="60"
+                        Color="#3598DB">
+                        <BoxView.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsSaved}"
+                                TargetType="BoxView"
+                                Value="True">
+                                <Setter Property="Color" Value="{StaticResource RedLight}" />
+                            </DataTrigger>
+                        </BoxView.Triggers>
+                    </BoxView>
                     <Image
                         HorizontalOptions="Center"
                         Source="Bookmark"

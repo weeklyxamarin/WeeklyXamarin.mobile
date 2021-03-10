@@ -21,7 +21,7 @@ namespace WeeklyXamarin.Core.ViewModels
         protected readonly IPreferences preferences;
         private ListState currentState;
 
-        public ArticleListViewModelBase(INavigationService navigation, 
+        public ArticleListViewModelBase(INavigationService navigation,
             IAnalytics analytics,
             IDataStore dataStore,
             IBrowser browser,
@@ -43,8 +43,8 @@ namespace WeeklyXamarin.Core.ViewModels
         public ICommand ToggleBookmarkCommand { get; set; }
         public ICommand ShareCommand { get; set; }
         public ObservableRangeCollection<Article> Articles { get; set; } = new ObservableRangeCollection<Article>();
-        public ListState CurrentState 
-        { 
+        public ListState CurrentState
+        {
             get => currentState;
             set => SetProperty(ref currentState, value);
         }

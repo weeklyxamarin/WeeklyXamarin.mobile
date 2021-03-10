@@ -24,7 +24,7 @@ namespace WeeklyXamarin.Core.ViewModels
             Title = "Editions";
             Editions = new ObservableRangeCollection<Edition>();
             LoadEditionsCommand = new AsyncCommand(ExecuteLoadEditionsCommand);
-                OpenEditionCommand = new AsyncCommand<Edition>(OpenEdition);
+            OpenEditionCommand = new AsyncCommand<Edition>(OpenEdition);
             this.dataStore = dataStore;
         }
 

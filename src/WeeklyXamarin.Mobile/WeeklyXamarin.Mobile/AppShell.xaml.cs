@@ -10,8 +10,6 @@ namespace WeeklyXamarin.Mobile
     {
         public AppShell()
         {
-//            WeeklyXamarin.Core.Helpers.Constants.Navigation.PageMode.Bookmarks;
-
             InitializeComponent();
             Routing.RegisterRoute(Constants.Navigation.Paths.Articles,typeof(ArticlesListPage));
         }

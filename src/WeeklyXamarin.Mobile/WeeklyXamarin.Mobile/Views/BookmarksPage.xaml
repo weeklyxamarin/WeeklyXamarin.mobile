@@ -26,7 +26,7 @@
                         Margin="40"
                         HorizontalTextAlignment="Center"
                         Style="{StaticResource InformationText}"
-                        Text="{Binding SearchText, StringFormat='No results for &quot;{0}&quot;.'}"
+                        Text="There's nothing here yet."
                         VerticalOptions="CenterAndExpand" />
                     <lottie:AnimationView
                         x:Name="animationView"
@@ -37,6 +37,13 @@
                         RepeatMode="Infinite"
                         VerticalOptions="FillAndExpand"
                         WidthRequest="200" />
+                    <Label
+                        Margin="40"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource InformationText}"
+                        Text="Swipe on an article to bookmark it and it will show up here."
+                        VerticalOptions="CenterAndExpand" />
+
                 </StackLayout>
             </xct:StateView>
         </xct:StateLayout.StateViews>
@@ -47,15 +54,6 @@
                     <views:ArticleDataTemplate />
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-            <CollectionView.EmptyView>
-                <Label
-                    Margin="40"
-                    HorizontalTextAlignment="Center"
-                    Style="{StaticResource InformationText}"
-                    Text="You haven't bookmarked anything yet."
-                    VerticalOptions="Fill"
-                    VerticalTextAlignment="Center" />
-            </CollectionView.EmptyView>
         </CollectionView>
     </Grid>
 

@@ -9,6 +9,7 @@ using WeeklyXamarin.Core.Helpers;
 using MvvmHelpers;
 using WeeklyXamarin.Core.Models;
 using MvvmHelpers.Commands;
+using System.Linq;
 
 namespace WeeklyXamarin.Core.ViewModels
 {
@@ -18,7 +19,9 @@ namespace WeeklyXamarin.Core.ViewModels
         public BookmarksViewModel(INavigationService navigation, IAnalytics analytics, IDataStore dataStore, IBrowser browser, IPreferences preferences, IShare share) : base(navigation, analytics, dataStore, browser, preferences, share)
         {
             LoadArticlesCommand = new Command(ExecuteLoadArticlesCommand);
+            ToggleBookmarkCommand = new Command<Article>(ExecuteToggleBookmarkArticle);
         }
+
 
         void ExecuteLoadArticlesCommand()
         {
@@ -30,7 +33,7 @@ namespace WeeklyXamarin.Core.ViewModels
                 CurrentState = ListState.Loading;
                 var articles = dataStore.GetSavedArticles(true);
                 Articles.AddRange(articles.Articles);
-                Title = "Bookmarks";
+                Title = "Bookmarks";    
                 
                 CurrentState = Articles.Count == 0 ? ListState.Empty: ListState.None;
             }
@@ -45,6 +48,15 @@ namespace WeeklyXamarin.Core.ViewModels
             }
         }
 
+        protected override void ExecuteToggleBookmarkArticle(Article article)
+        {
+            base.ExecuteToggleBookmarkArticle(article);
 
+            if (!article.IsSaved)
+                Articles.Remove(article);
+
+            if (!Articles.Any())
+                CurrentState = ListState.Empty;
+        }
     }
 }

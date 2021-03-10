@@ -37,7 +37,7 @@
             Title="Editions"
             Icon="tab_issues.png"
             Route="editions">
-            <ShellContent ContentTemplate="{DataTemplate views:EditionsPage}" Route="editions" />
+            <views:EditionsPage />
         </Tab>
         <Tab Title="Bookmarks" Icon="Bookmark.png">
             <ShellContent>
