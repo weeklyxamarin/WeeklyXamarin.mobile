@@ -4,10 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:WeeklyXamarin.Core.Models;assembly=WeeklyXamarin.Core"
     xmlns:rv="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:viewmodels="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
     xmlns:views="clr-namespace:WeeklyXamarin.Mobile.Views"
     xmlns:vm="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="rootPage"
     Title="{Binding Title}"
     x:TypeArguments="viewmodels:AboutViewModel"
@@ -106,27 +108,46 @@
                 Style="{StaticResource Header}"
                 Text="Contributors" />
             <rv:MaterialFrame
+                Margin="0,0,0,10"
                 Padding="{StaticResource MarginValue}"
                 CornerRadius="4"
                 HasShadow="True"
                 IsClippedToBounds="True"
                 MaterialTheme="Acrylic">
-                <StackLayout BindableLayout.ItemsSource="{Binding Acknowledgements}" Spacing="20">
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate>
-                            <Grid ColumnDefinitions="*,*">
-                                <Label FontAttributes="Bold" Text="{Binding Person}" />
-                                <Label
-                                    Grid.Column="1"
-                                    HorizontalOptions="End"
-                                    Text="{Binding Activity}" />
-                            </Grid>
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
+                <StackLayout Margin="0,0,0,20">
+                    <StackLayout
+                        Margin="0,10,0,10"
+                        BindableLayout.ItemsSource="{Binding Contributors}"
+                        HorizontalOptions="Center"
+                        Orientation="Horizontal">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="models:Contributor">
+                                <Image
+                                    HeightRequest="50"
+                                    Source="{Binding ImageUrl}"
+                                    VerticalOptions="Start"
+                                    WidthRequest="50">
+                                    <Image.Clip>
+                                        <RoundRectangleGeometry CornerRadius="25" Rect="0,0,50,50" />
+                                    </Image.Clip>
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding OpenUrlCommand, Source={RelativeSource AncestorType={x:Type viewmodels:AboutViewModel}, Mode=FindAncestorBindingContext}}" CommandParameter="{Binding ProfileUrl}" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+                                <!--<xct:AvatarView Source="{Binding ImageUrl}" Text="{Binding Initials}">
+                                    <xct:AvatarView.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding OpenUrlCommand, Source={RelativeSource AncestorType={x:Type viewmodels:AboutViewModel}, Mode=FindAncestorBindingContext}}" CommandParameter="{Binding ProfileUrl}" />
+                                    </xct:AvatarView.GestureRecognizers>
+                                </xct:AvatarView>-->
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                    <Button Command="{Binding OpenAcknowlegementsCommand}" Text="Thanks to all the viewers who followed along" />
                 </StackLayout>
+
             </rv:MaterialFrame>
 
-            <Image IsAnimationPlaying="True" Source="mark.gif" />
+            <!--<Image IsAnimationPlaying="True" Source="mark.gif" />-->
 
         </StackLayout>
 

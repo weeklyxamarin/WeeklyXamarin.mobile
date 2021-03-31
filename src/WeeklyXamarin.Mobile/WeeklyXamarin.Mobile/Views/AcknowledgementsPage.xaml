@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:PageBase
+    x:Class="WeeklyXamarin.Mobile.Views.AcknowledgementsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+    xmlns:rv="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:viewModels="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
+    xmlns:views="clr-namespace:WeeklyXamarin.Mobile.Views"
+    Title="Acknowledgments"
+    x:TypeArguments="viewModels:AcknowledgementsViewModel"
+    BackgroundColor="{StaticResource WhiteLight}">
+
+
+
+    <Grid RowDefinitions="50, *">
+        <Label
+            Margin="20,20,20,0"
+            HorizontalOptions="Center"
+            HorizontalTextAlignment="Center"
+            Style="{StaticResource EditionDescription}"
+            Text="Thank you to all the people who joined us on stream" />
+
+        <CollectionView
+            Grid.Row="1"
+            ItemsSource="{Binding Acknowledgements}"
+            VerticalOptions="Fill">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="0" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <ContentView>
+                        <rv:MaterialFrame
+                            Margin="20,10,20,10"
+                            Padding="0"
+                            CornerRadius="4"
+                            HasShadow="True"
+                            IsClippedToBounds="True"
+                            MaterialTheme="Acrylic">
+                            <Grid IsClippedToBounds="True" RowDefinitions="Auto, Auto">
+                                <BoxView
+                                    Grid.RowSpan="2"
+                                    BackgroundColor="{StaticResource SkyBlueLight}"
+                                    CornerRadius="4,0,4,0"
+                                    HorizontalOptions="Start"
+                                    WidthRequest="8" />
+
+                                <Label
+                                    Margin="20,5,20,0"
+                                    Style="{StaticResource EditionTitle}"
+                                    Text="{Binding Person}"
+                                    TextColor="{StaticResource SkyBlueLight}" />
+
+                                <Label
+                                    Grid.Row="1"
+                                    Margin="20,5,0,10"
+                                    Style="{StaticResource EditionDescription}"
+                                    Text="{Binding Activity}" />
+                            </Grid>
+                        </rv:MaterialFrame>
+                    </ContentView>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.Footer>
+                <lottie:AnimationView
+                    Animation="bookmarkanimation.json"
+                    AutoPlay="True"
+                    HeightRequest="100"
+                    HorizontalOptions="FillAndExpand"
+                    RepeatMode="Infinite"
+                    VerticalOptions="FillAndExpand"
+                    WidthRequest="100" />
+            </CollectionView.Footer>
+        </CollectionView>
+    </Grid>
+</views:PageBase>

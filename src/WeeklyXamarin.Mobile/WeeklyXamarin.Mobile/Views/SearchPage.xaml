@@ -32,7 +32,7 @@
 
         <Grid Grid.Row="1" xct:StateLayout.CurrentState="{Binding CurrentState, Converter={StaticResource listStateToLayoutStateConverter}}">
             <xct:StateLayout.StateViews>
-                <xct:StateView StateKey="Loading">
+                <xct:StateView StateKey="Loading" VerticalOptions="FillAndExpand">
                     <ActivityIndicator
                         HorizontalOptions="Center"
                         IsRunning="True"

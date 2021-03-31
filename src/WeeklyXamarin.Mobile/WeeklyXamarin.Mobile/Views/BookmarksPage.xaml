@@ -14,14 +14,14 @@
 
     <Grid xct:StateLayout.CurrentState="{Binding CurrentState, Converter={StaticResource listStateToLayoutStateConverter}}">
         <xct:StateLayout.StateViews>
-            <xct:StateView StateKey="Loading">
+            <xct:StateView StateKey="Loading" VerticalOptions="FillAndExpand">
                 <ActivityIndicator
                     HorizontalOptions="Center"
                     IsRunning="True"
                     VerticalOptions="Center" />
             </xct:StateView>
-            <xct:StateView StateKey="Empty">
-                <StackLayout VerticalOptions="Center">
+            <xct:StateView StateKey="Empty" VerticalOptions="FillAndExpand">
+                <StackLayout>
                     <Label
                         Margin="40"
                         HorizontalTextAlignment="Center"

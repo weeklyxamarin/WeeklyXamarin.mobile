@@ -144,6 +144,11 @@
                 <Setter Property="BackgroundColor" Value="{StaticResource WhiteLight}" />
             </Style>
 
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource SkyBlueLight}" />
+                <Setter Property="TextColor" Value="White" />
+            </Style>
+
             <!--  Margins  -->
 
 
