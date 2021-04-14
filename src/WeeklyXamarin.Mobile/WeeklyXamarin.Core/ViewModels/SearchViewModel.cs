@@ -34,26 +34,41 @@ namespace WeeklyXamarin.Core.ViewModels
         }
 
         string lastSearchTerm;
+        private string textAtTimeOfSearching;
+
+        public string TextAtTimeOfSearching { 
+            get => textAtTimeOfSearching; 
+            set => SetProperty(ref textAtTimeOfSearching, value); 
+        }
 
         private async Task ExecuteSearchArticlesCommand()
         {
             try
             {
-                
+
                 if (string.Equals(lastSearchTerm, SearchText, StringComparison.InvariantCultureIgnoreCase))
                     return;
                 lastSearchTerm = SearchText;
                 if (IsBusy) return; //don't run a search if one is already in progress
                 IsBusy = true;
                 Articles.Clear();
-                
+
                 if (SearchText?.Length > 1)
                 {
                     CurrentState = ListState.Loading;
+                    textAtTimeOfSearching = SearchText;
                     var articlesAsync = dataStore.GetArticleFromSearchAsync(SearchText);
                     await foreach (Article article in articlesAsync)
                     {
-                        Articles.Add(article);
+                        if (string.Equals(lastSearchTerm, SearchText, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            Articles.Add(article);
+                        }
+                        else
+                        {
+                            Articles.Clear();
+                            return;
+                        }
                         CurrentState = ListState.None; // show the results
                     }
                     //lastSearchTerm =  SearchText;
@@ -62,6 +77,7 @@ namespace WeeklyXamarin.Core.ViewModels
                 }
                 else
                 {
+                    Articles.Clear();
                     CurrentState = ListState.None; // go to collectionview empty state
                 }
             }

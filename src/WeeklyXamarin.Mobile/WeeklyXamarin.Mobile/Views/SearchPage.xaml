@@ -44,7 +44,7 @@
                             Margin="40"
                             HorizontalTextAlignment="Center"
                             Style="{StaticResource InformationText}"
-                            Text="{Binding SearchText, StringFormat='No results for &quot;{0}&quot;.'}"
+                            Text="{Binding TextAtTimeOfSearching, StringFormat='No results for &quot;{0}&quot;.'}"
                             VerticalOptions="CenterAndExpand" />
                         <lottie:AnimationView
                             x:Name="animationView"
