@@ -29,46 +29,63 @@ namespace WeeklyXamarin.UrlParser
 
         static async Task Main(string[] args)
         {
-            Console.Write("Enter URL: ");
-            string url = Console.ReadLine();
+            bool exit = false;
+            string url = "";
 
-            // load up the Url and read the datas
-            //string url = args[0];
-            Uri articleUri = new Uri(url);
-            
             // load authors
             LoadAuthors();
 
-            if (string.Equals(articleUri.Host,"www.youtube.com", StringComparison.OrdinalIgnoreCase))
-            {
-                // get youtube channel
-                var youtubeVideo = await GetYoutubeChannelFromVideo(url);
-                author = GetAuthorByName(youtubeVideo.Author);
-                meta = new MetaInformation(youtubeVideo.Url, youtubeVideo.Title, youtubeVideo.Description, null, null, null);
-            }
-            else
-            {
-                meta = GetMetaDataFromUrl(url);
-                author = GetAuthorFromMeta(meta);
-                if (author == null)
-                    author = GetAuthorFromUrl(articleUri.GetLeftPart(UriPartial.Path));
-                if (author == null)
-                    author = new Author() { Name = meta.Author, TwitterHandle = meta.AuthorTwitter };
-            }
 
+            while (!exit)
+            {
+                Console.Clear();
+                Console.Write("Enter URL: ");
+                url = Console.ReadLine();
+                if (String.IsNullOrEmpty(url))
+                {
+                    exit = true;
+                    continue;
+                }
+
+                // load up the Url and read the datas
+                //string url = args[0];
+                Uri articleUri = new Uri(url);
             
 
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine(HttpUtility.HtmlDecode(meta.Title));
-            sb.AppendLine();
-            sb.AppendLine(HttpUtility.HtmlDecode(meta.Description));
-            sb.AppendLine();
-            sb.AppendLine($"[**{HttpUtility.HtmlDecode(meta.Title)}**]({meta.Url}) by [{author?.Name}]({author?.Id})");
+                if (string.Equals(articleUri.Host,"www.youtube.com", StringComparison.OrdinalIgnoreCase))
+                {
+                    // get youtube channel
+                    var youtubeVideo = await GetYoutubeChannelFromVideo(url);
+                    author = GetAuthorByName(youtubeVideo.Author);
+                    meta = new MetaInformation(youtubeVideo.Url, youtubeVideo.Title, youtubeVideo.Description, null, null, null);
+                }
+                else
+                {
+                    meta = GetMetaDataFromUrl(url);
+                    author = GetAuthorFromMeta(meta);
+                    if (author == null)
+                        author = GetAuthorFromUrl(articleUri.GetLeftPart(UriPartial.Path));
+                    if (author == null)
+                        author = new Author() { Name = meta.Author, TwitterHandle = meta.AuthorTwitter };
+                }
+
+
+                Console.Clear();
+
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine(HttpUtility.HtmlDecode(meta.Title));
+                sb.AppendLine();
+                sb.AppendLine(HttpUtility.HtmlDecode(meta.Url));
+                sb.AppendLine();
+                sb.AppendLine(HttpUtility.HtmlDecode(meta.Description));
+                sb.AppendLine();
+                sb.AppendLine($"[**{HttpUtility.HtmlDecode(meta.Title)}**]({meta.Url}) by [{author?.Name}]({author?.Id})");
             
-            Console.Write(sb.ToString());
+                Console.Write(sb.ToString());
+                Console.ReadLine();
 
 
-
+            }
         }
 
         private static Author GetAuthorFromMeta(MetaInformation meta)
@@ -99,7 +116,7 @@ namespace WeeklyXamarin.UrlParser
             lookupDataPath = Path.Combine(basePath, "LookupData");
 
             // for debug override the basepath
-            basePath = @"c:\dev\GitHub\weeklyxamarin\WeeklyXamarin.content\content";
+            basePath = @"d:\GitHub\weeklyxamarin\WeeklyXamarin.content\content";
             outputPath = basePath;
             planetXamarinAuthorsDataPath = @"D:\github\planetxamarin\planetxamarin\src\Firehose.Web\Authors";
             lookupDataPath = basePath;
