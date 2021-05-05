@@ -18,6 +18,7 @@
         <Entry
             Margin="20,20,20,0"
             ClearButtonVisibility="WhileEditing"
+            IsSpellCheckEnabled="False"
             Placeholder="Enter your search term"
             ReturnCommand="{Binding SearchArticlesCommand}"
             Text="{Binding SearchText}">
@@ -30,8 +31,9 @@
             </Entry.Behaviors>
         </Entry>
 
-        <Grid Grid.Row="1" xct:StateLayout.CurrentState="{Binding CurrentState, Converter={StaticResource listStateToLayoutStateConverter}}">
-            <xct:StateLayout.StateViews>
+        <!--<Grid Grid.Row="1" xct:StateLayout.CurrentState="{Binding CurrentState, Converter={StaticResource listStateToLayoutStateConverter}}">-->
+        <Grid Grid.Row="1">
+            <!--<xct:StateLayout.StateViews>
                 <xct:StateView StateKey="Loading" VerticalOptions="FillAndExpand">
                     <ActivityIndicator
                         HorizontalOptions="Center"
@@ -57,7 +59,7 @@
                             WidthRequest="200" />
                     </StackLayout>
                 </xct:StateView>
-            </xct:StateLayout.StateViews>
+            </xct:StateLayout.StateViews>-->
 
             <CollectionView ItemsSource="{Binding Articles}">
                 <CollectionView.ItemTemplate>
@@ -65,7 +67,7 @@
                         <views:ArticleDataTemplate />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-                <CollectionView.EmptyView>
+                <!--<CollectionView.EmptyView>
                     <Label
                         Margin="40"
                         HorizontalTextAlignment="Center"
@@ -73,8 +75,55 @@
                         Text="What are you looking for?"
                         VerticalOptions="Fill"
                         VerticalTextAlignment="Center" />
-                </CollectionView.EmptyView>
+                </CollectionView.EmptyView>-->
             </CollectionView>
+
+            <Grid BackgroundColor="{StaticResource WhiteLight}" IsVisible="False">
+                <ActivityIndicator
+                    HorizontalOptions="Center"
+                    IsRunning="True"
+                    VerticalOptions="Center" />
+                <Grid.Triggers>
+                    <DataTrigger
+                        Binding="{Binding CurrentState}"
+                        TargetType="Grid"
+                        Value="Loading">
+                        <Setter Property="IsVisible" Value="True" />
+                    </DataTrigger>
+
+                </Grid.Triggers>
+            </Grid>
+
+            <Grid BackgroundColor="{StaticResource WhiteLight}" IsVisible="False">
+                <StackLayout VerticalOptions="Center">
+                    <Label
+                        Margin="40"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource InformationText}"
+                        Text="{Binding SearchText, StringFormat='No results for &quot;{0}&quot;.'}"
+                        VerticalOptions="CenterAndExpand" />
+                    <lottie:AnimationView
+                        x:Name="animationView"
+                        Animation="bookmarkanimation.json"
+                        AutoPlay="True"
+                        HeightRequest="200"
+                        HorizontalOptions="FillAndExpand"
+                        RepeatMode="Infinite"
+                        VerticalOptions="FillAndExpand"
+                        WidthRequest="200" />
+                </StackLayout>
+                <Grid.Triggers>
+                    <DataTrigger
+                        Binding="{Binding CurrentState}"
+                        TargetType="Grid"
+                        Value="Empty">
+                        <Setter Property="IsVisible" Value="True" />
+                    </DataTrigger>
+
+                </Grid.Triggers>
+
+            </Grid>
+
         </Grid>
     </Grid>
 </views:PageBase>

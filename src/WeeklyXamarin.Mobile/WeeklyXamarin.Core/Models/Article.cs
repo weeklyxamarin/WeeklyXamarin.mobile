@@ -29,7 +29,7 @@ namespace WeeklyXamarin.Core.Models
 
         internal bool Matches(string searchText)
         {
-            var terms = searchText.ToLower().Split(' ');
+            var terms = searchText.Trim().ToLower().Split(' ',StringSplitOptions.RemoveEmptyEntries);
             return terms.Any(i => SearchIndex.Contains(i));
         }
     }
