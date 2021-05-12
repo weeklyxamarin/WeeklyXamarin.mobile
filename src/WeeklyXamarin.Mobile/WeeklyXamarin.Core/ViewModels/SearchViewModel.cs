@@ -38,32 +38,44 @@ namespace WeeklyXamarin.Core.ViewModels
             }
         }
 
+        public string LastSearchTerm 
+        { 
+            get => lastSearchTerm;
+            set => SetProperty(ref lastSearchTerm, value); 
+        }
+
         CancellationTokenSource cts = new CancellationTokenSource();
 
 
         object lid = new object();
+        string lastSearchTerm = "";
         private async Task ExecuteSearchArticlesCommand()
         {
             try
             {
-                
-               if (string.IsNullOrWhiteSpace(SearchText))
+                var searchTerm = SearchText.Trim();
+                if (searchTerm == LastSearchTerm)
+                    return;
+                LastSearchTerm = searchTerm;
+
+                cts?.Cancel();
+                lock (lid)
                 {
-                    cts?.Cancel();
                     Articles = new ObservableRangeCollection<Article>();
+                }
+
+                if (string.IsNullOrWhiteSpace(searchTerm))
+                {
                     CurrentState = ListState.None;
                     return;
                 }
-                
-                cts.Cancel();
-                cts = new CancellationTokenSource();
 
-                Articles = new ObservableRangeCollection<Article>();
+                cts = new CancellationTokenSource();
 
                 if (SearchText?.Length > 1)
                 {
                     CurrentState = ListState.Loading;
-                    Debug.WriteLine($">> Starting Search for {SearchText}");
+                    Debug.WriteLine($">> Starting Search for {searchTerm}");
 
                     var resultBucket = new List<Article>();
 
@@ -79,11 +91,11 @@ namespace WeeklyXamarin.Core.ViewModels
                     };
                     timer.Start();
 
-                    var articlesAsync = dataStore.GetArticleFromSearchAsync(SearchText, cts.Token);
+                    var articlesAsync = dataStore.GetArticleFromSearchAsync(searchTerm, cts.Token);
                     await foreach (Article article in articlesAsync)
                     {
                         //lock
-                        lock(lid)
+                        lock (lid)
                         {
                             if (!cts.IsCancellationRequested)
                                 resultBucket.Add(article);
@@ -97,7 +109,8 @@ namespace WeeklyXamarin.Core.ViewModels
 
                     if (resultBucket.Count > 0)
                     {
-                        Articles.AddRange(resultBucket);
+                        DumpBucket(resultBucket, cts.Token);
+                        //Articles.AddRange(resultBucket);
                     }
 
                     if (Articles.Count == 0)
@@ -109,7 +122,6 @@ namespace WeeklyXamarin.Core.ViewModels
                 }
                 else
                 {
-                    Articles = new ObservableRangeCollection<Article>();
                     CurrentState = ListState.None; // go to collectionview empty state
                 }
             }
@@ -132,13 +144,13 @@ namespace WeeklyXamarin.Core.ViewModels
         {
             lock (lid)
             {
-                // do things with bucket
                 var newBucketWithOldBananas = resultBucket.ToList();
                 resultBucket.Clear();
-                if(!token.IsCancellationRequested)
+                if (!token.IsCancellationRequested)
                     Articles.AddRange(newBucketWithOldBananas);
             }
             CurrentState = ListState.None; // show the results
+
         }
     }
 }

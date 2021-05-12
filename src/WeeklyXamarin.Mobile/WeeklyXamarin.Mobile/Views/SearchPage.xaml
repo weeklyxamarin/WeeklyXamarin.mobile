@@ -67,7 +67,7 @@
                         <views:ArticleDataTemplate />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-                <!--<CollectionView.EmptyView>
+                <CollectionView.EmptyView>
                     <Label
                         Margin="40"
                         HorizontalTextAlignment="Center"
@@ -75,7 +75,7 @@
                         Text="What are you looking for?"
                         VerticalOptions="Fill"
                         VerticalTextAlignment="Center" />
-                </CollectionView.EmptyView>-->
+                </CollectionView.EmptyView>
             </CollectionView>
 
             <Grid BackgroundColor="{StaticResource WhiteLight}" IsVisible="False">
@@ -100,7 +100,7 @@
                         Margin="40"
                         HorizontalTextAlignment="Center"
                         Style="{StaticResource InformationText}"
-                        Text="{Binding SearchText, StringFormat='No results for &quot;{0}&quot;.'}"
+                        Text="{Binding LastSearchTerm, StringFormat='No results for &quot;{0}&quot;.'}"
                         VerticalOptions="CenterAndExpand" />
                     <lottie:AnimationView
                         x:Name="animationView"
