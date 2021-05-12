@@ -61,7 +61,7 @@
             </SwipeItemView>
         </SwipeItems>
     </SwipeView.RightItems>
-    <ContentView BackgroundColor="{StaticResource WhiteLight}">
+    <ContentView >
         <rv:MaterialFrame
             Margin="{StaticResource CardMargin}"
             Padding="0"
