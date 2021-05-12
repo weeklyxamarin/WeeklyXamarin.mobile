@@ -7,9 +7,7 @@
     xmlns:viewmodels="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core">
     <SwipeView.RightItems>
         <SwipeItems>
-            <SwipeItemView Command="{Binding ShareCommand, 
-                Source={RelativeSource AncestorType={x:Type viewmodels:ArticleListViewModelBase}, Mode=FindAncestorBindingContext}}" 
-                           CommandParameter="{Binding .}">
+            <SwipeItemView Command="{Binding ShareCommand, Source={RelativeSource AncestorType={x:Type viewmodels:ArticleListViewModelBase}, Mode=FindAncestorBindingContext}}" CommandParameter="{Binding .}">
                 <Grid Margin="10,0">
                     <BoxView
                         CornerRadius="30"
@@ -61,7 +59,7 @@
             </SwipeItemView>
         </SwipeItems>
     </SwipeView.RightItems>
-    <ContentView BackgroundColor="{StaticResource WhiteLight}">
+    <ContentView>
         <rv:MaterialFrame
             Margin="{StaticResource CardMargin}"
             Padding="0"

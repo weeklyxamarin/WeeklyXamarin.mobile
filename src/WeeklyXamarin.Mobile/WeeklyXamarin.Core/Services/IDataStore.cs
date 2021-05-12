@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using WeeklyXamarin.Core.Models;
 
@@ -15,7 +16,7 @@ namespace WeeklyXamarin.Core.Services
         SavedArticleThing GetSavedArticles(bool forceRefresh);
         void BookmarkArticle(Article articleToSave);
         void UnbookmarkArticle(Article articleToRemove);
-        IAsyncEnumerable<Article> GetArticleFromSearchAsync(string searchText, bool forceRefresh = false);
+        IAsyncEnumerable<Article> GetArticleFromSearchAsync(string searchText, CancellationToken token, bool forceRefresh = false);
         Task<bool> PreloadNextEdition();
     }
 }

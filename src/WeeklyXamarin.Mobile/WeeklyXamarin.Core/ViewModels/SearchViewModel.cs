@@ -1,12 +1,17 @@
-﻿using MvvmHelpers.Commands;
+﻿using MvvmHelpers;
+using MvvmHelpers.Commands;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WeeklyXamarin.Core.Helpers;
 using WeeklyXamarin.Core.Models;
 using WeeklyXamarin.Core.Services;
+using Xamarin.Essentials;
 using Xamarin.Essentials.Interfaces;
 
 namespace WeeklyXamarin.Core.ViewModels
@@ -25,7 +30,7 @@ namespace WeeklyXamarin.Core.ViewModels
             get => searchText;
             set
             {
-                searchText = value;
+                SetProperty(ref searchText, value);
                 if (value is { Length: 0 })
                 {
                     _ = ExecuteSearchArticlesCommand();
@@ -33,66 +38,119 @@ namespace WeeklyXamarin.Core.ViewModels
             }
         }
 
-        string lastSearchTerm;
-        private string textAtTimeOfSearching;
-
-        public string TextAtTimeOfSearching { 
-            get => textAtTimeOfSearching; 
-            set => SetProperty(ref textAtTimeOfSearching, value); 
+        public string LastSearchTerm 
+        { 
+            get => lastSearchTerm;
+            set => SetProperty(ref lastSearchTerm, value); 
         }
 
+        CancellationTokenSource cts = new CancellationTokenSource();
+
+
+        object lid = new object();
+        string lastSearchTerm = "";
         private async Task ExecuteSearchArticlesCommand()
         {
             try
             {
-
-                if (string.Equals(lastSearchTerm, SearchText, StringComparison.InvariantCultureIgnoreCase))
+                var searchTerm = SearchText.Trim();
+                if (searchTerm == LastSearchTerm)
                     return;
-                lastSearchTerm = SearchText;
-                if (IsBusy) return; //don't run a search if one is already in progress
-                IsBusy = true;
-                Articles.Clear();
+                LastSearchTerm = searchTerm;
+
+                cts?.Cancel();
+                lock (lid)
+                {
+                    Articles = new ObservableRangeCollection<Article>();
+                }
+
+                if (string.IsNullOrWhiteSpace(searchTerm))
+                {
+                    CurrentState = ListState.None;
+                    return;
+                }
+
+                cts = new CancellationTokenSource();
 
                 if (SearchText?.Length > 1)
                 {
                     CurrentState = ListState.Loading;
-                    textAtTimeOfSearching = SearchText;
-                    var articlesAsync = dataStore.GetArticleFromSearchAsync(SearchText);
+                    Debug.WriteLine($">> Starting Search for {searchTerm}");
+
+                    var resultBucket = new List<Article>();
+
+                    var timer = new System.Timers.Timer(500);
+
+                    timer.Elapsed += delegate
+                    {
+                        // if the bucket has some things
+                        if (resultBucket.Count > 0)
+                        {
+                            DumpBucket(resultBucket, cts.Token);
+                        }
+                    };
+                    timer.Start();
+
+                    var articlesAsync = dataStore.GetArticleFromSearchAsync(searchTerm, cts.Token);
                     await foreach (Article article in articlesAsync)
                     {
-                        if (string.Equals(lastSearchTerm, SearchText, StringComparison.InvariantCultureIgnoreCase))
+                        //lock
+                        lock (lid)
                         {
-                            Articles.Add(article);
+                            if (!cts.IsCancellationRequested)
+                                resultBucket.Add(article);
                         }
-                        else
+
+                        if (resultBucket.Count >= 20)
                         {
-                            Articles.Clear();
-                            return;
+                            DumpBucket(resultBucket, cts.Token);
                         }
-                        CurrentState = ListState.None; // show the results
                     }
-                    //lastSearchTerm =  SearchText;
+
+                    if (resultBucket.Count > 0)
+                    {
+                        DumpBucket(resultBucket, cts.Token);
+                        //Articles.AddRange(resultBucket);
+                    }
+
                     if (Articles.Count == 0)
                         CurrentState = ListState.Empty; // you found nada
+                    else
+                        CurrentState = ListState.None;
+                    timer.Stop();
+
                 }
                 else
                 {
-                    Articles.Clear();
                     CurrentState = ListState.None; // go to collectionview empty state
                 }
             }
+            catch (OperationCanceledException oex)
+            {
+                Debug.WriteLine($"Cancelled");
+            }
             catch (Exception ex)
             {
-                // display something here
-                // log something here
                 CurrentState = ListState.Error;
             }
             finally
             {
-                IsBusy = false;
+                //IsBusy = false;
             }
 
         }
 
+        private void DumpBucket(List<Article> resultBucket, CancellationToken token)
+        {
+            lock (lid)
+            {
+                var newBucketWithOldBananas = resultBucket.ToList();
+                resultBucket.Clear();
+                if (!token.IsCancellationRequested)
+                    Articles.AddRange(newBucketWithOldBananas);
+            }
+            CurrentState = ListState.None; // show the results
+
+        }
     }
 }

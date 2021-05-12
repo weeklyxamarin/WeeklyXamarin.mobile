@@ -16,6 +16,8 @@ using Xamarin.Essentials.Interfaces;
 using Microsoft.Extensions.Logging;
 using WeeklyXamarin.Core.Helpers;
 using Index = WeeklyXamarin.Core.Models.Index;
+using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace WeeklyXamarin.Core.Services
 {
@@ -52,7 +54,7 @@ namespace WeeklyXamarin.Core.Services
 
         public async Task<Edition> GetEditionAsync(string id, bool forceRefresh = false)
         {
-            _logger.Log(LogLevel.Information, $"Getting Edition {id}");
+            //_logger.Log(LogLevel.Information, $"Getting Edition {id}");
             var editionFile = $"{id}.json";
             var edition = _barrel.Get<Edition>(key: editionFile);
 
@@ -63,7 +65,7 @@ namespace WeeklyXamarin.Core.Services
             {
                 try
                 {
-                    _logger.Log(LogLevel.Information, $"  Getting {id} from the web");
+                    //_logger.Log(LogLevel.Information, $"  Getting {id} from the web");
                     // get from the interwebs
                     var editionResponse = await _httpClient.GetStringAsync(editionFile);
 
@@ -187,7 +189,7 @@ namespace WeeklyXamarin.Core.Services
             _barrel.Add(key: Constants.BarrelNames.SavedArticles, data: savedArticleList, expireIn: TimeSpan.FromDays(999));
         }
 
-        public async IAsyncEnumerable<Article> GetArticleFromSearchAsync(string searchText, bool forceRefresh = false)
+        public async IAsyncEnumerable<Article> GetArticleFromSearchAsync(string searchText, [EnumeratorCancellation]CancellationToken token, bool forceRefresh = false)
         {
             var editions = await GetEditionsAsync(forceRefresh);
 
@@ -199,6 +201,7 @@ namespace WeeklyXamarin.Core.Services
                 {
                     if (article.Matches(searchText))
                     {
+                        token.ThrowIfCancellationRequested();
                         yield return article;
                     }
                 }

@@ -20,6 +20,7 @@ namespace WeeklyXamarin.Core.ViewModels
         protected readonly IShare share;
         protected readonly IPreferences preferences;
         private ListState currentState;
+        private ObservableRangeCollection<Article> articles = new ObservableRangeCollection<Article>();
 
         public ArticleListViewModelBase(INavigationService navigation,
             IAnalytics analytics,
@@ -42,7 +43,10 @@ namespace WeeklyXamarin.Core.ViewModels
         public ICommand OpenArticleCommand { get; set; }
         public ICommand ToggleBookmarkCommand { get; set; }
         public ICommand ShareCommand { get; set; }
-        public ObservableRangeCollection<Article> Articles { get; set; } = new ObservableRangeCollection<Article>();
+        public ObservableRangeCollection<Article> Articles {
+            get => articles;
+            set => SetProperty(ref articles, value);
+        }
         public ListState CurrentState
         {
             get => currentState;
