@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.30" />
-    <PackageReference Include="YoutubeExplode" Version="5.1.9" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.33" />
+    <PackageReference Include="YoutubeExplode" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>

@@ -47,16 +47,23 @@ namespace WeeklyXamarin.UrlParser
                     continue;
                 }
 
+                var existingArticle = await HasArticleBeenPublished(url);
+                if (existingArticle != null)
+                {
+                    Console.WriteLine($"This article was published in {existingArticle.EditionId}");
+                    Console.ReadLine();
+                }
+
                 // load up the Url and read the datas
                 //string url = args[0];
                 Uri articleUri = new Uri(url);
-            
 
-                if (string.Equals(articleUri.Host,"www.youtube.com", StringComparison.OrdinalIgnoreCase))
+
+                if (string.Equals(articleUri.Host, "www.youtube.com", StringComparison.OrdinalIgnoreCase))
                 {
                     // get youtube channel
                     var youtubeVideo = await GetYoutubeChannelFromVideo(url);
-                    author = GetAuthorByName(youtubeVideo.Author);
+                    author = GetAuthorByName(youtubeVideo.Author.Title);
                     meta = new MetaInformation(youtubeVideo.Url, youtubeVideo.Title, youtubeVideo.Description, null, null, null);
                 }
                 else
@@ -80,7 +87,7 @@ namespace WeeklyXamarin.UrlParser
                 sb.AppendLine(HttpUtility.HtmlDecode(meta.Description));
                 sb.AppendLine();
                 sb.AppendLine($"[**{HttpUtility.HtmlDecode(meta.Title)}**]({meta.Url}) by [{author?.Name}]({author?.Id})");
-            
+
                 Console.Write(sb.ToString());
                 Console.ReadLine();
 
@@ -123,6 +130,43 @@ namespace WeeklyXamarin.UrlParser
 
             AuthorLookup = LoadAuthorLookup(Path.Combine(lookupDataPath, AuthorsFile));
 
+        }
+
+        public static List<Article> allArticles = new List<Article>();
+
+        public static async Task<Article> HasArticleBeenPublished(string url)
+        {
+            if (allArticles.Count == 0)
+                await LoadArticles();
+
+            return allArticles.FirstOrDefault(a => a.Url.ToLower() == url.ToLower());
+
+        }
+
+        public static async Task LoadArticles()
+        {
+            const string baseUrl = @"https://raw.githubusercontent.com/weeklyxamarin/WeeklyXamarin.content/master/content/";
+            const string indexFile = "index.json";
+
+            // get index
+            HttpClient _httpClient = new HttpClient();
+            _httpClient.BaseAddress = new Uri(baseUrl);
+            var indexResponse = await _httpClient.GetStringAsync(indexFile);
+            var index = JsonConvert.DeserializeObject<WeeklyXamarin.Core.Models.Index>(indexResponse);
+
+            
+
+            // load up all the articles
+            foreach (var edition in index.Editions)
+            {
+                var editionFile = $"{edition.Id}.json";
+                var editionResponse = await _httpClient.GetStringAsync(editionFile);
+                var editionData = JsonConvert.DeserializeObject<Edition>(editionResponse);
+                foreach (var article in editionData.Articles)
+                {
+                    allArticles.Add(article);
+                }
+            }
         }
 
         private static Author GetAuthorByName(string youtubeAuthor)
@@ -272,7 +316,7 @@ namespace WeeklyXamarin.UrlParser
             var metaTags = document.DocumentNode.SelectNodes("//meta");
             //return metaTags.ToString();
 
-            var val = document.DocumentNode.SelectSingleNode($"//meta[@name='{name}']").GetAttributeValue("content", String.Empty);
+            var val = document.DocumentNode.SelectSingleNode($"//meta[@name='{name}']")?.GetAttributeValue("content", String.Empty);
             return val;
             //foreach (var tag in metaTags)
             //{
