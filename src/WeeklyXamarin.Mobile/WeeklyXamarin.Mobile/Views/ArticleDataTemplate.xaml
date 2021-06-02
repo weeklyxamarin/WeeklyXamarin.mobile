@@ -65,8 +65,7 @@
             Padding="0"
             CornerRadius="4"
             HasShadow="True"
-            IsClippedToBounds="False"
-            MaterialTheme="Acrylic">
+            IsClippedToBounds="False">
             <Grid
                 Margin="0,0,10,0"
                 ColumnDefinitions="8, *"
@@ -146,7 +145,7 @@
                     HeightRequest="20"
                     HorizontalOptions="Start"
                     LightThemeBackgroundColor="{Binding Category, Converter={StaticResource categoryToColorConverter}}"
-                    MaterialTheme="Acrylic"
+                    MaterialTheme="Light"
                     VerticalOptions="End">
                     <Label
                         Style="{StaticResource CategoryLozenge}"

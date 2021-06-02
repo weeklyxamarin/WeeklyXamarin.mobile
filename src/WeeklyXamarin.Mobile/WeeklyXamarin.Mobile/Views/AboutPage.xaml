@@ -34,8 +34,7 @@
                 Padding="{StaticResource MarginValue}"
                 CornerRadius="4"
                 HasShadow="True"
-                IsClippedToBounds="True"
-                MaterialTheme="Acrylic">
+                IsClippedToBounds="True">
                 <StackLayout Spacing="20">
                     <Grid ColumnDefinitions="*,Auto">
                         <Label Style="{StaticResource SettingsText}" Text="Open Links in App" />
@@ -65,8 +64,7 @@
                 Padding="{StaticResource MarginValue}"
                 CornerRadius="4"
                 HasShadow="True"
-                IsClippedToBounds="True"
-                MaterialTheme="Acrylic">
+                IsClippedToBounds="True">
                 <StackLayout BindableLayout.ItemsSource="{Binding Libraries}" Spacing="20">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
@@ -88,8 +86,7 @@
                 Padding="{StaticResource MarginValue}"
                 CornerRadius="4"
                 HasShadow="True"
-                IsClippedToBounds="True"
-                MaterialTheme="Acrylic">
+                IsClippedToBounds="True">
                 <StackLayout BindableLayout.ItemsSource="{Binding AboutLinks}" Spacing="20">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
@@ -112,8 +109,7 @@
                 Padding="{StaticResource MarginValue}"
                 CornerRadius="4"
                 HasShadow="True"
-                IsClippedToBounds="True"
-                MaterialTheme="Acrylic">
+                IsClippedToBounds="True">
                 <StackLayout Margin="0,0,0,20">
                     <StackLayout
                         Margin="0,10,0,10"

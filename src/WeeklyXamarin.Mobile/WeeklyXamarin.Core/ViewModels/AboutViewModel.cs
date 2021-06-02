@@ -50,7 +50,8 @@ namespace WeeklyXamarin.Core.ViewModels
         public ICommand OpenUrlCommand { get; }
         public ICommand OpenAcknowlegementsCommand { get; }
 
-        public AboutViewModel(INavigationService navigation, IAnalytics analytics, IPreferences preferences, IBrowser browser) : base(navigation, analytics)
+        public AboutViewModel(INavigationService navigation, IAnalytics analytics, IPreferences preferences, IBrowser browser,
+                              IMessagingService messagingService) : base(navigation, analytics, messagingService)
         {
             Title = "About";
             OpenUrlCommand = new AsyncCommand<string>(ExecuteOpenUrlCommand);

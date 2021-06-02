@@ -31,36 +31,7 @@
             </Entry.Behaviors>
         </Entry>
 
-        <!--<Grid Grid.Row="1" xct:StateLayout.CurrentState="{Binding CurrentState, Converter={StaticResource listStateToLayoutStateConverter}}">-->
         <Grid Grid.Row="1">
-            <!--<xct:StateLayout.StateViews>
-                <xct:StateView StateKey="Loading" VerticalOptions="FillAndExpand">
-                    <ActivityIndicator
-                        HorizontalOptions="Center"
-                        IsRunning="True"
-                        VerticalOptions="Center" />
-                </xct:StateView>
-                <xct:StateView StateKey="Empty">
-                    <StackLayout VerticalOptions="Center">
-                        <Label
-                            Margin="40"
-                            HorizontalTextAlignment="Center"
-                            Style="{StaticResource InformationText}"
-                            Text="{Binding TextAtTimeOfSearching, StringFormat='No results for &quot;{0}&quot;.'}"
-                            VerticalOptions="CenterAndExpand" />
-                        <lottie:AnimationView
-                            x:Name="animationView"
-                            Animation="bookmarkanimation.json"
-                            AutoPlay="True"
-                            HeightRequest="200"
-                            HorizontalOptions="FillAndExpand"
-                            RepeatMode="Infinite"
-                            VerticalOptions="FillAndExpand"
-                            WidthRequest="200" />
-                    </StackLayout>
-                </xct:StateView>
-            </xct:StateLayout.StateViews>-->
-
             <CollectionView ItemsSource="{Binding Articles}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Article">
@@ -78,7 +49,7 @@
                 </CollectionView.EmptyView>
             </CollectionView>
 
-            <Grid BackgroundColor="{StaticResource WhiteLight}" IsVisible="False">
+            <Grid IsVisible="False" Style="{StaticResource OverlayBackground}">
                 <ActivityIndicator
                     HorizontalOptions="Center"
                     IsRunning="True"
@@ -94,7 +65,7 @@
                 </Grid.Triggers>
             </Grid>
 
-            <Grid BackgroundColor="{StaticResource WhiteLight}" IsVisible="False">
+            <Grid IsVisible="False" Style="{StaticResource OverlayBackground}">
                 <StackLayout VerticalOptions="Center">
                     <Label
                         Margin="40"

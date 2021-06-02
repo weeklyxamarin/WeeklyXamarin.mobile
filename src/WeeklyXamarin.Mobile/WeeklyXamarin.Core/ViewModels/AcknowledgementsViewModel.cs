@@ -10,7 +10,8 @@ namespace WeeklyXamarin.Core.ViewModels
     {
         public List<Acknowledgement> Acknowledgements { get; set; }
 
-        public AcknowledgementsViewModel(INavigationService navigation, IAnalytics analytics) : base(navigation, analytics)
+        public AcknowledgementsViewModel(INavigationService navigation, IAnalytics analytics,
+            IMessagingService messagingService) : base(navigation, analytics, messagingService)
         {
             var thanks = new Acknowledgements();
             Acknowledgements = thanks.Thanks.ToList();

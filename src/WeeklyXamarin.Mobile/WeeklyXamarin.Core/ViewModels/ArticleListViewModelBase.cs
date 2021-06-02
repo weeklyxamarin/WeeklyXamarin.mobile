@@ -2,6 +2,7 @@
 using MvvmHelpers.Commands;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -27,7 +28,8 @@ namespace WeeklyXamarin.Core.ViewModels
             IDataStore dataStore,
             IBrowser browser,
             IPreferences preferences,
-            IShare share) : base(navigation, analytics)
+            IShare share,
+            IMessagingService messagingService) : base(navigation, analytics, messagingService)
         {
             OpenArticleCommand = new AsyncCommand<Article>(OpenArticle);
             ShareCommand = new AsyncCommand<Article>(ExecuteShareCommand);
@@ -37,6 +39,16 @@ namespace WeeklyXamarin.Core.ViewModels
             this.browser = browser;
             this.preferences = preferences;
             this.share = share;
+            messagingService.Subscribe<Article>(this, "BOOKMARKED", BookMarkChanged);
+
+        }
+
+        private void BookMarkChanged(Article article)
+        {
+            // does our article collection have this article id
+            var existingArcticle = Articles.FirstOrDefault(a => a.Id == article.Id);
+            if (existingArcticle != null)
+                existingArcticle.IsSaved = article.IsSaved;
         }
 
         public ICommand LoadArticlesCommand { get; set; }
@@ -74,6 +86,7 @@ namespace WeeklyXamarin.Core.ViewModels
                 dataStore.BookmarkArticle(article);
                 article.IsSaved = true;
             }
+            messagingService.Send<Article>(article, "BOOKMARKED");
         }
 
         private async Task OpenArticle(Article article)

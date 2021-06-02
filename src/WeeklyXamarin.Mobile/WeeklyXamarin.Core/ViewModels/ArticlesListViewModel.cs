@@ -25,13 +25,17 @@ namespace WeeklyXamarin.Core.ViewModels
             IDataStore dataStore, 
             IBrowser browser, 
             IPreferences preferences, 
-            IShare share) : base(navigation, analytics, dataStore, browser, preferences, share)
+            IShare share,
+            IMessagingService messagingService) : base(navigation, analytics, dataStore, browser, preferences, share, messagingService)
         {
             Title = "Articles";
             LoadArticlesCommand = new AsyncCommand(ExecuteLoadArticlesCommand);
             ToggleBookmarkCommand = new Command<Article>(ExecuteToggleBookmarkArticle);
             NavigateBackCommand = new AsyncCommand(ExecuteNavigateBackCommand);
+           
         }
+
+        
 
         private async Task ExecuteNavigateBackCommand()
         {
@@ -46,8 +50,8 @@ namespace WeeklyXamarin.Core.ViewModels
                 CurrentState = ListState.Loading; 
                 Title = $"Edition {EditionId}";
                 var edition = await dataStore.GetEditionAsync(EditionId);
-                Articles.AddRange(edition.Articles);
                 CurrentState = ListState.Success;
+                Articles.AddRange(edition.Articles);
 
             }
             catch (Exception ex)

@@ -6,6 +6,7 @@
     xmlns:converters="clr-namespace:WeeklyXamarin.Mobile.Converters"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:rv="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     mc:Ignorable="d">
     <Application.Resources>
         <ResourceDictionary>
@@ -87,11 +88,34 @@
             <Color x:Key="BlueLight">#5165A2</Color>
             <Color x:Key="BlueDark">#384C81</Color>
 
+            <Color x:Key="BackgroundLight">#ECF0F1</Color>
+            <Color x:Key="BackgroundDark">#151515</Color>
+            <Color x:Key="CardLight">White</Color>
+            <Color x:Key="CardDark">#7E8C8D</Color>
+            <Color x:Key="TextLight">#2B2B2B</Color>
+            <Color x:Key="TextDark">#BEC3C7</Color>
+
+            <Color x:Key="PlaceholderLight">#292929</Color>
+            <Color x:Key="PlaceholderDark">#AEB3B7</Color>
+
+            <Color x:Key="EntryBackgroundLight">Transparent</Color>
+            <Color x:Key="EntryBackgroundDark">Transparent</Color>
+
+            <Color x:Key="NavigationPrimaryLight">#2196F3</Color>
+            <Color x:Key="NavigationPrimaryDark">#384C81</Color>
+
+            <!--<Style x:Key="BaseLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+            </Style>-->
+
             <!--  Styles  -->
+            <Style x:Key="OverlayBackground" TargetType="Grid">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
+            </Style>
+
             <Style x:Key="PageHeader" TargetType="Label">
                 <Setter Property="FontFamily" Value="SemiBoldFont" />
                 <Setter Property="FontSize" Value="36" />
-                <Setter Property="TextColor" Value="{StaticResource BlackLight}" />
             </Style>
 
             <Style x:Key="EditionTitle" TargetType="Label">
@@ -135,21 +159,34 @@
             <Style x:Key="InformationText" TargetType="Label">
                 <Setter Property="FontFamily" Value="RegularFont" />
                 <Setter Property="FontSize" Value="18" />
-                <Setter Property="TextColor" Value="{StaticResource BlackLight}" />
+            </Style>
+
+
+            <Style ApplyToDerivedTypes="True" TargetType="Label">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
             </Style>
 
 
             <!--  Implicit Styles  -->
             <Style ApplyToDerivedTypes="True" TargetType="Page">
-                <Setter Property="BackgroundColor" Value="{StaticResource WhiteLight}" />
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
             </Style>
+
+            <Style TargetType="rv:MaterialFrame">
+                <Setter Property="MaterialTheme" Value="{AppThemeBinding Light=Acrylic, Dark=Dark}" />
+            </Style>
+
+            <Style TargetType="Entry">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+                <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource PlaceholderLight}, Dark={StaticResource PlaceholderDark}}" />
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource EntryBackgroundLight}, Dark={StaticResource EntryBackgroundDark}}" />
+            </Style>
+
 
             <Style TargetType="Button">
                 <Setter Property="BackgroundColor" Value="{StaticResource SkyBlueLight}" />
                 <Setter Property="TextColor" Value="White" />
             </Style>
-
-            <!--  Margins  -->
 
 
         </ResourceDictionary>

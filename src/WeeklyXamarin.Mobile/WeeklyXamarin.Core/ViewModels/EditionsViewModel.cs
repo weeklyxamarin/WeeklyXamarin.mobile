@@ -19,7 +19,8 @@ namespace WeeklyXamarin.Core.ViewModels
         public ICommand OpenEditionCommand { get;  set; }
         IDataStore dataStore;
 
-        public EditionsViewModel(INavigationService navigation, IAnalytics analytics, IDataStore dataStore) : base(navigation, analytics)
+        public EditionsViewModel(INavigationService navigation, IAnalytics analytics, IDataStore dataStore,
+            IMessagingService messagingService) : base(navigation, analytics, messagingService)
         {
             Title = "Editions";
             Editions = new ObservableRangeCollection<Edition>();

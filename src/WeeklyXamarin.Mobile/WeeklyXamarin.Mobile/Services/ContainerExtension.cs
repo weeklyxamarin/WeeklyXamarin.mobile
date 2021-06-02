@@ -30,6 +30,7 @@ namespace WeeklyXamarin.Mobile.Services
             services.AddSingleton<IShare, ShareImplementation>();
             services.AddSingleton<IBrowser, BrowserImplementation>();
             services.AddSingleton<IAnalytics, AppCenterAnalyticsImplementation>();
+            services.AddSingleton<IMessagingService, MessagingService>();
 
             services.AddSingleton(_ => Barrel.Current);
 

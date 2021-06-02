@@ -12,7 +12,7 @@
     x:DataType="viewmodels:BookmarksViewModel"
     x:TypeArguments="viewmodels:BookmarksViewModel">
 
-    <Grid xct:StateLayout.CurrentState="{Binding CurrentState, Converter={StaticResource listStateToLayoutStateConverter}}">
+    <!--<Grid xct:StateLayout.CurrentState="{Binding CurrentState, Converter={StaticResource listStateToLayoutStateConverter}}">
         <xct:StateLayout.StateViews>
             <xct:StateView StateKey="Loading" VerticalOptions="FillAndExpand">
                 <ActivityIndicator
@@ -21,32 +21,10 @@
                     VerticalOptions="Center" />
             </xct:StateView>
             <xct:StateView StateKey="Empty" VerticalOptions="FillAndExpand">
-                <StackLayout>
-                    <Label
-                        Margin="40"
-                        HorizontalTextAlignment="Center"
-                        Style="{StaticResource InformationText}"
-                        Text="There's nothing here yet."
-                        VerticalOptions="CenterAndExpand" />
-                    <lottie:AnimationView
-                        x:Name="animationView"
-                        Animation="bookmarkanimation.json"
-                        AutoPlay="True"
-                        HeightRequest="200"
-                        HorizontalOptions="FillAndExpand"
-                        RepeatMode="Infinite"
-                        VerticalOptions="FillAndExpand"
-                        WidthRequest="200" />
-                    <Label
-                        Margin="40"
-                        HorizontalTextAlignment="Center"
-                        Style="{StaticResource InformationText}"
-                        Text="Swipe on an article to bookmark it and it will show up here."
-                        VerticalOptions="CenterAndExpand" />
-
-                </StackLayout>
             </xct:StateView>
-        </xct:StateLayout.StateViews>
+        </xct:StateLayout.StateViews>-->
+
+    <Grid>
 
         <CollectionView ItemsSource="{Binding Articles}">
             <CollectionView.ItemTemplate>
@@ -55,6 +33,43 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
+        <Grid IsVisible="False" Style="{StaticResource OverlayBackground}">
+            <StackLayout>
+                <Label
+                    Margin="40"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource InformationText}"
+                    Text="There's nothing here yet."
+                    VerticalOptions="CenterAndExpand" />
+                <lottie:AnimationView
+                    x:Name="animationView"
+                    Animation="bookmarkanimation.json"
+                    AutoPlay="True"
+                    HeightRequest="200"
+                    HorizontalOptions="FillAndExpand"
+                    RepeatMode="Infinite"
+                    VerticalOptions="FillAndExpand"
+                    WidthRequest="200" />
+                <Label
+                    Margin="40"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource InformationText}"
+                    Text="Swipe on an article to bookmark it and it will show up here."
+                    VerticalOptions="CenterAndExpand" />
+
+            </StackLayout>
+            <Grid.Triggers>
+                <DataTrigger
+                    Binding="{Binding CurrentState}"
+                    TargetType="Grid"
+                    Value="Empty">
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+            </Grid.Triggers>
+
+        </Grid>
+
     </Grid>
 
 </views:PageBase>

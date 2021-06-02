@@ -20,7 +20,8 @@ namespace WeeklyXamarin.Core.ViewModels
     {
         string searchText;
         public ICommand SearchArticlesCommand { get; set; }
-        public SearchViewModel(INavigationService navigation, IAnalytics analytics, IDataStore dataStore, IBrowser browser, IPreferences preferences, IShare share) : base(navigation, analytics, dataStore, browser, preferences, share)
+        public SearchViewModel(INavigationService navigation, IAnalytics analytics, IDataStore dataStore, IBrowser browser, IPreferences preferences, IShare share,
+            IMessagingService messagingService) : base(navigation, analytics, dataStore, browser, preferences, share, messagingService)
         {
             SearchArticlesCommand = new AsyncCommand(ExecuteSearchArticlesCommand);
         }

@@ -18,22 +18,11 @@
     x:TypeArguments="viewmodels:ArticlesListViewModel"
     mc:Ignorable="d">
 
-    <Grid RowDefinitions="Auto,*">
+    <Grid VerticalOptions="Fill">
 
-        <Grid Grid.Row="1" xct:StateLayout.CurrentState="{Binding CurrentState, Converter={StaticResource listStateToLayoutStateConverter}}">
-            <xct:StateLayout.StateViews>
-                <xct:StateView StateKey="Loading">
-                    <ActivityIndicator
-                        HorizontalOptions="Center"
-                        IsRunning="True"
-                        VerticalOptions="Center" />
-                </xct:StateView>
-            </xct:StateLayout.StateViews>
-        </Grid>
 
         <CollectionView
             x:Name="ArticlesCollectionView"
-            Grid.Row="1"
             ItemsSource="{Binding Articles}"
             Scrolled="ArticlesCollectionView_Scrolled">
 
@@ -45,5 +34,20 @@
 
         </CollectionView>
 
+        <ActivityIndicator
+            HorizontalOptions="Center"
+            IsRunning="False"
+            IsVisible="False"
+            VerticalOptions="Center">
+            <ActivityIndicator.Triggers>
+                <DataTrigger
+                    Binding="{Binding CurrentState}"
+                    TargetType="ActivityIndicator"
+                    Value="Loading">
+                    <Setter Property="IsRunning" Value="True" />
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+            </ActivityIndicator.Triggers>
+        </ActivityIndicator>
     </Grid>
 </views:PageBase>

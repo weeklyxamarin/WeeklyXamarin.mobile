@@ -11,7 +11,6 @@
     x:Name="rootPage"
     Title="{Binding Title}"
     x:TypeArguments="viewmodels:EditionsViewModel"
-    BackgroundColor="{StaticResource WhiteLight}"
     mc:Ignorable="d">
 
     <RefreshView Command="{Binding LoadEditionsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
@@ -28,8 +27,7 @@
                             Padding="0"
                             CornerRadius="4"
                             HasShadow="True"
-                            IsClippedToBounds="True"
-                            MaterialTheme="Acrylic">
+                            IsClippedToBounds="True">
                             <Grid IsClippedToBounds="True" RowDefinitions="Auto, Auto">
                                 <BoxView
                                     Grid.Row="0"
