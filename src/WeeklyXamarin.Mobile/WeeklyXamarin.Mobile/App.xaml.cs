@@ -12,15 +12,14 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Xamarin.Essentials.Interfaces;
 using WeeklyXamarin.Core.Helpers;
-
-[assembly: ExportFont("OpenSans-Regular.ttf", Alias = "RegularFont")]
-[assembly: ExportFont("OpenSans-SemiBold.ttf", Alias = "SemiBoldFont")]
+using Xamarin.Essentials;
 
 namespace WeeklyXamarin.Mobile
 {
     public partial class App : Application
     {
         private IPreferences preferences;
+        private IThemeService theme;
 
         public App() : this(null) { }
 
@@ -36,7 +35,7 @@ namespace WeeklyXamarin.Mobile
                 = ContainerExtension.ConfigureServices(configure);
 
             preferences = Container.Instance.ServiceProvider.GetRequiredService<IPreferences>();
-
+            theme = Container.Instance.ServiceProvider.GetRequiredService<IThemeService>();
 
             MainPage = new AppShell();
         }
@@ -49,14 +48,30 @@ namespace WeeklyXamarin.Mobile
                                 + $"ios={Secrets.AppCenteriOS};",
                                 typeof(Analytics), typeof(Crashes));
             }
+
+            OnResume();
         }
 
         protected override void OnSleep()
         {
+            theme.SetTheme();
+
+            RequestedThemeChanged -= App_RequestedThemeChanged;
         }
 
         protected override void OnResume()
         {
+            theme.SetTheme();
+
+            RequestedThemeChanged += App_RequestedThemeChanged;
+        }
+
+        private void App_RequestedThemeChanged(object sender, AppThemeChangedEventArgs e)
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                theme.SetTheme();
+            });
         }
     }
 }

@@ -163,7 +163,8 @@
 
 
             <Style ApplyToDerivedTypes="True" TargetType="Label">
-                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+                <Setter Property="TextColor" 
+                        Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
             </Style>
 
 
@@ -184,7 +185,7 @@
 
 
             <Style TargetType="Button">
-                <Setter Property="BackgroundColor" Value="{StaticResource SkyBlueLight}" />
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SkyBlueLight}, Dark={StaticResource SkyBlueDark}}" />
                 <Setter Property="TextColor" Value="White" />
             </Style>
 
