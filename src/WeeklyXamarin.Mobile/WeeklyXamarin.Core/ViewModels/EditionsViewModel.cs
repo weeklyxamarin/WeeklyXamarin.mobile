@@ -27,6 +27,7 @@ namespace WeeklyXamarin.Core.ViewModels
             LoadEditionsCommand = new AsyncCommand(ExecuteLoadEditionsCommand);
             OpenEditionCommand = new AsyncCommand<Edition>(OpenEdition);
             this.dataStore = dataStore;
+            ExecuteLoadEditionsCommand();
         }
 
         private async Task OpenEdition(Edition edition)
