@@ -60,4 +60,7 @@
   <assembly fullname="Microsoft.Extensions.Logging.Configuration">
     <type fullname="*"/>
   </assembly>
+  <assembly fullname="MvvmHelpers">
+    <type fullname="*" />
+  </assembly>
 </linker>
