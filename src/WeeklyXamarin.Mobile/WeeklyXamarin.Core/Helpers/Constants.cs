@@ -31,6 +31,7 @@ namespace WeeklyXamarin.Core.Helpers
         {
             public const string OpenLinksInApp = "OpenLinksInApp";
             public const string Analytics = "Analytics";
+            public const string Theme = "Theme";
         }
 
         public static class Navigation

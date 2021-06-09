@@ -3,15 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
-    
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Fonts\OpenSans-Regular.ttf" />
-    <None Remove="Resources\Fonts\OpenSans-SemiBold.ttf" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <EmbeddedResource Include="Resources\Fonts\fa-brands-400.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\fa-regular-400.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\fa-solid-900.ttf" />
     <EmbeddedResource Include="Resources\Fonts\OpenSans-Regular.ttf" />
     <EmbeddedResource Include="Resources\Fonts\OpenSans-SemiBold.ttf" />
   </ItemGroup>
@@ -40,33 +37,4 @@
     <ProjectReference Include="..\WeeklyXamarin.Core\WeeklyXamarin.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="Mono.Android">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v9.0\Mono.Android.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Views\ArticlesListPage.xaml.cs">
-      <DependentUpon>ArticlesListPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\EditionsPage.xaml.cs">
-      <DependentUpon>EditionsPage.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Views\AcknowledgementsPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\ArticleDataTemplate.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BookmarksPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\SearchPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
 </Project>
