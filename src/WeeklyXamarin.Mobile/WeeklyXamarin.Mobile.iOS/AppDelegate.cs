@@ -46,7 +46,7 @@ namespace WeeklyXamarin.Mobile.iOS
 
         private void ConfigureServices(ServiceCollection container)
         {
-            container.AddSingleton<IStatusBarService, StatusBarService>();
+            container.AddSingleton<IStatusBarService, StatusBarService>(_ => new StatusBarService());
         }
     }
 }
