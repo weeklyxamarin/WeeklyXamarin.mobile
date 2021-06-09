@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Sharpnado.MaterialFrame.iOS;
 using Shiny;
 using UIKit;
+using WeeklyXamarin.Core.Services;
+using WeeklyXamarin.Mobile.iOS.Services;
 
 namespace WeeklyXamarin.Mobile.iOS
 {
@@ -44,6 +46,7 @@ namespace WeeklyXamarin.Mobile.iOS
 
         private void ConfigureServices(ServiceCollection container)
         {
+            container.AddSingleton<IStatusBarService, StatusBarService>(_ => new StatusBarService());
         }
     }
 }

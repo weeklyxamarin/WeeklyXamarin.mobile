@@ -8,8 +8,7 @@
     xmlns:viewModels="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
     xmlns:views="clr-namespace:WeeklyXamarin.Mobile.Views"
     Title="Acknowledgments"
-    x:TypeArguments="viewModels:AcknowledgementsViewModel"
-    BackgroundColor="{StaticResource WhiteLight}">
+    x:TypeArguments="viewModels:AcknowledgementsViewModel">
 
 
 
@@ -36,8 +35,7 @@
                             Padding="0"
                             CornerRadius="4"
                             HasShadow="True"
-                            IsClippedToBounds="True"
-                            MaterialTheme="Acrylic">
+                            IsClippedToBounds="True">
                             <Grid IsClippedToBounds="True" RowDefinitions="Auto, Auto">
                                 <BoxView
                                     Grid.RowSpan="2"

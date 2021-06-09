@@ -15,12 +15,14 @@ namespace WeeklyXamarin.Core.ViewModels
 
         protected INavigationService navigation;
         protected IAnalytics analytics;
+        protected IMessagingService messagingService;
 
-        public ViewModelBase(INavigationService navigation, IAnalytics analytics)
+        public ViewModelBase(INavigationService navigation, IAnalytics analytics, IMessagingService messagingService)
         {
             CloseViewCommand = new AsyncCommand(ExecuteCloseViewCommand);
             this.navigation = navigation;
             this.analytics = analytics;
+            this.messagingService = messagingService;
         }
 
         private async Task ExecuteCloseViewCommand()

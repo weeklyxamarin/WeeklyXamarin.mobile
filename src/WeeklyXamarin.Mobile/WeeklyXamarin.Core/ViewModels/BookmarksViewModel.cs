@@ -16,7 +16,8 @@ namespace WeeklyXamarin.Core.ViewModels
     public class BookmarksViewModel : ArticleListViewModelBase
     {
 
-        public BookmarksViewModel(INavigationService navigation, IAnalytics analytics, IDataStore dataStore, IBrowser browser, IPreferences preferences, IShare share) : base(navigation, analytics, dataStore, browser, preferences, share)
+        public BookmarksViewModel(INavigationService navigation, IAnalytics analytics, IDataStore dataStore, IBrowser browser, IPreferences preferences, IShare share,
+            IMessagingService messagingService) : base(navigation, analytics, dataStore, browser, preferences, share, messagingService)
         {
             LoadArticlesCommand = new Command(ExecuteLoadArticlesCommand);
             ToggleBookmarkCommand = new Command<Article>(ExecuteToggleBookmarkArticle);

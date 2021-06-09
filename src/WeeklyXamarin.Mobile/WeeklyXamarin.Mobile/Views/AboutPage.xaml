@@ -3,6 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:fontAwesome="clr-namespace:FontAwesome"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:WeeklyXamarin.Core.Models;assembly=WeeklyXamarin.Core"
     xmlns:rv="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
@@ -12,6 +13,7 @@
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="rootPage"
     Title="{Binding Title}"
+    x:DataType="viewmodels:AboutViewModel"
     x:TypeArguments="viewmodels:AboutViewModel"
     mc:Ignorable="d">
 
@@ -24,6 +26,89 @@
                 <Setter Property="FontAttributes" Value="Bold" />
             </Style>
 
+            <Color x:Key="LightRadioButtonColor">#F3F2F1</Color>
+            <Color x:Key="DarkRadioButtonColor">#9B9A99</Color>
+
+            <ControlTemplate x:Key="ThemeRadioTemplate">
+                <Frame
+                    Padding="0"
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkRadioButtonColor},
+                                                      Light={StaticResource LightRadioButtonColor}}"
+                    BorderColor="{AppThemeBinding Dark={StaticResource DarkRadioButtonColor},
+                                                  Light={StaticResource LightRadioButtonColor}}"
+                    CornerRadius="8"
+                    HasShadow="{OnPlatform iOS=false,
+                                           Android=true}"
+                    HeightRequest="80"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    WidthRequest="80">
+                    <Grid Margin="4" WidthRequest="80">
+                        <Grid
+                            HeightRequest="20"
+                            HorizontalOptions="End"
+                            VerticalOptions="Start"
+                            WidthRequest="20">
+                            <Ellipse
+                                x:Name="FillUncheck"
+                                Fill="White"
+                                HeightRequest="18"
+                                HorizontalOptions="Center"
+                                Stroke="#2E2545"
+                                StrokeThickness="2"
+                                VerticalOptions="Center"
+                                WidthRequest="18" />
+                            <Ellipse
+                                x:Name="FillCheck"
+                                Fill="White"
+                                HeightRequest="18"
+                                HorizontalOptions="Center"
+                                Stroke="#2196F3"
+                                StrokeThickness="2"
+                                VerticalOptions="Center"
+                                WidthRequest="18" />
+                            <Ellipse
+                                x:Name="Check"
+                                BackgroundColor="Transparent"
+                                Fill="#2196F3"
+                                HeightRequest="10"
+                                HorizontalOptions="Center"
+                                Stroke="#2196F3"
+                                StrokeThickness="0"
+                                VerticalOptions="Center"
+                                WidthRequest="10" />
+                        </Grid>
+                        <ContentPresenter />
+                    </Grid>
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CheckedStates">
+                                <VisualState x:Name="Checked">
+                                    <VisualState.Setters>
+                                        <Setter Property="BorderColor" Value="#2196F3" />
+                                        <Setter TargetName="Check" Property="Opacity" Value="1" />
+                                        <Setter TargetName="FillCheck" Property="Opacity" Value="1" />
+                                        <Setter TargetName="FillUncheck" Property="Opacity" Value="0" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Unchecked">
+                                    <VisualState.Setters>
+                                        <Setter Property="BorderColor" Value="#F3F2F1" />
+                                        <Setter TargetName="Check" Property="Opacity" Value="0" />
+                                        <Setter TargetName="FillCheck" Property="Opacity" Value="0" />
+                                        <Setter TargetName="FillUncheck" Property="Opacity" Value="1" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                </Frame>
+            </ControlTemplate>
+
+            <Style TargetType="RadioButton">
+                <Setter Property="ControlTemplate" Value="{StaticResource ThemeRadioTemplate}" />
+            </Style>
+
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -34,15 +119,18 @@
                 Padding="{StaticResource MarginValue}"
                 CornerRadius="4"
                 HasShadow="True"
-                IsClippedToBounds="True"
-                MaterialTheme="Acrylic">
+                IsClippedToBounds="True">
                 <StackLayout Spacing="20">
                     <Grid ColumnDefinitions="*,Auto">
                         <Label Style="{StaticResource SettingsText}" Text="Open Links in App" />
                         <Switch
                             Grid.Column="1"
                             HorizontalOptions="End"
-                            IsToggled="{Binding OpenLinksInApp}" />
+                            IsToggled="{Binding OpenLinksInApp}"
+                            OnColor="{AppThemeBinding Dark={StaticResource LightRadioButtonColor},
+                                                      Light={StaticResource DarkRadioButtonColor}}"
+                            ThumbColor="{AppThemeBinding Light={StaticResource NavigationPrimaryLight},
+                                                         Dark={StaticResource NavigationPrimaryDark}}" />
                     </Grid>
                     <Grid ColumnDefinitions="*,*">
                         <Label
@@ -52,7 +140,62 @@
                         <Switch
                             Grid.Column="1"
                             HorizontalOptions="End"
-                            IsToggled="{Binding Analytics}" />
+                            IsToggled="{Binding Analytics}"
+                            OnColor="{AppThemeBinding Dark={StaticResource LightRadioButtonColor},
+                                                      Light={StaticResource DarkRadioButtonColor}}"
+                            ThumbColor="{AppThemeBinding Light={StaticResource NavigationPrimaryLight},
+                                                         Dark={StaticResource NavigationPrimaryDark}}" />
+                    </Grid>
+                    <Grid
+                        ColumnDefinitions="*,Auto,Auto,Auto,*"
+                        ColumnSpacing="10"
+                        RadioButtonGroup.GroupName="ThemeGroup"
+                        RowDefinitions="Auto,Auto"
+                        RowSpacing="10">
+                        <RadioButton
+                            x:Name="RadioButtonSystem"
+                            Grid.Column="1"
+                            IsChecked="{Binding UseSystem}"
+                            Value="System">
+                            <RadioButton.Content>
+                                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Image Scale="0.75" Source="{FontImage FontFamily=FAS, Glyph={x:Static fontAwesome:FontAwesomeIcons.UserCog}, Color=#323130}" />
+                                    <Label
+                                        FontSize="Small"
+                                        Text="System"
+                                        TextColor="#323130" />
+                                </StackLayout>
+                            </RadioButton.Content>
+                        </RadioButton>
+                        <RadioButton
+                            x:Name="RadioButtonLight"
+                            Grid.Column="2"
+                            IsChecked="{Binding UseLight}"
+                            Value="Light">
+                            <RadioButton.Content>
+                                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Image Scale="0.75" Source="{FontImage FontFamily=FAS, Glyph={x:Static fontAwesome:FontAwesomeIcons.Sun}, Color=#323130}" />
+                                    <Label
+                                        FontSize="Small"
+                                        Text="Light"
+                                        TextColor="#323130" />
+                                </StackLayout>
+                            </RadioButton.Content>
+                        </RadioButton>
+                        <RadioButton
+                            Grid.Column="3"
+                            IsChecked="{Binding UseDark}"
+                            Value="Dark">
+                            <RadioButton.Content>
+                                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Image Scale="0.75" Source="{FontImage FontFamily=FAS, Glyph={x:Static fontAwesome:FontAwesomeIcons.Moon}, Color=#323130}" />
+                                    <Label
+                                        FontSize="Small"
+                                        Text="Dark"
+                                        TextColor="#323130" />
+                                </StackLayout>
+                            </RadioButton.Content>
+                        </RadioButton>
                     </Grid>
                 </StackLayout>
             </rv:MaterialFrame>
@@ -65,11 +208,10 @@
                 Padding="{StaticResource MarginValue}"
                 CornerRadius="4"
                 HasShadow="True"
-                IsClippedToBounds="True"
-                MaterialTheme="Acrylic">
+                IsClippedToBounds="True">
                 <StackLayout BindableLayout.ItemsSource="{Binding Libraries}" Spacing="20">
                     <BindableLayout.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="models:LinkInfo">
                             <Label Text="{Binding Text}">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding BindingContext.OpenUrlCommand, Source={x:Reference rootPage}}" CommandParameter="{Binding Url}" />
@@ -88,11 +230,10 @@
                 Padding="{StaticResource MarginValue}"
                 CornerRadius="4"
                 HasShadow="True"
-                IsClippedToBounds="True"
-                MaterialTheme="Acrylic">
+                IsClippedToBounds="True">
                 <StackLayout BindableLayout.ItemsSource="{Binding AboutLinks}" Spacing="20">
                     <BindableLayout.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="models:LinkInfo">
                             <Label Text="{Binding Text}">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding BindingContext.OpenUrlCommand, Source={x:Reference rootPage}}" CommandParameter="{Binding Url}" />
@@ -112,21 +253,22 @@
                 Padding="{StaticResource MarginValue}"
                 CornerRadius="4"
                 HasShadow="True"
-                IsClippedToBounds="True"
-                MaterialTheme="Acrylic">
+                IsClippedToBounds="True">
                 <StackLayout Margin="0,0,0,20">
-                    <StackLayout
+                    <FlexLayout
                         Margin="0,10,0,10"
                         BindableLayout.ItemsSource="{Binding Contributors}"
                         HorizontalOptions="Center"
-                        Orientation="Horizontal">
+                        JustifyContent="Center"
+                        Wrap="Wrap">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate x:DataType="models:Contributor">
                                 <Image
-                                    HeightRequest="50"
+                                    Margin="0,0,5,5"
+                                    HeightRequest="55"
                                     Source="{Binding ImageUrl}"
                                     VerticalOptions="Start"
-                                    WidthRequest="50">
+                                    WidthRequest="55">
                                     <Image.Clip>
                                         <RoundRectangleGeometry CornerRadius="25" Rect="0,0,50,50" />
                                     </Image.Clip>
@@ -134,15 +276,10 @@
                                         <TapGestureRecognizer Command="{Binding OpenUrlCommand, Source={RelativeSource AncestorType={x:Type viewmodels:AboutViewModel}, Mode=FindAncestorBindingContext}}" CommandParameter="{Binding ProfileUrl}" />
                                     </Image.GestureRecognizers>
                                 </Image>
-                                <!--<xct:AvatarView Source="{Binding ImageUrl}" Text="{Binding Initials}">
-                                    <xct:AvatarView.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding OpenUrlCommand, Source={RelativeSource AncestorType={x:Type viewmodels:AboutViewModel}, Mode=FindAncestorBindingContext}}" CommandParameter="{Binding ProfileUrl}" />
-                                    </xct:AvatarView.GestureRecognizers>
-                                </xct:AvatarView>-->
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
-                    </StackLayout>
-                    <Button Command="{Binding OpenAcknowlegementsCommand}" Text="Thanks to all the viewers who followed along" />
+                    </FlexLayout>
+                    <Button Command="{Binding OpenAcknowlegementsCommand}" Text="Thanks to all the viewers" />
                 </StackLayout>
 
             </rv:MaterialFrame>

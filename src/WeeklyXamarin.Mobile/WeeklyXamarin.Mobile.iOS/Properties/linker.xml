@@ -7,6 +7,8 @@
   <assembly fullname="WeeklyXamarin.Core">
     <type fullname="WeeklyXamarin.*"/>
   </assembly>
+  <assembly fullname="WeeklyXamarin.Mobile.iOS">
+  </assembly>
   <assembly fullname="Shiny.Core">
     <type fullname="*"/>
   </assembly>
@@ -59,5 +61,8 @@
   </assembly>
   <assembly fullname="Microsoft.Extensions.Logging.Configuration">
     <type fullname="*"/>
+  </assembly>
+  <assembly fullname="MvvmHelpers">
+    <type fullname="*" />
   </assembly>
 </linker>
