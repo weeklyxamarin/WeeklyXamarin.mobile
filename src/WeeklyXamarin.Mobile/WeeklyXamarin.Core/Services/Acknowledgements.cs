@@ -24,7 +24,7 @@ namespace WeeklyXamarin.Core.Services
         public string Person { get; set; }
         public Activity Activity { get; set; }
     }
-
+    
     public class Acknowledgements
     {
         public IList<Acknowledgement> Thanks = new List<Acknowledgement>();
@@ -33,6 +33,10 @@ namespace WeeklyXamarin.Core.Services
         {
             Thanks = new List<Acknowledgement>()
             {
+                // 9 June 2021
+                new Acknowledgement() {Person="SergejMolotow", Activity=Activity.Follow},
+                new Acknowledgement() {Person="ezteh_tarik", Activity=Activity.Follow},
+                
                 // 3 June 2021
                 new Acknowledgement() {Person="bassicaarons", Activity=Activity.Follow},
                 new Acknowledgement() {Person="ybadragon", Activity=Activity.Subscribe},

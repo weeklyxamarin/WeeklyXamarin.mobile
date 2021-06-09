@@ -3,18 +3,18 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:fontAwesome="clr-namespace:FontAwesome"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:WeeklyXamarin.Core.Models;assembly=WeeklyXamarin.Core"
     xmlns:rv="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:viewmodels="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
     xmlns:views="clr-namespace:WeeklyXamarin.Mobile.Views"
-    xmlns:fontAwesome="clr-namespace:FontAwesome"
     xmlns:vm="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="rootPage"
     Title="{Binding Title}"
-    x:TypeArguments="viewmodels:AboutViewModel"
     x:DataType="viewmodels:AboutViewModel"
+    x:TypeArguments="viewmodels:AboutViewModel"
     mc:Ignorable="d">
 
     <ContentPage.Resources>
@@ -126,9 +126,11 @@
                         <Switch
                             Grid.Column="1"
                             HorizontalOptions="End"
-                            OnColor="{AppThemeBinding Dark={StaticResource LightRadioButtonColor}, Light={StaticResource DarkRadioButtonColor}}"
-                            ThumbColor="{AppThemeBinding Light={StaticResource NavigationPrimaryLight}, Dark={StaticResource NavigationPrimaryDark}}"
-                            IsToggled="{Binding OpenLinksInApp}" />
+                            IsToggled="{Binding OpenLinksInApp}"
+                            OnColor="{AppThemeBinding Dark={StaticResource LightRadioButtonColor},
+                                                      Light={StaticResource DarkRadioButtonColor}}"
+                            ThumbColor="{AppThemeBinding Light={StaticResource NavigationPrimaryLight},
+                                                         Dark={StaticResource NavigationPrimaryDark}}" />
                     </Grid>
                     <Grid ColumnDefinitions="*,*">
                         <Label
@@ -138,9 +140,11 @@
                         <Switch
                             Grid.Column="1"
                             HorizontalOptions="End"
-                            OnColor="{AppThemeBinding Dark={StaticResource LightRadioButtonColor}, Light={StaticResource DarkRadioButtonColor}}"
-                            ThumbColor="{AppThemeBinding Light={StaticResource NavigationPrimaryLight}, Dark={StaticResource NavigationPrimaryDark}}"
-                            IsToggled="{Binding Analytics}" />
+                            IsToggled="{Binding Analytics}"
+                            OnColor="{AppThemeBinding Dark={StaticResource LightRadioButtonColor},
+                                                      Light={StaticResource DarkRadioButtonColor}}"
+                            ThumbColor="{AppThemeBinding Light={StaticResource NavigationPrimaryLight},
+                                                         Dark={StaticResource NavigationPrimaryDark}}" />
                     </Grid>
                     <Grid
                         ColumnDefinitions="*,Auto,Auto,Auto,*"
@@ -150,8 +154,8 @@
                         RowSpacing="10">
                         <RadioButton
                             x:Name="RadioButtonSystem"
-                            IsChecked="{Binding UseSystem}"
                             Grid.Column="1"
+                            IsChecked="{Binding UseSystem}"
                             Value="System">
                             <RadioButton.Content>
                                 <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
@@ -251,18 +255,20 @@
                 HasShadow="True"
                 IsClippedToBounds="True">
                 <StackLayout Margin="0,0,0,20">
-                    <StackLayout
+                    <FlexLayout
                         Margin="0,10,0,10"
                         BindableLayout.ItemsSource="{Binding Contributors}"
                         HorizontalOptions="Center"
-                        Orientation="Horizontal">
+                        JustifyContent="Center"
+                        Wrap="Wrap">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate x:DataType="models:Contributor">
                                 <Image
-                                    HeightRequest="50"
+                                    Margin="0,0,5,5"
+                                    HeightRequest="55"
                                     Source="{Binding ImageUrl}"
                                     VerticalOptions="Start"
-                                    WidthRequest="50">
+                                    WidthRequest="55">
                                     <Image.Clip>
                                         <RoundRectangleGeometry CornerRadius="25" Rect="0,0,50,50" />
                                     </Image.Clip>
@@ -270,15 +276,10 @@
                                         <TapGestureRecognizer Command="{Binding OpenUrlCommand, Source={RelativeSource AncestorType={x:Type viewmodels:AboutViewModel}, Mode=FindAncestorBindingContext}}" CommandParameter="{Binding ProfileUrl}" />
                                     </Image.GestureRecognizers>
                                 </Image>
-                                <!--<xct:AvatarView Source="{Binding ImageUrl}" Text="{Binding Initials}">
-                                    <xct:AvatarView.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding OpenUrlCommand, Source={RelativeSource AncestorType={x:Type viewmodels:AboutViewModel}, Mode=FindAncestorBindingContext}}" CommandParameter="{Binding ProfileUrl}" />
-                                    </xct:AvatarView.GestureRecognizers>
-                                </xct:AvatarView>-->
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
-                    </StackLayout>
-                    <Button Command="{Binding OpenAcknowlegementsCommand}" Text="Thanks to all the viewers who followed along" />
+                    </FlexLayout>
+                    <Button Command="{Binding OpenAcknowlegementsCommand}" Text="Thanks to all the viewers" />
                 </StackLayout>
 
             </rv:MaterialFrame>
