@@ -42,12 +42,14 @@ namespace WeeklyXamarin.Core.Helpers
                 public const string ArticleDetail = "articles/article-detail";
                 public const string Editions = "///editions";
                 public const string Acknowlegements = "acknowledgements";
+                public const string Search = "//search";
             }
 
             public static class ParameterNames
             {
                 public const string ArticleId = "ArticleId";
                 public const string EditionId = "EditionId";
+                public const string Category = "Category";
             }
         }
     }
