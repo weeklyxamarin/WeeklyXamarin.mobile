@@ -42,6 +42,7 @@ namespace WeeklyXamarin.Core.Helpers
                 public const string ArticleDetail = "articles/article-detail";
                 public const string Editions = "///editions";
                 public const string Acknowlegements = "acknowledgements";
+                public const string ArticleView = "article-view";
             }
 
             public static class ParameterNames

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:PageBase
+    x:Class="WeeklyXamarin.Mobile.Views.ArticleViewPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fa="clr-namespace:FontAwesome"
+    xmlns:viewmodels="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
+    xmlns:views="clr-namespace:WeeklyXamarin.Mobile.Views"
+    Title="{Binding Article.Title}"
+    x:DataType="viewmodels:ArticleViewViewModel"
+    x:TypeArguments="viewmodels:ArticleViewViewModel">
+    <views:PageBase.ToolbarItems>
+        <ToolbarItem Command="{Binding OpenArticleCommand}" IconImageSource="{FontImage Glyph={x:Static fa:FontAwesomeIcons.ExternalLinkAlt}, FontFamily=FAS, Size=18}" />
+    </views:PageBase.ToolbarItems>
+    <ContentPage.Content>
+        <WebView
+            HorizontalOptions="FillAndExpand"
+            Navigated="WebView_Navigated"
+            Navigating="WebView_Navigating"
+            Source="{Binding Article.Url}"
+            Style="{AppThemeBinding Light={StaticResource BackgroundLight},
+                                    Dark={StaticResource BackgroundDark}}"
+            VerticalOptions="FillAndExpand" />
+    </ContentPage.Content>
+</views:PageBase>

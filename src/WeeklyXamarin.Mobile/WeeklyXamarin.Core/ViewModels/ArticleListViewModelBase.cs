@@ -91,11 +91,16 @@ namespace WeeklyXamarin.Core.ViewModels
 
         private async Task OpenArticle(Article article)
         {
+            await navigation.GoToAsync(Constants.Navigation.Paths.ArticleView,
+                                       Constants.Navigation.ParameterNames.ArticleId,
+                                       article.Id);
+            /*
             await browser.OpenAsync(article.Url, new BrowserLaunchOptions
             {
                 LaunchMode = preferences.Get(Constants.Preferences.OpenLinksInApp, true) ? BrowserLaunchMode.SystemPreferred : BrowserLaunchMode.External,
                 TitleMode = BrowserTitleMode.Show
             });
+            */
         }
 
     }
