@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using WeeklyXamarin.Core.Helpers;
 using WeeklyXamarin.Core.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,9 +14,6 @@ namespace WeeklyXamarin.Mobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SearchPage : PageBase<SearchViewModel>, IQueryAttributable
     {
-        // Name of the query string id
-        const string Category = "";
-
         public SearchPage()
         {
             InitializeComponent();
@@ -25,14 +23,16 @@ namespace WeeklyXamarin.Mobile.Views
         {
             // Clearing the search text while navigating away
             ViewModel.SearchText = string.Empty;
+            ViewModel.SearchByCategory = false;
             base.OnDisappearing();
         }
 
         void IQueryAttributable.ApplyQueryAttributes(IDictionary<string, string> query)
         {
-            if (query.ContainsKey(nameof(Category)))
+            if (query.ContainsKey(nameof(Constants.Navigation.ParameterNames.Category)))
             {
-                ViewModel.SearchText = WebUtility.UrlDecode(query[nameof(Category)]);
+                ViewModel.SearchText = WebUtility.UrlDecode(query[Constants.Navigation.ParameterNames.Category]);
+                ViewModel.SearchByCategory = true;
             }
         }
     }

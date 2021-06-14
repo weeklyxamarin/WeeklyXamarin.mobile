@@ -18,5 +18,6 @@ namespace WeeklyXamarin.Core.Services
         void UnbookmarkArticle(Article articleToRemove);
         IAsyncEnumerable<Article> GetArticleFromSearchAsync(string searchText, CancellationToken token, bool forceRefresh = false);
         Task<bool> PreloadNextEdition();
+        IAsyncEnumerable<Article> GetArticleByCategoryAsync(string category, CancellationToken token, bool forceRefresh = false);
     }
 }

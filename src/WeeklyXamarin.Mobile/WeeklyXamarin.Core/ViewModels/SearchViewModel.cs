@@ -19,6 +19,8 @@ namespace WeeklyXamarin.Core.ViewModels
     public class SearchViewModel : ArticleListViewModelBase
     {
         string searchText;
+        string _searchHeader;
+
         public ICommand SearchArticlesCommand { get; set; }
         public SearchViewModel(INavigationService navigation, IAnalytics analytics, IDataStore dataStore, IBrowser browser, IPreferences preferences, IShare share,
             IMessagingService messagingService) : base(navigation, analytics, dataStore, browser, preferences, share, messagingService)
@@ -26,12 +28,16 @@ namespace WeeklyXamarin.Core.ViewModels
             SearchArticlesCommand = new AsyncCommand(ExecuteSearchArticlesCommand);
         }
 
+        public bool SearchByCategory { get; set; }
+
         public string SearchText
         {
             get => searchText;
             set
             {
                 SetProperty(ref searchText, value);
+                // Manual edit, search by keyword
+                SearchByCategory = false;
                 if (value is { Length: 0 })
                 {
                     _ = ExecuteSearchArticlesCommand();
@@ -43,6 +49,12 @@ namespace WeeklyXamarin.Core.ViewModels
         { 
             get => lastSearchTerm;
             set => SetProperty(ref lastSearchTerm, value); 
+        }
+
+        public string SearchHeader
+        {
+            get => _searchHeader;
+            set => SetProperty(ref _searchHeader, value);
         }
 
         CancellationTokenSource cts = new CancellationTokenSource();
@@ -65,8 +77,11 @@ namespace WeeklyXamarin.Core.ViewModels
                     Articles = new ObservableRangeCollection<Article>();
                 }
 
+                SearchHeader = $"Search results for the {(SearchByCategory ? "category" : "keyword")} - {SearchText}";
+
                 if (string.IsNullOrWhiteSpace(searchTerm))
                 {
+                    SearchHeader = string.Empty;
                     CurrentState = ListState.None;
                     return;
                 }
@@ -92,7 +107,17 @@ namespace WeeklyXamarin.Core.ViewModels
                     };
                     timer.Start();
 
-                    var articlesAsync = dataStore.GetArticleFromSearchAsync(searchTerm, cts.Token);
+                    IAsyncEnumerable<Article> articlesAsync;
+
+                    if (SearchByCategory)
+                    {
+                        articlesAsync = dataStore.GetArticleByCategoryAsync(searchTerm, cts.Token);
+                    }
+                    else
+                    {
+                        articlesAsync = dataStore.GetArticleFromSearchAsync(searchTerm, cts.Token);
+                    }
+
                     await foreach (Article article in articlesAsync)
                     {
                         //lock

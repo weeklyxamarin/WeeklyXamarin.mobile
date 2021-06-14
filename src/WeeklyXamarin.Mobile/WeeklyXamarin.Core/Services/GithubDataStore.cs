@@ -207,5 +207,24 @@ namespace WeeklyXamarin.Core.Services
                 }
             }
         }
+
+        public async IAsyncEnumerable<Article> GetArticleByCategoryAsync(string category, [EnumeratorCancellation] CancellationToken token, bool forceRefresh = false)
+        {
+            var editions = await GetEditionsAsync(forceRefresh);
+
+            foreach (var edition in editions)
+            {
+                var articles = await GetEditionAsync(edition.Id, forceRefresh);
+
+                foreach (var article in articles.Articles)
+                {
+                    if (article.Category.Equals(category, StringComparison.OrdinalIgnoreCase))
+                    {
+                        token.ThrowIfCancellationRequested();
+                        yield return article;
+                    }
+                }
+            }
+        }
     }
 }

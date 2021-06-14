@@ -49,7 +49,7 @@ namespace WeeklyXamarin.Core.Helpers
             {
                 public const string ArticleId = "ArticleId";
                 public const string EditionId = "EditionId";
-                public const string Category = "Category";
+                public const string Category = nameof(Category);
             }
         }
     }

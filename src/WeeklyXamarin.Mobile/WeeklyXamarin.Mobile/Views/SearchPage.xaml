@@ -32,7 +32,17 @@
         </Entry>
 
         <Grid Grid.Row="1">
-            <CollectionView ItemsSource="{Binding Articles}">
+            <CollectionView Header="{Binding .}" ItemsSource="{Binding Articles}">
+                <CollectionView.HeaderTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Label
+                                HorizontalOptions="CenterAndExpand"
+                                Text="{Binding SearchHeader}"
+                                VerticalOptions="CenterAndExpand" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.HeaderTemplate>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Article">
                         <views:ArticleDataTemplate />
