@@ -54,8 +54,8 @@ namespace WeeklyXamarin.Core.Helpers
 
         public static class ToolbarIcons
         {
-            public static string Bookmark = $"{nameof(Bookmark)}.png";
-            public static string Unbookmark = $"{nameof(Unbookmark)}.png";
+            public const string Bookmark = "Bookmark.png";
+            public const string Unbookmark = "BookmarkIndicator.png";
         }
     }
 }
