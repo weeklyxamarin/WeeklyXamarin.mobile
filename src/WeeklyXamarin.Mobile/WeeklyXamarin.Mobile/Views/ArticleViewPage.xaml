@@ -10,6 +10,16 @@
     x:DataType="viewmodels:ArticleViewViewModel"
     x:TypeArguments="viewmodels:ArticleViewViewModel">
     <views:PageBase.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding ToggleBookmarkCommand}"
+            CommandParameter="{Binding Article}"
+            IconImageSource="{Binding BookmarkIcon}"
+            Text="Bookmark" />
+        <ToolbarItem
+            Command="{Binding ShareCommand}"
+            CommandParameter="{Binding Article}"
+            IconImageSource="Share"
+            Text="Share" />
         <ToolbarItem Command="{Binding OpenArticleCommand}" IconImageSource="{FontImage Glyph={x:Static fa:FontAwesomeIcons.ExternalLinkAlt}, FontFamily=FAS, Size=18}" />
     </views:PageBase.ToolbarItems>
     <ContentPage.Content>

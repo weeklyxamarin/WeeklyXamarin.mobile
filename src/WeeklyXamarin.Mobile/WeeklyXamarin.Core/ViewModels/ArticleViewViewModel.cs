@@ -13,7 +13,7 @@ using Xamarin.Essentials.Interfaces;
 
 namespace WeeklyXamarin.Core.ViewModels
 {
-    public class ArticleViewViewModel : ViewModelBase
+    public class ArticleViewViewModel : ArticleViewModelBase
     {
         private Article _article;
         protected readonly IBrowser _browser;
@@ -21,11 +21,14 @@ namespace WeeklyXamarin.Core.ViewModels
         protected readonly IPreferences _preferences;
 
         public ArticleViewViewModel(INavigationService navigation,
+                                    IShare share,
                                     IBrowser browser,
                                     IAnalytics analytics,
                                     IDataStore dataStore,
                                     IPreferences preferences,
                                     IMessagingService messagingService) : base(navigation,
+                                                                               share,
+                                                                               dataStore,
                                                                                analytics,
                                                                                messagingService)
         {
@@ -48,6 +51,8 @@ namespace WeeklyXamarin.Core.ViewModels
             await base.InitializeAsync(parameter);
             Article = await _dataStore.GetArticleAsync(parameter.ToString().Substring(0, parameter.ToString().IndexOf("-")),
                                                        parameter.ToString());
+
+            BookmarkIcon = Article.IsSaved ? Constants.ToolbarIcons.Unbookmark : Constants.ToolbarIcons.Bookmark;
         }
 
         private async Task OpenArticle()

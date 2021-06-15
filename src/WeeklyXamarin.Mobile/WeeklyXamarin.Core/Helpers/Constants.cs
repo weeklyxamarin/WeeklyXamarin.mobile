@@ -51,5 +51,11 @@ namespace WeeklyXamarin.Core.Helpers
                 public const string EditionId = "EditionId";
             }
         }
+
+        public static class ToolbarIcons
+        {
+            public static string Bookmark = $"{nameof(Bookmark)}.png";
+            public static string Unbookmark = $"{nameof(Unbookmark)}.png";
+        }
     }
 }
