@@ -42,6 +42,7 @@ namespace WeeklyXamarin.Core.Helpers
                 public const string ArticleDetail = "articles/article-detail";
                 public const string Editions = "///editions";
                 public const string Acknowlegements = "acknowledgements";
+                public const string ArticleView = "article-view";
             }
 
             public static class ParameterNames
@@ -49,6 +50,12 @@ namespace WeeklyXamarin.Core.Helpers
                 public const string ArticleId = "ArticleId";
                 public const string EditionId = "EditionId";
             }
+        }
+
+        public static class ToolbarIcons
+        {
+            public const string Bookmark = "Bookmark.png";
+            public const string Unbookmark = "BookmarkIndicator.png";
         }
     }
 }

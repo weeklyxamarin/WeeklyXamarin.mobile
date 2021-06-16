@@ -14,11 +14,9 @@ using Xamarin.Essentials.Interfaces;
 
 namespace WeeklyXamarin.Core.ViewModels
 {
-    public abstract class ArticleListViewModelBase : ViewModelBase
+    public abstract class ArticleListViewModelBase : ArticleViewModelBase
     {
-        protected readonly IDataStore dataStore;
         protected readonly IBrowser browser;
-        protected readonly IShare share;
         protected readonly IPreferences preferences;
         private ListState currentState;
         private ObservableRangeCollection<Article> articles = new ObservableRangeCollection<Article>();
@@ -29,16 +27,12 @@ namespace WeeklyXamarin.Core.ViewModels
             IBrowser browser,
             IPreferences preferences,
             IShare share,
-            IMessagingService messagingService) : base(navigation, analytics, messagingService)
+            IMessagingService messagingService) : base(navigation, share, dataStore, analytics, messagingService)
         {
             OpenArticleCommand = new AsyncCommand<Article>(OpenArticle);
-            ShareCommand = new AsyncCommand<Article>(ExecuteShareCommand);
-            ToggleBookmarkCommand = new Command<Article>(ExecuteToggleBookmarkArticle);
 
-            this.dataStore = dataStore;
             this.browser = browser;
             this.preferences = preferences;
-            this.share = share;
             messagingService.Subscribe<Article>(this, "BOOKMARKED", BookMarkChanged);
 
         }
@@ -53,8 +47,7 @@ namespace WeeklyXamarin.Core.ViewModels
 
         public ICommand LoadArticlesCommand { get; set; }
         public ICommand OpenArticleCommand { get; set; }
-        public ICommand ToggleBookmarkCommand { get; set; }
-        public ICommand ShareCommand { get; set; }
+
         public ObservableRangeCollection<Article> Articles {
             get => articles;
             set => SetProperty(ref articles, value);
@@ -65,37 +58,18 @@ namespace WeeklyXamarin.Core.ViewModels
             set => SetProperty(ref currentState, value);
         }
 
-        private async Task ExecuteShareCommand(Article article)
-        {
-            await share.RequestAsync(new ShareTextRequest
-            {
-                Uri = article.Url,
-                Title = article.Title
-            });
-        }
-
-        protected virtual void ExecuteToggleBookmarkArticle(Article article)
-        {
-            if (article.IsSaved)
-            {
-                dataStore.UnbookmarkArticle(article);
-                article.IsSaved = false;
-            }
-            else
-            {
-                dataStore.BookmarkArticle(article);
-                article.IsSaved = true;
-            }
-            messagingService.Send<Article>(article, "BOOKMARKED");
-        }
-
         private async Task OpenArticle(Article article)
         {
+            await navigation.GoToAsync(Constants.Navigation.Paths.ArticleView,
+                                       Constants.Navigation.ParameterNames.ArticleId,
+                                       article.Id);
+            /*
             await browser.OpenAsync(article.Url, new BrowserLaunchOptions
             {
                 LaunchMode = preferences.Get(Constants.Preferences.OpenLinksInApp, true) ? BrowserLaunchMode.SystemPreferred : BrowserLaunchMode.External,
                 TitleMode = BrowserTitleMode.Show
             });
+            */
         }
 
     }

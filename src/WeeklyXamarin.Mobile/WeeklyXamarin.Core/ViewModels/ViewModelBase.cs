@@ -25,6 +25,11 @@ namespace WeeklyXamarin.Core.ViewModels
             this.messagingService = messagingService;
         }
 
+        public virtual Task InitializeAsync(object parameter)
+        {
+            return Task.FromResult(0);
+        }
+
         private async Task ExecuteCloseViewCommand()
         {
             await navigation.GoBackAsync();
