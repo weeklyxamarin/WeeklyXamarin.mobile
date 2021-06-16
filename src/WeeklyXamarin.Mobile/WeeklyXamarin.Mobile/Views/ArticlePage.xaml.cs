@@ -15,12 +15,13 @@ namespace WeeklyXamarin.Mobile.Views
 {
     [QueryProperty(nameof(ArticleId), nameof(ArticleId))]
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ArticleViewPage : PageBase<ArticleViewViewModel>
+    public partial class ArticlePage : PageBase<ArticleViewModel>
     {
         readonly Popup busyPopup;
+
         public string ArticleId { get; set; }
 
-        public ArticleViewPage()
+        public ArticlePage()
         {
             InitializeComponent();
             busyPopup = new Popup()

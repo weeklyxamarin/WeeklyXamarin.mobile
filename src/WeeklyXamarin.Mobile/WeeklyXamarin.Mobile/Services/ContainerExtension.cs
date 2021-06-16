@@ -24,7 +24,7 @@ namespace WeeklyXamarin.Mobile.Services
             services.AddTransient<AboutViewModel>();
             services.AddTransient<AcknowledgementsViewModel>();
             services.AddTransient<BookmarksViewModel>();
-            services.AddTransient<ArticleViewViewModel>();
+            services.AddTransient<ArticleViewModel>();
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<IConnectivity, ConnectivityImplementation>();
             services.AddSingleton<IPreferences, PreferencesImplementation>();

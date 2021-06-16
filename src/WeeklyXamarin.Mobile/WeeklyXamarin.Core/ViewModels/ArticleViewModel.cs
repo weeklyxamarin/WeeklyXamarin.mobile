@@ -13,14 +13,14 @@ using Xamarin.Essentials.Interfaces;
 
 namespace WeeklyXamarin.Core.ViewModels
 {
-    public class ArticleViewViewModel : ArticleViewModelBase
+    public class ArticleViewModel : ArticleViewModelBase
     {
         private Article _article;
-        protected readonly IBrowser _browser;
+        protected readonly IBrowser browser;
         protected readonly IDataStore _dataStore;
         protected readonly IPreferences _preferences;
 
-        public ArticleViewViewModel(INavigationService navigation,
+        public ArticleViewModel(INavigationService navigation,
                                     IShare share,
                                     IBrowser browser,
                                     IAnalytics analytics,
@@ -32,7 +32,7 @@ namespace WeeklyXamarin.Core.ViewModels
                                                                                analytics,
                                                                                messagingService)
         {
-            _browser = browser;
+            this.browser = browser;
             _dataStore = dataStore;
             _preferences = preferences;
             OpenArticleCommand = new AsyncCommand(OpenArticle);
@@ -57,11 +57,11 @@ namespace WeeklyXamarin.Core.ViewModels
 
         private async Task OpenArticle()
         {
-            await _browser.OpenAsync(Article.Url, new BrowserLaunchOptions
-            {
-                LaunchMode = _preferences.Get(Constants.Preferences.OpenLinksInApp, true) ? BrowserLaunchMode.SystemPreferred : BrowserLaunchMode.External,
-                TitleMode = BrowserTitleMode.Show
-            });
+            await browser.OpenAsync(Article.Url, new BrowserLaunchOptions
+                {
+                    LaunchMode = BrowserLaunchMode.SystemPreferred,
+                    TitleMode = BrowserTitleMode.Show
+                });
         }
     }
 }

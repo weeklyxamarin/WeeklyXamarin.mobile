@@ -29,7 +29,7 @@ namespace WeeklyXamarin.Core.Helpers
 
         public static class Preferences
         {
-            public const string OpenLinksInApp = "OpenLinksInApp";
+            public const string OpenLinksInBrowser = "OpenLinksInBrowser";
             public const string Analytics = "Analytics";
             public const string Theme = "Theme";
         }

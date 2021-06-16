@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:PageBase
-    x:Class="WeeklyXamarin.Mobile.Views.ArticleViewPage"
+    x:Class="WeeklyXamarin.Mobile.Views.ArticlePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:fa="clr-namespace:FontAwesome"
     xmlns:viewmodels="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
     xmlns:views="clr-namespace:WeeklyXamarin.Mobile.Views"
     Title="{Binding Article.Title}"
-    x:DataType="viewmodels:ArticleViewViewModel"
-    x:TypeArguments="viewmodels:ArticleViewViewModel">
+    x:DataType="viewmodels:ArticleViewModel"
+    x:TypeArguments="viewmodels:ArticleViewModel">
     <views:PageBase.ToolbarItems>
         <ToolbarItem
             Command="{Binding ToggleBookmarkCommand}"

@@ -35,6 +35,7 @@ namespace WeeklyXamarin.Core.ViewModels
             new Contributor{Name="Aden Earnshaw", Initials="AE", ImageUrl="https://avatars.githubusercontent.com/u/1441222", ProfileUrl="https://github.com/adenearnshaw"},
             new Contributor{Name="Saamer Mansoor", Initials="SM", ImageUrl="https://avatars.githubusercontent.com/u/8262287", ProfileUrl="https://github.com/saamerm"},
             new Contributor{Name="Jonathan Parker", Initials="JP", ImageUrl="https://avatars.githubusercontent.com/u/152131", ProfileUrl="https://github.com/jonparker"},
+            new Contributor{Name="Vijay Anand E G", Initials="VA", ImageUrl="https://avatars.githubusercontent.com/u/81947404", ProfileUrl="https://github.com/egvijayanand"},
         };
 
         public List<LinkInfo> Libraries { get; set; } = new List<LinkInfo>
@@ -111,10 +112,10 @@ namespace WeeklyXamarin.Core.ViewModels
             }
         }
 
-        public bool OpenLinksInApp
+        public bool OpenLinksInBrowser
         {
-            get => preferences.Get(Constants.Preferences.OpenLinksInApp, true);
-            set => preferences.Set(Constants.Preferences.OpenLinksInApp, value);
+            get => preferences.Get(Constants.Preferences.OpenLinksInBrowser, true);
+            set => preferences.Set(Constants.Preferences.OpenLinksInBrowser, value);
         }
 
         public bool Analytics
@@ -137,7 +138,7 @@ namespace WeeklyXamarin.Core.ViewModels
         {
             await browser.OpenAsync(url, new BrowserLaunchOptions
             {
-                LaunchMode = preferences.Get(Constants.Preferences.OpenLinksInApp, true) ? BrowserLaunchMode.SystemPreferred : BrowserLaunchMode.External,
+                LaunchMode = preferences.Get(Constants.Preferences.OpenLinksInBrowser, true) ? BrowserLaunchMode.SystemPreferred : BrowserLaunchMode.External,
                 TitleMode = BrowserTitleMode.Show
             });
         }
