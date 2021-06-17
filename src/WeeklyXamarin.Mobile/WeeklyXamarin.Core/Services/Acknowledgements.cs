@@ -33,8 +33,11 @@ namespace WeeklyXamarin.Core.Services
         {
             Thanks = new List<Acknowledgement>()
             {
+                // 16 June 2021
+                new Acknowledgement() {Person="anthalia26", Activity=Activity.Subscribe},
+
+
                 // 9 June 2021
-                new Acknowledgement() {Person="sheepyabc", Activity=Activity.Follow},
                 new Acknowledgement() {Person="AdenEarnshaw", Activity=Activity.Bitties},
                 new Acknowledgement() {Person="SergejMolotow", Activity=Activity.Follow},
                 new Acknowledgement() {Person="ezteh_tarik", Activity=Activity.Follow},

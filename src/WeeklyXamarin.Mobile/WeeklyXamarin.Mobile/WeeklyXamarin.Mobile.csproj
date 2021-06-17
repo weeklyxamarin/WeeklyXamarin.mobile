@@ -37,4 +37,10 @@
     <ProjectReference Include="..\WeeklyXamarin.Core\WeeklyXamarin.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Views\ArticlePage.xaml.cs">
+      <DependentUpon>ArticlePage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

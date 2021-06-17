@@ -63,11 +63,20 @@ namespace WeeklyXamarin.Core.ViewModels
 
         private async Task OpenArticle(Article article)
         {
-            await browser.OpenAsync(article.Url, new BrowserLaunchOptions
+            if (preferences.Get(Constants.Preferences.OpenLinksInBrowser, true))
             {
-                LaunchMode = preferences.Get(Constants.Preferences.OpenLinksInApp, true) ? BrowserLaunchMode.SystemPreferred : BrowserLaunchMode.External,
-                TitleMode = BrowserTitleMode.Show
-            });
+                await browser.OpenAsync(article.Url, new BrowserLaunchOptions
+                {
+                    LaunchMode = BrowserLaunchMode.SystemPreferred,
+                    TitleMode = BrowserTitleMode.Show
+                });
+            }
+            else
+            {
+                await navigation.GoToAsync(Constants.Navigation.Paths.ArticleView,
+                                           Constants.Navigation.ParameterNames.ArticleId,
+                                           article.Id);
+            }
         }
 
         private void ExecuteCategorySearch(Article article)
