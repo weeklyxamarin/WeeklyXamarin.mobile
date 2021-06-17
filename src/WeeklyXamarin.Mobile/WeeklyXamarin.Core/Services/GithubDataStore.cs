@@ -179,6 +179,14 @@ namespace WeeklyXamarin.Core.Services
 
             _barrel.Add(key: Constants.BarrelNames.SavedArticles, data: savedArticleList, expireIn: TimeSpan.FromDays(999));
         }
+        public void BookmarkArticleAtIndex(Article articleToSave, int index)
+        {
+            var savedArticleList = GetSavedArticles(false);
+            articleToSave.IsSaved = true;
+            savedArticleList.Insert(index, articleToSave);
+
+            _barrel.Add(key: Constants.BarrelNames.SavedArticles, data: savedArticleList, expireIn: TimeSpan.FromDays(999));
+        }
         public void UnbookmarkArticle(Article articleToRemove)
         {
             var savedArticleList = GetSavedArticles(false);

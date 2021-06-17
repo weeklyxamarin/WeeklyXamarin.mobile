@@ -15,6 +15,7 @@ namespace WeeklyXamarin.Core.ViewModels
 {
     public class BookmarksViewModel : ArticleListViewModelBase
     {
+        private SavedArticleThing _loadedArticles = null;
 
         public BookmarksViewModel(INavigationService navigation, IAnalytics analytics, IDataStore dataStore, IBrowser browser, IPreferences preferences, IShare share,
             IMessagingService messagingService) : base(navigation, analytics, dataStore, browser, preferences, share, messagingService)
@@ -32,8 +33,8 @@ namespace WeeklyXamarin.Core.ViewModels
 
                 // get the saved
                 CurrentState = ListState.Loading;
-                var articles = dataStore.GetSavedArticles(true);
-                Articles.AddRange(articles.Articles);
+                _loadedArticles = dataStore.GetSavedArticles(true);
+                Articles.AddRange(_loadedArticles.Articles);
                 Title = "Bookmarks";    
                 
                 CurrentState = Articles.Count == 0 ? ListState.Empty: ListState.None;
@@ -51,13 +52,40 @@ namespace WeeklyXamarin.Core.ViewModels
 
         protected override void ExecuteToggleBookmarkArticle(Article article)
         {
-            base.ExecuteToggleBookmarkArticle(article);
+            // No change in logic for removed bookmarks
+            if (article.IsSaved)
+            {
+                base.ExecuteToggleBookmarkArticle(article);
+                return;
+            }
 
-            if (!article.IsSaved)
-                Articles.Remove(article);
+            // Get index of saved article
+            int insertIndex = 0;
+            bool shouldInsert = false;
+            foreach (Article loadedArticle in _loadedArticles.Articles)
+            {
+                if (loadedArticle.Id == article.Id)
+                {
+                    shouldInsert = true;
+                    break;
+                }
+                else if (loadedArticle.IsSaved)
+                {
+                    ++insertIndex;
+                }
+            }
 
-            if (!Articles.Any())
-                CurrentState = ListState.Empty;
+            // If we aren't inserting, no change in logic
+            if (shouldInsert)
+            {
+                dataStore.BookmarkArticleAtIndex(article, insertIndex);
+                article.IsSaved = true;
+                BookmarkIcon = Constants.ToolbarIcons.Unbookmark;
+            }
+            else
+            {
+                base.ExecuteToggleBookmarkArticle(article);
+            }
         }
     }
 }

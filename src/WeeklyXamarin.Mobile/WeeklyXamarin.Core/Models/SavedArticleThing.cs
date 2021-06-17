@@ -15,6 +15,13 @@ namespace WeeklyXamarin.Core.Models
                 Articles.Add(articleToSave);
         }
 
+        public void Insert(int index, Article articleToSave)
+        {
+            var article = Articles.FirstOrDefault(a => a.Id == articleToSave.Id);
+            if (article == null)
+                Articles.Insert(index, articleToSave);
+        }
+
         public void Remove(Article articleToRemove)
         {
             var article = Articles.FirstOrDefault(a => a.Id == articleToRemove.Id);

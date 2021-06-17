@@ -15,6 +15,7 @@ namespace WeeklyXamarin.Core.Services
         Task<Article> GetArticleAsync(string editionId, string articleId);
         SavedArticleThing GetSavedArticles(bool forceRefresh);
         void BookmarkArticle(Article articleToSave);
+        void BookmarkArticleAtIndex(Article articleToSave, int index);
         void UnbookmarkArticle(Article articleToRemove);
         IAsyncEnumerable<Article> GetArticleFromSearchAsync(string searchText, CancellationToken token, bool forceRefresh = false);
         Task<bool> PreloadNextEdition();
