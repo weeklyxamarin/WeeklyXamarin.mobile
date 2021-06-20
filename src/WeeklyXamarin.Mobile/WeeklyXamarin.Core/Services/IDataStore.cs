@@ -19,5 +19,6 @@ namespace WeeklyXamarin.Core.Services
         IAsyncEnumerable<Article> GetArticleFromSearchAsync(string searchText, CancellationToken token, bool forceRefresh = false);
         Task<bool> PreloadNextEdition();
         IAsyncEnumerable<Article> GetArticleByCategoryAsync(string category, CancellationToken token, bool forceRefresh = false);
+        Task<IEnumerable<Category>> GetCategories(bool forceRefresh = false);
     }
 }

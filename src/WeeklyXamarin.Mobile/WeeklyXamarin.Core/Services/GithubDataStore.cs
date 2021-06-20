@@ -31,6 +31,7 @@ namespace WeeklyXamarin.Core.Services
 
         const string baseUrl = @"https://raw.githubusercontent.com/weeklyxamarin/WeeklyXamarin.content/master/content/";
         const string indexFile = "index.json";
+        const string tagsFile = "categories.json";
 
         public GithubDataStore(HttpClient httpClient, IConnectivity connectivity, IBarrel barrel, ILogger<GithubDataStore> logger, IAnalytics analytics)
         {
@@ -225,6 +226,35 @@ namespace WeeklyXamarin.Core.Services
                     }
                 }
             }
+        }
+
+        public async Task<IEnumerable<Category>> GetCategories(bool forceRefresh = false)
+        {
+            // try and get the index from cache
+            var tag = _barrel.Get<Tag>(key: tagsFile);
+
+            // if we need to get it from the internet
+            if (forceRefresh || tag is null || tag.IsStale)
+            {
+                // if we have internet
+                if (_connectivity.NetworkAccess == NetworkAccess.Internet)
+                {
+                    try
+                    {
+                        // get it and cache it
+                        var responseText = await _httpClient.GetStringAsync(tagsFile);
+                        tag = JsonConvert.DeserializeObject<Tag>(responseText);
+                        tag.FetchedDate = DateTime.UtcNow;
+                        _barrel.Add(key: tagsFile, data: tag, expireIn: TimeSpan.FromMinutes(5));
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Failed to get categories");
+                    }
+                }
+            }
+
+            return tag.Categories;
         }
     }
 }

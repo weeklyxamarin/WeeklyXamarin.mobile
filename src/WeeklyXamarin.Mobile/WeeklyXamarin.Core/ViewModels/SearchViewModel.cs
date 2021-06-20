@@ -20,12 +20,35 @@ namespace WeeklyXamarin.Core.ViewModels
     {
         string searchText;
         string _searchHeader;
+        private bool _showCategory;
+        private ObservableRangeCollection<Category> _categories;
 
         public ICommand SearchArticlesCommand { get; set; }
         public SearchViewModel(INavigationService navigation, IAnalytics analytics, IDataStore dataStore, IBrowser browser, IPreferences preferences, IShare share,
             IMessagingService messagingService) : base(navigation, analytics, dataStore, browser, preferences, share, messagingService)
         {
             SearchArticlesCommand = new AsyncCommand(ExecuteSearchArticlesCommand);
+            _categories = new ObservableRangeCollection<Category>();
+            SelectCategoryCommand = new Command<string>((category) =>
+            {
+                SearchText = category;
+                SearchByCategory = true;
+                ShowCategory = false;
+            });
+        }
+
+        public ObservableRangeCollection<Category> Categories
+        {
+            get => _categories;
+            set => SetProperty(ref _categories, value);
+        }
+
+        public ICommand SelectCategoryCommand { get; }
+
+        public bool ShowCategory
+        {
+            get => _showCategory;
+            set => SetProperty(ref _showCategory, value);
         }
 
         public bool SearchByCategory { get; set; }
@@ -55,6 +78,13 @@ namespace WeeklyXamarin.Core.ViewModels
         {
             get => _searchHeader;
             set => SetProperty(ref _searchHeader, value);
+        }
+
+        public override async Task InitializeAsync(object parameter = null)
+        {
+            await base.InitializeAsync(parameter);
+            Categories.Clear();
+            Categories.AddRange(await dataStore.GetCategories());
         }
 
         CancellationTokenSource cts = new CancellationTokenSource();

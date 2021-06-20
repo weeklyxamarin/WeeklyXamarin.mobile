@@ -19,6 +19,12 @@ namespace WeeklyXamarin.Mobile.Views
             InitializeComponent();
         }
 
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await ViewModel.InitializeAsync();
+        }
+
         protected override void OnDisappearing()
         {
             // Clearing the search text while navigating away

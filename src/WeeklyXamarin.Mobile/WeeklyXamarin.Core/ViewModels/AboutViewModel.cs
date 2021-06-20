@@ -22,6 +22,7 @@ namespace WeeklyXamarin.Core.ViewModels
         {
             new LinkInfo {Text="Github Repository", Url="https://github.com/weeklyxamarin/WeeklyXamarin.mobile"},
             new LinkInfo {Text="Weekly Xamarin Website", Url="http://weeklyxamarin.com"},
+            new LinkInfo {Text="Submit an Article", Url="https://bit.ly/WeeklyXamarinSubmit"},
         };
 
         public List<Contributor> Contributors { get; set; } = new List<Contributor>
