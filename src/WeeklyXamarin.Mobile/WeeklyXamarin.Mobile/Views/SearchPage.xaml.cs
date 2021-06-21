@@ -25,14 +25,6 @@ namespace WeeklyXamarin.Mobile.Views
             await ViewModel.InitializeAsync();
         }
 
-        protected override void OnDisappearing()
-        {
-            // Clearing the search text while navigating away
-            ViewModel.SearchText = string.Empty;
-            ViewModel.SearchByCategory = false;
-            base.OnDisappearing();
-        }
-
         void IQueryAttributable.ApplyQueryAttributes(IDictionary<string, string> query)
         {
             if (query.ContainsKey(nameof(Constants.Navigation.ParameterNames.Category)))
