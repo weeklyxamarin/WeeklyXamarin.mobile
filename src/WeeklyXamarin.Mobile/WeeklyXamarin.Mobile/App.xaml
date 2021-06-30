@@ -189,6 +189,15 @@
                 <Setter Property="TextColor" Value="White" />
             </Style>
 
+            <Style x:Key="SectionTitle" TargetType="Label">
+                <Setter Property="FontFamily" Value="SemiBoldFont" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+
+            <Style x:Key="SearchCategory" TargetType="Label">
+                <Setter Property="FontFamily" Value="SemiBoldFont" />
+                <Setter Property="FontSize" Value="14" />
+            </Style>
 
         </ResourceDictionary>
     </Application.Resources>

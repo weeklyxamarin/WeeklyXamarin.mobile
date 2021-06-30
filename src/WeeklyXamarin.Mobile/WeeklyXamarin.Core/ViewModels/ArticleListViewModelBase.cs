@@ -3,6 +3,7 @@ using MvvmHelpers.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -30,6 +31,7 @@ namespace WeeklyXamarin.Core.ViewModels
             IMessagingService messagingService) : base(navigation, share, dataStore, analytics, messagingService)
         {
             OpenArticleCommand = new AsyncCommand<Article>(OpenArticle);
+            SearchCategoryCommand = new Command<Article>(ExecuteCategorySearch);
 
             this.browser = browser;
             this.preferences = preferences;
@@ -47,6 +49,7 @@ namespace WeeklyXamarin.Core.ViewModels
 
         public ICommand LoadArticlesCommand { get; set; }
         public ICommand OpenArticleCommand { get; set; }
+        public ICommand SearchCategoryCommand { get; set; }
 
         public ObservableRangeCollection<Article> Articles {
             get => articles;
@@ -74,8 +77,11 @@ namespace WeeklyXamarin.Core.ViewModels
                                            Constants.Navigation.ParameterNames.ArticleId,
                                            article.Id);
             }
-
         }
 
+        private void ExecuteCategorySearch(Article article)
+        {
+            navigation.GoToAsync(Constants.Navigation.Paths.Search, Constants.Navigation.ParameterNames.Category, WebUtility.UrlEncode(article.Category));
+        }
     }
 }
