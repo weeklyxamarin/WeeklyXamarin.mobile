@@ -36,6 +36,7 @@ namespace WeeklyXamarin.Core.ViewModels
             new Contributor{Name="Saamer Mansoor", Initials="SM", ImageUrl="https://avatars.githubusercontent.com/u/8262287", ProfileUrl="https://github.com/saamerm"},
             new Contributor{Name="Jonathan Parker", Initials="JP", ImageUrl="https://avatars.githubusercontent.com/u/152131", ProfileUrl="https://github.com/jonparker"},
             new Contributor{Name="Vijay Anand E G", Initials="VA", ImageUrl="https://avatars.githubusercontent.com/u/81947404", ProfileUrl="https://github.com/egvijayanand"},
+            new Contributor{Name="Grimorde", Initials="G", ImageUrl="https://avatars.githubusercontent.com/u/1989694", ProfileUrl="https://github.com/grimorde"},
         };
 
         public List<LinkInfo> Libraries { get; set; } = new List<LinkInfo>
