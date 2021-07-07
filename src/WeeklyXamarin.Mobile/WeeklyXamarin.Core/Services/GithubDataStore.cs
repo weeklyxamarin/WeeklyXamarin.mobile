@@ -18,6 +18,7 @@ using WeeklyXamarin.Core.Helpers;
 using Index = WeeklyXamarin.Core.Models.Index;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using WeeklyXamarin.Core.Responses;
 
 namespace WeeklyXamarin.Core.Services
 {
@@ -190,7 +191,7 @@ namespace WeeklyXamarin.Core.Services
             _barrel.Add(key: Constants.BarrelNames.SavedArticles, data: savedArticleList, expireIn: TimeSpan.FromDays(999));
         }
 
-        public async IAsyncEnumerable<Article> GetArticleFromSearchAsync(string searchText, [EnumeratorCancellation]CancellationToken token, bool forceRefresh = false)
+        public async IAsyncEnumerable<Article> GetArticleFromSearchAsync(string searchText, string category, [EnumeratorCancellation]CancellationToken token, bool forceRefresh = false)
         {
             var editions = await GetEditionsAsync(forceRefresh);
 
@@ -200,26 +201,7 @@ namespace WeeklyXamarin.Core.Services
 
                 foreach (var article in articles.Articles)
                 {
-                    if (article.Matches(searchText))
-                    {
-                        token.ThrowIfCancellationRequested();
-                        yield return article;
-                    }
-                }
-            }
-        }
-
-        public async IAsyncEnumerable<Article> GetArticleByCategoryAsync(string category, [EnumeratorCancellation] CancellationToken token, bool forceRefresh = false)
-        {
-            var editions = await GetEditionsAsync(forceRefresh);
-
-            foreach (var edition in editions)
-            {
-                var articles = await GetEditionAsync(edition.Id, forceRefresh);
-
-                foreach (var article in articles.Articles)
-                {
-                    if (article.Category.Equals(category, StringComparison.OrdinalIgnoreCase))
+                    if (article.Matches(searchText) && article.MatchesCategory(category))
                     {
                         token.ThrowIfCancellationRequested();
                         yield return article;
@@ -231,10 +213,10 @@ namespace WeeklyXamarin.Core.Services
         public async Task<IEnumerable<Category>> GetCategories(bool forceRefresh = false)
         {
             // try and get the index from cache
-            var tag = _barrel.Get<Tag>(key: tagsFile);
+            var categoryResponse = _barrel.Get<CategoryResponse>(key: tagsFile);
 
             // if we need to get it from the internet
-            if (forceRefresh || tag is null || tag.IsStale)
+            if (forceRefresh || categoryResponse is null || categoryResponse.IsStale)
             {
                 // if we have internet
                 if (_connectivity.NetworkAccess == NetworkAccess.Internet)
@@ -243,9 +225,9 @@ namespace WeeklyXamarin.Core.Services
                     {
                         // get it and cache it
                         var responseText = await _httpClient.GetStringAsync(tagsFile);
-                        tag = JsonConvert.DeserializeObject<Tag>(responseText);
-                        tag.FetchedDate = DateTime.UtcNow;
-                        _barrel.Add(key: tagsFile, data: tag, expireIn: TimeSpan.FromMinutes(5));
+                        categoryResponse = JsonConvert.DeserializeObject<CategoryResponse>(responseText);
+                        categoryResponse.FetchedDate = DateTime.UtcNow;
+                        _barrel.Add(key: tagsFile, data: categoryResponse, expireIn: TimeSpan.FromMinutes(5));
                     }
                     catch (Exception ex)
                     {
@@ -254,7 +236,7 @@ namespace WeeklyXamarin.Core.Services
                 }
             }
 
-            return tag.Categories;
+            return categoryResponse.Categories;
         }
     }
 }

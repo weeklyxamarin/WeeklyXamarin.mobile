@@ -29,8 +29,22 @@ namespace WeeklyXamarin.Core.Models
 
         internal bool Matches(string searchText)
         {
+            if (string.IsNullOrEmpty(searchText))
+                return true;
+
             var terms = searchText.Trim().ToLower().Split(' ',StringSplitOptions.RemoveEmptyEntries);
             return terms.Any(i => SearchIndex.Contains(i));
+        }
+
+        internal bool MatchesCategory(string category)
+        {
+            if (string.IsNullOrEmpty(category))
+                return true;
+
+            if (Category.Equals(category, StringComparison.OrdinalIgnoreCase))
+                return true;
+
+            return false;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace WeeklyXamarin.Core.ViewModels
 
         public List<Contributor> Contributors { get; set; } = new List<Contributor>
         {
-            new Contributor{Name = "Kym Phillpotts", Initials = "KP", ImageUrl="https://avatars.githubusercontent.com/u/1327346", ProfileUrl="https://github.com/kphillpotts"},
+            new Contributor{Name="Kym Phillpotts", Initials = "KP", ImageUrl="https://avatars.githubusercontent.com/u/1327346", ProfileUrl="https://github.com/kphillpotts"},
             new Contributor{Name="Lachlan Gordon", Initials="LG", ImageUrl="https://avatars.githubusercontent.com/u/29908924", ProfileUrl="https://github.com/lachlanwgordon"},
             new Contributor{Name="Luce Carter", Initials="LC", ImageUrl="https://avatars.githubusercontent.com/u/6980734", ProfileUrl="https://github.com/LuceCarter"},
             new Contributor{Name="Ryan Davis", Initials="RD", ImageUrl="https://avatars.githubusercontent.com/u/7392704", ProfileUrl="https://github.com/rdavisau"},
