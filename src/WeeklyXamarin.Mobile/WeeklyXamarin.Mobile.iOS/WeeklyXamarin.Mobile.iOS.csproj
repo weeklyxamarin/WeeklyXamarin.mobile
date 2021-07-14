@@ -140,7 +140,7 @@
     <PackageReference Include="Xamarin.Essentials.Interfaces">
       <Version>1.6.1</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
     <PackageReference Include="Xamarin.Forms.DebugRainbows">
       <Version>1.1.4</Version>
@@ -327,7 +327,7 @@
   </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadUnhandledDeviceExceptionWeeklyXamarinMobileiOSHideInfoBar="True" TriggeredFromHotReload="False" />
+      <UserProperties TriggeredFromHotReload="False" XamarinHotReloadUnhandledDeviceExceptionWeeklyXamarinMobileiOSHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
