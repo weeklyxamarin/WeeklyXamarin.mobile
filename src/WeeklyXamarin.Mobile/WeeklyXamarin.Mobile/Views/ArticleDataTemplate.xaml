@@ -4,7 +4,8 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:rv="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
-    xmlns:viewmodels="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core">
+    xmlns:viewmodels="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
+    BackgroundColor="Transparent">
     <SwipeView.RightItems>
         <SwipeItems>
             <SwipeItemView Command="{Binding ShareCommand, Source={RelativeSource AncestorType={x:Type viewmodels:ArticleListViewModelBase}, Mode=FindAncestorBindingContext}}" CommandParameter="{Binding .}">

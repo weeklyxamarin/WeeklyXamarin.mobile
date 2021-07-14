@@ -13,37 +13,16 @@ using Xamarin.Forms.Xaml;
 namespace WeeklyXamarin.Mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SearchPage : PageBase<SearchViewModel>, IQueryAttributable
+    public partial class SearchPage : PageBase<SearchViewModel>
     {
         public SearchPage()
         {
             InitializeComponent();
         }
 
-        protected override async void OnAppearing()
+        private void Picker_Unfocused(object sender, FocusEventArgs e)
         {
-            base.OnAppearing();
-            await ViewModel.InitializeAsync();
-        }
-
-        //TODO: Refactor later!
-        void IQueryAttributable.ApplyQueryAttributes(IDictionary<string, string> query)
-        {
-            if (query.ContainsKey(nameof(Constants.Navigation.ParameterNames.Category)))
-            {
-                ViewModel.SearchText = WebUtility.UrlDecode(query[Constants.Navigation.ParameterNames.Category]);
-            }
-        }
-
-        private async void SelectCategories_Clicked(object sender, EventArgs e)
-        {
-            object result = await Navigation.ShowPopupAsync(new CategoryPopup(ViewModel.Categories));
-            await DisplayAlert("Popup Response", $"{result}", "OK");
-        }
-
-        private void Picker_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ViewModel.SelectCategoryCommand.Execute(ViewModel.SearchCategory);
+            ViewModel.SearchArticlesCommand.Execute(null);
         }
     }
 }

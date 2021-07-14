@@ -21,37 +21,19 @@ namespace WeeklyXamarin.Core.ViewModels
         string searchText;
         string _searchHeader;
         private bool _showCategory;
-        private ObservableRangeCollection<Category> _categories;
 
+        public ICommand ClearCategoryCommand { get; set; } 
         public ICommand SearchArticlesCommand { get; set; }
         public SearchViewModel(INavigationService navigation, IAnalytics analytics, IDataStore dataStore, IBrowser browser, IPreferences preferences, IShare share,
             IMessagingService messagingService) : base(navigation, analytics, dataStore, browser, preferences, share, messagingService)
         {
             SearchArticlesCommand = new AsyncCommand(ExecuteSearchArticlesCommand);
-            SelectCategoryCommand = new AsyncCommand<Category>(ExecuteSelectCategoryCommand);
-            _categories = new ObservableRangeCollection<Category>();
+            ClearCategoryCommand = new AsyncCommand(ExecuteClearCategoryCommand);
+            _ = InitializeAsync();
         }
 
-        private async Task ExecuteSelectCategoryCommand(Category category)
-        {
-            SearchCategory = category;
-            ShowCategory = false;
-            await ExecuteSearchArticlesCommand();
-        }
+        public ObservableRangeCollection<Category> Categories { get; set; } = new ObservableRangeCollection<Category>();
 
-        public ObservableRangeCollection<Category> Categories
-        {
-            get => _categories;
-            set => SetProperty(ref _categories, value);
-        }
-
-        public ICommand SelectCategoryCommand { get; }
-
-        public bool ShowCategory
-        {
-            get => _showCategory;
-            set => SetProperty(ref _showCategory, value);
-        }
         public Category SearchCategory
         {
             get => searchCategory;
@@ -99,16 +81,20 @@ namespace WeeklyXamarin.Core.ViewModels
         public override async Task InitializeAsync(object parameter = null)
         {
             await base.InitializeAsync(parameter);
-            Categories.Clear();
             Categories.AddRange(await dataStore.GetCategories());
         }
 
         CancellationTokenSource cts = new CancellationTokenSource();
 
-
         object lid = new object();
         string lastSearchTerm = "";
         private Category searchCategory;
+
+        private async Task ExecuteClearCategoryCommand()
+        {
+            SearchCategory = null;
+            await ExecuteSearchArticlesCommand();
+        }
 
         private async Task ExecuteSearchArticlesCommand()
         {
@@ -155,7 +141,6 @@ namespace WeeklyXamarin.Core.ViewModels
                     IAsyncEnumerable<Article> articlesAsync;
 
                     articlesAsync = dataStore.GetArticleFromSearchAsync(trimmedSearchTerm, SearchCategory?.Name, cts.Token);
-
 
                     await foreach (Article article in articlesAsync)
                     {
@@ -212,7 +197,6 @@ namespace WeeklyXamarin.Core.ViewModels
                     Articles.AddRange(newBucketWithOldBananas);
             }
             CurrentState = ListState.None; // show the results
-
         }
     }
 }

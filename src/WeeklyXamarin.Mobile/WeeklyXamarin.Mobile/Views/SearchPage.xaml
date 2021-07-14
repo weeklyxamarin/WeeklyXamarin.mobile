@@ -17,6 +17,12 @@
     x:DataType="viewmodels:SearchViewModel"
     x:TypeArguments="viewmodels:SearchViewModel">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <Grid RowDefinitions="Auto,Auto,*">
         <Entry
             Margin="20,20,20,0"
@@ -63,14 +69,15 @@
                 Grid.ColumnSpan="2"
                 ItemDisplayBinding="{Binding Name}"
                 ItemsSource="{Binding Categories}"
-                SelectedIndexChanged="Picker_SelectedIndexChanged"
-                SelectedItem="{Binding SearchCategory}" />
+                SelectedItem="{Binding SearchCategory}"
+                Unfocused="Picker_Unfocused" />
             <Button
                 Grid.Column="1"
                 Padding="0"
                 BackgroundColor="Transparent"
-                Command="{Binding SelectCategoryCommand}"
+                Command="{Binding ClearCategoryCommand}"
                 HorizontalOptions="Center"
+                IsVisible="{Binding SearchCategory, Converter={StaticResource IsNotNullOrEmptyConverter}}"
                 Text="&#10006;"
                 TextColor="{AppThemeBinding Light={StaticResource TextLight},
                                             Dark={StaticResource TextDark}}"
