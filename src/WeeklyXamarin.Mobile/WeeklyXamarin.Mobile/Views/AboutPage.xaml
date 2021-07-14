@@ -122,11 +122,11 @@
                 IsClippedToBounds="True">
                 <StackLayout Spacing="20">
                     <Grid ColumnDefinitions="*,Auto">
-                        <Label Style="{StaticResource SettingsText}" Text="Open Links in App" />
+                        <Label Style="{StaticResource SettingsText}" Text="Open Links in Browser" />
                         <Switch
                             Grid.Column="1"
                             HorizontalOptions="End"
-                            IsToggled="{Binding OpenLinksInApp}"
+                            IsToggled="{Binding OpenLinksInBrowser}"
                             OnColor="{AppThemeBinding Dark={StaticResource LightRadioButtonColor},
                                                       Light={StaticResource DarkRadioButtonColor}}"
                             ThumbColor="{AppThemeBinding Light={StaticResource NavigationPrimaryLight},

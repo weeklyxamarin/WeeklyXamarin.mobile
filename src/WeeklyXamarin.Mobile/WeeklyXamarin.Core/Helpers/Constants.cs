@@ -29,7 +29,7 @@ namespace WeeklyXamarin.Core.Helpers
 
         public static class Preferences
         {
-            public const string OpenLinksInApp = "OpenLinksInApp";
+            public const string OpenLinksInBrowser = "OpenLinksInBrowser";
             public const string Analytics = "Analytics";
             public const string Theme = "Theme";
         }
@@ -42,13 +42,22 @@ namespace WeeklyXamarin.Core.Helpers
                 public const string ArticleDetail = "articles/article-detail";
                 public const string Editions = "///editions";
                 public const string Acknowlegements = "acknowledgements";
+                public const string ArticleView = "article-view";
+                public const string Search = "//search";
             }
 
             public static class ParameterNames
             {
                 public const string ArticleId = "ArticleId";
                 public const string EditionId = "EditionId";
+                public const string Category = nameof(Category);
             }
+        }
+
+        public static class ToolbarIcons
+        {
+            public const string Bookmark = "Bookmark.png";
+            public const string Unbookmark = "BookmarkIndicator.png";
         }
     }
 }

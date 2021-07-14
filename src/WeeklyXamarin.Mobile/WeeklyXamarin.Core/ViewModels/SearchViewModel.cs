@@ -19,11 +19,28 @@ namespace WeeklyXamarin.Core.ViewModels
     public class SearchViewModel : ArticleListViewModelBase
     {
         string searchText;
+        string _searchHeader;
+        private bool _showCategory;
+
+        public ICommand ClearCategoryCommand { get; set; } 
         public ICommand SearchArticlesCommand { get; set; }
         public SearchViewModel(INavigationService navigation, IAnalytics analytics, IDataStore dataStore, IBrowser browser, IPreferences preferences, IShare share,
             IMessagingService messagingService) : base(navigation, analytics, dataStore, browser, preferences, share, messagingService)
         {
             SearchArticlesCommand = new AsyncCommand(ExecuteSearchArticlesCommand);
+            ClearCategoryCommand = new AsyncCommand(ExecuteClearCategoryCommand);
+            _ = InitializeAsync();
+        }
+
+        public ObservableRangeCollection<Category> Categories { get; set; } = new ObservableRangeCollection<Category>();
+
+        public Category SearchCategory
+        {
+            get => searchCategory;
+            set 
+            {
+                SetProperty(ref searchCategory, value);
+            }
         }
 
         public string SearchText
@@ -32,6 +49,7 @@ namespace WeeklyXamarin.Core.ViewModels
             set
             {
                 SetProperty(ref searchText, value);
+                // Manual edit, search by keyword
                 if (value is { Length: 0 })
                 {
                     _ = ExecuteSearchArticlesCommand();
@@ -39,33 +57,61 @@ namespace WeeklyXamarin.Core.ViewModels
             }
         }
 
-        public string LastSearchTerm 
-        { 
+        public string SearchResultText
+        {
+            get
+            {
+                return searchCategory == null ? $"No results for '{SearchText}'." : $"No results for '{SearchText}' in '{searchCategory.Name}'.";
+            }
+        }
+
+        public string LastSearchTerm
+        {
             get => lastSearchTerm;
-            set => SetProperty(ref lastSearchTerm, value); 
+            set => SetProperty(ref lastSearchTerm, value);
+        }
+
+        public string SearchHeader
+        {
+            get => _searchHeader;
+            set => SetProperty(ref _searchHeader, value);
+        }
+        public Category LastSearchCategory { get; private set; }
+
+        public override async Task InitializeAsync(object parameter = null)
+        {
+            await base.InitializeAsync(parameter);
+            Categories.AddRange(await dataStore.GetCategories());
         }
 
         CancellationTokenSource cts = new CancellationTokenSource();
 
-
         object lid = new object();
         string lastSearchTerm = "";
+        private Category searchCategory;
+
+        private async Task ExecuteClearCategoryCommand()
+        {
+            SearchCategory = null;
+            await ExecuteSearchArticlesCommand();
+        }
+
         private async Task ExecuteSearchArticlesCommand()
         {
             try
             {
-                var searchTerm = SearchText.Trim();
-                if (searchTerm == LastSearchTerm)
+                var trimmedSearchTerm = SearchText?.Trim();
+                if (trimmedSearchTerm == LastSearchTerm && SearchCategory == LastSearchCategory)
                     return;
-                LastSearchTerm = searchTerm;
-
+                LastSearchTerm = trimmedSearchTerm;
+                LastSearchCategory = SearchCategory;
                 cts?.Cancel();
                 lock (lid)
                 {
                     Articles = new ObservableRangeCollection<Article>();
                 }
 
-                if (string.IsNullOrWhiteSpace(searchTerm))
+                if (string.IsNullOrWhiteSpace(trimmedSearchTerm) && SearchCategory == null)
                 {
                     CurrentState = ListState.None;
                     return;
@@ -73,10 +119,10 @@ namespace WeeklyXamarin.Core.ViewModels
 
                 cts = new CancellationTokenSource();
 
-                if (SearchText?.Length > 1)
+                if (trimmedSearchTerm?.Length > 1 || SearchCategory != null)
                 {
                     CurrentState = ListState.Loading;
-                    Debug.WriteLine($">> Starting Search for {searchTerm}");
+                    Debug.WriteLine($">> Starting Search for {trimmedSearchTerm} {SearchCategory?.Name}");
 
                     var resultBucket = new List<Article>();
 
@@ -92,7 +138,10 @@ namespace WeeklyXamarin.Core.ViewModels
                     };
                     timer.Start();
 
-                    var articlesAsync = dataStore.GetArticleFromSearchAsync(searchTerm, cts.Token);
+                    IAsyncEnumerable<Article> articlesAsync;
+
+                    articlesAsync = dataStore.GetArticleFromSearchAsync(trimmedSearchTerm, SearchCategory?.Name, cts.Token);
+
                     await foreach (Article article in articlesAsync)
                     {
                         //lock
@@ -111,11 +160,13 @@ namespace WeeklyXamarin.Core.ViewModels
                     if (resultBucket.Count > 0)
                     {
                         DumpBucket(resultBucket, cts.Token);
-                        //Articles.AddRange(resultBucket);
                     }
 
                     if (Articles.Count == 0)
-                        CurrentState = ListState.Empty; // you found nada
+                    {
+                        CurrentState = ListState.Empty;
+                        OnPropertyChanged(nameof(SearchResultText));
+                    }
                     else
                         CurrentState = ListState.None;
                     timer.Stop();
@@ -126,7 +177,7 @@ namespace WeeklyXamarin.Core.ViewModels
                     CurrentState = ListState.None; // go to collectionview empty state
                 }
             }
-            catch (OperationCanceledException oex)
+            catch (OperationCanceledException)
             {
                 Debug.WriteLine($"Cancelled");
             }
@@ -134,11 +185,6 @@ namespace WeeklyXamarin.Core.ViewModels
             {
                 CurrentState = ListState.Error;
             }
-            finally
-            {
-                //IsBusy = false;
-            }
-
         }
 
         private void DumpBucket(List<Article> resultBucket, CancellationToken token)
@@ -151,7 +197,6 @@ namespace WeeklyXamarin.Core.ViewModels
                     Articles.AddRange(newBucketWithOldBananas);
             }
             CurrentState = ListState.None; // show the results
-
         }
     }
 }

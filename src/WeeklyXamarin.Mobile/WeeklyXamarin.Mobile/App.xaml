@@ -163,8 +163,7 @@
 
 
             <Style ApplyToDerivedTypes="True" TargetType="Label">
-                <Setter Property="TextColor" 
-                        Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
             </Style>
 
 
@@ -183,12 +182,27 @@
                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource EntryBackgroundLight}, Dark={StaticResource EntryBackgroundDark}}" />
             </Style>
 
+            <Style TargetType="Picker">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+                <Setter Property="TitleColor" Value="{AppThemeBinding Light={StaticResource PlaceholderLight}, Dark={StaticResource PlaceholderDark}}" />
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource EntryBackgroundLight}, Dark={StaticResource EntryBackgroundDark}}" />
+            </Style>
+
 
             <Style TargetType="Button">
                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SkyBlueLight}, Dark={StaticResource SkyBlueDark}}" />
                 <Setter Property="TextColor" Value="White" />
             </Style>
 
+            <Style x:Key="SectionTitle" TargetType="Label">
+                <Setter Property="FontFamily" Value="SemiBoldFont" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+
+            <Style x:Key="SearchCategory" TargetType="Label">
+                <Setter Property="FontFamily" Value="SemiBoldFont" />
+                <Setter Property="FontSize" Value="14" />
+            </Style>
 
         </ResourceDictionary>
     </Application.Resources>

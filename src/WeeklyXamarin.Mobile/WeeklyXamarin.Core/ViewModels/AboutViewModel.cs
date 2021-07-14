@@ -22,11 +22,12 @@ namespace WeeklyXamarin.Core.ViewModels
         {
             new LinkInfo {Text="Github Repository", Url="https://github.com/weeklyxamarin/WeeklyXamarin.mobile"},
             new LinkInfo {Text="Weekly Xamarin Website", Url="http://weeklyxamarin.com"},
+            new LinkInfo {Text="Submit an Article", Url="https://bit.ly/WeeklyXamarinSubmit"},
         };
 
         public List<Contributor> Contributors { get; set; } = new List<Contributor>
         {
-            new Contributor{Name = "Kym Phillpotts", Initials = "KP", ImageUrl="https://avatars.githubusercontent.com/u/1327346", ProfileUrl="https://github.com/kphillpotts"},
+            new Contributor{Name="Kym Phillpotts", Initials = "KP", ImageUrl="https://avatars.githubusercontent.com/u/1327346", ProfileUrl="https://github.com/kphillpotts"},
             new Contributor{Name="Lachlan Gordon", Initials="LG", ImageUrl="https://avatars.githubusercontent.com/u/29908924", ProfileUrl="https://github.com/lachlanwgordon"},
             new Contributor{Name="Luce Carter", Initials="LC", ImageUrl="https://avatars.githubusercontent.com/u/6980734", ProfileUrl="https://github.com/LuceCarter"},
             new Contributor{Name="Ryan Davis", Initials="RD", ImageUrl="https://avatars.githubusercontent.com/u/7392704", ProfileUrl="https://github.com/rdavisau"},
@@ -35,6 +36,8 @@ namespace WeeklyXamarin.Core.ViewModels
             new Contributor{Name="Aden Earnshaw", Initials="AE", ImageUrl="https://avatars.githubusercontent.com/u/1441222", ProfileUrl="https://github.com/adenearnshaw"},
             new Contributor{Name="Saamer Mansoor", Initials="SM", ImageUrl="https://avatars.githubusercontent.com/u/8262287", ProfileUrl="https://github.com/saamerm"},
             new Contributor{Name="Jonathan Parker", Initials="JP", ImageUrl="https://avatars.githubusercontent.com/u/152131", ProfileUrl="https://github.com/jonparker"},
+            new Contributor{Name="Vijay Anand E G", Initials="VA", ImageUrl="https://avatars.githubusercontent.com/u/81947404", ProfileUrl="https://github.com/egvijayanand"},
+            new Contributor{Name="Grimorde", Initials="G", ImageUrl="https://avatars.githubusercontent.com/u/1989694", ProfileUrl="https://github.com/grimorde"},
         };
 
         public List<LinkInfo> Libraries { get; set; } = new List<LinkInfo>
@@ -111,10 +114,10 @@ namespace WeeklyXamarin.Core.ViewModels
             }
         }
 
-        public bool OpenLinksInApp
+        public bool OpenLinksInBrowser
         {
-            get => preferences.Get(Constants.Preferences.OpenLinksInApp, true);
-            set => preferences.Set(Constants.Preferences.OpenLinksInApp, value);
+            get => preferences.Get(Constants.Preferences.OpenLinksInBrowser, true);
+            set => preferences.Set(Constants.Preferences.OpenLinksInBrowser, value);
         }
 
         public bool Analytics
@@ -137,7 +140,7 @@ namespace WeeklyXamarin.Core.ViewModels
         {
             await browser.OpenAsync(url, new BrowserLaunchOptions
             {
-                LaunchMode = preferences.Get(Constants.Preferences.OpenLinksInApp, true) ? BrowserLaunchMode.SystemPreferred : BrowserLaunchMode.External,
+                LaunchMode = preferences.Get(Constants.Preferences.OpenLinksInBrowser, true) ? BrowserLaunchMode.SystemPreferred : BrowserLaunchMode.External,
                 TitleMode = BrowserTitleMode.Show
             });
         }

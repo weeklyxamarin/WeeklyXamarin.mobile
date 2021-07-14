@@ -18,6 +18,7 @@ using WeeklyXamarin.Core.Helpers;
 using Index = WeeklyXamarin.Core.Models.Index;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using WeeklyXamarin.Core.Responses;
 
 namespace WeeklyXamarin.Core.Services
 {
@@ -31,6 +32,7 @@ namespace WeeklyXamarin.Core.Services
 
         const string baseUrl = @"https://raw.githubusercontent.com/weeklyxamarin/WeeklyXamarin.content/master/content/";
         const string indexFile = "index.json";
+        const string tagsFile = "categories.json";
 
         public GithubDataStore(HttpClient httpClient, IConnectivity connectivity, IBarrel barrel, ILogger<GithubDataStore> logger, IAnalytics analytics)
         {
@@ -189,7 +191,7 @@ namespace WeeklyXamarin.Core.Services
             _barrel.Add(key: Constants.BarrelNames.SavedArticles, data: savedArticleList, expireIn: TimeSpan.FromDays(999));
         }
 
-        public async IAsyncEnumerable<Article> GetArticleFromSearchAsync(string searchText, [EnumeratorCancellation]CancellationToken token, bool forceRefresh = false)
+        public async IAsyncEnumerable<Article> GetArticleFromSearchAsync(string searchText, string category, [EnumeratorCancellation]CancellationToken token, bool forceRefresh = false)
         {
             var editions = await GetEditionsAsync(forceRefresh);
 
@@ -199,13 +201,42 @@ namespace WeeklyXamarin.Core.Services
 
                 foreach (var article in articles.Articles)
                 {
-                    if (article.Matches(searchText))
+                    if (article.Matches(searchText) && article.MatchesCategory(category))
                     {
                         token.ThrowIfCancellationRequested();
                         yield return article;
                     }
                 }
             }
+        }
+
+        public async Task<IEnumerable<Category>> GetCategories(bool forceRefresh = false)
+        {
+            // try and get the index from cache
+            var categoryResponse = _barrel.Get<CategoryResponse>(key: tagsFile);
+
+            // if we need to get it from the internet
+            if (forceRefresh || categoryResponse is null || categoryResponse.IsStale)
+            {
+                // if we have internet
+                if (_connectivity.NetworkAccess == NetworkAccess.Internet)
+                {
+                    try
+                    {
+                        // get it and cache it
+                        var responseText = await _httpClient.GetStringAsync(tagsFile);
+                        categoryResponse = JsonConvert.DeserializeObject<CategoryResponse>(responseText);
+                        categoryResponse.FetchedDate = DateTime.UtcNow;
+                        _barrel.Add(key: tagsFile, data: categoryResponse, expireIn: TimeSpan.FromMinutes(5));
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Failed to get categories");
+                    }
+                }
+            }
+
+            return categoryResponse.Categories;
         }
     }
 }

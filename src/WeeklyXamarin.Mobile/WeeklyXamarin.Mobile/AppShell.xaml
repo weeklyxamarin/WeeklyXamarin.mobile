@@ -50,7 +50,7 @@
             </ShellContent>
         </Tab>
         <Tab Title="Search" Icon="tab_search.png">
-            <ShellContent>
+            <ShellContent Route="search">
                 <ShellContent.ContentTemplate>
                     <DataTemplate>
                         <views:SearchPage />

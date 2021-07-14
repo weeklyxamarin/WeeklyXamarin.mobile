@@ -3,6 +3,7 @@ using MvvmHelpers.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -14,11 +15,9 @@ using Xamarin.Essentials.Interfaces;
 
 namespace WeeklyXamarin.Core.ViewModels
 {
-    public abstract class ArticleListViewModelBase : ViewModelBase
+    public abstract class ArticleListViewModelBase : ArticleViewModelBase
     {
-        protected readonly IDataStore dataStore;
         protected readonly IBrowser browser;
-        protected readonly IShare share;
         protected readonly IPreferences preferences;
         private ListState currentState;
         private ObservableRangeCollection<Article> articles = new ObservableRangeCollection<Article>();
@@ -29,16 +28,13 @@ namespace WeeklyXamarin.Core.ViewModels
             IBrowser browser,
             IPreferences preferences,
             IShare share,
-            IMessagingService messagingService) : base(navigation, analytics, messagingService)
+            IMessagingService messagingService) : base(navigation, share, dataStore, analytics, messagingService)
         {
             OpenArticleCommand = new AsyncCommand<Article>(OpenArticle);
-            ShareCommand = new AsyncCommand<Article>(ExecuteShareCommand);
-            ToggleBookmarkCommand = new Command<Article>(ExecuteToggleBookmarkArticle);
+            SearchCategoryCommand = new Command<Article>(ExecuteCategorySearch);
 
-            this.dataStore = dataStore;
             this.browser = browser;
             this.preferences = preferences;
-            this.share = share;
             messagingService.Subscribe<Article>(this, "BOOKMARKED", BookMarkChanged);
 
         }
@@ -53,8 +49,8 @@ namespace WeeklyXamarin.Core.ViewModels
 
         public ICommand LoadArticlesCommand { get; set; }
         public ICommand OpenArticleCommand { get; set; }
-        public ICommand ToggleBookmarkCommand { get; set; }
-        public ICommand ShareCommand { get; set; }
+        public ICommand SearchCategoryCommand { get; set; }
+
         public ObservableRangeCollection<Article> Articles {
             get => articles;
             set => SetProperty(ref articles, value);
@@ -65,38 +61,27 @@ namespace WeeklyXamarin.Core.ViewModels
             set => SetProperty(ref currentState, value);
         }
 
-        private async Task ExecuteShareCommand(Article article)
+        private async Task OpenArticle(Article article)
         {
-            await share.RequestAsync(new ShareTextRequest
+            if (preferences.Get(Constants.Preferences.OpenLinksInBrowser, true))
             {
-                Uri = article.Url,
-                Title = article.Title
-            });
-        }
-
-        protected virtual void ExecuteToggleBookmarkArticle(Article article)
-        {
-            if (article.IsSaved)
-            {
-                dataStore.UnbookmarkArticle(article);
-                article.IsSaved = false;
+                await browser.OpenAsync(article.Url, new BrowserLaunchOptions
+                {
+                    LaunchMode = BrowserLaunchMode.SystemPreferred,
+                    TitleMode = BrowserTitleMode.Show
+                });
             }
             else
             {
-                dataStore.BookmarkArticle(article);
-                article.IsSaved = true;
+                await navigation.GoToAsync(Constants.Navigation.Paths.ArticleView,
+                                           Constants.Navigation.ParameterNames.ArticleId,
+                                           article.Id);
             }
-            messagingService.Send<Article>(article, "BOOKMARKED");
         }
 
-        private async Task OpenArticle(Article article)
+        private void ExecuteCategorySearch(Article article)
         {
-            await browser.OpenAsync(article.Url, new BrowserLaunchOptions
-            {
-                LaunchMode = preferences.Get(Constants.Preferences.OpenLinksInApp, true) ? BrowserLaunchMode.SystemPreferred : BrowserLaunchMode.External,
-                TitleMode = BrowserTitleMode.Show
-            });
+            navigation.GoToAsync(Constants.Navigation.Paths.Search, Constants.Navigation.ParameterNames.Category, WebUtility.UrlEncode(article.Category));
         }
-
     }
 }
