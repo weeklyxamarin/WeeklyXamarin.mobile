@@ -27,7 +27,7 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Publish .NET Core Project
-        run: dotnet publish **/WeeklyXamarin.Blazor.Client.csproj -c Release -o release –nologo
+        run: dotnet publish src/WeeklyXamarin.Mobile/WeeklyXamarin.Blazor/Client/WeeklyXamarin.Blazor.Client.csproj -c Release -o release –nologo
       
       # Changes the base tag in index.html from ‘/’ to ‘WeeklyXamarin.Mobile’ to match the GitHub Pages repository subdirectory
       - name: Change base-tag in index.html from / to WeeklyXamarin.Mobile
