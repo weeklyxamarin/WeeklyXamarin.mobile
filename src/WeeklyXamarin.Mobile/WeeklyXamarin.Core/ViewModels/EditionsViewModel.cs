@@ -34,7 +34,7 @@ namespace WeeklyXamarin.Core.ViewModels
             await navigation.GoToAsync(Constants.Navigation.Paths.Articles, Constants.Navigation.ParameterNames.EditionId, edition.Id);
         }
 
-        async Task ExecuteLoadEditionsCommand()
+        public async Task ExecuteLoadEditionsCommand()
         {
             try
             {

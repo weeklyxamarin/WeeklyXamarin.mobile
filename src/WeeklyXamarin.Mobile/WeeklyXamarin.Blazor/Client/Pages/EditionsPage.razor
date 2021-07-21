@@ -1,0 +1,21 @@
+﻿@page "/editions"
+
+
+<h3>Editions Page</h3>
+
+@if (ViewModel == null)
+{
+    <p>No view model</p>
+}
+else if (ViewModel.Editions == null || ViewModel.Editions.Count == 0)
+{
+    <p>No editions</p>
+}
+else
+{
+    @foreach (var edition in ViewModel.Editions)
+    {
+        <NavLink href="@($"Edition/{edition.Id}")" >@edition.Name</NavLink>
+    }
+}
+

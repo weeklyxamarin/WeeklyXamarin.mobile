@@ -17,6 +17,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeeklyXamarin.Curated.Impor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeeklyXamarin.Mobile.UWP", "WeeklyXamarin.Mobile.UWP\WeeklyXamarin.Mobile.UWP.csproj", "{74D3546D-0772-4C06-8F4B-875826D47E34}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeeklyXamarin.Blazor.Server", "WeeklyXamarin.Blazor\Server\WeeklyXamarin.Blazor.Server.csproj", "{7D1BF304-AE16-461B-AC17-CB92AA7C6830}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeeklyXamarin.Blazor.Client", "WeeklyXamarin.Blazor\Client\WeeklyXamarin.Blazor.Client.csproj", "{A167E194-DB1C-4F04-9478-93767953D649}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

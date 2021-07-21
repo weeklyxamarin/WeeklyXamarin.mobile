@@ -42,7 +42,7 @@ namespace WeeklyXamarin.Core.ViewModels
             await navigation.GoToAsync(Constants.Navigation.Paths.Editions);
         }
 
-        async Task ExecuteLoadArticlesCommand()
+        public async Task ExecuteLoadArticlesCommand()
         {
             try
             {
