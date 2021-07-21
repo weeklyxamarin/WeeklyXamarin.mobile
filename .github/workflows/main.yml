@@ -23,7 +23,7 @@ jobs:
       - name: Setup .Net Core SDK
         uses: actions/setup-dotnet@v1
         with: 
-          dotnet-version: 5.0
+          dotnet-version: '5.0.x'
 
       # Runs a set of commands using the runners shell
       - name: Publish .NET Core Project
