@@ -36,8 +36,8 @@ jobs:
         run: ls -R
       
       # Changes the base tag in index.html from ‘/’ to ‘WeeklyXamarin.Mobile’ to match the GitHub Pages repository subdirectory
-      - name: Change base-tag in index.html from / to WeeklyXamarin.Mobile
-        run: sed -i ‘s/<base href=”\/” \/>/<base href=”\/WeeklyXamarin.Mobile\/” \/>/g’ release/wwwroot/index.html
+      #- name: Change base-tag in index.html from / to WeeklyXamarin.Mobile
+       # run: sed -i ‘s/<base href=”\/” \/>/<base href=”\/WeeklyXamarin.Mobile\/” \/>/g’ release/wwwroot/index.html
         
       # Copy index.html to 404.html to serve the same file when a file is not found
       - name: copy index.html to 404.html
