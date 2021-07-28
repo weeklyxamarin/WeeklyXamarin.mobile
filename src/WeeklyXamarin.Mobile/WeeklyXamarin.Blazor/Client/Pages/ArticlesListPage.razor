@@ -1,12 +1,24 @@
 ﻿@page "/Edition/{EditionId}"
 
-<h3>ArticlesPage</h3>
-<h3>@EditionId</h3>
-@if(ViewModel?.Articles != null && ViewModel.Articles.Count != 0)
+<h3>Edition #@EditionId</h3>
+
+<CollectionView ItemsSource="ViewModel.Articles"
+                TItem="@Article">
+    <Card Subtitle="@context.Author"
+          OpenInNewTab="true"
+          Url="@context.Url"
+          Image="https://weeklyxamarin.github.io/website/assets/StoreIcon.png">
+        <Title>
+            <h4><b>@context.Title</b></h4>
+        </Title>
+    </Card>
+</CollectionView>
+
+@*@if(ViewModel?.Articles != null && ViewModel.Articles.Count != 0)
 {
     foreach(var article in ViewModel.Articles)
                 {
                     <NavLink href="@article.Url" target="_blank" >@article.Title</NavLink>
                 }
-}
+}*@
 

@@ -1,0 +1,15 @@
+﻿@typeparam TItem
+@if (ItemsSource == null || !ItemsSource.Any())
+{
+    <p>No items</p>
+}
+@foreach (var context in ItemsSource)
+{
+    @ChildContent(context)
+}
+    @code {
+        [Parameter]
+        public RenderFragment<TItem> ChildContent { get; set; }
+        [Parameter]
+        public IEnumerable<TItem> ItemsSource { get; set; }
+    }

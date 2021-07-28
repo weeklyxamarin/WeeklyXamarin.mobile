@@ -1,21 +1,22 @@
-﻿@page "/editions"
-
-
-<h3>Editions Page</h3>
+﻿@page "/"
+<h3>Weekly Xamarin Editions</h3>
 
 @if (ViewModel == null)
 {
     <p>No view model</p>
 }
-else if (ViewModel.Editions == null || ViewModel.Editions.Count == 0)
-{
-    <p>No editions</p>
-}
+
 else
 {
-    @foreach (var edition in ViewModel.Editions)
-    {
-        <NavLink href="@($"Edition/{edition.Id}")" >@edition.Name</NavLink>
-    }
+    <CollectionView ItemsSource="ViewModel.Editions"
+                    TItem="@Edition"                    >
+        <Card Subtitle="@context.Summary"
+                Url="@($"Edition/{@context.Id}")"
+                Image="https://weeklyxamarin.github.io/website/assets/StoreIcon.png">
+            <Title>
+                <h4><b>#@context.Id</b> @context.PublishDate.ToShortDateString()</h4>
+            </Title>
+        </Card>
+    </CollectionView>
+    
 }
-
