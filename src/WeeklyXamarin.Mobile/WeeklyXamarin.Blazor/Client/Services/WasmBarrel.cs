@@ -1,4 +1,5 @@
-﻿using MonkeyCache;
+﻿using Blazored.LocalStorage;
+using MonkeyCache;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,15 @@ namespace WeeklyXamarin.Blazor.Client.Services
 {
     public class WasmBarrel : IBarrel
     {
+        private ISyncLocalStorageService localStorage;
+        public WasmBarrel(ISyncLocalStorageService localStorage)
+        {
+            this.localStorage = localStorage;
+        }
+
         public void Add<T>(string key, T data, TimeSpan expireIn, string eTag = null, JsonSerializerSettings jsonSerializationSettings = null)
         {
-            return;
+            localStorage.SetItem(key, data);
         }
 
         public void Empty(params string[] key)
@@ -36,7 +43,7 @@ namespace WeeklyXamarin.Blazor.Client.Services
 
         public T Get<T>(string key, JsonSerializerSettings jsonSettings = null)
         {
-            return default;
+            return localStorage.GetItem<T>(key);
         }
 
         public string GetETag(string key)
