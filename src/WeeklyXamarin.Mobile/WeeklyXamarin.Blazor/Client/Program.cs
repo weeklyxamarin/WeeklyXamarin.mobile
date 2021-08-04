@@ -1,4 +1,5 @@
 using Blazored.LocalStorage;
+using MatBlazor;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,8 +37,9 @@ namespace WeeklyXamarin.Blazor.Client
             builder.Services.AddSingleton<IShare, WasmShare>();
             builder.Services.AddTransient<EditionsViewModel>();
             builder.Services.AddTransient<ArticlesListViewModel>();
+            builder.Services.AddTransient<SearchViewModel>();
             builder.Services.AddSingleton<ILogger, WasmLogger<GithubDataStore>>();
-
+            builder.Services.AddMatBlazor();
 
             await builder.Build().RunAsync();
         }

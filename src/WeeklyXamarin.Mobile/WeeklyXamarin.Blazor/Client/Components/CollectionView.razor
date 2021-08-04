@@ -1,15 +1,16 @@
-﻿@typeparam TItem
+﻿@using MvvmHelpers
+@typeparam TItem
+
+
 @if (ItemsSource == null || !ItemsSource.Any())
 {
     <p>No items</p>
 }
-@foreach (var context in ItemsSource)
+else
 {
-    @ChildContent(context)
-}
-    @code {
-        [Parameter]
-        public RenderFragment<TItem> ChildContent { get; set; }
-        [Parameter]
-        public IEnumerable<TItem> ItemsSource { get; set; }
+    @foreach (var context in ItemsSource)
+    {
+        @ChildContent(context)
     }
+}
+

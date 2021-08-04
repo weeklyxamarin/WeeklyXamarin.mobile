@@ -1,0 +1,27 @@
+﻿@page "/searchpage"
+
+<h3>Search </h3>
+@CurrentState
+<MatTextField Label="Enter your search term" @bind-Value="@SearchText"></MatTextField>
+<MatButton OnClick="SearchArticles" Label="Search" ></MatButton>
+
+<p>Progress: @Articles.LastOrDefault()?.EditionId</p>
+
+<CollectionView
+                TItem="@Article"
+                ItemsSource="Articles"
+
+                >
+    <Card Subtitle="@context.Author"
+          OpenInNewTab="true"
+          Url="@context.Url"
+          Image="https://weeklyxamarin.github.io/website/assets/StoreIcon.png">
+        <Title>
+            <h4><b>@context.Title</b></h4>
+        </Title>
+    </Card>
+</CollectionView>
+
+@code {
+
+}

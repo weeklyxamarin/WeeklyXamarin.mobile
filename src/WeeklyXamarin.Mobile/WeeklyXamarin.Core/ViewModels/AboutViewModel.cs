@@ -54,7 +54,8 @@ namespace WeeklyXamarin.Core.ViewModels
             new LinkInfo {Text="Xamarin.Forms", Url="https://github.com/xamarin/Xamarin.Forms"},
             new LinkInfo {Text="Mobile Build Tools", Url="https://github.com/dansiegel/Mobile.BuildTools"},
             new LinkInfo {Text="Microsoft AppCenter", Url="https://www.nuget.org/packages/Microsoft.AppCenter/"},
-            new LinkInfo {Text="Blazored LocalStorage", Url="https://github.com/Blazored/LocalStorage"}
+            new LinkInfo {Text="Blazored LocalStorage", Url="https://github.com/Blazored/LocalStorage"},
+            new LinkInfo {Text="MatBlazor", Url="https://www.matblazor.com/"},
         };
 
         public ICommand OpenUrlCommand { get; }
