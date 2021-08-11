@@ -10,7 +10,7 @@
 }
 
 .sidebar[b-tn75oj2dc5] {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    background-color: var(--SkyBlueLight);
 }
 
 .top-row[b-tn75oj2dc5] {
