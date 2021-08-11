@@ -22,10 +22,14 @@ namespace WeeklyXamarin.Blazor.Client.Pages
         public List<Article> Articles { get; set; } = new List<Article>();
 
         public string SearchText { get; set; }
+        public List<Category> Categories { get; private set; }
+        public Category SearchCategory { get; set; }
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            base.OnInitialized();
+            await base.OnInitializedAsync();
+            Categories = (await dataStore.GetCategories()).ToList();
+            Categories.Insert(0, new Category());
         }
         private CancellationTokenSource source = new CancellationTokenSource();
         public async Task SearchArticles()
@@ -36,7 +40,7 @@ namespace WeeklyXamarin.Blazor.Client.Pages
             Articles.Clear();
             IAsyncEnumerable<Article> articlesAsync;
 
-            articlesAsync = dataStore.GetArticleFromSearchAsync(SearchText, null, source.Token);
+            articlesAsync = dataStore.GetArticleFromSearchAsync(SearchText, SearchCategory?.Name, source.Token);
 
             await foreach (Article article in articlesAsync)
             {

@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using WeeklyXamarin.Core.Models;
 using Xamarin.Forms;
 
 
@@ -18,28 +19,13 @@ namespace WeeklyXamarin.Mobile.Converters
             }
 
             var input = (string)value;
-
-            var resourceName = input switch
-            {
-                "XAMARIN FORMS" => "BlueLight",
-                "DESIGN" => "OrangeLight",
-                "DEVOPS" => "LimeLight",
-                "TOOLS" => "MagentaLight",
-                "ANDROID" => "SkyBlueLight",
-                "IOS" => "GreenLight",
-                "PODCASTS & VIDEOS" => "WatermelonLight",
-                "NEWS" => "PowderBlueDark",
-                "TESTING" => "RedLight",
-                "ANALYTICS" => "RedLight",
-                "APP OF THE WEEK" => "PinkLight",
-                "CODE" => "TealLight",
-                "GETTING STARTED" => "YellowDark",
-                _ => "SkyBlueLight"
-            };
+            string resourceName = Category.CategoryToColor(input);
 
             return (Color)Application.Current.Resources[resourceName];
 
         }
+
+        
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {

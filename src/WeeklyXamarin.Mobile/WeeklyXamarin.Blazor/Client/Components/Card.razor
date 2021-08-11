@@ -1,22 +1,32 @@
-﻿<NavLink @key="Url" href="@Url" target="@(OpenInNewTab ? "_blank" : "_self")">
-
-    <div class="wx-card">
-        <img src="@Image" style="width:100%" />
-        <div class="wx-container">
+﻿
+<div class="wx-card">
+    <div class="wx-container" style="border-left-color: var(--@CategoryColor)">
+        <NavLink @key="Url" href="@Url" target="@(OpenInNewTab ? "_blank" : "_self")">
             @Title
-            <p>@Subtitle</p>
-        </div>
+        </NavLink>
+        <h3 style="color: var(--@CategoryColor)" >@Subtitle</h3>
+        <p>@Body</p>
+        @if(Category != null)
+        {
+            <span class="lozenge @CategoryClass" style="background-color: var(--@CategoryColor)">@Category</span>
+        }
     </div>
-</NavLink>
+</div>
 @code {
     [Parameter]
     public RenderFragment Title { get; set; }
     [Parameter]
     public string Subtitle { get; set; }
     [Parameter]
+    public string Body { get; set; }
+    [Parameter]
     public string Image { get; set; }
     [Parameter]
     public string Url { get; set; }
     [Parameter]
+    public string Category { get; set; }
+    [Parameter]
     public bool OpenInNewTab { get; set; }
+    string CategoryClass => Category == "XAMARIN FORMS" ? "category-xamarin-forms" : "category-unknown";
+    string CategoryColor => WeeklyXamarin.Core.Models.Category.CategoryToColor(Category);//ValueConverter?
 }

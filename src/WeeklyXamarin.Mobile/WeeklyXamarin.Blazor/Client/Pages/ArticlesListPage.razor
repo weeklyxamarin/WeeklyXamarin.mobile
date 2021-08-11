@@ -1,15 +1,17 @@
 ﻿@page "/Edition/{EditionId}"
 
-<h3>Edition #@EditionId</h3>
+<h1>Edition #@EditionId</h1>
 
 <CollectionView ItemsSource="ViewModel.Articles"
                 TItem="@Article">
     <Card Subtitle="@context.Author"
+          Body="@context.Description"
+          Category="@context.Category"
           OpenInNewTab="true"
           Url="@context.Url"
           Image="https://weeklyxamarin.github.io/website/assets/StoreIcon.png">
         <Title>
-            <h4><b>@context.Title</b></h4>
+            <h2 class="wx-card-title">@context.Title</h2>
         </Title>
     </Card>
 </CollectionView>

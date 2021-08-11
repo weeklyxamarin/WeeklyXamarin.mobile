@@ -4,14 +4,66 @@ html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+.main {
+    background-color: #ECF0F1;
+}
+
 a, .btn-link {
     color: #0366d6;
+}
+
+a .wx-card-title {
+    color: #2b2b2b;
+    font-weight: bold;
 }
 
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;
     border-color: #1861ac;
+
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    font-size: 16pt;
+}
+
+h3 {
+    font-size: 14pt;
+}
+
+p {
+    font-size: 14pt;
+}
+
+.lozenge {
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.category-xamarin-forms
+{
+    background-color: red;
+}
+
+:root {
+    --SkyBlueLight: #3598DB;
+    --YellowDark: #FFA800;
+    --TealLight: #3A6F81;
+    --PinkLight: #F47CC3;
+    --RedLight: #E84C3D;
+    --PowderBlueDark: #99AAD5;
+    --WatermelonLight: #EF727A;
+    --GreenLight: #2DCC70;
+    --MagentaLight: #9B58B5;
+    --LimeLight: #A5C63B;
+    --OrangeLight: #E77E23;
+    --BlueLight: #5165A2;
 }
 
 .content {
@@ -31,10 +83,11 @@ a, .btn-link {
 }
 
 .wx-card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    width: 40%;
     margin: 20px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .card:hover {
@@ -42,9 +95,12 @@ a, .btn-link {
 }
 
 .wx-container {
-    padding: 20px;
-    padding: 2px 16px;
-    background-color: #ECF0F1;
+    padding: 16px;
+    background-color: white;
+    border-radius: 8px;
+    border-left-style: solid;
+    border-left-width: 10px;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
 }
 
 #blazor-error-ui {

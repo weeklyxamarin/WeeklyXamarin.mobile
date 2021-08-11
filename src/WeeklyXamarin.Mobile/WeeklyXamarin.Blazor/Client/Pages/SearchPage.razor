@@ -1,19 +1,24 @@
 ﻿@page "/searchpage"
 
-<h3>Search </h3>
+<h1>Search </h1>
 @CurrentState
 <MatTextField Label="Enter your search term" @bind-Value="@SearchText"></MatTextField>
+<MatSelectItem Label="Select a category" @bind-Value="SearchCategory" Items="Categories" >
+    <ItemTemplate>
+        <span>@context.Name</span>
+    </ItemTemplate>
+</MatSelectItem>
+
 <MatButton OnClick="SearchArticles" Label="Search" ></MatButton>
 
 <p>Progress: @Articles.LastOrDefault()?.EditionId</p>
-
-<CollectionView
-                TItem="@Article"
-                ItemsSource="Articles"
-
-                >
+ 
+<CollectionView TItem="@Article"
+                ItemsSource="Articles">
     <Card Subtitle="@context.Author"
           OpenInNewTab="true"
+          Body="@context.Description"
+          Category="@context.Category"
           Url="@context.Url"
           Image="https://weeklyxamarin.github.io/website/assets/StoreIcon.png">
         <Title>
