@@ -22,7 +22,7 @@ namespace WeeklyXamarin.Blazor.Client.Pages
         public List<Article> Articles { get; set; } = new List<Article>();
 
         public string SearchText { get; set; }
-        public List<Category> Categories { get; private set; }
+        public List<Category> Categories { get; private set; } = new List<Category>();
         public Category SearchCategory { get; set; }
 
         protected override async Task OnInitializedAsync()
