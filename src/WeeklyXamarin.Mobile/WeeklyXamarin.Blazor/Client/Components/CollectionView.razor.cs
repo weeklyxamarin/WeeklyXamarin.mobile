@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
+using WeeklyXamarin.Core.Helpers;
 
 namespace WeeklyXamarin.Blazor.Client.Components
 {
@@ -14,6 +15,10 @@ namespace WeeklyXamarin.Blazor.Client.Components
         public RenderFragment<TItem> ChildContent { get; set; }
         [Parameter]
         public IEnumerable<TItem> ItemsSource { get; set; }
+        [Parameter]
+        public ListState CurrentState { get; set; }
+        [Parameter]
+        public string EmptyText { get; set; }
 
         protected override void OnParametersSet()
         {

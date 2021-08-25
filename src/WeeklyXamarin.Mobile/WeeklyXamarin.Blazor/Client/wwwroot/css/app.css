@@ -2,9 +2,6 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-.main {
     background-color: #ECF0F1;
 }
 
@@ -15,6 +12,7 @@ a, .btn-link {
 a .wx-card-title {
     color: #2b2b2b;
     font-weight: bold;
+    text-align: left;
 }
 
 .btn-primary {
@@ -29,6 +27,7 @@ h1 {
 }
 
 h2 {
+    text-align: center;
     font-size: 16pt;
 }
 
@@ -51,7 +50,10 @@ p {
     background-color: red;
 }
 
+
 :root {
+    --min-desktop-width: 641px;
+    --min-desktop-width: 641px;
     --SkyBlueLight: #3598DB;
     --YellowDark: #FFA800;
     --TealLight: #3A6F81;
@@ -121,3 +123,38 @@ p {
         right: 0.75rem;
         top: 0.5rem;
     }
+
+
+
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    border-left-style: none;
+    align-items: center;
+}
+
+.wx-field {
+    width: unset;
+}
+
+
+@media (max-width: 640.98px) {
+    .search-box {
+        flex-direction: column;
+    }
+
+    .wx-field {
+        width: 100%;
+    }
+}
+
+@media (min-width: 641px) {
+    .search-box {
+        flex-direction: row;
+    }
+
+    .wx-field {
+        width: unset;
+    }
+}

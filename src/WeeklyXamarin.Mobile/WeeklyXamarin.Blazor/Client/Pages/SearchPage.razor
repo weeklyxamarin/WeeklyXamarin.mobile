@@ -1,32 +1,36 @@
 ﻿@page "/searchpage"
 
 <h1>Search </h1>
-@CurrentState
-<MatTextField Label="Enter your search term" @bind-Value="@SearchText"></MatTextField>
-<MatSelectItem Label="Select a category" @bind-Value="SearchCategory" Items="Categories" >
-    <ItemTemplate>
-        <span>@context.Name</span>
-    </ItemTemplate>
-</MatSelectItem>
+<div class="wx-card">
+    <div class="wx-container search-box" style=" ">
+        <MatTextField Label="Enter your search term" @bind-Value="@SearchText" Style="flex-grow: 1;" Class="wx-field"></MatTextField>
+        <MatSelectItem Label="Select a category" @bind-Value="SearchCategory" Items="Categories" Class="wx-field" Style="margin-bottom: 8px;">
+            <ItemTemplate>
+                <span>@context.Name</span>
+            </ItemTemplate>
+        </MatSelectItem>
+        <MatButton OnClick="SearchArticles" Label="Search" Class="wx-field"></MatButton>
+    </div>
+</div>
 
-<MatButton OnClick="SearchArticles" Label="Search" ></MatButton>
 
-<p>Progress: @Articles.LastOrDefault()?.EditionId</p>
- 
-<CollectionView TItem="@Article"
-                ItemsSource="Articles">
-    <Card Subtitle="@context.Author"
-          OpenInNewTab="true"
-          Body="@context.Description"
-          Category="@context.Category"
-          Url="@context.Url"
-          Image="https://weeklyxamarin.github.io/website/assets/StoreIcon.png">
-        <Title>
-            <h4><b>@context.Title</b></h4>
-        </Title>
-    </Card>
-</CollectionView>
 
-@code {
+    <CollectionView TItem="@Article"
+                    EmptyText="@SearchResultText"
+                    CurrentState="@CurrentState"
+                    ItemsSource="Articles">
+        <Card Subtitle="@context.Author"
+              OpenInNewTab="true"
+              Body="@context.Description"
+              Category="@context.Category"
+              Url="@context.Url"
+              Image="https://weeklyxamarin.github.io/website/assets/StoreIcon.png">
+            <Title>
+                <h4><b>@context.Title</b></h4>
+            </Title>
+        </Card>
+    </CollectionView>
 
-}
+    @code {
+
+    }

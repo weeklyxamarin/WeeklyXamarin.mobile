@@ -20,10 +20,17 @@ namespace WeeklyXamarin.Blazor.Client.Pages
 
         public ListState CurrentState { get; set; }
         public List<Article> Articles { get; set; } = new List<Article>();
-
+        
         public string SearchText { get; set; }
         public List<Category> Categories { get; private set; } = new List<Category>();
         public Category SearchCategory { get; set; }
+        public string SearchResultText
+        {
+            get
+            {
+                return SearchCategory == null ? $"No results for '{SearchText}'." : $"No results for '{SearchText}' in '{SearchCategory.Name}'.";
+            }
+        }
 
         protected override async Task OnInitializedAsync()
         {
@@ -35,6 +42,9 @@ namespace WeeklyXamarin.Blazor.Client.Pages
         public async Task SearchArticles()
         {
             CurrentState = ListState.Loading;
+            StateHasChanged();
+            await Task.Delay(10);
+
             source.Cancel();
             source = new CancellationTokenSource();
             Articles.Clear();
@@ -45,10 +55,11 @@ namespace WeeklyXamarin.Blazor.Client.Pages
             await foreach (Article article in articlesAsync)
             {
                 Articles.Add(article);
-                await Task.Delay(10);
+                CurrentState = ListState.None;
                 StateHasChanged();
+                await Task.Delay(10);
             }
-            CurrentState = ListState.None;
+            CurrentState = Articles.Any() ? ListState.None : ListState.Empty;
 
         }
     }
