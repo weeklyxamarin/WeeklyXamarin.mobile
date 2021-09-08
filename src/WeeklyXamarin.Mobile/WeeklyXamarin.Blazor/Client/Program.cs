@@ -34,9 +34,12 @@ namespace WeeklyXamarin.Blazor.Client
             builder.Services.AddSingleton<IMessagingService, WasmMessagingService>();
             builder.Services.AddSingleton<IBrowser, WasmBrowser>();
             builder.Services.AddSingleton<IPreferences, WasmPreferences>();
+            builder.Services.AddSingleton<IThemeService, WasmThemeService>();
             builder.Services.AddSingleton<IShare, WasmShare>();
             builder.Services.AddTransient<EditionsViewModel>();
             builder.Services.AddTransient<ArticlesListViewModel>();
+            builder.Services.AddTransient<AboutViewModel>();
+            builder.Services.AddTransient<AcknowledgementsViewModel>();
             builder.Services.AddTransient<SearchViewModel>();
             builder.Services.AddSingleton<ILogger, WasmLogger<GithubDataStore>>();
             builder.Services.AddMatBlazor();
