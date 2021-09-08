@@ -50,13 +50,24 @@
     color: white;
 }
 
-@media (min-width: 641px) {
-    .navbar-toggler {
+.nav-text {
+    display: none;
+}
+
+.nav-right {
+    display: flex;
+}
+
+@media (max-width: 640.998)
+{
+    .nav-text {
         display: none;
     }
+}
 
-    .collapse {
-        /* Never collapse the sidebar for wide screens */
-        display: block;
+@media (min-width: 641px) {
+
+    .nav-text {
+        display: inline;
     }
 }
