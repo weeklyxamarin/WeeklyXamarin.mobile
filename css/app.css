@@ -6,7 +6,11 @@ html, body {
 }
 
 a, .btn-link {
-    color: #0366d6;
+    color: var(--white);
+}
+
+.nav-link:hover {
+    color: var(--white);
 }
 
 a .wx-card-title {
@@ -66,6 +70,7 @@ p {
     --LimeLight: #A5C63B;
     --OrangeLight: #E77E23;
     --BlueLight: #5165A2;
+    --white: #ffffff;
 }
 
 .content {

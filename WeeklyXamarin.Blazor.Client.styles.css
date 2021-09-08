@@ -47,13 +47,9 @@
 }
 
 @media (min-width: 641px) {
-    .page[b-tn75oj2dc5] {
-        flex-direction: row;
-    }
+  
 
     .sidebar[b-tn75oj2dc5] {
-        width: 250px;
-        height: 100vh;
         position: sticky;
         top: 0;
     }
@@ -122,13 +118,24 @@
     color: white;
 }
 
-@media (min-width: 641px) {
-    .navbar-toggler[b-javya5ve0f] {
+.nav-text[b-javya5ve0f] {
+    display: none;
+}
+
+.nav-right[b-javya5ve0f] {
+    display: flex;
+}
+
+@media (max-width: 640.998)
+{
+    .nav-text[b-javya5ve0f] {
         display: none;
     }
+}
 
-    .collapse[b-javya5ve0f] {
-        /* Never collapse the sidebar for wide screens */
-        display: block;
+@media (min-width: 641px) {
+
+    .nav-text[b-javya5ve0f] {
+        display: inline;
     }
 }
