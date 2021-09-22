@@ -1,4 +1,8 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
+﻿@using MonkeyCache;
+@inject IBarrel Barrel;
+@inject IJSRuntime jSRuntime;
+
+<div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">Weekly Xamarin</a>
     <div class="nav-right">
         <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
@@ -13,6 +17,8 @@
         <NavLink class="nav-link" href="About">
             <span class="oi oi-heart" aria-hidden="true"></span><span class="nav-text">About</span>
         </NavLink>
+        <ThemeSwitch></ThemeSwitch>
+        
     </div>
 </div>
 
@@ -26,4 +32,5 @@
     {
         collapseNavMenu = !collapseNavMenu;
     }
+    
 }
