@@ -2,18 +2,25 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background-color: #ECF0F1;
+    background-color: var(--background);
+    color: var(--text);
 }
-
-a, .btn-link {
+a, .btn-link, a:not([href]):not([tabindex]) {
     color: var(--white);
 }
 
-.link-item {
-    color: black;
-    display: block;
-    font-size: 14pt;
+.oi {
+    font-size: 1.1rem;
+    vertical-align: text-top;
+    top: -2px;
+    margin-right: 5px;
 }
+
+    .link-item {
+        color: var(--link);
+        display: block;
+        font-size: 14pt;
+    }
 
 .viewer {
     margin: 10px 20px;
@@ -21,7 +28,7 @@ a, .btn-link {
 
 .contributor {
     margin: 10px 20px;
-    color: black;
+    color: var(--link);
     display: block;
     font-size: 14pt;
     display: flex;
@@ -42,12 +49,13 @@ a, .btn-link {
     margin: 4px;
 }
 
-.nav-link:hover {
+.nav-link:hover, a:not([href]):not([tabindex]):hover {
     color: var(--white);
+    cursor: pointer;
 }
 
 a .wx-card-title {
-    color: #2b2b2b;
+    color: var(--link);
     font-weight: bold;
     text-align: left;
 }
@@ -87,7 +95,6 @@ p {
     background-color: red;
 }
 
-
 :root {
     --min-desktop-width: 641px;
     --min-desktop-width: 641px;
@@ -104,6 +111,30 @@ p {
     --OrangeLight: #E77E23;
     --BlueLight: #5165A2;
     --white: #ffffff;
+    --card-background: #ffffff;
+    --text: #2B2B2B;
+    --link: var(--text);
+    --background: #ECF0F1;
+}
+
+[data-theme="dark"] {
+    --SkyBlueLight: #3598DB;
+    --YellowDark: #FFA800;
+    --TealLight: #3A6F81;
+    --PinkLight: #F47CC3;
+    --RedLight: #E84C3D;
+    --PowderBlueDark: #99AAD5;
+    --WatermelonLight: #EF727A;
+    --GreenLight: #2DCC70;
+    --MagentaLight: #9B58B5;
+    --LimeLight: #A5C63B;
+    --OrangeLight: #E77E23;
+    --BlueLight: #5165A2;
+    --card-background: #232124;
+    --white: #ffffff;
+    --text: #BEC3C7;
+    --link: var(--text);
+    --background: #151515;
 }
 
 .content {
@@ -136,7 +167,7 @@ p {
 
 .wx-container {
     padding: 16px;
-    background-color: white;
+    background-color: var(--card-background);
     border-radius: 8px;
     border-left-style: solid;
     border-left-width: 10px;
