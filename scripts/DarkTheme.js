@@ -2,7 +2,7 @@
 
 function switchTheme(theme) {
     var themeInBarrel = localStorage.getItem('theme');
-    var isThemeSystem = themeInBarrel.includes("System");
+    var isThemeSystem = themeInBarrel != null && themeInBarrel.includes("System");
 
     if (theme === "System") {
         isSystemDark.addEventListener('change', OSChanged);

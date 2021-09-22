@@ -69,7 +69,7 @@
       "url": "scripts\/Connectivity.js"
     },
     {
-      "hash": "sha256-pvtBM+0fbCiyrpMb2vflRbn94PKtJOgjvTN07Zpegj8=",
+      "hash": "sha256-NmI\/zhqxSraE4jP44FOmLud0MPKBUdmXhpemFaP8bJg=",
       "url": "scripts\/DarkTheme.js"
     },
     {
@@ -373,5 +373,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "f7m5Any1"
+  "version": "9HiONbIq"
 };
