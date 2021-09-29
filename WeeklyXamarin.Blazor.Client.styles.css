@@ -17,6 +17,20 @@
         display: inline;
     }
 }
+/* /Pages/AboutPage.razor.rz.scp.css */
+.link-item[b-z7q9yuyar8],
+.contributor[b-z7q9yuyar8]{
+    color: var(--link);
+    display: block;
+    font-size: 14pt;
+}
+
+.contributor[b-z7q9yuyar8] {
+    margin: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 /* /Pages/SubmitPage.razor.rz.scp.css */
 .form-container[b-c9d8oilhq4] {
     display: flex;
