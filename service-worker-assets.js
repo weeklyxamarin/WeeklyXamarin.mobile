@@ -49,7 +49,7 @@
       "url": "css\/open-iconic\/README.md"
     },
     {
-      "hash": "sha256-HlqZcN\/JthfKJ4q\/UENaCLDlwBPnI\/VYKA\/epfHYtNA=",
+      "hash": "sha256-1OP16mjRstRN2SaqVvLPQ4s4ezmhYhhBjx9vCe8\/2Hs=",
       "url": "css\/themes.css"
     },
     {
@@ -377,5 +377,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "JJLz1OtH"
+  "version": "eS3DSDur"
 };
