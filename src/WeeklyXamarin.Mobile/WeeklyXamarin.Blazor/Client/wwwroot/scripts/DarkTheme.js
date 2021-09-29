@@ -1,27 +1,19 @@
-﻿var isSystemDark = window.matchMedia('(prefers-color-scheme: dark)');//Is syst
+﻿function switchTheme(theme) {
 
-function switchTheme(theme) {
-    var themeInBarrel = localStorage.getItem('theme');
-    var isThemeSystem = themeInBarrel != null && themeInBarrel.includes("System");
+    const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+    theme = theme ? theme : currentTheme;
 
-    if (theme === "System") {
-        isSystemDark.addEventListener('change', OSChanged);
-        theme = isSystemDark.matches ? "Dark" : "Light";
-    }
-    else if (!isThemeSystem) {
-        isSystemDark.removeEventListener('change', OSChanged);
-    }
-
-    if (theme === "Dark") {
+    if (theme == 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+    }
+    else if (theme == 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
     }
     else {
-        document.documentElement.setAttribute('data-theme', 'light');
+        document.documentElement.removeAttribute('data-theme');
     }
-}
 
-function OSChanged(e) {
-    var newTheme = isSystemDark.matches ? "Dark" : "Light";
-    switchTheme(newTheme);
 }
 

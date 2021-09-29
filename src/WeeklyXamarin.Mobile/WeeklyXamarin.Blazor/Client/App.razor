@@ -1,7 +1,3 @@
-@using MonkeyCache;
-@inject IBarrel Barrel;
-@inject IJSRuntime jSRuntime;
-
 <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
@@ -12,12 +8,3 @@
         </LayoutView>
     </NotFound>
 </Router>
-
-@code { 
-    protected override async Task OnInitializedAsync()
-    {
-        await  base.OnInitializedAsync();
-        var storedTheme = Barrel.Get<bool>("is-dark-theme");
-        await jSRuntime.InvokeVoidAsync("switchTheme", storedTheme);
-    }
-}
