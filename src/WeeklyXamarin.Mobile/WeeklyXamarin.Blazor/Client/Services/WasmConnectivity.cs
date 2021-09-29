@@ -38,6 +38,6 @@ namespace WeeklyXamarin.Blazor.Client.Services
 
         public bool IsOnline { get; private set; }
 
-        public event EventHandler<ConnectivityChangedEventArgs> ConnectivityChanged;
+        public event EventHandler<ConnectivityChangedEventArgs>? ConnectivityChanged;
     }
 }

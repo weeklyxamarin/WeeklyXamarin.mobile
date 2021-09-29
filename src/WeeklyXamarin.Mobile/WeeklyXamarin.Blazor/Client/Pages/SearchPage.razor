@@ -6,7 +6,7 @@
         <MatTextField Label="Enter your search term" @bind-Value="@SearchText" Style="flex-grow: 1;" Class="wx-field"></MatTextField>
         <MatSelectItem Label="Select a category" @bind-Value="SearchCategory" Items="Categories" Class="wx-field" Style="margin-bottom: 8px;">
             <ItemTemplate>
-                <span>@context.Name</span>
+                <span>@context?.Name</span>
             </ItemTemplate>
         </MatSelectItem>
         <MatButton OnClick="SearchArticles" Label="Search" Class="wx-field"></MatButton>

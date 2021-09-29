@@ -14,11 +14,11 @@ namespace WeeklyXamarin.Blazor.Client.Components
         [Parameter]
         public RenderFragment<TItem> ChildContent { get; set; }
         [Parameter]
-        public IEnumerable<TItem> ItemsSource { get; set; }
+        public IEnumerable<TItem>? ItemsSource { get; set; }
         [Parameter]
         public ListState CurrentState { get; set; }
         [Parameter]
-        public string EmptyText { get; set; }
+        public string? EmptyText { get; set; }
 
         protected override void OnParametersSet()
         {
@@ -29,7 +29,7 @@ namespace WeeklyXamarin.Blazor.Client.Components
             }
         }
 
-        private void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             InvokeAsync(() =>
             {

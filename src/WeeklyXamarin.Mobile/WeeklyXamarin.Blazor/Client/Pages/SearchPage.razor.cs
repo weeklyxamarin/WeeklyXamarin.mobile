@@ -16,14 +16,14 @@ namespace WeeklyXamarin.Blazor.Client.Pages
     {
 
         [Inject]
-        public IDataStore dataStore { get; set; }
+        public IDataStore? dataStore { get; set; }
 
         public ListState CurrentState { get; set; }
         public List<Article> Articles { get; set; } = new List<Article>();
         
-        public string SearchText { get; set; }
+        public string? SearchText { get; set; }
         public List<Category> Categories { get; private set; } = new List<Category>();
-        public Category SearchCategory { get; set; }
+        public Category? SearchCategory { get; set; }
         public string SearchResultText
         {
             get
@@ -35,6 +35,7 @@ namespace WeeklyXamarin.Blazor.Client.Pages
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
+            
             Categories = (await dataStore.GetCategories()).ToList();
             Categories.Insert(0, new Category());
         }
