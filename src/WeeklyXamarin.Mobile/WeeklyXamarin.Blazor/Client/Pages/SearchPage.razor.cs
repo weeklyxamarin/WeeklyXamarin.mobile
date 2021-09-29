@@ -36,7 +36,7 @@ namespace WeeklyXamarin.Blazor.Client.Pages
         {
             await base.OnInitializedAsync();
             
-            Categories = (await dataStore.GetCategories()).ToList();
+            Categories = (await dataStore!.GetCategories()).ToList();
             Categories.Insert(0, new Category());
         }
         private CancellationTokenSource source = new CancellationTokenSource();
@@ -51,7 +51,7 @@ namespace WeeklyXamarin.Blazor.Client.Pages
             Articles.Clear();
             IAsyncEnumerable<Article> articlesAsync;
 
-            articlesAsync = dataStore.GetArticleFromSearchAsync(SearchText, SearchCategory?.Name, source.Token);
+            articlesAsync = dataStore!.GetArticleFromSearchAsync(SearchText, SearchCategory?.Name, source.Token);
 
             await foreach (Article article in articlesAsync)
             {

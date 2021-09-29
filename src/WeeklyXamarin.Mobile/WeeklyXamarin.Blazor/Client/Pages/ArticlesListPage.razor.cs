@@ -10,22 +10,20 @@ namespace WeeklyXamarin.Blazor.Client.Pages
     public partial class ArticlesListPage
     {
         [Parameter]
-        public string EditionId { get; set; }
+        public string? EditionId { get; set; }
         [Inject]
-        public ArticlesListViewModel ViewModel { get; set; }
+        public ArticlesListViewModel? ViewModel { get; set; }
 
         protected override void OnParametersSet()
         {
-            base.OnParametersSet();
-            ViewModel.EditionId = EditionId;
+            ViewModel!.EditionId = EditionId;
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            await base.OnAfterRenderAsync(firstRender);
             if(firstRender)
             {
-                await ViewModel.ExecuteLoadArticlesCommand();
+                await ViewModel!.ExecuteLoadArticlesCommand();
                 StateHasChanged();
             }
         }
