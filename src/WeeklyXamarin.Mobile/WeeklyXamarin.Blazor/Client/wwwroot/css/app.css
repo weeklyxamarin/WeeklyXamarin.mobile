@@ -19,15 +19,6 @@ a, .btn-link, a:not([href]):not([tabindex]) {
     margin: 10px 20px;
 }
 
-.contributor {
-    margin: 10px 20px;
-    color: var(--link);
-    display: block;
-    font-size: 14pt;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 
 .flex-collection {

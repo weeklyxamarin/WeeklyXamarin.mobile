@@ -1,16 +1,5 @@
 ﻿@page "/About"
 
-<h2>Settings</h2>
-<Frame>
-    <div class="theme-switch-wrapper">
-        <label class="theme-switch" for="checkbox">
-            <input checked="@IsDarkMode" @onchange="@ThemeSwitchChanged" type="checkbox" id="checkbox" />
-            <div class="slider round"></div>
-        </label>
-        <em>Enable Dark Mode!</em>
-    </div>
-</Frame>
-
 <h2>Libraries Used</h2>
 <Frame>
     <CollectionView ItemsSource="@ViewModel.Libraries">
