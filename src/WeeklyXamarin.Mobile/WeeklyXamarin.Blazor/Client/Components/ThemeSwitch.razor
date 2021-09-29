@@ -32,7 +32,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Theme = Barrel.Get<string>("theme").ToLowerInvariant();
+        Theme = Barrel.Get<string>("theme")?.ToLowerInvariant();
         Theme = string.IsNullOrWhiteSpace(Theme) ? "system" : Theme;
         await jSRuntime.InvokeVoidAsync("switchTheme");
     }
