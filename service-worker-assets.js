@@ -61,7 +61,7 @@
       "url": "icon-512.png"
     },
     {
-      "hash": "sha256-NzOyHGUBfAzCqtH2+pzVCqfKkvOvx+MztigN88RuAYU=",
+      "hash": "sha256-yIyvWPgNTJwcJuBFrXRLYiqcUAB2OsueQuF8sLYuZDk=",
       "url": "index.html"
     },
     {
@@ -221,11 +221,11 @@
       "url": "_framework\/Essential.Interfaces.dll"
     },
     {
-      "hash": "sha256-X4v\/Nw1JCJzM6IpOgx4pdQKqhGOK6IGNWNkM1miwjBA=",
+      "hash": "sha256-vJ\/2Id5bAQHcGs+FKhgr5buenVcupaBvT+X1JkjKQlY=",
       "url": "_framework\/WeeklyXamarin.Core.dll"
     },
     {
-      "hash": "sha256-Y+1xUhCiybJJL3ziFR0g9RySH+LhHhfUc08eP6XOp3I=",
+      "hash": "sha256-MKcGfabxY3CMRQl6Wm0vuIp+Lo7ZKByE5f8VDP+HyWY=",
       "url": "_framework\/WeeklyXamarin.Blazor.Client.dll"
     },
     {
@@ -369,7 +369,7 @@
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
-      "hash": "sha256-Plp8bfvIhRk9AzAIuegYOo7mMG2d69FUdIGZ+DfTqUg=",
+      "hash": "sha256-IBs0jpnEc0KdlZHiU+\/0q0vzJ8C2rIBgD5kF\/aX5JIU=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -377,5 +377,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "iYCf2Dhf"
+  "version": "x7d\/xOfW"
 };
