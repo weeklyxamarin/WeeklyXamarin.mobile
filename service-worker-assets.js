@@ -1,7 +1,7 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-wkA7jBRqS3tJKqfBitFbNYNS7iYJrMSBa3pAtkoWVIw=",
+      "hash": "sha256-b9XaX5W2\/fO5\/JirOJQe33yHGsEdBZPfJJ1XFXLXbvo=",
       "url": "css\/app.css"
     },
     {
@@ -49,7 +49,7 @@
       "url": "css\/open-iconic\/README.md"
     },
     {
-      "hash": "sha256-1OP16mjRstRN2SaqVvLPQ4s4ezmhYhhBjx9vCe8\/2Hs=",
+      "hash": "sha256-Hqtm1eWe6fWpcx1O33D6pipjzsEpNR+Df5DbPDSMDMc=",
       "url": "css\/themes.css"
     },
     {
@@ -105,7 +105,7 @@
       "url": "_framework\/dotnet.5.0.10.js"
     },
     {
-      "hash": "sha256-LIzWrhNAgXRrN9KIpZsy98lWKudTez2FHm8+\/an7bfM=",
+      "hash": "sha256-zASQsW4LBPUSzeAlTbBk2kcx1sElcCNKCQZFkvqlv+A=",
       "url": "WeeklyXamarin.Blazor.Client.styles.css"
     },
     {
@@ -221,11 +221,11 @@
       "url": "_framework\/Essential.Interfaces.dll"
     },
     {
-      "hash": "sha256-vJ\/2Id5bAQHcGs+FKhgr5buenVcupaBvT+X1JkjKQlY=",
+      "hash": "sha256-JgCZc\/pRlknw+dJ2HsUs5EuNEt9s0C\/LJ6F6AsbbCSk=",
       "url": "_framework\/WeeklyXamarin.Core.dll"
     },
     {
-      "hash": "sha256-lfMyIugJTiTXOG9ojsMxvlZJfc0QPXsSHXNwxmba3PA=",
+      "hash": "sha256-jBLdx\/IDcMcUH0G9WoJ0Mx7Rfu\/CNkYfoKOo4Y3DItA=",
       "url": "_framework\/WeeklyXamarin.Blazor.Client.dll"
     },
     {
@@ -369,7 +369,7 @@
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
-      "hash": "sha256-5B7EyPt8WzhuOPc+jI4wSqhSLp8KAncjAATy77Q51r0=",
+      "hash": "sha256-KR0xlSgEoj2Vp9HidTqEYjgq19pg6nm\/0BzWbXLDd2g=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -377,5 +377,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "PUR4eIkE"
+  "version": "yHP9YCjJ"
 };

@@ -1,6 +1,11 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 @import url('themes.css');
 
+:root {
+    --desktop-width: 720px;
+    --phone-width: calc(var(--desktop-width - .002));
+}
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background-color: var(--background);
@@ -153,8 +158,7 @@ p {
     width: unset;
 }
 
-
-@media (max-width: 640.98px) {
+@media (max-width: 719.998px) {
     .search-box {
         flex-direction: column;
     }
@@ -164,7 +168,8 @@ p {
     }
 }
 
-@media (min-width: 641px) {
+@media (min-width: 720px) {
+
     .search-box {
         flex-direction: row;
     }
