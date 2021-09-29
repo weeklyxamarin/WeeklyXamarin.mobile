@@ -2,7 +2,10 @@
 @inject IBarrel Barrel;
 @inject IJSRuntime jSRuntime;
 
-<span @onclick="@ThemeSwitchChanged"><span title="@TitleText" class="oi @IconClass" aria-hidden="true"></span> Theme</span>
+<span  @onclick="@ThemeSwitchChanged">
+    <span title="@TitleText" class="oi @IconClass" aria-hidden="true"></span>
+    <span class="nav-text"> Theme</span>
+</span>
 
 @code {
     string Theme;

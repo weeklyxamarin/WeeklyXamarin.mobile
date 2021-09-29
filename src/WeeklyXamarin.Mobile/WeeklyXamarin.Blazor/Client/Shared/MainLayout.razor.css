@@ -15,14 +15,12 @@
 }
 
 
-
-@media (max-width: 640.98px) {
-
+@media (max-width: 719.998px) {
 }
 
 
 
-@media (min-width: 641px) {
+@media (min-width: 720px) {
     .main > div {
         padding-left: 2rem !important;
         padding-right: 1.5rem !important;

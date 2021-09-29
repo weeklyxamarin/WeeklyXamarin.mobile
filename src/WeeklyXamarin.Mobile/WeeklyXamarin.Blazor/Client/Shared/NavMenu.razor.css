@@ -50,24 +50,25 @@
     color: white;
 }
 
-.nav-text {
-    display: none;
-}
-
-.nav-right {
+ .nav-right {
     display: flex;
 }
 
-@media (max-width: 640.998)
-{
-    .nav-text {
+.navbar-brand, .nav-text {
+    display: none;
+}
+
+@media (max-width: 719.998px) {
+
+    .navbar-brand, .nav-text {
         display: none;
     }
 }
 
-@media (min-width: 641px) {
+@media (min-width: 720px) {
 
-    .nav-text {
+
+    .navbar-brand, .nav-text {
         display: inline;
     }
 }
