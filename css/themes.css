@@ -1,0 +1,83 @@
+﻿:root {
+    --min-desktop-width: 641px;
+    --min-desktop-width: 641px;
+    --SkyBlueLight: #3598DB;
+    --YellowDark: #FFA800;
+    --TealLight: #3A6F81;
+    --PinkLight: #F47CC3;
+    --RedLight: #E84C3D;
+    --PowderBlueDark: #99AAD5;
+    --WatermelonLight: #EF727A;
+    --GreenLight: #2DCC70;
+    --MagentaLight: #9B58B5;
+    --LimeLight: #A5C63B;
+    --OrangeLight: #E77E23;
+    --BlueLight: #5165A2;
+    --white: #ffffff;
+    --card-background: #ffffff;
+    --text: #2B2B2B;
+    --link: var(--text);
+    --background: #ECF0F1;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+    --SkyBlueLight: #3598DB;
+    --YellowDark: #FFA800;
+    --TealLight: #3A6F81;
+    --PinkLight: #F47CC3;
+    --RedLight: #E84C3D;
+    --PowderBlueDark: #99AAD5;
+    --WatermelonLight: #EF727A;
+    --GreenLight: #2DCC70;
+    --MagentaLight: #9B58B5;
+    --LimeLight: #A5C63B;
+    --OrangeLight: #E77E23;
+    --BlueLight: #5165A2;
+    --card-background: #232124;
+    --white: #ffffff;
+    --text: #BEC3C7;
+    --link: var(--text);
+    --background: #151515;
+    }
+}
+
+[data-theme="dark"] {
+    --SkyBlueLight: #3598DB;
+    --YellowDark: #FFA800;
+    --TealLight: #3A6F81;
+    --PinkLight: #F47CC3;
+    --RedLight: #E84C3D;
+    --PowderBlueDark: #99AAD5;
+    --WatermelonLight: #EF727A;
+    --GreenLight: #2DCC70;
+    --MagentaLight: #9B58B5;
+    --LimeLight: #A5C63B;
+    --OrangeLight: #E77E23;
+    --BlueLight: #5165A2;
+    --card-background: #232124;
+    --white: #ffffff;
+    --text: #BEC3C7;
+    --link: var(--text);
+    --background: #151515;
+}
+
+[data-theme="light"] {
+    --SkyBlueLight: #3598DB;
+    --YellowDark: #FFA800;
+    --TealLight: #3A6F81;
+    --PinkLight: #F47CC3;
+    --RedLight: #E84C3D;
+    --PowderBlueDark: #99AAD5;
+    --WatermelonLight: #EF727A;
+    --GreenLight: #2DCC70;
+    --MagentaLight: #9B58B5;
+    --LimeLight: #A5C63B;
+    --OrangeLight: #E77E23;
+    --BlueLight: #5165A2;
+    --white: #ffffff;
+    --card-background: #ffffff;
+    --text: #2B2B2B;
+    --link: var(--text);
+    --background: #ECF0F1;
+}

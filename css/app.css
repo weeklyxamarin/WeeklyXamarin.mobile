@@ -1,4 +1,5 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+@import url('themes.css');
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -8,19 +9,6 @@ html, body {
 a, .btn-link, a:not([href]):not([tabindex]) {
     color: var(--white);
 }
-
-.oi {
-    font-size: 1.1rem;
-    vertical-align: text-top;
-    top: -2px;
-    margin-right: 5px;
-}
-
-    .link-item {
-        color: var(--link);
-        display: block;
-        font-size: 14pt;
-    }
 
 .viewer {
     margin: 10px 20px;
@@ -93,48 +81,6 @@ p {
 .category-xamarin-forms
 {
     background-color: red;
-}
-
-:root {
-    --min-desktop-width: 641px;
-    --min-desktop-width: 641px;
-    --SkyBlueLight: #3598DB;
-    --YellowDark: #FFA800;
-    --TealLight: #3A6F81;
-    --PinkLight: #F47CC3;
-    --RedLight: #E84C3D;
-    --PowderBlueDark: #99AAD5;
-    --WatermelonLight: #EF727A;
-    --GreenLight: #2DCC70;
-    --MagentaLight: #9B58B5;
-    --LimeLight: #A5C63B;
-    --OrangeLight: #E77E23;
-    --BlueLight: #5165A2;
-    --white: #ffffff;
-    --card-background: #ffffff;
-    --text: #2B2B2B;
-    --link: var(--text);
-    --background: #ECF0F1;
-}
-
-[data-theme="dark"] {
-    --SkyBlueLight: #3598DB;
-    --YellowDark: #FFA800;
-    --TealLight: #3A6F81;
-    --PinkLight: #F47CC3;
-    --RedLight: #E84C3D;
-    --PowderBlueDark: #99AAD5;
-    --WatermelonLight: #EF727A;
-    --GreenLight: #2DCC70;
-    --MagentaLight: #9B58B5;
-    --LimeLight: #A5C63B;
-    --OrangeLight: #E77E23;
-    --BlueLight: #5165A2;
-    --card-background: #232124;
-    --white: #ffffff;
-    --text: #BEC3C7;
-    --link: var(--text);
-    --background: #151515;
 }
 
 .content {

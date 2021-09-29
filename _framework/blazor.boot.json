@@ -34,7 +34,7 @@
       "Xamarin.Essentials.dll": "sha256-aV8TN\/LXxc0nkdQ2Igy+XLaXtf2KyaerkbpcCoXJK7w=",
       "Essential.Interfaces.dll": "sha256-\/mUf8m5v67jptZoZ1ApComXn3EXlrnw+Ouax1T99UzI=",
       "WeeklyXamarin.Core.dll": "sha256-X4v\/Nw1JCJzM6IpOgx4pdQKqhGOK6IGNWNkM1miwjBA=",
-      "WeeklyXamarin.Blazor.Client.dll": "sha256-GuDF17IyDTpyJVjq\/X7UhlrpqxzliHslFLuZI5BEJHY=",
+      "WeeklyXamarin.Blazor.Client.dll": "sha256-Y+1xUhCiybJJL3ziFR0g9RySH+LhHhfUc08eP6XOp3I=",
       "System.Collections.Concurrent.dll": "sha256-ntENkapsDv7RnR\/FuusacJygWoj9gjfad+2JsWkNNnw=",
       "System.Collections.Immutable.dll": "sha256-UM6VZdBN3EIkpBZ2R+d7Xu5a4NnZeUbUlinc61xtW2A=",
       "System.Collections.NonGeneric.dll": "sha256-ZLX7AbcXa6jElYo8mIEIStMNwaiN01u9mAazUB5VE0Y=",
@@ -69,7 +69,7 @@
       "System.Text.Encodings.Web.dll": "sha256-lkJqwGgfNNxTZPdeYKdYGNQEqQwUwfJwZESanGAl3Hk=",
       "System.Text.Json.dll": "sha256-JKcrL\/3DL7V8Gsehhk37FslgxsCf5PlaMQB9v2CgVT4=",
       "System.Text.RegularExpressions.dll": "sha256-Xc53as0aNqULcI7WVaUhztzbDKhehwsnc47MjFqD25E=",
-      "System.Private.CoreLib.dll": "sha256-FmsSVcFq+wy5NuyAY2DNtaHfe0pY55MC2okhE1XayDc="
+      "System.Private.CoreLib.dll": "sha256-rw68StCiWeLgYgLFwAYmCZx3C\/ZdrvLKmcP6ZiRnViQ="
     },
     "lazyAssembly": null,
     "pdb": null,
