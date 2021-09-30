@@ -1,0 +1,31 @@
+﻿.search-box {
+    display: flex;
+    gap: 10px;
+    border-left-style: none;
+    align-items: center;
+}
+
+.wx-field {
+    width: unset;
+}
+
+@media (max-width: 719.998px) {
+    .search-box {
+        flex-direction: column;
+    }
+
+    .wx-field {
+        width: 100%;
+    }
+}
+
+@media (min-width: 720px) {
+
+    .search-box {
+        flex-direction: row;
+    }
+
+    .wx-field {
+        width: unset;
+    }
+}

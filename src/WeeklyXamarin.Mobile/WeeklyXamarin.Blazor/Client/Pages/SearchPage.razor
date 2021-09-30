@@ -13,24 +13,22 @@
     </div>
 </div>
 
+<CollectionView TItem="@Article"
+                EmptyText="@SearchResultText"
+                CurrentState="@CurrentState"
+                ItemsSource="Articles">
+    <Card Subtitle="@context.Author"
+            OpenInNewTab="true"
+            Body="@context.Description"
+            Category="@context.Category"
+            Url="@context.Url"
+            Image="https://weeklyxamarin.github.io/website/assets/StoreIcon.png">
+        <Title>
+            <h2 class="wx-card-title">@context.Title</h2>
+        </Title>
+    </Card>
+</CollectionView>
 
+@code {
 
-    <CollectionView TItem="@Article"
-                    EmptyText="@SearchResultText"
-                    CurrentState="@CurrentState"
-                    ItemsSource="Articles">
-        <Card Subtitle="@context.Author"
-              OpenInNewTab="true"
-              Body="@context.Description"
-              Category="@context.Category"
-              Url="@context.Url"
-              Image="https://weeklyxamarin.github.io/website/assets/StoreIcon.png">
-            <Title>
-                <h2 class="wx-card-title">@context.Title</h2>
-            </Title>
-        </Card>
-    </CollectionView>
-
-    @code {
-
-    }
+}
