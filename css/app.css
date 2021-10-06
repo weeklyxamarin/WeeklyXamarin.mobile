@@ -15,22 +15,11 @@ a, .btn-link, a:not([href]):not([tabindex]) {
     color: var(--white);
 }
 
-.viewer {
-    margin: 10px 20px;
-}
-
-
-
 .flex-collection {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-}
-
-.avatar {
-    width: 70px;
-    margin: 4px;
 }
 
 .nav-link:hover, a:not([href]):not([tabindex]):hover {
@@ -66,17 +55,6 @@ h3 {
 
 p {
     font-size: 14pt;
-}
-
-.lozenge {
-    color: white;
-    padding: 8px;
-    border-radius: 8px;
-}
-
-.category-xamarin-forms
-{
-    background-color: red;
 }
 
 .content {
@@ -135,37 +113,3 @@ p {
         top: 0.5rem;
     }
 
-
-
-
-.search-box {
-    display: flex;
-    gap: 10px;
-    border-left-style: none;
-    align-items: center;
-}
-
-.wx-field {
-    width: unset;
-}
-
-@media (max-width: 719.998px) {
-    .search-box {
-        flex-direction: column;
-    }
-
-    .wx-field {
-        width: 100%;
-    }
-}
-
-@media (min-width: 720px) {
-
-    .search-box {
-        flex-direction: row;
-    }
-
-    .wx-field {
-        width: unset;
-    }
-}

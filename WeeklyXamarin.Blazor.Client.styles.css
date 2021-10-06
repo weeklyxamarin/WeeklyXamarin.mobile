@@ -1,7 +1,37 @@
+/* /Components/Card.razor.rz.scp.css */
+.category-xamarin-forms[b-yla4pvnuxb]
+{
+    background-color: red;
+}
+
+.category-unknown[b-yla4pvnuxb] {
+
+}
+
+.lozenge[b-yla4pvnuxb] {
+    background-color: var(--category-color);
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.wx-container[b-yla4pvnuxb] {
+     border-left-color: var(--category-color);
+}
+
+h3[b-yla4pvnuxb] {
+    color: var(--category-color);
+}
+/* /Components/CollectionView.razor.rz.scp.css */
+lottie-player[b-12a8zysxpu] {
+    width: 100%;
+    height: 300px;
+}
+/* /Components/Frame.razor.rz.scp.css */
+.wx-container[b-6xpjzfg6xg] {
+    border: none;
+}
 /* /Components/ThemeSwitch.razor.rz.scp.css */
-
-
-
 .nav-text[b-inboizgcig] {
     display: none;
 }
@@ -18,6 +48,11 @@
     }
 }
 /* /Pages/AboutPage.razor.rz.scp.css */
+.avatar[b-z7q9yuyar8] {
+    width: 70px;
+    margin: 4px;
+}
+
 .link-item[b-z7q9yuyar8],
 .contributor[b-z7q9yuyar8]{
     color: var(--link);
@@ -30,6 +65,46 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.viewer[b-z7q9yuyar8] {
+    margin: 10px 20px;
+}
+/* /Pages/EditionsPage.razor.rz.scp.css */
+ span[b-drqovf703p] {
+	 color: var(--SkyBlueLight);
+ }
+/* /Pages/SearchPage.razor.rz.scp.css */
+.search-box[b-pmaxuenb0i] {
+    display: flex;
+    gap: 10px;
+    border-left-style: none;
+    align-items: center;
+}
+
+.wx-field[b-pmaxuenb0i] {
+    width: unset;
+}
+
+@media (max-width: 719.998px) {
+    .search-box[b-pmaxuenb0i] {
+        flex-direction: column;
+    }
+
+    .wx-field[b-pmaxuenb0i] {
+        width: 100%;
+    }
+}
+
+@media (min-width: 720px) {
+
+    .search-box[b-pmaxuenb0i] {
+        flex-direction: row;
+    }
+
+    .wx-field[b-pmaxuenb0i] {
+        width: unset;
+    }
 }
 /* /Pages/SubmitPage.razor.rz.scp.css */
 .form-container[b-c9d8oilhq4] {
@@ -45,6 +120,11 @@
     border: none;
     margin: 0;
     padding: 0;
+}
+
+iframe[b-c9d8oilhq4] {
+    height: 1000px;
+    border: none;
 }
 /* /Shared/MainLayout.razor.rz.scp.css */
 .page[b-tn75oj2dc5] {

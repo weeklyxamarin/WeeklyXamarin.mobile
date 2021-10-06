@@ -1,7 +1,7 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-LgvwEh9ZrFwK09qDVK14\/BRoz3U2bd3Lfi8QYVNSQwQ=",
+      "hash": "sha256-\/Wc+uNpZrPmsgWSFiQmFfL1OOD6rZTUL8suAJ91EtH8=",
       "url": "css\/app.css"
     },
     {
@@ -105,7 +105,7 @@
       "url": "_framework\/dotnet.5.0.10.js"
     },
     {
-      "hash": "sha256-boTsg3hNoxAAwzRaSN1rUfFgBaAfWfzf0+\/VpVqq674=",
+      "hash": "sha256-dxeVa0JAHfMS4wkbWrNM2fn12O2VQFGhamUqg2P2FzA=",
       "url": "WeeklyXamarin.Blazor.Client.styles.css"
     },
     {
@@ -221,7 +221,7 @@
       "url": "_framework\/WeeklyXamarin.Core.dll"
     },
     {
-      "hash": "sha256-kXrK8u\/BWMal0fDfAESpwXqmRPIG2\/Ywv\/LXWrVhaXc=",
+      "hash": "sha256-zSqtmapjwEavHJeckdJN3l86EJrwrsvpz5\/IvmrlyrU=",
       "url": "_framework\/WeeklyXamarin.Blazor.Client.dll"
     },
     {
@@ -365,7 +365,7 @@
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
-      "hash": "sha256-DZYaTp3O96XcqBbev\/sRZjNr7Xak+SWSrcmoStGk1Nw=",
+      "hash": "sha256-88W3nIhUcRfkxmSFb57YviWrg3pYpw2NQNdKLytUOQw=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -373,5 +373,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "vucXPUEl"
+  "version": "G4TRzq27"
 };
