@@ -6,7 +6,7 @@
         </NavLink>
         <h3 style="color: var(--@CategoryColor)" >@Subtitle</h3>
         <p>@Body</p>
-        @if(Category != null)
+        @if(!string.IsNullOrWhiteSpace(Category))
         {
             <span class="lozenge @CategoryClass" style="background-color: var(--@CategoryColor)">@Category</span>
         }
@@ -24,7 +24,7 @@
     [Parameter]
     public string Url { get; set; } = "";
     [Parameter]
-    public string Category { get; set; } = "";
+    public string? Category { get; set; }
     [Parameter]
     public bool OpenInNewTab { get; set; }
     string CategoryClass => Category == "XAMARIN FORMS" ? "category-xamarin-forms" : "category-unknown";
