@@ -1,13 +1,4 @@
 /* /Components/Card.razor.rz.scp.css */
-.category-xamarin-forms[b-yla4pvnuxb]
-{
-    background-color: red;
-}
-
-.category-unknown[b-yla4pvnuxb] {
-
-}
-
 .lozenge[b-yla4pvnuxb] {
     background-color: var(--category-color);
     color: white;

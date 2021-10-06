@@ -105,7 +105,7 @@
       "url": "_framework\/dotnet.5.0.10.js"
     },
     {
-      "hash": "sha256-dxeVa0JAHfMS4wkbWrNM2fn12O2VQFGhamUqg2P2FzA=",
+      "hash": "sha256-auwG6EGnE2njxSAUJ6VKFRywfCqQv0jE96jhB02PlUI=",
       "url": "WeeklyXamarin.Blazor.Client.styles.css"
     },
     {
@@ -221,7 +221,7 @@
       "url": "_framework\/WeeklyXamarin.Core.dll"
     },
     {
-      "hash": "sha256-zSqtmapjwEavHJeckdJN3l86EJrwrsvpz5\/IvmrlyrU=",
+      "hash": "sha256-uKBjzkGFBAvMdtzmOBJ1wsZaqPItESwMX8ShX0M2j10=",
       "url": "_framework\/WeeklyXamarin.Blazor.Client.dll"
     },
     {
@@ -365,7 +365,7 @@
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
-      "hash": "sha256-88W3nIhUcRfkxmSFb57YviWrg3pYpw2NQNdKLytUOQw=",
+      "hash": "sha256-\/4rcb2mjdoQ7rKWTyhSrhwugM7C1aiLfaRJzNmaL+24=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -373,5 +373,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "G4TRzq27"
+  "version": "AFLgxxXg"
 };
