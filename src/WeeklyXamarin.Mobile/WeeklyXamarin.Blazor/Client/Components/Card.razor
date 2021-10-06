@@ -7,7 +7,7 @@
         <p>@Body</p>
         @if(!string.IsNullOrWhiteSpace(Category))
         {
-            <span class="lozenge @CategoryClass">@Category</span>
+            <span class="lozenge">@Category</span>
         }
     </div>
 </div>
@@ -26,6 +26,5 @@
     public string? Category { get; set; }
     [Parameter]
     public bool OpenInNewTab { get; set; }
-    string CategoryClass => Category == "XAMARIN FORMS" ? "category-xamarin-forms" : "category-unknown";
     string CategoryColor => WeeklyXamarin.Core.Models.Category.CategoryToColor(Category);//ValueConverter?
 }

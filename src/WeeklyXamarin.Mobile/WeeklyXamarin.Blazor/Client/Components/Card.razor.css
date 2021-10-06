@@ -1,13 +1,4 @@
-﻿.category-xamarin-forms
-{
-    background-color: red;
-}
-
-.category-unknown {
-
-}
-
-.lozenge {
+﻿.lozenge {
     background-color: var(--category-color);
     color: white;
     padding: 8px;
