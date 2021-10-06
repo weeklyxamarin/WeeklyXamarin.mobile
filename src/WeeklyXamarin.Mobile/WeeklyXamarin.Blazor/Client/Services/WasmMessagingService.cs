@@ -13,7 +13,7 @@ namespace WeeklyXamarin.Blazor.Client.Services
             return;
         }
 
-        public void Subscribe<TSender>(object subscriber, string message, Action<TSender> callback, TSender source = null) where TSender : class
+        public void Subscribe<TSender>(object subscriber, string message, Action<TSender> callback, TSender? source = null) where TSender : class
         {
             return;
         }

@@ -25,7 +25,7 @@ else if (CurrentState == ListState.None)
 
         @foreach (var context in ItemsSource)
         {
-            @ChildContent(context)
+            @ChildContent!(context)
         }
     }
 

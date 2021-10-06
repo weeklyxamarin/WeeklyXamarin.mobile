@@ -18,12 +18,12 @@ namespace WeeklyXamarin.Blazor.Client.Services
             return Task.CompletedTask;
         }
 
-        public void TrackError(Exception ex, Dictionary<string, string> properties = null)
+        public void TrackError(Exception ex, Dictionary<string, string>? properties = null)
         {
             return;
         }
 
-        public void TrackEvent(string eventName, Dictionary<string, string> properties = null)
+        public void TrackEvent(string eventName, Dictionary<string, string>? properties = null)
         {
             return;
         }

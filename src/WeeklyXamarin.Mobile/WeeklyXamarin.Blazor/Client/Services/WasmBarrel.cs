@@ -16,7 +16,7 @@ namespace WeeklyXamarin.Blazor.Client.Services
             this.localStorage = localStorage;
         }
 
-        public void Add<T>(string key, T data, TimeSpan expireIn, string eTag = null, JsonSerializerSettings jsonSerializationSettings = null)
+        public void Add<T>(string key, T data, TimeSpan expireIn, string? eTag = null, JsonSerializerSettings? jsonSerializationSettings = null)
         {
             localStorage.SetItem(key, data);
         }
@@ -41,7 +41,7 @@ namespace WeeklyXamarin.Blazor.Client.Services
             throw new NotImplementedException();
         }
 
-        public T Get<T>(string key, JsonSerializerSettings jsonSettings = null)
+        public T Get<T>(string key, JsonSerializerSettings? jsonSettings = null)
         {
             return localStorage.GetItem<T>(key);
         }

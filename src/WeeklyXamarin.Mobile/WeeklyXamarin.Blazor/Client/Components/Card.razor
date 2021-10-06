@@ -14,17 +14,17 @@
 </div>
 @code {
     [Parameter]
-    public RenderFragment Title { get; set; }
+    public RenderFragment? Title { get; set; }
     [Parameter]
-    public string Subtitle { get; set; }
+    public string Subtitle { get; set; } = "";
     [Parameter]
-    public string Body { get; set; }
+    public string Body { get; set; } = "";
     [Parameter]
-    public string Image { get; set; }
+    public string Image { get; set; } = "";
     [Parameter]
-    public string Url { get; set; }
+    public string Url { get; set; } = "";
     [Parameter]
-    public string Category { get; set; }
+    public string Category { get; set; } = "";
     [Parameter]
     public bool OpenInNewTab { get; set; }
     string CategoryClass => Category == "XAMARIN FORMS" ? "category-xamarin-forms" : "category-unknown";

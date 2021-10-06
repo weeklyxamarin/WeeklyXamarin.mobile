@@ -2,7 +2,7 @@
 
 <h1>Edition #@EditionId</h1>
 
-<CollectionView ItemsSource="ViewModel.Articles"
+<CollectionView ItemsSource="ViewModel?.Articles"
                 TItem="@Article">
     <Card Subtitle="@context.Author"
           Body="@context.Description"
