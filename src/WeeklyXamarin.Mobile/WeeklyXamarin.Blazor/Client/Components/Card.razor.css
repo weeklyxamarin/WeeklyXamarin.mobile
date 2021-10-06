@@ -1,0 +1,23 @@
+﻿.category-xamarin-forms
+{
+    background-color: red;
+}
+
+.category-unknown {
+
+}
+
+.lozenge {
+    background-color: var(--category-color);
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.wx-container {
+     border-left-color: var(--category-color);
+}
+
+h3 {
+    color: var(--category-color);
+}

@@ -12,3 +12,8 @@
     margin: 0;
     padding: 0;
 }
+
+iframe {
+    height: 1000px;
+    border: none;
+}

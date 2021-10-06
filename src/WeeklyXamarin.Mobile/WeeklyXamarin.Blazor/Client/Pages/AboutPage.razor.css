@@ -1,4 +1,9 @@
-﻿.link-item,
+﻿.avatar {
+    width: 70px;
+    margin: 4px;
+}
+
+.link-item,
 .contributor{
     color: var(--link);
     display: block;
@@ -10,4 +15,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.viewer {
+    margin: 10px 20px;
 }

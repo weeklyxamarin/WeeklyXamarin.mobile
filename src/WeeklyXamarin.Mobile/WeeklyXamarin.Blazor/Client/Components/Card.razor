@@ -1,14 +1,13 @@
-﻿
-<div class="wx-card">
-    <div class="wx-container" style="border-left-color: var(--@CategoryColor)">
+﻿<div class="wx-card" style="--category-color: var(--@CategoryColor, black);">
+    <div class="wx-container">
         <NavLink @key="Url" href="@Url" target="@(OpenInNewTab ? "_blank" : "_self")">
             @Title
         </NavLink>
-        <h3 style="color: var(--@CategoryColor)" >@Subtitle</h3>
+        <h3>@Subtitle</h3>
         <p>@Body</p>
         @if(!string.IsNullOrWhiteSpace(Category))
         {
-            <span class="lozenge @CategoryClass" style="background-color: var(--@CategoryColor)">@Category</span>
+            <span class="lozenge @CategoryClass">@Category</span>
         }
     </div>
 </div>
