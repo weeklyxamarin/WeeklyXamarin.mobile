@@ -10,9 +10,6 @@
      border-left-color: var(--category-color);
 }
 
-h3[b-yla4pvnuxb] {
-    color: var(--category-color);
-}
 /* /Components/CollectionView.razor.rz.scp.css */
 lottie-player[b-12a8zysxpu] {
     width: 100%;
@@ -61,6 +58,22 @@ lottie-player[b-12a8zysxpu] {
 .viewer[b-z7q9yuyar8] {
     margin: 10px 20px;
 }
+/* /Pages/ArticlesListPage.razor.rz.scp.css */
+
+h3[b-rdgx7annx5] {
+    color: var(--category-color);
+}
+/* /Pages/AuthorPage.razor.rz.scp.css */
+h3[b-73pylnt6pf] {
+    color: var(--category-color);
+}
+
+.link-item[b-73pylnt6pf]{
+    color: var(--link);
+    display: block;
+    font-size: 14pt;
+    margin: 10px 20px;
+}
 /* /Pages/EditionsPage.razor.rz.scp.css */
  span[b-drqovf703p] {
 	 color: var(--SkyBlueLight);
@@ -96,6 +109,10 @@ lottie-player[b-12a8zysxpu] {
     .wx-field[b-pmaxuenb0i] {
         width: unset;
     }
+}
+
+h3[b-pmaxuenb0i] {
+    color: var(--category-color);
 }
 /* /Pages/SubmitPage.razor.rz.scp.css */
 .form-container[b-c9d8oilhq4] {
