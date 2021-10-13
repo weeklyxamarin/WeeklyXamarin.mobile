@@ -8,6 +8,7 @@ using MonkeyCache;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using WeeklyXamarin.Blazor.Client.Services;
@@ -46,5 +47,12 @@ namespace WeeklyXamarin.Blazor.Client
 
             await builder.Build().RunAsync();
         }
+
+        public static Version Version { get; set; } = typeof(Program).Assembly
+                        .GetName().Version ?? new();
+        public static string ProductVersion { get; set; } = typeof(Program).Assembly
+                                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
+                                .InformationalVersion ?? "";
+
     }
 }
