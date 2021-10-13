@@ -4,15 +4,18 @@
 
 <CollectionView ItemsSource="ViewModel?.Articles"
                 TItem="@Article">
-    <Card Subtitle="@context.Author"
-          Body="@context.Description"
+    <Card Body="@context.Description"
           Category="@context.Category"
           OpenInNewTab="true"
-          Url="@context.Url"
-          Image="https://weeklyxamarin.github.io/website/assets/StoreIcon.png">
+          Url="@context.Url">
         <Title>
             <h2 class="wx-card-title">@context.Title</h2>
         </Title>
+        <Subtitle>
+            <NavLink @onclick="@(async () => await ViewModel!.OpenAuthor(context.Author))" >
+                <h3>@context.Author</h3>
+            </NavLink>
+        </Subtitle>
     </Card>
 </CollectionView>
 

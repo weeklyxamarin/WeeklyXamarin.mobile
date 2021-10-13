@@ -39,6 +39,7 @@ namespace WeeklyXamarin.Core.Helpers
             public static class Paths
             {
                 public const string Articles = "articles";
+                public const string Author = "Author";
                 public const string ArticleDetail = "articles/article-detail";
                 public const string Editions = "///editions";
                 public const string Acknowlegements = "acknowledgements";

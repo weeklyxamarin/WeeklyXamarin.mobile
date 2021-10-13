@@ -17,15 +17,19 @@
                 EmptyText="@SearchResultText"
                 CurrentState="@CurrentState"
                 ItemsSource="Articles">
-    <Card Subtitle="@context.Author"
+    <Card
             OpenInNewTab="true"
             Body="@context.Description"
             Category="@context.Category"
-            Url="@context.Url"
-            Image="https://weeklyxamarin.github.io/website/assets/StoreIcon.png">
+            Url="@context.Url">
         <Title>
             <h2 class="wx-card-title">@context.Title</h2>
         </Title>
+        <Subtitle>
+            <NavLink @onclick="@(async () => await OpenAuthor(context.Author))">
+                <h3>@context.Author</h3>
+            </NavLink>
+        </Subtitle>
     </Card>
 </CollectionView>
 

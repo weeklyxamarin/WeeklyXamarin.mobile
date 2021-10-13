@@ -41,6 +41,8 @@ namespace WeeklyXamarin.Blazor.Client
             builder.Services.AddTransient<ArticlesListViewModel>();
             builder.Services.AddTransient<AboutViewModel>();
             builder.Services.AddTransient<AcknowledgementsViewModel>();
+            builder.Services.AddTransient<AuthorViewModel>();
+            builder.Services.AddTransient<AuthorsViewModel>();
             builder.Services.AddTransient<SearchViewModel>();
             builder.Services.AddSingleton<ILogger, WasmLogger<GithubDataStore>>();
             builder.Services.AddMatBlazor();

@@ -3,9 +3,9 @@
         <NavLink @key="Url" href="@Url" target="@(OpenInNewTab ? "_blank" : "_self")">
             @Title
         </NavLink>
-        <h3>@Subtitle</h3>
+            @Subtitle
         <p>@Body</p>
-        @if(!string.IsNullOrWhiteSpace(Category))
+        @if (!string.IsNullOrWhiteSpace(Category))
         {
             <span class="lozenge">@Category</span>
         }
@@ -15,11 +15,10 @@
     [Parameter]
     public RenderFragment? Title { get; set; }
     [Parameter]
-    public string Subtitle { get; set; } = "";
+    public RenderFragment? Subtitle { get; set; }
+
     [Parameter]
     public string Body { get; set; } = "";
-    [Parameter]
-    public string Image { get; set; } = "";
     [Parameter]
     public string Url { get; set; } = "";
     [Parameter]

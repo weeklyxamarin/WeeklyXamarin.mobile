@@ -1,0 +1,10 @@
+﻿h3 {
+    color: var(--category-color);
+}
+
+.link-item{
+    color: var(--link);
+    display: block;
+    font-size: 14pt;
+    margin: 10px 20px;
+}

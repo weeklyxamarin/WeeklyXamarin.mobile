@@ -1,0 +1,45 @@
+﻿@page "/Author/{Id}"
+
+@if (ViewModel?.Author != null)
+{
+    <h1>@ViewModel.Author.Name</h1>
+    <div class="flex-collection">
+        @if (!string.IsNullOrWhiteSpace(ViewModel.Author.GitHubHandle))
+        {
+            <a class="link-item" target="_blank" href=@($"https://github.com/{ViewModel.Author.GitHubHandle}")>GitHub </a>
+        }
+        @if (!string.IsNullOrWhiteSpace(ViewModel.Author.TwitchHandle))
+        {
+            <a class="link-item" target="_blank" href=@($"https://twitch.tv/{ViewModel.Author.TwitchHandle}")>Twitch </a>
+        }
+        @if (!string.IsNullOrWhiteSpace(ViewModel.Author.TwitterHandle))
+        {
+            <a class="link-item" target="_blank" href=@($"https://twitter.com/{ViewModel.Author.TwitterHandle}")>Twitter</a>
+        }
+        @if (!string.IsNullOrWhiteSpace(ViewModel.Author.Website))
+        {
+            <a class="link-item" target="_blank" href="@ViewModel.Author.Website">Website</a>
+        }
+    </div>
+
+}
+
+<CollectionView TItem="@Article"
+                EmptyText="No Result"
+                CurrentState="@ViewModel!.CurrentState"
+                ItemsSource="Articles">
+    <Card OpenInNewTab="true"
+          Body="@context.Description"
+          Category="@context.Category"
+          Url="@context.Url">
+        <Title>
+            <h2 class="wx-card-title">@context.Title</h2>
+        </Title>
+
+    </Card>
+</CollectionView>
+
+
+@code {
+
+}

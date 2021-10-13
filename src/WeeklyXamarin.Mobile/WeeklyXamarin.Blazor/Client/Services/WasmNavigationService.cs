@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +9,13 @@ namespace WeeklyXamarin.Blazor.Client.Services
 {
     public class WasmNavigationService : INavigationService
     {
+        private readonly NavigationManager navigationManager;
+
+        public WasmNavigationService(NavigationManager navigationManager)
+        {
+            this.navigationManager = navigationManager;
+        }
+
         public Task GoBackAsync()
         {
             throw new NotImplementedException();
@@ -15,7 +23,8 @@ namespace WeeklyXamarin.Blazor.Client.Services
 
         public Task GoToAsync(string uri)
         {
-            throw new NotImplementedException();
+            navigationManager.NavigateTo(uri);
+            return Task.CompletedTask;
         }
 
         public Task GoToAsync(string uri, string parameterKey, string parameterValue)

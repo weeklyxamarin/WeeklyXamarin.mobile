@@ -18,6 +18,9 @@ namespace WeeklyXamarin.Blazor.Client.Pages
         [Inject]
         public IDataStore? dataStore { get; set; }
 
+        [Inject]
+        public INavigationService? navigation { get; set; }
+
         public ListState CurrentState { get; set; }
         public List<Article> Articles { get; set; } = new List<Article>();
         
@@ -62,6 +65,12 @@ namespace WeeklyXamarin.Blazor.Client.Pages
             }
             CurrentState = Articles.Any() ? ListState.None : ListState.Empty;
 
+        }
+
+        public async Task OpenAuthor(string authorName)
+        {
+            Author author = await dataStore.SearchAuthorsAsync(authorName);
+            await navigation.GoToAsync($"{Constants.Navigation.Paths.Author}/{author.Id}");
         }
     }
 }

@@ -8,5 +8,7 @@ namespace WeeklyXamarin.Core.Responses
     public class AuthorResponse
     {
         public List<Author> Authors { get; set; }
+        public bool IsStale { get; set; } = false;
+        public DateTime FetchedDate { get; set; }
     }
 }
