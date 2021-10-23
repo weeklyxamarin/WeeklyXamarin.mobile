@@ -7,7 +7,7 @@
         @if (!string.IsNullOrWhiteSpace(ViewModel.Author.GitHubHandle))
         {
             <a class="link-item" target="_blank" rel="noopener" href=@($"https://github.com/{ViewModel.Author.GitHubHandle}")>
-                <span class="fa-stack fa-1x" style="color: #2dba4e;">
+                <span class="fa-stack fa-1x">
                     <i class="fa-brands fa-github fa-stack-2x">GitHub</i>
                 </span>
             </a>
@@ -15,17 +15,17 @@
         @if (!string.IsNullOrWhiteSpace(ViewModel.Author.TwitchHandle))
         {
             <a class="link-item" target="_blank" rel="noopener" href=@($"https://twitch.tv/{ViewModel.Author.TwitchHandle}")>
-                <span class="fa-stack fa-1x" style="color: #a562cf;">
+                <span class="fa-stack">
                     <i class="fa-solid fa-circle fa-stack-2x"></i>
                     <i class="fa-brands fa-twitch fa-stack-1x fa-inverse">Twitch</i>
-                </span>dddd
+                </span>
             </a>
             
         }
         @if (!string.IsNullOrWhiteSpace(ViewModel.Author.TwitterHandle))
         {
             <a class="link-item" target="_blank" rel="noopener" href=@($"https://twitter.com/{ViewModel.Author.TwitterHandle}")>
-                <span class="fa-stack fa-1x" style="color: #1DA1F2;">
+                <span class="fa-stack">
                     <i class="fa-solid fa-circle fa-stack-2x"></i>
                     <i class="fa-brands fa-twitter fa-stack-1x fa-inverse">Twitter</i>
                 </span>
@@ -34,7 +34,7 @@
         @if (!string.IsNullOrWhiteSpace(ViewModel.Author.YouTubeHandle))
         {
             <a class="link-item" target="_blank" rel="noopener" href=@($"https://youtube.com/{ViewModel.Author.YouTubeHandle}")>
-                <span class="fa-stack fa-1x" style="color: red;">
+                <span class="fa-stack">
                     <i class="fa-solid fa-circle fa-stack-2x"></i>
                     <i class="fa-brands fa-youtube fa-stack-1x fa-inverse">YouTube</i>
                 </span>
@@ -43,7 +43,7 @@
         @if (!string.IsNullOrWhiteSpace(ViewModel.Author.Website))
         {
             <a class="link-item" target="_blank" rel="noopener" href="@ViewModel.Author.Website">
-                <span class="fa-stack fa-1x" style="color: grey;">
+                <span class="fa-stack">
                     <i class="fa-solid fa-circle fa-stack-2x"></i>
                     <i class="fa-solid fa-up-right-from-square fa-stack-1x fa-inverse">Website</i>
                 </span>

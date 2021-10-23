@@ -22,6 +22,11 @@
     --dark-background: #151515;
     --light-background: #ECF0F1;
     --background: var(--light-background);
+    --github-color: #2dba4e;
+    --twitter-color: #1DA1F2;
+    --twitch-color: #a562cf;
+    --youtube-color: red;
+    --website-link-color: grey;
 }
 
 @media (prefers-color-scheme: dark) {
