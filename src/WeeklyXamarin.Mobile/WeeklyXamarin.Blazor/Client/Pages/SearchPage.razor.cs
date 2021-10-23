@@ -16,10 +16,10 @@ namespace WeeklyXamarin.Blazor.Client.Pages
     {
 
         [Inject]
-        public IDataStore? dataStore { get; set; }
+        public IDataStore DataStore { get; set; } = default!;
 
         [Inject]
-        public INavigationService? navigation { get; set; }
+        public INavigationService Navigation { get; set; } = default!;
 
         public ListState CurrentState { get; set; }
         public List<Article> Articles { get; set; } = new List<Article>();
@@ -39,10 +39,10 @@ namespace WeeklyXamarin.Blazor.Client.Pages
         {
             await base.OnInitializedAsync();
             
-            Categories = (await dataStore!.GetCategories()).ToList();
+            Categories = (await DataStore.GetCategories()).ToList();
             Categories.Insert(0, new Category());
         }
-        private CancellationTokenSource source = new CancellationTokenSource();
+        private CancellationTokenSource source = new();
         public async Task SearchArticles()
         {
             CurrentState = ListState.Loading;
@@ -54,7 +54,7 @@ namespace WeeklyXamarin.Blazor.Client.Pages
             Articles.Clear();
             IAsyncEnumerable<Article> articlesAsync;
 
-            articlesAsync = dataStore!.GetArticleFromSearchAsync(SearchText, SearchCategory?.Name, source.Token);
+            articlesAsync = DataStore.GetArticleFromSearchAsync(SearchText, SearchCategory?.Name, source.Token);
 
             await foreach (Article article in articlesAsync)
             {
@@ -69,8 +69,8 @@ namespace WeeklyXamarin.Blazor.Client.Pages
 
         public async Task OpenAuthor(string authorName)
         {
-            Author author = await dataStore.SearchAuthorsAsync(authorName);
-            await navigation.GoToAsync($"{Constants.Navigation.Paths.Author}/{author.Id}");
+            Author author = await DataStore.SearchAuthorsAsync(authorName);
+            await Navigation.GoToAsync($"{Constants.Navigation.Paths.Author}/{author.Id}");
         }
     }
 }

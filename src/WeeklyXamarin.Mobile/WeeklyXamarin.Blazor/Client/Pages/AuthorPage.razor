@@ -1,6 +1,6 @@
 ﻿@page "/Author/{Id}"
 
-@if (ViewModel?.Author != null)
+@if (ViewModel.Author != null)
 {
     <h1>@ViewModel.Author.Name</h1>
     <div class="flex-collection">
@@ -55,7 +55,7 @@
 
 <CollectionView TItem="@Article"
                 EmptyText="No Result"
-                CurrentState="@ViewModel!.CurrentState"
+                CurrentState="@ViewModel.CurrentState"
                 ItemsSource="Articles">
     <Card OpenInNewTab="true"
           Body="@context.Description"
@@ -67,8 +67,3 @@
 
     </Card>
 </CollectionView>
-
-
-@code {
-
-}
