@@ -28,9 +28,10 @@ namespace WeeklyXamarin.Core.ViewModels
             IBrowser browser,
             IPreferences preferences,
             IShare share,
-            IMessagingService messagingService) : base(navigation, share, dataStore, analytics, messagingService)
+            IMessagingService messagingService) : base(navigation, share, dataStore, analytics, messagingService, browser, preferences)
         {
             OpenArticleCommand = new AsyncCommand<Article>(OpenArticle);
+            OpenAuthorCommand = new AsyncCommand<Article>(OpenAuthor);
             SearchCategoryCommand = new Command<Article>(ExecuteCategorySearch);
 
             this.browser = browser;
@@ -38,6 +39,8 @@ namespace WeeklyXamarin.Core.ViewModels
             messagingService.Subscribe<Article>(this, "BOOKMARKED", BookMarkChanged);
 
         }
+
+
 
         private void BookMarkChanged(Article article)
         {
@@ -49,6 +52,7 @@ namespace WeeklyXamarin.Core.ViewModels
 
         public ICommand LoadArticlesCommand { get; set; }
         public ICommand OpenArticleCommand { get; set; }
+        public ICommand OpenAuthorCommand { get; set; }
         public ICommand SearchCategoryCommand { get; set; }
 
         public ObservableRangeCollection<Article> Articles {
@@ -77,6 +81,13 @@ namespace WeeklyXamarin.Core.ViewModels
                                            Constants.Navigation.ParameterNames.ArticleId,
                                            article.Id);
             }
+        }
+
+        private async Task OpenAuthor(Article article)
+        {
+            // get author for the article
+            Author author = await dataStore.SearchAuthorsAsync(article.Author);
+            await navigation.GoToAsync(Constants.Navigation.Paths.Author, Constants.Navigation.ParameterNames.AuthorId, author.Id);
         }
 
         private void ExecuteCategorySearch(Article article)

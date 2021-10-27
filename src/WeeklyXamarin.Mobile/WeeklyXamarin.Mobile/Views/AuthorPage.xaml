@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:PageBase
+    x:Class="WeeklyXamarin.Mobile.Views.AuthorPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fontAwesome="clr-namespace:FontAwesome"
+    xmlns:models="clr-namespace:WeeklyXamarin.Core.Models;assembly=WeeklyXamarin.Core"
+    xmlns:views="clr-namespace:WeeklyXamarin.Mobile.Views"
+    xmlns:vm="clr-namespace:WeeklyXamarin.Core.ViewModels;assembly=WeeklyXamarin.Core"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    Title="{Binding Author.Name}"
+    x:DataType="vm:AuthorViewModel"
+    x:TypeArguments="vm:AuthorViewModel">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter" />
+        </ResourceDictionary>
+
+        <Style x:Key="SocialButton" TargetType="ImageButton">
+            <Setter Property="Padding" Value="8" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="HeightRequest" Value="40" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="WidthRequest" Value="40" />
+        </Style>
+
+    </ContentPage.Resources>
+    <Grid RowDefinitions="*" RowSpacing="0">
+
+
+
+        <CollectionView Header="{Binding .}" ItemsSource="{Binding Articles}">
+            <CollectionView.HeaderTemplate>
+                <DataTemplate>
+                    <ContentView HorizontalOptions="Fill">
+                        <StackLayout
+                            Margin="0,20,0,0"
+                            HorizontalOptions="Center"
+                            Orientation="Horizontal"
+                            VerticalOptions="Center">
+                            <ImageButton
+                                BackgroundColor="#1DA1F2"
+                                Command="{Binding OpenUrlCommand}"
+                                CommandParameter="{Binding Author.TwitterUrl}"
+                                IsVisible="{Binding Author.TwitterHandle, Converter={StaticResource IsNotNullOrEmptyConverter}}"
+                                Source="{FontImage FontFamily=FAB,
+                                                   Glyph={x:Static fontAwesome:FontAwesomeIcons.Twitter},
+                                                   Color=White}"
+                                Style="{StaticResource SocialButton}" />
+                            <ImageButton
+                                BackgroundColor="Black"
+                                Command="{Binding OpenUrlCommand}"
+                                CommandParameter="{Binding Author.GitHubUrl}"
+                                IsVisible="{Binding Author.GitHubHandle, Converter={StaticResource IsNotNullOrEmptyConverter}}"
+                                Source="{FontImage FontFamily=FAB,
+                                                   Glyph={x:Static fontAwesome:FontAwesomeIcons.Github},
+                                                   Color=#FFFFFF}"
+                                Style="{StaticResource SocialButton}" />
+                            <ImageButton
+                                BackgroundColor="Red"
+                                Command="{Binding OpenUrlCommand}"
+                                CommandParameter="{Binding Author.YouTubeUrl}"
+                                IsVisible="{Binding Author.YouTubeUrl, Converter={StaticResource IsNotNullOrEmptyConverter}}"
+                                Source="{FontImage FontFamily=FAB,
+                                                   Glyph={x:Static fontAwesome:FontAwesomeIcons.Youtube},
+                                                   Color=#323130}"
+                                Style="{StaticResource SocialButton}" />
+                            <ImageButton
+                                BackgroundColor="Gray"
+                                Command="{Binding OpenUrlCommand}"
+                                CommandParameter="{Binding Author.Website}"
+                                IsVisible="{Binding Author.Website, Converter={StaticResource IsNotNullOrEmptyConverter}}"
+                                Source="{FontImage FontFamily=FAS,
+                                                   Glyph={x:Static fontAwesome:FontAwesomeIcons.Globe},
+                                                   Color=White}"
+                                Style="{StaticResource SocialButton}" />
+
+                        </StackLayout>
+                    </ContentView>
+                </DataTemplate>
+            </CollectionView.HeaderTemplate>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Article">
+                    <views:ArticleDataTemplate />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <Label
+                    Margin="40"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource InformationText}"
+                    Text="What are you looking for?"
+                    VerticalOptions="Fill"
+                    VerticalTextAlignment="Center" />
+            </CollectionView.EmptyView>
+        </CollectionView>
+    </Grid>
+
+</views:PageBase>

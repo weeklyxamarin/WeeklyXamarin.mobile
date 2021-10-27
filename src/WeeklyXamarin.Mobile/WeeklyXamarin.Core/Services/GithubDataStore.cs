@@ -211,6 +211,26 @@ namespace WeeklyXamarin.Core.Services
             }
         }
 
+
+        public async IAsyncEnumerable<Article> GetArticleForAuthorAsync(string author, [EnumeratorCancellation] CancellationToken token, bool forceRefresh = false)
+        {
+            var editions = await GetEditionsAsync(forceRefresh);
+
+            foreach (var edition in editions)
+            {
+                var articles = await GetEditionAsync(edition.Id, forceRefresh);
+
+                foreach (var article in articles.Articles)
+                {
+                    if (string.Equals(article.Author, author, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        token.ThrowIfCancellationRequested();
+                        yield return article;
+                    }
+                }
+            }
+        }
+
         public async Task<IEnumerable<Category>> GetCategories(bool forceRefresh = false)
         {
             // try and get the index from cache

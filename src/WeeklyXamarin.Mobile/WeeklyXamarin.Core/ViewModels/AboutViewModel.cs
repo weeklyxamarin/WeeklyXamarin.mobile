@@ -58,15 +58,13 @@ namespace WeeklyXamarin.Core.ViewModels
             new LinkInfo {Text="Blazored LocalStorage", Url="https://github.com/Blazored/LocalStorage"},
             new LinkInfo {Text="MatBlazor", Url="https://www.matblazor.com/"},
         };
-
-        public ICommand OpenUrlCommand { get; }
         public ICommand OpenAcknowlegementsCommand { get; }
 
         public AboutViewModel(INavigationService navigation, IAnalytics analytics, IPreferences preferences, IBrowser browser,
-                              IMessagingService messagingService, IThemeService theme) : base(navigation, analytics, messagingService)
+                              IMessagingService messagingService, IThemeService theme) : base(navigation, analytics, messagingService, browser, preferences)
         {
             Title = "About";
-            OpenUrlCommand = new AsyncCommand<string>(ExecuteOpenUrlCommand);
+            
             OpenAcknowlegementsCommand = new AsyncCommand(ExecuteOpenAcknowledgmentsCommand);
 
             this.preferences = preferences;
@@ -137,15 +135,6 @@ namespace WeeklyXamarin.Core.ViewModels
         private async Task ExecuteOpenAcknowledgmentsCommand()
         {
             await navigation.GoToAsync(Constants.Navigation.Paths.Acknowlegements);
-        }
-
-        private async Task ExecuteOpenUrlCommand(string url)
-        {
-            await browser.OpenAsync(url, new BrowserLaunchOptions
-            {
-                LaunchMode = preferences.Get(Constants.Preferences.OpenLinksInBrowser, true) ? BrowserLaunchMode.SystemPreferred : BrowserLaunchMode.External,
-                TitleMode = BrowserTitleMode.Show
-            });
         }
     }
 }

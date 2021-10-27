@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using WeeklyXamarin.Core.Models;
@@ -22,5 +23,6 @@ namespace WeeklyXamarin.Core.Services
         Task<Author> GetAuthorAsync(string id);
         Task<IEnumerable<Author>> GetAuthorsAsync(bool forceRefresh = false);
         Task<Author> SearchAuthorsAsync(string authorName);
+        IAsyncEnumerable<Article> GetArticleForAuthorAsync(string author, [EnumeratorCancellation] CancellationToken token, bool forceRefresh = false);
     }
 }

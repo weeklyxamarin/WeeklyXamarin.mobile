@@ -51,6 +51,7 @@ namespace WeeklyXamarin.Core.Helpers
             {
                 public const string ArticleId = "ArticleId";
                 public const string EditionId = "EditionId";
+                public const string AuthorId = "AuthorId";
                 public const string Category = nameof(Category);
             }
         }

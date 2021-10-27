@@ -21,9 +21,12 @@ namespace WeeklyXamarin.Core.ViewModels
                                        IShare share,
                                        IDataStore dataStore,
                                        IAnalytics analytics,
-                                       IMessagingService messagingService) : base(navigation,
+                                       IMessagingService messagingService,
+                                        IBrowser browser, IPreferences preferences) : base(navigation,
                                                                                   analytics,
-                                                                                  messagingService)
+                                                                                  messagingService,
+                                                                                  browser, 
+                                                                                  preferences)
         {
             this.share = share;
             this.dataStore = dataStore;

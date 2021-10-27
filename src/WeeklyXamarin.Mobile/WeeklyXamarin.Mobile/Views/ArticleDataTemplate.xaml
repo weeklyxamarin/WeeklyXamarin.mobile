@@ -103,7 +103,15 @@
                     Grid.Column="1"
                     Style="{StaticResource ArticleAuthor}"
                     Text="{Binding Author}"
-                    TextColor="{Binding Category, Converter={StaticResource categoryToColorConverter}}" />
+                    TextColor="{Binding Category, Converter={StaticResource categoryToColorConverter}}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding OpenAuthorCommand, Source={RelativeSource AncestorType={x:Type viewmodels:ArticleListViewModelBase}, Mode=FindAncestorBindingContext}}"
+                            CommandParameter="{Binding .}"
+                            NumberOfTapsRequired="1" />
+
+                    </Label.GestureRecognizers>
+                </Label>
 
                 <Label
                     Grid.Row="2"
@@ -151,14 +159,7 @@
                     <Label
                         Style="{StaticResource CategoryLozenge}"
                         Text="{Binding Category}"
-                        TextColor="White">
-                        <!--<Label.GestureRecognizers>
-                            <TapGestureRecognizer
-                                Command="{Binding SearchCategoryCommand, Source={RelativeSource AncestorType={x:Type viewmodels:ArticleListViewModelBase}, Mode=FindAncestorBindingContext}}"
-                                CommandParameter="{Binding .}"
-                                NumberOfTapsRequired="1" />
-                        </Label.GestureRecognizers>-->
-                    </Label>
+                        TextColor="White" />
                 </rv:MaterialFrame>
 
                 <Grid.GestureRecognizers>

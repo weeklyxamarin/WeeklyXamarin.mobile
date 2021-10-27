@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WeeklyXamarin.Core.Models;
 using WeeklyXamarin.Core.Services;
+using Xamarin.Essentials.Interfaces;
 
 namespace WeeklyXamarin.Core.ViewModels
 {
@@ -11,7 +12,7 @@ namespace WeeklyXamarin.Core.ViewModels
     {
         private readonly IDataStore dataStore;
 
-        public AuthorsViewModel(INavigationService navigation, IAnalytics analytics, IMessagingService messagingService, IDataStore dataStore) : base(navigation, analytics, messagingService)
+        public AuthorsViewModel(INavigationService navigation, IAnalytics analytics, IMessagingService messagingService, IDataStore dataStore, IBrowser browser, IPreferences preferences) : base(navigation, analytics, messagingService, browser, preferences)
         {
             this.dataStore = dataStore;
         }

@@ -6,7 +6,7 @@
     <div class="flex-collection">
         @if (!string.IsNullOrWhiteSpace(ViewModel.Author.GitHubHandle))
         {
-            <a class="link-item" target="_blank" rel="noopener" href=@($"https://github.com/{ViewModel.Author.GitHubHandle}")>
+            <a class="link-item" target="_blank" rel="noopener" href=@($"{ViewModel.Author.GitHubUrl}")>
                 <span class="fa-stack fa-1x">
                     <i class="fa-brands fa-github fa-stack-2x">GitHub</i>
                 </span>
@@ -14,7 +14,7 @@
         }
         @if (!string.IsNullOrWhiteSpace(ViewModel.Author.TwitchHandle))
         {
-            <a class="link-item" target="_blank" rel="noopener" href=@($"https://twitch.tv/{ViewModel.Author.TwitchHandle}")>
+            <a class="link-item" target="_blank" rel="noopener" href=@($"{ViewModel.Author.TwitchUrl}")>
                 <span class="fa-stack">
                     <i class="fa-solid fa-circle fa-stack-2x"></i>
                     <i class="fa-brands fa-twitch fa-stack-1x fa-inverse">Twitch</i>
@@ -24,16 +24,16 @@
         }
         @if (!string.IsNullOrWhiteSpace(ViewModel.Author.TwitterHandle))
         {
-            <a class="link-item" target="_blank" rel="noopener" href=@($"https://twitter.com/{ViewModel.Author.TwitterHandle}")>
+            <a class="link-item" target="_blank" rel="noopener" href=@($"{ViewModel.Author.TwitterUrl}")>
                 <span class="fa-stack">
                     <i class="fa-solid fa-circle fa-stack-2x"></i>
                     <i class="fa-brands fa-twitter fa-stack-1x fa-inverse">Twitter</i>
                 </span>
             </a>
         }
-        @if (!string.IsNullOrWhiteSpace(ViewModel.Author.YouTubeHandle))
+        @if (!string.IsNullOrWhiteSpace(ViewModel.Author.YouTubeUrl))
         {
-            <a class="link-item" target="_blank" rel="noopener" href=@($"https://youtube.com/{ViewModel.Author.YouTubeHandle}")>
+            <a class="link-item" target="_blank" rel="noopener" href=@($"{ViewModel.Author.YouTubeUrl}")>
                 <span class="fa-stack">
                     <i class="fa-solid fa-circle fa-stack-2x"></i>
                     <i class="fa-brands fa-youtube fa-stack-1x fa-inverse">YouTube</i>
