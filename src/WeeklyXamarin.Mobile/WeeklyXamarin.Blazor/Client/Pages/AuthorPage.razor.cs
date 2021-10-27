@@ -14,21 +14,21 @@ namespace WeeklyXamarin.Blazor.Client.Pages
     public partial class AuthorPage
     {
         [Inject]
-        public AuthorViewModel? ViewModel { get; set; }
+        public AuthorViewModel ViewModel { get; set; } = default!;
         [Inject]
-        public IDataStore? dataStore { get; set; }
+        public IDataStore DataStore { get; set; } = default!;
         [Inject]
-        public INavigationService? navigation { get; set; }
+        public INavigationService Navigation { get; set; } = default!;
         public List<Article> Articles { get; set; } = new List<Article>();
 
         [Parameter]
-        public string Id { get; set; }
+        public string Id { get; set; } = null!;
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
-                await ViewModel!.InitializeAsync(Id);
+                await ViewModel.InitializeAsync(Id);
                 await LoadArticles();
                 StateHasChanged();
             }
@@ -36,11 +36,11 @@ namespace WeeklyXamarin.Blazor.Client.Pages
 
         public async Task OpenAuthor(string authorName)
         {
-            Author author = await dataStore.SearchAuthorsAsync(authorName);
-            await navigation.GoToAsync($"{Constants.Navigation.Paths.Author}/{author.Id}");
+            Author author = await DataStore.SearchAuthorsAsync(authorName);
+            await Navigation.GoToAsync($"{Constants.Navigation.Paths.Author}/{author.Id}");
         }
 
-        private CancellationTokenSource source = new CancellationTokenSource();
+        private CancellationTokenSource source = new();
         private async Task LoadArticles()
         {
             ViewModel.CurrentState = ListState.Loading;
@@ -52,7 +52,7 @@ namespace WeeklyXamarin.Blazor.Client.Pages
             Articles.Clear();
             IAsyncEnumerable<Article> articlesAsync;
 
-            articlesAsync = dataStore!.GetArticleFromSearchAsync(ViewModel.Author.Name, null, source.Token);
+            articlesAsync = DataStore.GetArticleFromSearchAsync(ViewModel.Author.Name, null, source.Token);
 
             await foreach (Article article in articlesAsync)
             {
