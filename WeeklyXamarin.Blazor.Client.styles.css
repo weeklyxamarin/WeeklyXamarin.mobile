@@ -64,15 +64,27 @@ h3[b-rdgx7annx5] {
     color: var(--category-color);
 }
 /* /Pages/AuthorPage.razor.rz.scp.css */
-h3[b-73pylnt6pf] {
-    color: var(--category-color);
-}
-
 .link-item[b-73pylnt6pf]{
-    color: var(--link);
+    color: var(--website-link-color);
     display: block;
     font-size: 14pt;
     margin: 10px 20px;
+}
+
+a[href*="github.com"i][b-73pylnt6pf] {
+    color: var(--github-color);
+}
+
+a[href*="twitch.tv"i][b-73pylnt6pf] {
+    color: var(--twitch-color);
+}
+
+a[href*="twitter.com"i][b-73pylnt6pf] {
+    color: var(--twitter-color);
+}
+
+a[href*="youtube.com"i][b-73pylnt6pf] {
+    color: var(--youtube-color);
 }
 /* /Pages/EditionsPage.razor.rz.scp.css */
  span[b-drqovf703p] {
