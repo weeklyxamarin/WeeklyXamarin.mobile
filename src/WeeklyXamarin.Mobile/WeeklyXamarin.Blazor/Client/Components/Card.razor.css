@@ -1,0 +1,11 @@
+﻿.lozenge {
+    background-color: var(--category-color);
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.wx-container {
+     border-left-color: var(--category-color);
+}
+

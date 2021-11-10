@@ -14,6 +14,7 @@ namespace WeeklyXamarin.Mobile
             Routing.RegisterRoute(Constants.Navigation.Paths.Articles,typeof(ArticlesListPage));
             Routing.RegisterRoute(Constants.Navigation.Paths.Acknowlegements,typeof(AcknowledgementsPage));
             Routing.RegisterRoute(Constants.Navigation.Paths.ArticleView, typeof(ArticlePage));
+            Routing.RegisterRoute(Constants.Navigation.Paths.Author, typeof(AuthorPage));
         }
     }
 }

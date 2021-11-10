@@ -33,6 +33,7 @@ namespace WeeklyXamarin.Core.Services
         const string baseUrl = @"https://raw.githubusercontent.com/weeklyxamarin/WeeklyXamarin.content/master/content/";
         const string indexFile = "index.json";
         const string tagsFile = "categories.json";
+        const string authorsFile = "authors.json";
 
         public GithubDataStore(HttpClient httpClient, IConnectivity connectivity, IBarrel barrel, ILogger<GithubDataStore> logger, IAnalytics analytics)
         {
@@ -210,6 +211,26 @@ namespace WeeklyXamarin.Core.Services
             }
         }
 
+
+        public async IAsyncEnumerable<Article> GetArticleForAuthorAsync(string author, [EnumeratorCancellation] CancellationToken token, bool forceRefresh = false)
+        {
+            var editions = await GetEditionsAsync(forceRefresh);
+
+            foreach (var edition in editions)
+            {
+                var articles = await GetEditionAsync(edition.Id, forceRefresh);
+
+                foreach (var article in articles.Articles)
+                {
+                    if (string.Equals(article.Author, author, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        token.ThrowIfCancellationRequested();
+                        yield return article;
+                    }
+                }
+            }
+        }
+
         public async Task<IEnumerable<Category>> GetCategories(bool forceRefresh = false)
         {
             // try and get the index from cache
@@ -237,6 +258,49 @@ namespace WeeklyXamarin.Core.Services
             }
 
             return categoryResponse.Categories;
+        }
+
+        public async Task<IEnumerable<Author>> GetAuthorsAsync(bool forceRefresh = false)
+        {
+            // try and get the index from cache
+            var authorResponse = _barrel.Get<AuthorResponse>(key: authorsFile);
+
+            // if we need to get it from the internet
+            if (forceRefresh || authorResponse is null || authorResponse.IsStale)
+            {
+                // if we have internet
+                if (_connectivity.NetworkAccess == NetworkAccess.Internet)
+                {
+                    try
+                    {
+                        // get it and cache it
+                        var responseText = await _httpClient.GetStringAsync(authorsFile);
+                        authorResponse = JsonConvert.DeserializeObject<AuthorResponse>(responseText);
+                        authorResponse.FetchedDate = DateTime.UtcNow;
+                        _barrel.Add(key: authorsFile, data: authorResponse, expireIn: TimeSpan.FromMinutes(5));
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Failed to get categories");
+                    }
+                }
+            }
+
+            return authorResponse.Authors;
+        }
+
+        public async Task<Author> GetAuthorAsync(string id)
+        {
+            var authors = await GetAuthorsAsync();
+            var author = authors.FirstOrDefault(x => x.Id == id);
+            return author;
+        }
+
+        public async Task<Author> SearchAuthorsAsync(string authorName)
+        {
+            var authors = await GetAuthorsAsync();
+            var author = authors.FirstOrDefault(x => x.Name == authorName);
+            return author;
         }
     }
 }

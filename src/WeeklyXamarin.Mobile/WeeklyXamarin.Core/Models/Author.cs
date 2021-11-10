@@ -8,8 +8,12 @@ namespace WeeklyXamarin.Core.Models
     {
         public string Name { get; set; }
         public string TwitterHandle { get; set; }
+        public string TwitterUrl => $"https://twitter.com/{TwitterHandle}";
         public string GitHubHandle { get; set; }
+        public string GitHubUrl => $"https://github.com/{GitHubHandle}";
         public string TwitchHandle { get; set; }
+        public string TwitchUrl => $"https://twitch.tv/{TwitchHandle}";
+        public string YouTubeUrl { get; set; }
         public string ProfileImageUrl { get; set; }
         public string Id { get; set; }
         public List<Alias> Aliases { get; set; }

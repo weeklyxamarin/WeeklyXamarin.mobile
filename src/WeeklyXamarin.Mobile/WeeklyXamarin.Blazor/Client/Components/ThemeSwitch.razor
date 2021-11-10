@@ -1,0 +1,42 @@
+﻿@using MonkeyCache;
+@inject IBarrel Barrel;
+@inject IJSRuntime jSRuntime;
+
+<span title="@TitleText" @onclick="@ThemeSwitchChanged">
+    <span class="oi @IconClass" aria-hidden="true"></span>
+    <span class="nav-text"> Theme</span>
+</span>
+
+@code {
+    string? Theme;
+    string NextTheme => Theme switch
+    {
+        "system" => "dark",
+        "dark" => "light",
+        "light" => "system",
+        _ => "dark"
+    };
+
+    string IconClass => NextTheme switch
+    {
+        "system" => "oi-cloudy",
+        "dark" => "oi-moon",
+        "light" => "oi-sun",
+        _ => "oi-moon"
+    };
+
+    string TitleText => $"Change from {Theme} to {NextTheme} theme";
+
+    public async Task ThemeSwitchChanged()
+    {
+        Theme = NextTheme;
+        await jSRuntime.InvokeVoidAsync("switchTheme", Theme);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Theme = Barrel.Get<string>("theme")?.ToLowerInvariant();
+        Theme = string.IsNullOrWhiteSpace(Theme) ? "system" : Theme;
+        await jSRuntime.InvokeVoidAsync("switchTheme");
+    }
+}

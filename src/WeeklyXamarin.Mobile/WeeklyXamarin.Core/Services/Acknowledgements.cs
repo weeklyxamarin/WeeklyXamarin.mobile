@@ -33,6 +33,57 @@ namespace WeeklyXamarin.Core.Services
         {
             Thanks = new List<Acknowledgement>()
             {
+                //13 October 2021
+                new Acknowledgement() {Person="lumbarjam", Activity=Activity.Follow},
+                new Acknowledgement() {Person="DigitalOceanTv", Activity=Activity.Follow},
+
+                //29 September 2021
+                new Acknowledgement() {Person="ybadragon", Activity=Activity.Subscribe},
+
+                //22 September 2021
+                new Acknowledgement() {Person="Guradani", Activity=Activity.Follow},
+
+                //15 September 2021
+                new Acknowledgement() {Person="camiloaus", Activity=Activity.Subscribe},
+                new Acknowledgement() {Person="camiloaus", Activity=Activity.GiftSub},
+                new Acknowledgement() {Person="vortexcdn", Activity=Activity.Subscribe},
+                new Acknowledgement() {Person="orgbrat", Activity=Activity.Subscribe},
+
+                //25 August 20201
+                new Acknowledgement() {Person="hossOO312", Activity=Activity.Follow},
+                
+                //11 August 20201
+                new Acknowledgement() {Person="fragilitys", Activity=Activity.Follow},
+                new Acknowledgement() {Person="StevenThewissen", Activity=Activity.GiftSub},
+                new Acknowledgement() {Person="StevenThewissen", Activity=Activity.DerailedEverything},
+                new Acknowledgement() {Person="r2_au", Activity=Activity.Subscribe},
+                new Acknowledgement() {Person="HGGamers", Activity=Activity.Subscribe},
+                new Acknowledgement() {Person="depechie", Activity=Activity.Subscribe},
+                new Acknowledgement() {Person="CaanonFodda", Activity=Activity.Subscribe},
+                new Acknowledgement() {Person="jeanmarc2011", Activity=Activity.Subscribe},
+                new Acknowledgement() {Person="jeanmarc2011", Activity=Activity.GiftSub},
+                new Acknowledgement() {Person="tarisaig", Activity=Activity.Subscribe},
+                new Acknowledgement() {Person="aSliceOfRedVelvet", Activity=Activity.Follow},
+                new Acknowledgement() {Person="Lepton63", Activity=Activity.Follow},
+                new Acknowledgement() {Person="rayhobbs", Activity=Activity.Follow},
+                new Acknowledgement() {Person="rayhobbs", Activity=Activity.Bitties},
+
+                //4 August 20201
+                new Acknowledgement() {Person="onedevofficial", Activity=Activity.GiftSub},
+                new Acknowledgement() {Person="cenobyteoffsec", Activity=Activity.Follow},
+                new Acknowledgement() {Person="onedevofficial", Activity=Activity.Raid},
+
+                //28 July 20201
+                new Acknowledgement() {Person="mkwendo", Activity=Activity.Follow},
+
+                new Acknowledgement() {Person="gdfgdfxq", Activity=Activity.Follow},
+
+
+                //22 July 2021
+                new Acknowledgement() {Person="ppasta90", Activity=Activity.Follow},
+                new Acknowledgement() {Person="ybadragon", Activity=Activity.Subscribe},
+
+
                 //14 July 2021
                 new Acknowledgement() {Person="cenobyteoffsec", Activity=Activity.Follow},
 

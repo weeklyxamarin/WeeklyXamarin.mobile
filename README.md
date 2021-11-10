@@ -13,16 +13,16 @@ Mobile Application for the Weekly Xamarin Newsletter
 * View events (streams, meetups, large events)
 * Search articles (title, description, author, tags)
 * Push Notifications (of new articles)
-* Save an article.
-* Mark an article as a favorite.
+* Save an article
+* Mark an article as a favorite
 * Upvote articles
 * Suggest topics to provide a backlog of ideas for content creators
 
 # Functional - Nice To Haves
 * Cache HTML of articles for offline view (maybe a user setting)
 
-# Non-Functioal Requirements
-* Themeing (dark / light / custom modes)
+# Non-Functional Requirements
+* Theming (dark / light / custom modes)
 * No Auth - user not required to login
 * CI/CD Github Actions
 * Testing builds and releases (AppCenter)
@@ -30,7 +30,7 @@ Mobile Application for the Weekly Xamarin Newsletter
 * Caching of Newsletter Issues (Editions) & Articles (Titles, authors, tags, links)
 
 # Goals
-* Recognise the community.
+* Recognise the community
 * No Backend - No hosting infrastructure
 
 # Platforms
@@ -40,11 +40,11 @@ Mobile Application for the Weekly Xamarin Newsletter
 * Dual Screen
 
 # Tech
-* Xamarin.Forms
+* [Xamarin.Forms](https://github.com/xamarin/Xamarin.Forms)
 * Shell
 * Pancakes - all the way down
-* Lottie
-* Caching - Akavache, MonkeyCache
+* [Lottie](https://github.com/Baseflow/LottieXamarin)
+* Caching - [Akavache](https://github.com/reactiveui/Akavache), [MonkeyCache](https://github.com/jamesmontemagno/monkey-cache)
 
 Development
  * Very open source, anyone can contribute to the app

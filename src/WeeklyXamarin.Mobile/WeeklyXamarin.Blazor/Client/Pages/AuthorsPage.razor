@@ -1,0 +1,26 @@
+﻿@page "/Authors" 
+<h3>AuthorsPage</h3>
+
+@if (ViewModel == null)
+{
+    <p>no view model</p>
+}
+else if (ViewModel.Authors == null)
+{
+    <p>null authors</p>
+}
+else if (ViewModel.Authors.Count() == 0)
+{
+    <p>no authors</p>
+}
+else
+{
+    @foreach (var author in ViewModel.Authors)
+    {
+        <NavLink href=@($"/Author/{author.Id}") >@author.Name @author.Id</NavLink>
+    }
+}
+
+@code {
+
+}

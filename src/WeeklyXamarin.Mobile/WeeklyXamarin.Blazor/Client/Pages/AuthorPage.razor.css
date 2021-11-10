@@ -1,0 +1,22 @@
+﻿.link-item{
+    color: var(--website-link-color);
+    display: block;
+    font-size: 14pt;
+    margin: 10px 20px;
+}
+
+a[href*="github.com"i] {
+    color: var(--github-color);
+}
+
+a[href*="twitch.tv"i] {
+    color: var(--twitch-color);
+}
+
+a[href*="twitter.com"i] {
+    color: var(--twitter-color);
+}
+
+a[href*="youtube.com"i] {
+    color: var(--youtube-color);
+}

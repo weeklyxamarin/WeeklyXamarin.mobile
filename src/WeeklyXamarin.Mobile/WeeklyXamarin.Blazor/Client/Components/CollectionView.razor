@@ -1,0 +1,33 @@
+﻿@using MvvmHelpers
+@using WeeklyXamarin.Core.Helpers
+@typeparam TItem
+
+
+
+@if (CurrentState == ListState.Loading)
+{
+    <h2>Loading</h2>
+}
+else if (CurrentState == ListState.Error)
+{
+    <h2>Error</h2>
+}
+else if (CurrentState == ListState.Empty)
+{
+    <h2>@EmptyText</h2>
+
+    <lottie-player src="https://assets3.lottiefiles.com/private_files/lf30_ZmXW2S.json" background="transparent" speed="1" loop autoplay></lottie-player>
+}
+else if (CurrentState == ListState.None)
+{
+    if (ItemsSource != null)
+    {
+
+        @foreach (var context in ItemsSource)
+        {
+            @ChildContent!(context)
+        }
+    }
+
+}
+

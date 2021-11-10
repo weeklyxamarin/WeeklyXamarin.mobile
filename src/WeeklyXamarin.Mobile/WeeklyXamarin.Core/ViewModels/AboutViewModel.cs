@@ -38,6 +38,7 @@ namespace WeeklyXamarin.Core.ViewModels
             new Contributor{Name="Jonathan Parker", Initials="JP", ImageUrl="https://avatars.githubusercontent.com/u/152131", ProfileUrl="https://github.com/jonparker"},
             new Contributor{Name="Vijay Anand E G", Initials="VA", ImageUrl="https://avatars.githubusercontent.com/u/81947404", ProfileUrl="https://github.com/egvijayanand"},
             new Contributor{Name="Grimorde", Initials="G", ImageUrl="https://avatars.githubusercontent.com/u/1989694", ProfileUrl="https://github.com/grimorde"},
+            new Contributor{Name="Simon Brookes", Initials="SB", ImageUrl="https://avatars.githubusercontent.com/u/2011834", ProfileUrl="https://github.com/smabuk"},
         };
 
         public List<LinkInfo> Libraries { get; set; } = new List<LinkInfo>
@@ -54,16 +55,16 @@ namespace WeeklyXamarin.Core.ViewModels
             new LinkInfo {Text="Xamarin.Forms", Url="https://github.com/xamarin/Xamarin.Forms"},
             new LinkInfo {Text="Mobile Build Tools", Url="https://github.com/dansiegel/Mobile.BuildTools"},
             new LinkInfo {Text="Microsoft AppCenter", Url="https://www.nuget.org/packages/Microsoft.AppCenter/"},
+            new LinkInfo {Text="Blazored LocalStorage", Url="https://github.com/Blazored/LocalStorage"},
+            new LinkInfo {Text="MatBlazor", Url="https://www.matblazor.com/"},
         };
-
-        public ICommand OpenUrlCommand { get; }
         public ICommand OpenAcknowlegementsCommand { get; }
 
         public AboutViewModel(INavigationService navigation, IAnalytics analytics, IPreferences preferences, IBrowser browser,
-                              IMessagingService messagingService, IThemeService theme) : base(navigation, analytics, messagingService)
+                              IMessagingService messagingService, IThemeService theme) : base(navigation, analytics, messagingService, browser, preferences)
         {
             Title = "About";
-            OpenUrlCommand = new AsyncCommand<string>(ExecuteOpenUrlCommand);
+            
             OpenAcknowlegementsCommand = new AsyncCommand(ExecuteOpenAcknowledgmentsCommand);
 
             this.preferences = preferences;
@@ -134,15 +135,6 @@ namespace WeeklyXamarin.Core.ViewModels
         private async Task ExecuteOpenAcknowledgmentsCommand()
         {
             await navigation.GoToAsync(Constants.Navigation.Paths.Acknowlegements);
-        }
-
-        private async Task ExecuteOpenUrlCommand(string url)
-        {
-            await browser.OpenAsync(url, new BrowserLaunchOptions
-            {
-                LaunchMode = preferences.Get(Constants.Preferences.OpenLinksInBrowser, true) ? BrowserLaunchMode.SystemPreferred : BrowserLaunchMode.External,
-                TitleMode = BrowserTitleMode.Show
-            });
         }
     }
 }

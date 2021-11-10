@@ -30,7 +30,8 @@ namespace WeeklyXamarin.Core.ViewModels
                                                                                share,
                                                                                dataStore,
                                                                                analytics,
-                                                                               messagingService)
+                                                                               messagingService,
+                                                                               browser, preferences)
         {
             this.browser = browser;
             _dataStore = dataStore;

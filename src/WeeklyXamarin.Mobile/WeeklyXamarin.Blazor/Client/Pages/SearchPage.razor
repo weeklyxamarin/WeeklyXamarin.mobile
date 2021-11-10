@@ -1,0 +1,38 @@
+﻿@page "/Search"
+
+<h1>Search </h1>
+<div class="wx-card">
+    <div class="wx-container search-box" style=" ">
+        <MatTextField Label="Enter your search term" @bind-Value="@SearchText" Style="flex-grow: 1;" Class="wx-field"></MatTextField>
+        <MatSelectItem Label="Select a category" @bind-Value="SearchCategory" Items="Categories" Class="wx-field" Style="margin-bottom: 8px;">
+            <ItemTemplate>
+                <span>@context?.Name</span>
+            </ItemTemplate>
+        </MatSelectItem>
+        <MatButton OnClick="SearchArticles" Label="Search" Class="wx-field"></MatButton>
+    </div>
+</div>
+
+<CollectionView TItem="@Article"
+                EmptyText="@SearchResultText"
+                CurrentState="@CurrentState"
+                ItemsSource="Articles">
+    <Card
+            OpenInNewTab="true"
+            Body="@context.Description"
+            Category="@context.Category"
+            Url="@context.Url">
+        <Title>
+            <h2 class="wx-card-title">@context.Title</h2>
+        </Title>
+        <Subtitle>
+            <NavLink @onclick="@(async () => await OpenAuthor(context.Author))">
+                <h3>@context.Author</h3>
+            </NavLink>
+        </Subtitle>
+    </Card>
+</CollectionView>
+
+@code {
+
+}

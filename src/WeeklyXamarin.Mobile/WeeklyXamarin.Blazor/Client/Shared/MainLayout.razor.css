@@ -1,0 +1,28 @@
+.page {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    flex: 1;
+}
+
+.sidebar {
+    background-color: var(--SkyBlueLight);
+    position: sticky;
+    top: 0;
+}
+
+
+@media (max-width: 719.998px) {
+}
+
+
+
+@media (min-width: 720px) {
+    .main > div {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}

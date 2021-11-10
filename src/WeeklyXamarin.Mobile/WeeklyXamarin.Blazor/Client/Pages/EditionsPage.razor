@@ -1,0 +1,22 @@
+﻿@page "/"
+<h1>Weekly Xamarin Editions</h1>
+
+@if (ViewModel == null)
+{
+    <p>No view model</p>
+}
+
+else
+{
+    <CollectionView ItemsSource="ViewModel.Editions"
+                    TItem="@Edition"                    >
+        <Card Body="@context.Summary"
+                Url="@($"Edition/{@context.Id}")"
+             >
+            <Title>
+                <h2 class="wx-card-title"><span>#@context.Id</span> @context.PublishDate.ToString("MMM dd, yyyy")</h2>
+            </Title>
+        </Card>
+    </CollectionView>
+    
+}

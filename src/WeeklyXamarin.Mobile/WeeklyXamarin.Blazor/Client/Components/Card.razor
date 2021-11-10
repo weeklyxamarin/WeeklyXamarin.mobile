@@ -1,0 +1,29 @@
+﻿<div class="wx-card" style="--category-color: var(--@CategoryColor, black);">
+    <div class="wx-container">
+        <NavLink @key="Url" href="@Url" target="@(OpenInNewTab ? "_blank" : "_self")">
+            @Title
+        </NavLink>
+            @Subtitle
+        <p>@Body</p>
+        @if (!string.IsNullOrWhiteSpace(Category))
+        {
+            <span class="lozenge">@Category</span>
+        }
+    </div>
+</div>
+@code {
+    [Parameter]
+    public RenderFragment? Title { get; set; }
+    [Parameter]
+    public RenderFragment? Subtitle { get; set; }
+
+    [Parameter]
+    public string Body { get; set; } = "";
+    [Parameter]
+    public string Url { get; set; } = "";
+    [Parameter]
+    public string? Category { get; set; }
+    [Parameter]
+    public bool OpenInNewTab { get; set; }
+    string CategoryColor => WeeklyXamarin.Core.Models.Category.CategoryToColor(Category);//ValueConverter?
+}

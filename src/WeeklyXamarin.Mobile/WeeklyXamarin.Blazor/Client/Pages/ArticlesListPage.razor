@@ -1,0 +1,23 @@
+﻿@page "/Edition/{EditionId}"
+
+<h1>Edition #@EditionId</h1>
+
+<CollectionView ItemsSource="ViewModel?.Articles"
+                TItem="@Article">
+    <Card Body="@context.Description"
+          Category="@context.Category"
+          OpenInNewTab="true"
+          Url="@context.Url">
+        <Title>
+            <h2 class="wx-card-title">@context.Title</h2>
+        </Title>
+        <Subtitle>
+            <NavLink @onclick="@(async () => await ViewModel!.OpenAuthor(context.Author))" >
+                <h3>@context.Author</h3>
+            </NavLink>
+        </Subtitle>
+    </Card>
+</CollectionView>
+
+
+

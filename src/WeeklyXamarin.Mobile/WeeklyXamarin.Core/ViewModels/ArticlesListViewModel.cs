@@ -35,14 +35,18 @@ namespace WeeklyXamarin.Core.ViewModels
            
         }
 
-        
+        public async Task OpenAuthor(string authorName)
+        {
+            Author author = await dataStore.SearchAuthorsAsync(authorName);
+            await navigation.GoToAsync($"{Constants.Navigation.Paths.Author}/{author.Id}");
+        }
 
         private async Task ExecuteNavigateBackCommand()
         {
             await navigation.GoToAsync(Constants.Navigation.Paths.Editions);
         }
 
-        async Task ExecuteLoadArticlesCommand()
+        public async Task ExecuteLoadArticlesCommand()
         {
             try
             {

@@ -1,0 +1,53 @@
+﻿:root {
+    --SkyBlueLight: #3598DB;
+    --YellowDark: #FFA800;
+    --TealLight: #3A6F81;
+    --PinkLight: #F47CC3;
+    --RedLight: #E84C3D;
+    --PowderBlueDark: #99AAD5;
+    --WatermelonLight: #EF727A;
+    --GreenLight: #2DCC70;
+    --MagentaLight: #9B58B5;
+    --LimeLight: #A5C63B;
+    --OrangeLight: #E77E23;
+    --BlueLight: #5165A2;
+    --white: #ffffff;
+    --light-card-background: #ffffff;
+    --dark-card-background: #232124;
+    --card-background: var(--light-card-background);
+    --light-text: #2B2B2B;
+    --dark-text: #BEC3C7;
+    --text: var(--light-text);
+    --link: var(--text);
+    --dark-background: #151515;
+    --light-background: #ECF0F1;
+    --background: var(--light-background);
+    --github-color: #2dba4e;
+    --twitter-color: #1DA1F2;
+    --twitch-color: #a562cf;
+    --youtube-color: red;
+    --website-link-color: grey;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --card-background: var(--dark-card-background);
+        --text: var(--dark-text);
+        --link: var(--text);
+        --background: var(--dark-background);
+    }
+}
+
+[data-theme="dark"] {
+    --card-background: var(--dark-card-background);
+    --text: var(--dark-text);
+    --link: var(--text);
+    --background: var(--dark-background);
+}
+
+[data-theme="light"] {
+    --card-background: var(--light-card-background);
+    --text: var(--light-text);
+    --link: var(--text);
+    --background: var(--light-background);
+}

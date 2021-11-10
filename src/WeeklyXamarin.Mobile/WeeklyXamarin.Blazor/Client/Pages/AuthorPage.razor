@@ -1,0 +1,69 @@
+﻿@page "/Author/{Id}"
+
+@if (ViewModel.Author != null)
+{
+    <h1>@ViewModel.Author.Name</h1>
+    <div class="flex-collection">
+        @if (!string.IsNullOrWhiteSpace(ViewModel.Author.GitHubHandle))
+        {
+            <a class="link-item" target="_blank" rel="noopener" href=@($"{ViewModel.Author.GitHubUrl}")>
+                <span class="fa-stack fa-1x">
+                    <i class="fa-brands fa-github fa-stack-2x">GitHub</i>
+                </span>
+            </a>
+        }
+        @if (!string.IsNullOrWhiteSpace(ViewModel.Author.TwitchHandle))
+        {
+            <a class="link-item" target="_blank" rel="noopener" href=@($"{ViewModel.Author.TwitchUrl}")>
+                <span class="fa-stack">
+                    <i class="fa-solid fa-circle fa-stack-2x"></i>
+                    <i class="fa-brands fa-twitch fa-stack-1x fa-inverse">Twitch</i>
+                </span>
+            </a>
+            
+        }
+        @if (!string.IsNullOrWhiteSpace(ViewModel.Author.TwitterHandle))
+        {
+            <a class="link-item" target="_blank" rel="noopener" href=@($"{ViewModel.Author.TwitterUrl}")>
+                <span class="fa-stack">
+                    <i class="fa-solid fa-circle fa-stack-2x"></i>
+                    <i class="fa-brands fa-twitter fa-stack-1x fa-inverse">Twitter</i>
+                </span>
+            </a>
+        }
+        @if (!string.IsNullOrWhiteSpace(ViewModel.Author.YouTubeUrl))
+        {
+            <a class="link-item" target="_blank" rel="noopener" href=@($"{ViewModel.Author.YouTubeUrl}")>
+                <span class="fa-stack">
+                    <i class="fa-solid fa-circle fa-stack-2x"></i>
+                    <i class="fa-brands fa-youtube fa-stack-1x fa-inverse">YouTube</i>
+                </span>
+            </a>
+        }
+        @if (!string.IsNullOrWhiteSpace(ViewModel.Author.Website))
+        {
+            <a class="link-item" target="_blank" rel="noopener" href="@ViewModel.Author.Website">
+                <span class="fa-stack">
+                    <i class="fa-solid fa-circle fa-stack-2x"></i>
+                    <i class="fa-solid fa-up-right-from-square fa-stack-1x fa-inverse">Website</i>
+                </span>
+            </a>
+        }
+    </div>
+
+}
+
+<CollectionView TItem="@Article"
+                EmptyText="No Result"
+                CurrentState="@ViewModel.CurrentState"
+                ItemsSource="Articles">
+    <Card OpenInNewTab="true"
+          Body="@context.Description"
+          Category="@context.Category"
+          Url="@context.Url">
+        <Title>
+            <h2 class="wx-card-title">@context.Title</h2>
+        </Title>
+
+    </Card>
+</CollectionView>

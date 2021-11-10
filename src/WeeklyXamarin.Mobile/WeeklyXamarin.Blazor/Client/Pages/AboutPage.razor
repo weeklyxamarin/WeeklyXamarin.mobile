@@ -1,0 +1,41 @@
+﻿@page "/About"
+
+<h2>Libraries Used</h2>
+<Frame>
+    <CollectionView ItemsSource="@ViewModel?.Libraries">
+        <a class="link-item" target="_blank" href="@context.Url">@context.Text</a>
+    </CollectionView>
+</Frame>
+
+<h2>About</h2>
+<Frame>
+    <CollectionView ItemsSource="@ViewModel?.AboutLinks">
+        <a class="link-item" target="_blank" href="@context.Url">@context.Text</a>
+    </CollectionView>
+</Frame>
+
+<h2>Contributors</h2>
+<Frame>
+    <div class="flex-collection">
+
+        <CollectionView ItemsSource="@ViewModel?.Contributors">
+            <a class="contributor" target="_blank" href="@context.ProfileUrl"> <img class="rounded-circle avatar" src="@context.ImageUrl" /><p >@context.Name</p> </a>
+        </CollectionView>
+    </div>
+</Frame>
+
+<h2>Viewers</h2>
+<Frame>
+    <div class="flex-collection">
+
+        <CollectionView ItemsSource="@AcknowledgementsViewModel?.Acknowledgements">
+            <p class="viewer">@context.Person (@context.Activity)</p>
+        </CollectionView>
+    </div>
+</Frame>
+
+<footer>Version: @Program.ProductVersion</footer>
+
+@code {
+
+}

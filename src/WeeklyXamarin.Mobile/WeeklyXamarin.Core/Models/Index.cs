@@ -12,6 +12,6 @@ namespace WeeklyXamarin.Core.Models
         public DateTime FetchedDate { get; set; }
 
         [JsonIgnore]
-        public bool IsStale => FetchedDate > DateTime.UtcNow.AddMinutes(-5);
+        public bool IsStale => FetchedDate < DateTime.UtcNow.AddMinutes(-5);
     }
 }

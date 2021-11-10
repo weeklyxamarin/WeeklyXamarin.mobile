@@ -9,6 +9,7 @@ using WeeklyXamarin.Core.Models;
 using WeeklyXamarin.Core.Services;
 using WeeklyXamarin.Core.Helpers;
 using System.Collections.Generic;
+using Xamarin.Essentials.Interfaces;
 
 namespace WeeklyXamarin.Core.ViewModels
 {
@@ -20,7 +21,7 @@ namespace WeeklyXamarin.Core.ViewModels
         IDataStore dataStore;
 
         public EditionsViewModel(INavigationService navigation, IAnalytics analytics, IDataStore dataStore,
-            IMessagingService messagingService) : base(navigation, analytics, messagingService)
+            IMessagingService messagingService, IBrowser browser, IPreferences preferences) : base(navigation, analytics, messagingService, browser, preferences)
         {
             Title = "Editions";
             Editions = new ObservableRangeCollection<Edition>();
@@ -34,7 +35,7 @@ namespace WeeklyXamarin.Core.ViewModels
             await navigation.GoToAsync(Constants.Navigation.Paths.Articles, Constants.Navigation.ParameterNames.EditionId, edition.Id);
         }
 
-        async Task ExecuteLoadEditionsCommand()
+        public async Task ExecuteLoadEditionsCommand()
         {
             try
             {
