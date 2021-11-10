@@ -237,7 +237,7 @@
       "url": "_framework\/WeeklyXamarin.Core.dll"
     },
     {
-      "hash": "sha256-i++39SHzxOCX1oPQCbCcTPw\/Xp2ICMuuICJjrJjl6Ns=",
+      "hash": "sha256-uiqQ5MK1NLw+gqNfles\/KfkyyCUHslzrtwMo4MtPDHY=",
       "url": "_framework\/WeeklyXamarin.Blazor.Client.dll"
     },
     {
@@ -381,7 +381,7 @@
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
-      "hash": "sha256-oMZF0TDl6hSKcW\/9YXstKwTEybnfynkmf+4WbYCWbzA=",
+      "hash": "sha256-5JfDXhR\/LesjUn6S98CQ0wD2d416C3kDyAFG\/2Z+x+s=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -389,5 +389,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "clExn2Z9"
+  "version": "qPlyCqi0"
 };
