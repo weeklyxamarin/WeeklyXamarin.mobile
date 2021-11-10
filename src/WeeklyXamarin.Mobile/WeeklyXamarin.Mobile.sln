@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29920.165
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeeklyXamarin.Mobile.Android", "WeeklyXamarin.Mobile.Android\WeeklyXamarin.Mobile.Android.csproj", "{C09D9135-44BE-4B51-B4A4-DA7C39035F2C}"
 EndProject
@@ -14,8 +14,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeeklyXamarin.Curated", "WeeklyXamarin.Curated\WeeklyXamarin.Curated.csproj", "{E035101F-3893-4D6E-AAE3-C79F9118C054}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeeklyXamarin.Curated.ImportUtil", "WeeklyXamarin.Curated.ImportUtil\WeeklyXamarin.Curated.ImportUtil.csproj", "{C36CE3BF-A6D4-46AD-BA6B-E9514DF16A46}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeeklyXamarin.Mobile.UWP", "WeeklyXamarin.Mobile.UWP\WeeklyXamarin.Mobile.UWP.csproj", "{74D3546D-0772-4C06-8F4B-875826D47E34}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeeklyXamarin.Blazor.Server", "WeeklyXamarin.Blazor\Server\WeeklyXamarin.Blazor.Server.csproj", "{7D1BF304-AE16-461B-AC17-CB92AA7C6830}"
 EndProject
@@ -225,38 +223,6 @@ Global
 		{C36CE3BF-A6D4-46AD-BA6B-E9514DF16A46}.Release|x64.Build.0 = Release|Any CPU
 		{C36CE3BF-A6D4-46AD-BA6B-E9514DF16A46}.Release|x86.ActiveCfg = Release|Any CPU
 		{C36CE3BF-A6D4-46AD-BA6B-E9514DF16A46}.Release|x86.Build.0 = Release|Any CPU
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Debug|Any CPU.Build.0 = Debug|x86
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Debug|Any CPU.Deploy.0 = Debug|x86
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Debug|ARM.ActiveCfg = Debug|ARM
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Debug|ARM.Build.0 = Debug|ARM
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Debug|ARM.Deploy.0 = Debug|ARM
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Debug|ARM64.ActiveCfg = Debug|ARM64
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Debug|ARM64.Build.0 = Debug|ARM64
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Debug|ARM64.Deploy.0 = Debug|ARM64
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Debug|iPhone.ActiveCfg = Debug|x86
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Debug|iPhoneSimulator.ActiveCfg = Debug|x86
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Debug|x64.ActiveCfg = Debug|x64
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Debug|x64.Build.0 = Debug|x64
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Debug|x64.Deploy.0 = Debug|x64
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Debug|x86.ActiveCfg = Debug|x86
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Debug|x86.Build.0 = Debug|x86
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Debug|x86.Deploy.0 = Debug|x86
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Release|Any CPU.ActiveCfg = Release|x86
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Release|ARM.ActiveCfg = Release|ARM
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Release|ARM.Build.0 = Release|ARM
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Release|ARM.Deploy.0 = Release|ARM
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Release|ARM64.ActiveCfg = Release|ARM64
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Release|ARM64.Build.0 = Release|ARM64
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Release|ARM64.Deploy.0 = Release|ARM64
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Release|iPhone.ActiveCfg = Release|x86
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Release|iPhoneSimulator.ActiveCfg = Release|x86
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Release|x64.ActiveCfg = Release|x64
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Release|x64.Build.0 = Release|x64
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Release|x64.Deploy.0 = Release|x64
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Release|x86.ActiveCfg = Release|x86
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Release|x86.Build.0 = Release|x86
-		{74D3546D-0772-4C06-8F4B-875826D47E34}.Release|x86.Deploy.0 = Release|x86
 		{7D1BF304-AE16-461B-AC17-CB92AA7C6830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7D1BF304-AE16-461B-AC17-CB92AA7C6830}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D1BF304-AE16-461B-AC17-CB92AA7C6830}.Debug|ARM.ActiveCfg = Debug|Any CPU
