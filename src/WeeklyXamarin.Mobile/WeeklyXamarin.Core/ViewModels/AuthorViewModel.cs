@@ -12,24 +12,19 @@ using Xamarin.Essentials.Interfaces;
 
 namespace WeeklyXamarin.Core.ViewModels
 {
-    public class AuthorViewModel : ViewModelBase
+    public class AuthorViewModel : ArticleListViewModelBase
     {
-        private readonly IDataStore dataStore;
         private Author author;
-
-        public ListState CurrentState { get => currentState;  set => SetProperty(ref currentState, value); }
 
         public AuthorViewModel(
             INavigationService navigation,
             IAnalytics analytics,
+            IShare shareService,
             IMessagingService messagingService,
-            IDataStore dataStore, IBrowser browser, IPreferences preferences) : base(navigation, analytics, messagingService, browser, preferences)
-        {
-            this.dataStore = dataStore;
-        }
+            IDataStore dataStore, IBrowser browser, IPreferences preferences) : base(navigation, analytics, dataStore, browser, preferences, shareService, messagingService)
+        {        }
 
         public Author Author { get => author; private set => SetProperty(ref author, value); }
-        public ObservableRangeCollection<Article> Articles { get; private set; } = new ObservableRangeCollection<Article>();
 
         public override async Task InitializeAsync(object parameter)
         {
@@ -44,7 +39,6 @@ namespace WeeklyXamarin.Core.ViewModels
         public async Task LoadArticles()
         {
             CurrentState = ListState.Loading;
-            //StateHasChanged();
             await Task.Delay(10);
 
             source.Cancel();
@@ -58,11 +52,9 @@ namespace WeeklyXamarin.Core.ViewModels
             {
                 Articles.Add(article);
                 CurrentState = ListState.None;
-                //StateHasChanged();
                 await Task.Delay(10);
             }
             CurrentState = Articles.Any() ? ListState.None : ListState.Empty;
-
         }
 
     }

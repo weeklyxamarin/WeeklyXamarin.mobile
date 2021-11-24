@@ -41,9 +41,9 @@ namespace WeeklyXamarin.Curated.ImportUtil
             lookupDataPath = Path.Combine(basePath, "LookupData");
 
             // for debug override the basepath
-            basePath = @"C:\dev\GitHub\weeklyxamarin\WeeklyXamarin.content\content";
+            basePath = @"D:\GitHub\weeklyxamarin\WeeklyXamarin.content\content";
             outputPath = basePath;
-            curatedDataPath = @"C:\dev\GitHub\weeklyxamarin\WeeklyXamarin.content\curateddata\published";
+            curatedDataPath = @"D:\GitHub\weeklyxamarin\WeeklyXamarin.content\curateddata\published";
             planetXamarinAuthorsDataPath = @"c:\github\planetxamarin\planetxamarin\src\Firehose.Web\Authors";
             lookupDataPath = basePath;
 
@@ -375,13 +375,24 @@ namespace WeeklyXamarin.Curated.ImportUtil
 
             // at this point we can't find an author so we need to create a new one
             author = new Author();
-            author.Id = authorKey.ToLower();
+            author.Id = Guid.NewGuid().ToString();
             author.Name = authorDisplayName;
             author.Aliases = new List<Alias>();
             var newAlias = new Alias();
             newAlias.Name = authorKey.ToLower();
             newAlias.Type = AuthorUrlType(authorKey.ToLower());
-            author.Aliases.Add(newAlias);
+            if (newAlias.Type == "twitter")
+            {
+                author.TwitterHandle = authorKey.Replace("https://twitter.com/", "");
+            }
+            else if (newAlias.Type == "github")
+            {
+                author.GitHubHandle = authorKey.Replace("https://github.com/", "");
+            }
+            else
+            {
+                author.Aliases.Add(newAlias);
+            }
 
             System.Diagnostics.Debug.WriteLine($"Creating a new author object - Name: {authorDisplayName}, {authorKey}");
 
