@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WeeklyXamarin.Core.Services
+namespace WeeklyXamarin.Core.Models
 {
     public class Acknowledgement
     {

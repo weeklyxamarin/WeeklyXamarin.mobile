@@ -1,9 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using MvvmHelpers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeeklyXamarin.Core.Models;
 using WeeklyXamarin.Core.Services;
 using Xamarin.Essentials.Interfaces;
 
@@ -13,7 +15,7 @@ namespace WeeklyXamarin.Core.ViewModels
     {
         private IDataStore dataStore;
 
-        public List<Acknowledgement> Acknowledgements { get; set; }
+        public ObservableRangeCollection<Acknowledgement> Acknowledgements { get; set; } = new ObservableRangeCollection<Acknowledgement>();
 
         public AcknowledgementsViewModel(INavigationService navigation, IAnalytics analytics,
             IMessagingService messagingService, IBrowser browser, IPreferences preferences, IDataStore dataStore) : base(navigation, analytics, messagingService, browser, preferences)
@@ -30,7 +32,7 @@ namespace WeeklyXamarin.Core.ViewModels
         private async Task LoadDataAsync()
         {
             var acknowledgements = await dataStore.GetAcknowledgementsAsync();
-            Acknowledgements = acknowledgements.ToList();
+            Acknowledgements.AddRange(acknowledgements);
         }
     }
 }
