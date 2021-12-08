@@ -13,5 +13,15 @@ namespace WeeklyXamarin.Blazor.Client.Pages
     {
         [Inject] public AboutViewModel? ViewModel { get; set; }
         [Inject] public AcknowledgementsViewModel? AcknowledgementsViewModel { get; set; }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+            if(firstRender)
+            {
+                await AcknowledgementsViewModel!.InitializeAsync(null);
+                StateHasChanged();
+            }
+        }
     }
 }

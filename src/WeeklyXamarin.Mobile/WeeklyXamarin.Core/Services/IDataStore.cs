@@ -24,5 +24,6 @@ namespace WeeklyXamarin.Core.Services
         Task<IEnumerable<Author>> GetAuthorsAsync(bool forceRefresh = false);
         Task<Author> SearchAuthorsAsync(string authorName);
         IAsyncEnumerable<Article> GetArticleForAuthorAsync(string author, [EnumeratorCancellation] CancellationToken token, bool forceRefresh = false);
+        Task<List<Acknowledgement>> GetAcknowledgementsAsync(bool forceRefresh = false);
     }
 }

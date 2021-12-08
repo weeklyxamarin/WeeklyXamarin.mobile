@@ -34,6 +34,7 @@ namespace WeeklyXamarin.Core.Services
         const string indexFile = "index.json";
         const string tagsFile = "categories.json";
         const string authorsFile = "authors.json";
+        const string acknowledgementsFile = "acknowledgements.json";
 
         public GithubDataStore(HttpClient httpClient, IConnectivity connectivity, IBarrel barrel, ILogger<GithubDataStore> logger, IAnalytics analytics)
         {
@@ -281,7 +282,7 @@ namespace WeeklyXamarin.Core.Services
                     }
                     catch (Exception ex)
                     {
-                        _logger.LogError(ex, "Failed to get categories");
+                        _logger.LogError(ex, "Failed to get authors");
                     }
                 }
             }
@@ -301,6 +302,35 @@ namespace WeeklyXamarin.Core.Services
             var authors = await GetAuthorsAsync();
             var author = authors.FirstOrDefault(x => x.Name == authorName);
             return author;
+        }
+
+        public async Task<List<Acknowledgement>> GetAcknowledgementsAsync(bool forceRefresh = false)
+        {
+            // try and get the index from cache
+            var acknowledgementResponse = _barrel.Get<Response<List<Acknowledgement>>>(key: acknowledgementsFile);
+
+            // if we need to get it from the internet
+            if (forceRefresh || acknowledgementResponse is null || acknowledgementResponse.IsStale)
+            {
+                // if we have internet
+                if (_connectivity.NetworkAccess == NetworkAccess.Internet)
+                {
+                    try
+                    {
+                        // get it and cache it
+                        var responseText = await _httpClient.GetStringAsync(acknowledgementsFile);
+                        acknowledgementResponse = JsonConvert.DeserializeObject<Response<List<Acknowledgement>>>(responseText);
+                        acknowledgementResponse.FetchedDate = DateTime.UtcNow;
+                        _barrel.Add(key: acknowledgementsFile, data: acknowledgementResponse, expireIn: TimeSpan.FromMinutes(5));
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Failed to get acknowledgements");
+                    }
+                }
+            }
+
+            return acknowledgementResponse.Data;
         }
     }
 }
