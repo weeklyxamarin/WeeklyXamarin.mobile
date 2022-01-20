@@ -1,0 +1,29 @@
+﻿@hostname = localhost
+@port = 5000
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+
+POST http://{{host}}/api/article/
+Content-Type:{{contentType}}
+
+{
+    "name": "Joe",
+    "permissions": "author"
+}
+
+
+POST http://{{host}}/api/article/
+Content-Type:{{contentType}}
+
+{ 
+    "url": "https://bob"
+}
+
+
+
+# Comments
+GET http://{{host}}/api/article/
+
+###
+
+GET https://www.bing.com

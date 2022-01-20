@@ -1,0 +1,31 @@
+﻿@page "/Admin/LookupUrl"
+@using WeeklyXamarin.Core.Services
+
+<h1>LookupUrl</h1>
+@if(Article != null)
+{
+    <h2>@Article?.Author</h2>
+    <p>@Article?.Url</p>
+    <p>@Article?.Title</p>
+}
+
+
+@code {
+    [Inject] IArticleRestService articleRestService { get; set; }
+
+    Article Article { get; set;}
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+            await LoadArticle();
+    }
+
+    public async Task LoadArticle()
+    {
+        var article = await articleRestService.GetArticleDetailsFromUrl("www.go.rfegw");
+        Article = article;
+        StateHasChanged();
+    }
+}

@@ -17,3 +17,4 @@ namespace WeeklyXamarin.Core.Responses
         public bool IsStale => FetchedDate > DateTime.UtcNow.AddMinutes(-5);
     }
 }
+//nice

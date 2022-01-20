@@ -5,7 +5,15 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using MonkeyCache;
+using MonkeyCache.FileStore;
 using System.Linq;
+using WeeklyXamarin.AdminServices.Services;
+using WeeklyXamarin.Blazor.Client.Services;
+using WeeklyXamarin.Blazor.Server.Services;
+using WeeklyXamarin.Core.Services;
+using Xamarin.Essentials.Interfaces;
 
 namespace WeeklyXamarin.Blazor.Server
 {
@@ -25,6 +33,14 @@ namespace WeeklyXamarin.Blazor.Server
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddTransient<IUrlService, UrlService>();
+            services.AddTransient<IDataStore, GithubDataStore>();
+            
+            services.AddSingleton(_ => Barrel.Current);
+            services.AddSingleton<IConnectivity, Connectivity>();
+            services.AddSingleton<IAnalytics, WasmAnalytics>();
+            services.AddLogging(x => x.AddConsole());
+            services.AddHttpClient();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,8 +62,10 @@ namespace WeeklyXamarin.Blazor.Server
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
-            app.UseRouting();
+            Barrel.ApplicationId = "WeeklyXamarin";
 
+            app.UseRouting();
+        
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();

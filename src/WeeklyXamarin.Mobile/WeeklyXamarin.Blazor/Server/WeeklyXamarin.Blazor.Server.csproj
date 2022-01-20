@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\WeeklyXamarin.AdminServices\WeeklyXamarin.AdminServices.csproj" />
     <ProjectReference Include="..\Client\WeeklyXamarin.Blazor.Client.csproj" />
   </ItemGroup>
 
