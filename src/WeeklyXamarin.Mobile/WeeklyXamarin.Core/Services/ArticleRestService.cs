@@ -25,7 +25,6 @@ namespace WeeklyXamarin.Core.Services
         {
             var url = $"{baseUrl}/article";
             var requestBody = new LookupUrlRequest { Url = articleUrl };
-          //  var httpContent = JsonConvert.SerializeObject(requestBody);
 
             var response = await httpClient.PostAsJsonAsync<LookupUrlRequest>(url, requestBody);
 

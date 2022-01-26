@@ -193,6 +193,25 @@ namespace WeeklyXamarin.Core.Services
             _barrel.Add(key: Constants.BarrelNames.SavedArticles, data: savedArticleList, expireIn: TimeSpan.FromDays(999));
         }
 
+        public async Task<Article> GetArticleForUrl(string url, bool forceRefresh = false)
+        {
+            var editions = await GetEditionsAsync(forceRefresh);
+
+            foreach (var edition in editions)
+            {
+                var articles = await GetEditionAsync(edition.Id, forceRefresh);
+
+                foreach (var article in articles.Articles)
+                {
+                    if (article.MatchesUrl(url))
+                    {
+                        return article;
+                    }
+                }
+            }
+            return null;
+        }
+
         public async IAsyncEnumerable<Article> GetArticleFromSearchAsync(string searchText, string category, [EnumeratorCancellation]CancellationToken token, bool forceRefresh = false)
         {
             var editions = await GetEditionsAsync(forceRefresh);
@@ -296,6 +315,21 @@ namespace WeeklyXamarin.Core.Services
             var author = authors.FirstOrDefault(x => x.Id == id);
             return author;
         }
+
+        public async Task<Author>SearchAuthorsAsync(List<string> tokens)
+        {
+            var authors = await GetAuthorsAsync();
+            var author = authors.FirstOrDefault(x => x.Matches(tokens));
+            return author;
+        }
+
+        public async Task<Author> SearchAuthorsUrlAsync(string url)
+        {
+            var authors = await GetAuthorsAsync();
+            var author = authors.FirstOrDefault(x => x.MatchesUrl(url));
+            return author;
+        }
+
 
         public async Task<Author> SearchAuthorsAsync(string authorName)
         {

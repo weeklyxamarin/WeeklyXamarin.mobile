@@ -16,7 +16,7 @@ POST http://{{host}}/api/article/
 Content-Type:{{contentType}}
 
 { 
-    "url": "https://bob"
+    "url": "https://www.youtube.com/watch?v=DV9FI_Zy1Jc"
 }
 
 

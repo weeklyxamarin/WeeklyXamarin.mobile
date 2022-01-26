@@ -24,7 +24,7 @@ namespace WeeklyXamarin.Blazor.Server.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new string[] { "value1", "value" };
         }
 
         // GET api/<ArticleController>/5
@@ -40,20 +40,8 @@ namespace WeeklyXamarin.Blazor.Server.Controllers
         {
             var a = await urlService.GetArticleDetailsFromUrl(urlRequest.Url);
             return a;
-
-            //var article = new Article();
-            //article.Title = "Article From Controller";
-            //article.Url = urlRequest.Url;
-            //article.Author = "R2";
-            //return article;
         }
 
-
-        //// POST api/<ArticleController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
 
         // PUT api/<ArticleController>/5
         [HttpPut("{id}")]

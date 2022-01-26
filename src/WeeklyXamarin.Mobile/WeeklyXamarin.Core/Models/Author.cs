@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using WeeklyXamarin.Core.Helpers;
 
 namespace WeeklyXamarin.Core.Models
 {
@@ -22,5 +24,19 @@ namespace WeeklyXamarin.Core.Models
         public string Id { get; set; }
         public List<Alias> Aliases { get; set; }
         public string Website { get; set; }
+
+        internal bool Matches(List<string> tokens)
+        {
+            return tokens.Any(x =>  Name == x 
+                                 || TwitchHandle == x
+                                 || GitHubHandle == x);
+        }
+
+        internal bool MatchesUrl(string url)
+        {
+            if (Website == null) return false;
+
+            return url.Contains(Website, StringComparison.InvariantCultureIgnoreCase); 
+        }
     }
 }
