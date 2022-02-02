@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WeeklyXamarin.AdminServices.Services;
@@ -38,6 +39,8 @@ namespace WeeklyXamarin.Blazor.Server.Controllers
         [HttpPost]
         public async Task<Article> GetArticleFromUrl([FromBody] LookupUrlRequest urlRequest)
         {
+            ArgumentNullException.ThrowIfNull(urlRequest.Url);
+
             var a = await urlService.GetArticleDetailsFromUrl(urlRequest.Url);
             return a;
         }
