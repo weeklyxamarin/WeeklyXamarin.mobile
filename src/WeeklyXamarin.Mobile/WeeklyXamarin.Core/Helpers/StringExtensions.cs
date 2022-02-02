@@ -14,5 +14,8 @@ namespace WeeklyXamarin.Core.Helpers
             return leftString == testString;
 
         }
+
+        public static bool EqualsCaseInsensitive(this string a, string b)
+            => String.Equals(a, b, StringComparison.InvariantCultureIgnoreCase);
     }
 }

@@ -26,11 +26,10 @@ namespace WeeklyXamarin.Core.Models
         public string Website { get; set; }
 
         internal bool Matches(List<string> tokens)
-        {
-            return tokens.Any(x =>  Name == x 
-                                 || TwitchHandle == x
-                                 || GitHubHandle == x);
-        }
+            => tokens.Any(x => Name.EqualsCaseInsensitive(x) 
+                            || TwitchHandle.EqualsCaseInsensitive(x)
+                            || TwitterHandle.EqualsCaseInsensitive(x) 
+                            || GitHubHandle.EqualsCaseInsensitive(x));
 
         internal bool MatchesUrl(string url)
         {
@@ -39,4 +38,5 @@ namespace WeeklyXamarin.Core.Models
             return url.Contains(Website, StringComparison.InvariantCultureIgnoreCase); 
         }
     }
+
 }

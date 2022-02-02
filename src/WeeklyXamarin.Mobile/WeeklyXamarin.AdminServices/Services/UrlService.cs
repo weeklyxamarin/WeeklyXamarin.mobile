@@ -22,9 +22,11 @@ namespace WeeklyXamarin.AdminServices.Services
 
         public async Task<Article> GetArticleDetailsFromUrl(string url)
         {
+            if (string.IsNullOrEmpty(url))
+                throw new ArgumentNullException(nameof(url));
+
             var article = await _dataStore.GetArticleForUrl(url);
             if (article != null) return article;
-
 
             MetaInformation meta;
 
@@ -67,9 +69,9 @@ namespace WeeklyXamarin.AdminServices.Services
 
             var meta = new MetaInformation(url)
             {
-                Title = video.Title,
-                Description = video.Description,
-                Author = video.Author.Title
+                Title = video?.Title,
+                Description = video?.Description,
+                Author = video?.Author?.Title
             };
             return meta;
         }

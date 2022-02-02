@@ -1,31 +1,62 @@
 ﻿@page "/Admin/LookupUrl"
 @using WeeklyXamarin.Core.Services
 
-<h1>LookupUrl</h1>
-@if(Article != null)
-{
-    <h2>@Article?.Author</h2>
-    <p>@Article?.Url</p>
-    <p>@Article?.Title</p>
-}
+<h1>Search </h1>
+<div class="wx-card">
+    <div class="wx-container search-box" style="display: flex; flex-direction: column;">
+        <MatTextField Label="Enter article URL" @bind-Value="@Url" Style="flex-grow: 1;" Class="wx-field"></MatTextField>
+ 
+        <MatButton Disabled="@(string.IsNullOrWhiteSpace(Url) || !Uri.TryCreate(Url, UriKind.Absolute, out _))" OnClick="LoadArticle" Label="Process" Class="wx-field"></MatButton>
+        @if(Article != null)
+        {
+            <MatTextField Label="Title" @bind-Value="@Article.Title" Style="flex-grow: 1;" Class="wx-field"></MatTextField>
+            <MatTextField TextArea="true"  Label="Description" @bind-Value="@Article.Description" Style="flex-grow: 1;" Class="wx-field"></MatTextField>
 
+            @if(Categories != null)
+            {
+                <MatSelectItem Items="@Categories" @bind-Value="@Article.Category" Label="Select Category">
+                    <ItemTemplate>
+                        <span>@context</span>
+                    </ItemTemplate>
+                </MatSelectItem>
+            }
+
+            @if(Authors != null)
+            {
+                <MatSelectItem Items="@Authors" @bind-Value="@Article.Author" Label="Select Author">
+                    <ItemTemplate>
+                        <span>@context</span>
+                    </ItemTemplate>
+                </MatSelectItem>
+            }
+            
+            <pre>@Article.ToJson()</pre>
+        }
+    </div>
+</div>
 
 @code {
-    [Inject] IArticleRestService articleRestService { get; set; }
+    [Inject] IArticleRestService ArticleRestService { get; set; } = default!; 
+    [Inject] IDataStore DataStore { get; set; } = default!; 
 
-    Article Article { get; set;}
+    string? Url { get; set; }
+    Article? Article { get; set; }
+    List<string>? Categories { get; set; } 
+    List<string>? Authors { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
+
         if (firstRender)
-            await LoadArticle();
+        {
+            Categories = (await DataStore.GetCategories()).Select(x => x.Name).ToList();
+            Authors = (await DataStore.GetAuthorsAsync()).Select(x => x.Name).ToList();
+        }
     }
 
     public async Task LoadArticle()
     {
-        var article = await articleRestService.GetArticleDetailsFromUrl("www.go.rfegw");
-        Article = article;
-        StateHasChanged();
+        Article = await ArticleRestService.GetArticleDetailsFromUrl(Url);
     }
 }
