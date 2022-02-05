@@ -29,6 +29,7 @@ namespace WeeklyXamarin.Blazor.Client
             builder.Services.AddSingleton<HttpClient>(_ => new HttpClient());
             builder.Services.AddScoped<IDataStore, GithubDataStore>();
             builder.Services.AddScoped<IArticleRestService, ArticleRestService> ();
+            builder.Services.AddScoped<ICuratedRestService, CuratedRestService> ();
             builder.Services.AddSingleton<IConnectivity, WasmConnectivity>();
             builder.Services.AddSingleton<IAnalytics, WasmAnalytics>();
             builder.Services.AddScoped<IBarrel, WasmBarrel>();
@@ -47,6 +48,7 @@ namespace WeeklyXamarin.Blazor.Client
             builder.Services.AddTransient<SearchViewModel>();
             builder.Services.AddSingleton<ILogger, WasmLogger<GithubDataStore>>();
             builder.Services.AddMatBlazor();
+            
 
             await builder.Build().RunAsync();
         }

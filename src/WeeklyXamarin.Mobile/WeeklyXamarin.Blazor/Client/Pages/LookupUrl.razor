@@ -1,7 +1,8 @@
 ﻿@page "/Admin/LookupUrl"
+@using System.Text
 @using WeeklyXamarin.Core.Services
 
-<h1>Search </h1>
+<h1>Submit a link </h1>
 <div class="wx-card">
     <div class="wx-container search-box" style="display: flex; flex-direction: column;">
         <MatTextField Label="Enter article URL" @bind-Value="@Url" Style="flex-grow: 1;" Class="wx-field"></MatTextField>
@@ -9,8 +10,9 @@
         <MatButton Disabled="@(string.IsNullOrWhiteSpace(Url) || !Uri.TryCreate(Url, UriKind.Absolute, out _))" OnClick="LoadArticle" Label="Process" Class="wx-field"></MatButton>
         @if(Article != null)
         {
-            <MatTextField Label="Title" @bind-Value="@Article.Title" Style="flex-grow: 1;" Class="wx-field"></MatTextField>
-            <MatTextField TextArea="true"  Label="Description" @bind-Value="@Article.Description" Style="flex-grow: 1;" Class="wx-field"></MatTextField>
+            <MatTextField Label="Title" @bind-Value="@Article.Title" Style="flex-grow: 1;" Class="wx-field" ></MatTextField>
+            <MatTextField TextArea="true"  Label="Description" @bind-Value="@Article.Description" 
+                                FullWidth="true" Style="flex-grow: 1;" Class="wx-field"></MatTextField>
 
             @if(Categories != null)
             {
@@ -21,9 +23,9 @@
                 </MatSelectItem>
             }
 
-            @if(Authors != null)
+            @if(AuthorNames != null)
             {
-                <MatSelectItem Items="@Authors" @bind-Value="@Article.Author" Label="Select Author">
+                <MatSelectItem Items="@AuthorNames" Value="@Article.Author" Label="Select Author" ValueChanged="@((string s) => AuthorSelected(s))">
                     <ItemTemplate>
                         <span>@context</span>
                     </ItemTemplate>
@@ -31,32 +33,20 @@
             }
             
             <pre>@Article.ToJson()</pre>
+            <pre>@CuratedByLine</pre>
         }
     </div>
 </div>
 
-@code {
-    [Inject] IArticleRestService ArticleRestService { get; set; } = default!; 
-    [Inject] IDataStore DataStore { get; set; } = default!; 
+    <h2>Curated</h2>
 
-    string? Url { get; set; }
-    Article? Article { get; set; }
-    List<string>? Categories { get; set; } 
-    List<string>? Authors { get; set; }
+<div class="wx-card">
+    <div class="wx-container search-box" style="display: flex; flex-direction: column;">
+@*        <MatTextField Label="Curated API Key" @bind-Value="@CuratedKey" Style="flex-grow: 1;" Class="wx-field" Icon="lock_outline" IconTrailing="true" FullWidth="true" Required="true" Type="password"></MatTextField>
+        <MatTextField Label="Curated Publication ID" @bind-Value="@CuratedPublicationId" Style="flex-grow: 1;" Class="wx-field" Icon="lock_outline" IconTrailing="true" FullWidth="true" Required="true" Type="password"></MatTextField>
+*@
+        <MatButton OnClick="PostToCurated" Label="Post To Curated" Class="wx-field"></MatButton>
+</div>
+</div>
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
 
-        if (firstRender)
-        {
-            Categories = (await DataStore.GetCategories()).Select(x => x.Name).ToList();
-            Authors = (await DataStore.GetAuthorsAsync()).Select(x => x.Name).ToList();
-        }
-    }
-
-    public async Task LoadArticle()
-    {
-        Article = await ArticleRestService.GetArticleDetailsFromUrl(Url);
-    }
-}

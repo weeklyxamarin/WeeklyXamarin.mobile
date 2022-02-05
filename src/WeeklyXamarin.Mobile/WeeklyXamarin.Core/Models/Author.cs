@@ -25,6 +25,23 @@ namespace WeeklyXamarin.Core.Models
         public List<Alias> Aliases { get; set; }
         public string Website { get; set; }
 
+        public string PreferredContact { 
+            get
+            {
+                if (!string.IsNullOrEmpty(TwitterHandle))
+                    return TwitterUrl;
+                if (!string.IsNullOrEmpty(GitHubHandle))
+                    return GitHubUrl;
+                if (!string.IsNullOrEmpty(YouTubeUrl))
+                    return YouTubeUrl;
+                if (!string.IsNullOrEmpty(TwitchHandle))
+                    return TwitchUrl;
+                if (!string.IsNullOrEmpty(Website))
+                    return Website;
+                return "";
+            }
+        }
+
         internal bool Matches(List<string> tokens)
             => tokens.Any(x => Name.EqualsCaseInsensitive(x) 
                             || TwitchHandle.EqualsCaseInsensitive(x)

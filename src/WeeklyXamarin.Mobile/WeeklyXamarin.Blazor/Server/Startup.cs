@@ -35,7 +35,7 @@ namespace WeeklyXamarin.Blazor.Server
             services.AddRazorPages();
             services.AddTransient<IUrlService, UrlService>();
             services.AddTransient<IDataStore, GithubDataStore>();
-            
+            services.AddTransient<ICuratedService, CuratedService>();
             services.AddSingleton(_ => Barrel.Current);
             services.AddSingleton<IConnectivity, Connectivity>();
             services.AddSingleton<IAnalytics, WasmAnalytics>();
