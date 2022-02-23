@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeeklyXamarin.Blazor.Client
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeeklyXamarin.Blazor.Server", "WeeklyXamarin.Blazor\Server\WeeklyXamarin.Blazor.Server.csproj", "{A2EEA0F0-52FE-4C05-A7A0-17072F190B85}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeeklyXamarin.AdminServices", "WeeklyXamarin.AdminServices\WeeklyXamarin.AdminServices.csproj", "{4482E8DA-F8A6-4AA7-A4A7-81796E2110AC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A2EEA0F0-52FE-4C05-A7A0-17072F190B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2EEA0F0-52FE-4C05-A7A0-17072F190B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2EEA0F0-52FE-4C05-A7A0-17072F190B85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4482E8DA-F8A6-4AA7-A4A7-81796E2110AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4482E8DA-F8A6-4AA7-A4A7-81796E2110AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4482E8DA-F8A6-4AA7-A4A7-81796E2110AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4482E8DA-F8A6-4AA7-A4A7-81796E2110AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
