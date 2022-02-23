@@ -8,10 +8,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MonkeyCache;
 using MonkeyCache.FileStore;
+using System;
 using System.Linq;
 using WeeklyXamarin.AdminServices.Services;
 using WeeklyXamarin.Blazor.Client.Services;
 using WeeklyXamarin.Blazor.Server.Services;
+using WeeklyXamarin.Core.Helpers;
 using WeeklyXamarin.Core.Services;
 using Xamarin.Essentials.Interfaces;
 
@@ -40,7 +42,19 @@ namespace WeeklyXamarin.Blazor.Server
             services.AddSingleton<IConnectivity, Connectivity>();
             services.AddSingleton<IAnalytics, WasmAnalytics>();
             services.AddLogging(x => x.AddConsole());
-            services.AddHttpClient();
+            //services.AddHttpClient();
+
+            services.AddHttpClient(Constants.HttpClientKeys.GitHub, client =>
+            {
+                client.BaseAddress = new Uri(@"https://raw.githubusercontent.com/weeklyxamarin/WeeklyXamarin.content/master/content/");
+            });
+
+            services.AddHttpClient(Constants.HttpClientKeys.Curated, client =>
+            {
+                client.BaseAddress = new Uri(@"https://api.curated.co/api/v3/");
+            });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

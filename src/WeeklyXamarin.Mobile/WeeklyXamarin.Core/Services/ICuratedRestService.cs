@@ -8,6 +8,6 @@ namespace WeeklyXamarin.Core.Services
         string ApiKey { get; set; }
         string PublicationId { get; set; }
 
-        Task PostArticleToCurated(Article article);
+        Task<string> PostArticleToCurated(Article article);
     }
 }

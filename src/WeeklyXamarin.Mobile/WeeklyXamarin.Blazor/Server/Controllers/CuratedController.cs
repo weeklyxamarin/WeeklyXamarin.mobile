@@ -14,30 +14,29 @@ namespace WeeklyXamarin.Blazor.Server.Controllers
     public class CuratedController : ControllerBase
     {
 
-        private readonly ICuratedService urlService;
+        private readonly ICuratedService curatedService;
         private readonly IConfiguration config;
 
-        public CuratedController(ICuratedService urlService, IConfiguration config)
+        public CuratedController(ICuratedService curatedService, IConfiguration config)
         {
-            this.urlService = urlService;
+            this.curatedService = curatedService;
             this.config = config;
-
         }
 
-        // POST api/<ArticleController>
         [HttpPost]
         public async Task<string> PostArticleToCurated([FromBody] Article article)
         {
             ArgumentNullException.ThrowIfNull(article);
 
+            // get keys from environment variables
             var apiKey = config["curatedApiKey"];
             var subscription = config["subscriptionId"];
 
-            urlService.ApiKey = apiKey;
-            urlService.Subscription = subscription;
+            curatedService.ApiKey = apiKey;
+            curatedService.Subscription = subscription;
 
-            var a = await urlService.PostArticleToCurated(article);
-            return a;
+            var responseSTring = await curatedService.PostArticleToCurated(article);
+            return responseSTring;
         }
     }
 }

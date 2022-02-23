@@ -4,8 +4,10 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using WeeklyXamarin.Core.Helpers;
 using WeeklyXamarin.Core.Models;
 using WeeklyXamarin.Core.Models.Api;
+using WeeklyXamarin.Core.Services;
 
 namespace WeeklyXamarin.AdminServices.Services
 {
@@ -13,20 +15,30 @@ namespace WeeklyXamarin.AdminServices.Services
     {
 
         HttpClient httpClient;
-        private const string baseUrl = "https://api.curated.co/api/v3";
+        private IDataStore dataStore;
 
         public string ApiKey { get; set; } = default!;
         public string Subscription { get; set; } = default!;
 
-        public CuratedService(HttpClient httpClient)
+        public CuratedService(IHttpClientFactory httpClientFactory, IDataStore datastore)
         {
-            this.httpClient = httpClient;
+            this.httpClient = httpClientFactory.CreateClient(Constants.HttpClientKeys.Curated);
+            this.dataStore = datastore;
         }
 
         public async Task<string> PostArticleToCurated(Article article)
         {
-            // doo all the call stuff    
-            var url = $"{baseUrl}/publications/{Subscription}/links"; 
+            if (article == null)
+                throw new ArgumentNullException(nameof(article));
+
+            // for curated we have a special format at the end of the article including the 
+            // article link title and author
+            Author author = await dataStore.SearchAuthorsAsync(article.Author);
+            var curatedByLine = $"[**{article?.Title}**]({article?.Url}) by [{author?.Name}]({author?.PreferredContact})";
+
+            article.Description = article?.Description + Environment.NewLine + Environment.NewLine + curatedByLine;
+
+            var url = $"publications/{Subscription}/links"; 
             var requestBody = article;
 
             httpClient.DefaultRequestHeaders.Add("authorization", $"Token token=\"{ApiKey}\"");
@@ -35,7 +47,6 @@ namespace WeeklyXamarin.AdminServices.Services
             var result = await response.Content.ReadAsStringAsync();
             Console.WriteLine(result);
             return result;
-
         }
     }
 }

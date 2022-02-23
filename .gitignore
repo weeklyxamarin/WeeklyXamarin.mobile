@@ -352,3 +352,4 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 /src/WeeklyXamarin.Mobile/WeeklyXamarin.Mobile/WeeklyXamarin.Mobile.csproj (Debug;AnyCPU {D36E000B-0F38-4958-847C-1AAC5E249DA0})..db
+/src/WeeklyXamarin.Mobile/WeeklyXamarin.Blazor/Server/Properties/ServiceDependencies/WeeklyXamarin - Web Deploy

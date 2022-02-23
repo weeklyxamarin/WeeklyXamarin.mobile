@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using WeeklyXamarin.Core.Models;
 using WeeklyXamarin.Core.Models.Api;
+using Microsoft.Extensions.Http;
+using WeeklyXamarin.Core.Helpers;
 
 namespace WeeklyXamarin.Core.Services
 {
@@ -14,11 +16,12 @@ namespace WeeklyXamarin.Core.Services
     public class ArticleRestService : IArticleRestService
     {
         private readonly HttpClient httpClient;
-        private const string baseUrl = "https://localhost:5001/api";
+        private const string baseUrl = "/api";
 
-        public ArticleRestService(HttpClient httpClient)
+
+        public ArticleRestService(IHttpClientFactory httpClientFactory)
         {
-            this.httpClient = httpClient;
+            httpClient = httpClientFactory.CreateClient(Constants.HttpClientKeys.WeeklyXamarin);
         }
 
         public async Task<Article> GetArticleDetailsFromUrl(string articleUrl)

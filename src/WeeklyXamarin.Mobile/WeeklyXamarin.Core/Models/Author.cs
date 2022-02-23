@@ -25,6 +25,7 @@ namespace WeeklyXamarin.Core.Models
         public List<Alias> Aliases { get; set; }
         public string Website { get; set; }
 
+        [JsonIgnore] // we don't want to persist this
         public string PreferredContact { 
             get
             {

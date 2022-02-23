@@ -61,5 +61,13 @@ namespace WeeklyXamarin.Core.Helpers
             public const string Bookmark = "Bookmark.png";
             public const string Unbookmark = "BookmarkIndicator.png";
         }
+
+        public static class HttpClientKeys
+        {
+            // don't do this at home kids
+            public static string Curated = nameof(Curated);
+            public static string WeeklyXamarin = nameof(WeeklyXamarin);
+            public const string GitHub = nameof(GitHub);
+        }
     }
 }

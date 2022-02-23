@@ -8,9 +8,13 @@
         <MatTextField Label="Enter article URL" @bind-Value="@Url" Style="flex-grow: 1;" Class="wx-field"></MatTextField>
  
         <MatButton Disabled="@(string.IsNullOrWhiteSpace(Url) || !Uri.TryCreate(Url, UriKind.Absolute, out _))" OnClick="LoadArticle" Label="Process" Class="wx-field"></MatButton>
+        <p/>
+        <MatButton OnClick="NewArticle " Label="New Article" Class="wx-field"></MatButton>
+
         @if(Article != null)
         {
             <MatTextField Label="Title" @bind-Value="@Article.Title" Style="flex-grow: 1;" Class="wx-field" ></MatTextField>
+            <MatTextField Label="Url" @bind-Value="@Article.Url" Style="flex-grow: 1;" Class="wx-field" ></MatTextField>
             <MatTextField TextArea="true"  Label="Description" @bind-Value="@Article.Description" 
                                 FullWidth="true" Style="flex-grow: 1;" Class="wx-field"></MatTextField>
 
@@ -33,7 +37,6 @@
             }
             
             <pre>@Article.ToJson()</pre>
-            <pre>@CuratedByLine</pre>
         }
     </div>
 </div>
@@ -46,6 +49,7 @@
         <MatTextField Label="Curated Publication ID" @bind-Value="@CuratedPublicationId" Style="flex-grow: 1;" Class="wx-field" Icon="lock_outline" IconTrailing="true" FullWidth="true" Required="true" Type="password"></MatTextField>
 *@
         <MatButton OnClick="PostToCurated" Label="Post To Curated" Class="wx-field"></MatButton>
+        <pre>@CuratedStatusMessage</pre>
 </div>
 </div>
 

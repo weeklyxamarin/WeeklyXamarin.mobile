@@ -19,6 +19,7 @@ using Index = WeeklyXamarin.Core.Models.Index;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using WeeklyXamarin.Core.Responses;
+using Microsoft.Extensions.Http;
 
 namespace WeeklyXamarin.Core.Services
 {
@@ -29,22 +30,21 @@ namespace WeeklyXamarin.Core.Services
         private readonly IBarrel _barrel;
         private readonly ILogger<GithubDataStore> _logger;
         private readonly IAnalytics _analytics;
+        private IHttpClientFactory httpClientFactory;
 
-        const string baseUrl = @"https://raw.githubusercontent.com/weeklyxamarin/WeeklyXamarin.content/master/content/";
         const string indexFile = "index.json";
         const string tagsFile = "categories.json";
         const string authorsFile = "authors.json";
         const string acknowledgementsFile = "acknowledgements.json";
 
-        public GithubDataStore(HttpClient httpClient, IConnectivity connectivity, IBarrel barrel, ILogger<GithubDataStore> logger, IAnalytics analytics)
+        public GithubDataStore(IHttpClientFactory httpClientFactory, IConnectivity connectivity, IBarrel barrel, ILogger<GithubDataStore> logger, IAnalytics analytics)
         {
-            _httpClient = httpClient;
+            _httpClient= httpClientFactory.CreateClient(Constants.HttpClientKeys.GitHub);
+                        
             _connectivity = connectivity;
             _barrel = barrel;
             _logger = logger;
             _analytics = analytics;
-
-            httpClient.BaseAddress = new Uri(baseUrl);
         }
 
         public void CheckEditionForSavedArticles(Edition edition)

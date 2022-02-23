@@ -18,9 +18,8 @@ namespace WeeklyXamarin.Blazor.Client.Pages
         Article? Article { get; set; }
         List<string>? Categories { get; set; }
         List<string>? AuthorNames { get; set; }
-        string? CuratedByLine { get; set; }
-        string? CuratedKey { get; set; }
-        string? CuratedPublicationId { get; set; }
+
+        string CuratedStatusMessage { get; set; }
 
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -37,40 +36,31 @@ namespace WeeklyXamarin.Blazor.Client.Pages
         public async Task LoadArticle()
         {
             Article = await ArticleRestService.GetArticleDetailsFromUrl(Url);
-            if (Article.Author != null)
-                await UpdateByLine(Article.Author);
+            CuratedStatusMessage = "";
 
         }
 
-        private async Task UpdateByLine(string authorName)
+        public void NewArticle()
         {
-            Author author = await DataStore.SearchAuthorsAsync(authorName);
-            CuratedByLine = $"[**{Article?.Title}**]({Article?.Url}) by [{author.Name}]({author.PreferredContact})";
+            Article = new Article();
+            CuratedStatusMessage = "";
         }
 
         public async Task AuthorSelected(string s)
         {
             if (Article != null)
                 Article.Author = s;
-            await UpdateByLine(s);
         }
 
         public async Task PostToCurated()
         {
+            CuratedStatusMessage = "Select an Article First";
             if (Article != null)
             {
-                // create article suitable for curated
-                Article articleToPost = new Article();
-                articleToPost.Title = Article.Title;
-                articleToPost.Url = Article.Url;
+                CuratedStatusMessage = "Posting to Curated";
+                var result = await CuratedRestService.PostArticleToCurated(Article);
+                CuratedStatusMessage = result;
 
-                var curatedDescription = new StringBuilder();
-                curatedDescription.AppendLine(Article.Description);
-                curatedDescription.AppendLine();
-                curatedDescription.AppendLine(CuratedByLine);
-                articleToPost.Description = curatedDescription.ToString();
-
-                await CuratedRestService.PostArticleToCurated(articleToPost);
             }
 
         }
