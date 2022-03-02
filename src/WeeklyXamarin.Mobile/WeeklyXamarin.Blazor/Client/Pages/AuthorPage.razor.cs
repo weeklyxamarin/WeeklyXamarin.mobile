@@ -51,8 +51,8 @@ namespace WeeklyXamarin.Blazor.Client.Pages
             source = new CancellationTokenSource();
             Articles.Clear();
             IAsyncEnumerable<Article> articlesAsync;
-
-            articlesAsync = DataStore.GetArticleFromSearchAsync(ViewModel.Author.Name, null, source.Token);
+            
+            articlesAsync = DataStore.GetArticleForAuthorAsync(ViewModel.Author.Name, source.Token);
 
             await foreach (Article article in articlesAsync)
             {
