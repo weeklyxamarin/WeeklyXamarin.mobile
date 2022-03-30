@@ -10,6 +10,7 @@ using MonkeyCache;
 using MonkeyCache.FileStore;
 using System;
 using System.Linq;
+using WeeklyXamarin.AdminServices.Entities;
 using WeeklyXamarin.AdminServices.Services;
 using WeeklyXamarin.Blazor.Client.Services;
 using WeeklyXamarin.Blazor.Server.Services;
@@ -33,11 +34,15 @@ namespace WeeklyXamarin.Blazor.Server
         public void ConfigureServices(IServiceCollection services)
         {
 
+            var tableConnectString = Configuration.GetValue<string>("containerConnectionString");
+            services.AddSingleton<TableClient<ArticleEntity>>(_ => new TableClient<ArticleEntity>(tableConnectString));
+            services.AddTransient<ITableService<ArticleEntity>, TableService<ArticleEntity>>();
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddTransient<IUrlService, UrlService>();
             services.AddTransient<IDataStore, GithubDataStore>();
             services.AddTransient<ICuratedService, CuratedService>();
+            services.AddTransient<IArticleStorage, ArticleStorage>();
             services.AddSingleton(_ => Barrel.Current);
             services.AddSingleton<IConnectivity, Connectivity>();
             services.AddSingleton<IAnalytics, WasmAnalytics>();
@@ -53,6 +58,9 @@ namespace WeeklyXamarin.Blazor.Server
             {
                 client.BaseAddress = new Uri(@"https://api.curated.co/api/v3/");
             });
+
+
+
 
 
         }

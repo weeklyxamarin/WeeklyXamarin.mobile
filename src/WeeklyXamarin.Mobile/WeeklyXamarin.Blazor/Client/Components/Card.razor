@@ -9,6 +9,7 @@
         {
             <span class="lozenge">@Category</span>
         }
+        @ActionButtons
     </div>
 </div>
 @code {
@@ -16,6 +17,8 @@
     public RenderFragment? Title { get; set; }
     [Parameter]
     public RenderFragment? Subtitle { get; set; }
+    [Parameter] 
+    public RenderFragment ActionButtons { get; set; }
 
     [Parameter]
     public string Body { get; set; } = "";

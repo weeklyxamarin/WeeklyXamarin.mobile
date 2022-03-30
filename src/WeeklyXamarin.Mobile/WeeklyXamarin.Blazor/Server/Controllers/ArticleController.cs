@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WeeklyXamarin.AdminServices.Entities;
 using WeeklyXamarin.AdminServices.Services;
 using WeeklyXamarin.Core.Models;
 using WeeklyXamarin.Core.Models.Api;
@@ -15,26 +16,31 @@ namespace WeeklyXamarin.Blazor.Server.Controllers
     public class ArticleController : ControllerBase
     {
         private readonly IUrlService urlService;
+        private IArticleStorage articleStorage;
 
-        public ArticleController(IUrlService urlService)
+        public ArticleController(IUrlService urlService, IArticleStorage articleStorage)
         {
             this.urlService = urlService;
+            this.articleStorage = articleStorage;
         }
 
         // GET: api/<ArticleController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IEnumerable<Article>> Get()
         {
-            return new string[] { "value1", "value" };
+            var articles = await articleStorage.GetArticles();
+            return articles;
         }
 
         // GET api/<ArticleController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<Article> Get(string id)
         {
-            return "value";
+            var article = await articleStorage.GetArticle(id);
+            return article; 
         }
 
+        [Route("Lookup")]
         // POST api/<ArticleController>
         [HttpPost]
         public async Task<Article> GetArticleFromUrl([FromBody] LookupUrlRequest urlRequest)
@@ -43,6 +49,13 @@ namespace WeeklyXamarin.Blazor.Server.Controllers
 
             var a = await urlService.GetArticleDetailsFromUrl(urlRequest.Url);
             return a;
+        }
+
+        [HttpPost]
+        public async Task<Article> Post([FromBody] ArticleEntity article)
+        {
+            await articleStorage.PostArticle(article);
+            return article;
         }
 
 
@@ -54,8 +67,9 @@ namespace WeeklyXamarin.Blazor.Server.Controllers
 
         // DELETE api/<ArticleController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(string id)
         {
+            articleStorage.DeleteArticle(id);
         }
     }
 }

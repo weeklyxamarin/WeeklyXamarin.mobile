@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using WeeklyXamarin.AdminServices.Entities;
 using WeeklyXamarin.Core.Helpers;
 using WeeklyXamarin.Core.Models;
 using WeeklyXamarin.Core.Models.Api;
@@ -16,6 +17,7 @@ namespace WeeklyXamarin.AdminServices.Services
 
         HttpClient httpClient;
         private IDataStore dataStore;
+        private ITableService<ArticleEntity> tableService;
 
         public string ApiKey { get; set; } = default!;
         public string Subscription { get; set; } = default!;
@@ -26,7 +28,7 @@ namespace WeeklyXamarin.AdminServices.Services
             this.dataStore = datastore;
         }
 
-        public async Task<string> PostArticleToCurated(Article article)
+        public async Task<string> PostArticle(Article article)
         {
             if (article == null)
                 throw new ArgumentNullException(nameof(article));
@@ -38,7 +40,7 @@ namespace WeeklyXamarin.AdminServices.Services
 
             article.Description = article?.Description + Environment.NewLine + Environment.NewLine + curatedByLine;
 
-            var url = $"publications/{Subscription}/links"; 
+            var url = $"publications/{Subscription}/links";
             var requestBody = article;
 
             httpClient.DefaultRequestHeaders.Add("authorization", $"Token token=\"{ApiKey}\"");

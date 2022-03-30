@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading.Tasks;
+using WeeklyXamarin.AdminServices.Entities;
 using WeeklyXamarin.AdminServices.Services;
 using WeeklyXamarin.Core.Models;
 using WeeklyXamarin.Core.Models.Api;
@@ -35,7 +36,7 @@ namespace WeeklyXamarin.Blazor.Server.Controllers
             curatedService.ApiKey = apiKey;
             curatedService.Subscription = subscription;
 
-            var responseSTring = await curatedService.PostArticleToCurated(article);
+            var responseSTring = await curatedService.PostArticle(article);
             return responseSTring;
         }
     }

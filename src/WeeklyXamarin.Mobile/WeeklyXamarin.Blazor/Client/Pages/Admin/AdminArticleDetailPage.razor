@@ -1,0 +1,56 @@
+﻿@page "/Admin/Articles/{Id}"
+
+<h3>Article Details</h3>
+@if(Article == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    
+<div class="wx-card">
+    <div class="wx-container search-box" style="display: flex; flex-direction: column;">
+
+        @if(Article != null)
+        {
+            <MatTextField Label="Title" @bind-Value="@Article.Title" Style="flex-grow: 1;" Class="wx-field" ></MatTextField>
+            <MatTextField Label="Url" @bind-Value="@Article.Url" Style="flex-grow: 1;" Class="wx-field" ></MatTextField>
+            <MatTextField Label="Edition Id" @bind-Value="@Article.EditionId" Style="flex-grow: 1;" Class="wx-field" ></MatTextField>
+            <MatTextField TextArea="true"  Label="Description" @bind-Value="@Article.Description" 
+                                FullWidth="true" Style="flex-grow: 1;" Class="wx-field"></MatTextField>
+
+            @if(Categories != null)
+            {
+                <MatSelectItem Items="@Categories" @bind-Value="@Article.Category" Label="Select Category">
+                    <ItemTemplate>
+                        <span>@context</span>
+                    </ItemTemplate>
+                </MatSelectItem>
+            }
+
+            @if(AuthorNames != null)
+            {
+                <MatSelectItem Items="@AuthorNames" Value="@Article.Author" Label="Select Author" ValueChanged="@((string s) => AuthorSelected(s))">
+                    <ItemTemplate>
+                        <span>@context</span>
+                    </ItemTemplate>
+                </MatSelectItem>
+            }
+            
+        }
+    </div>
+</div>
+
+
+<div class="wx-card">
+    <div class="wx-container search-box" style="display: flex; flex-direction: row; justify-content: space-around;">
+        <MatButton OnClick="UpdateArticle" Label="Update" Class="wx-field"></MatButton>
+        <MatButton OnClick="DeleteArticle" Label="Delete" Class="wx-field"></MatButton>
+    </div>
+</div>
+
+<div class="wx-card">
+    <pre>@Article.ToJson()</pre>
+</div>
+
+}

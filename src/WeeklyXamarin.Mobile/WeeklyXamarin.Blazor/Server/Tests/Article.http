@@ -12,7 +12,7 @@ Content-Type:{{contentType}}
 }
 
 
-POST http://{{host}}/api/article/
+POST http://{{host}}/api/article/Lookup
 Content-Type:{{contentType}}
 
 { 

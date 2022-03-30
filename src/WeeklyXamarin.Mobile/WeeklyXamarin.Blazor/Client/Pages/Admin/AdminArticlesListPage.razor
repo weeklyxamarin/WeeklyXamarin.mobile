@@ -1,0 +1,24 @@
+﻿@page "/Admin/Articles"
+
+<h1>Article Administration</h1>
+
+<CollectionView ItemsSource="Articles"
+                TItem="@Article">
+    <Card Body="@context.Description"
+          Category="@context.Category"
+          OpenInNewTab="true"
+          Url="@context.Url">
+        <Title>
+            <h2 class="wx-card-title">@context.Title</h2>
+        </Title>
+        <Subtitle>
+            <NavLink href="@($"/Admin/Articles/{context.Id}")" >
+                <h3>@context.Url</h3>
+            </NavLink>
+        </Subtitle>
+        <ActionButtons>
+            <MatButton OnClick="@(() => Edit(context))" ><span class="oi oi-pencil" aria-hidden="true"></span></MatButton>
+        </ActionButtons>
+    </Card>
+</CollectionView>
+

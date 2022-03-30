@@ -15,7 +15,7 @@ namespace WeeklyXamarin.Core.Models
         public string Description { get; set; }
         public string EditionId { get; set; }
         public string Author { get; set; }
-        public string Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
         public string Category { get; set; }
         [JsonIgnore]
         public bool IsSaved { get => isSaved; set => SetProperty(ref isSaved, value); }

@@ -1,26 +1,27 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WeeklyXamarin.Core.Models;
 using WeeklyXamarin.Core.Services;
+using MatBlazor;
 
-namespace WeeklyXamarin.Blazor.Client.Pages
+namespace WeeklyXamarin.Blazor.Client.Pages.Admin
 {
-    public partial class LookupUrl : ComponentBase
+    public partial class AdminArticleDetailPage
     {
         [Inject] IArticleRestService ArticleRestService { get; set; } = default!;
-        [Inject] ICuratedRestService CuratedRestService { get; set; } = default!;
 
         [Inject] IDataStore DataStore { get; set; } = default!;
-
+        [Inject] INavigationService NavigationService { get; set; } = default;
+        [Inject] IMatDialogService MatDialogService{get;set;}
+        [Parameter] public string Id { get; set; }
         string? Url { get; set; }
         Article? Article { get; set; }
         List<string>? Categories { get; set; }
         List<string>? AuthorNames { get; set; }
 
-        string CuratedStatusMessage { get; set; }
+        string StatusMessage { get; set; }
 
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -31,20 +32,14 @@ namespace WeeklyXamarin.Blazor.Client.Pages
             {
                 Categories = (await DataStore.GetCategories()).Select(x => x.Name).ToList();
                 AuthorNames = (await DataStore.GetAuthorsAsync()).Select(x => x.Name).ToList();
+                await LoadArticle();
+                StateHasChanged();
             }
         }
 
         public async Task LoadArticle()
         {
-            Article = await ArticleRestService.GetArticleDetailsFromUrl(Url);
-            CuratedStatusMessage = "";
-
-        }
-
-        public void NewArticle()
-        {
-            Article = new Article();
-            CuratedStatusMessage = "";
+            Article = await ArticleRestService.GetArticle(Id);
         }
 
         public async Task AuthorSelected(string s)
@@ -53,32 +48,27 @@ namespace WeeklyXamarin.Blazor.Client.Pages
                 Article.Author = s;
         }
 
-        public async Task PostToCurated()
+        public async Task UpdateArticle()
         {
-            CuratedStatusMessage = "Select an Article First";
             if (Article != null)
             {
-                CuratedStatusMessage = "Posting to Curated";
-                var result = await CuratedRestService.PostArticleToCurated(Article);
-                CuratedStatusMessage = result;
-
-            }
-
-        }
-
-        public async Task PostToStorage()
-        {
-            CuratedStatusMessage = "Select an Article First";
-            if (Article != null)
-            {
-                CuratedStatusMessage = "Posting to Storage";
+                StatusMessage = "Updating";
                 var result = await ArticleRestService.PostArticle(Article);
-                CuratedStatusMessage = "";
-
+                StatusMessage = "Done";
             }
 
         }
 
+        public async Task DeleteArticle()
+        {
+            StatusMessage = "Deleting";
+            if(await MatDialogService.ConfirmAsync("Delete this article?"))
+            {
+                var result = await ArticleRestService.DeleteArticle(Id);
+                await NavigationService.GoToAsync("/Admin/Articles");
+            }
+            StatusMessage = string.Empty;
+        }
 
     }
 }
