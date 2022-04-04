@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using WeeklyXamarin.AdminServices.Models;
 using WeeklyXamarin.Core.Models;
 using WeeklyXamarin.Core.Services;
@@ -54,8 +55,8 @@ namespace WeeklyXamarin.AdminServices.Services
             article = new Article
             {
                 Url = url,
-                Title = meta?.Title,
-                Description = meta?.Description,
+                Title = HttpUtility.HtmlDecode(meta?.Title),
+                Description = HttpUtility.HtmlDecode(meta?.Description),
                 Author = author?.Name,
             };
             return article;
