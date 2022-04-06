@@ -1,0 +1,41 @@
+﻿@page "/Admin/Authors/{Id}"
+@page "/Admin/Authors/New"
+
+<h3>Author Details</h3>
+@if(Author == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    
+<div class="wx-card">
+    <div class="wx-container search-box" style="display: flex; flex-direction: column;">
+
+        @if(Author != null)
+        {
+            <MatTextField Label="Name" @bind-Value="@Author.Name" Style="flex-grow: 1;" Class="wx-field" ></MatTextField>
+            <MatTextField Label="Twitter" @bind-Value="@Author.TwitterHandle" Style="flex-grow: 1;" Class="wx-field" ></MatTextField>
+            <MatTextField Label="Twitch" @bind-Value="@Author.TwitchHandle" Style="flex-grow: 1;" Class="wx-field" ></MatTextField>
+            <MatTextField Label="GitHub" @bind-Value="@Author.GitHubHandle" Style="flex-grow: 1;" Class="wx-field" ></MatTextField>
+            <MatTextField Label="YouTube" @bind-Value="@Author.YouTubeUrl" Style="flex-grow: 1;" Class="wx-field" ></MatTextField>
+            <MatTextField Label="Website" @bind-Value="@Author.Website" Style="flex-grow: 1;" Class="wx-field" ></MatTextField>
+            <MatTextField Label="ProfileImageUrl" @bind-Value="@Author.ProfileImageUrl" Style="flex-grow: 1;" Class="wx-field" ></MatTextField>
+            <MatTextField Label="Twitter" @bind-Value="@Author.Id" Style="flex-grow: 1;" Class="wx-field" ></MatTextField>
+        }
+    </div>
+</div>
+
+
+<div class="wx-card">
+    <div class="wx-container search-box" style="display: flex; flex-direction: row; justify-content: space-around;">
+        <MatButton OnClick="UpdateAuthor" Label="Update" Class="wx-field"></MatButton>
+        <MatButton OnClick="DeleteAuthor" Label="Delete" Class="wx-field"></MatButton>
+    </div>
+</div>
+
+<div class="wx-card">
+    <pre>@Author.ToJson()</pre>
+</div>
+
+}

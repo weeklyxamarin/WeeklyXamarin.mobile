@@ -1,0 +1,25 @@
+﻿@page "/Admin/Authors"
+
+<h3>Author Admin</h3>
+
+<CollectionView ItemsSource="Authors"
+                TItem="@Author">
+    <Card OpenInNewTab="true">
+        <Title>
+            <h2 class="wx-card-title">@context.Name</h2>
+        </Title>
+        <Subtitle>
+            <NavLink href="@context.Website" >
+                <h3>@context.Website</h3>
+            </NavLink>
+        </Subtitle>
+        <ActionButtons>
+            <MatButton OnClick="@(() => Edit(context))" ><span class="oi oi-pencil" aria-hidden="true"></span></MatButton>
+        </ActionButtons>
+        <BodyContent>
+            <a href="@context.TwitchUrl" >@context.TwitchHandle</a >
+            <a href="@context.TwitterUrl" >@context.TwitterHandle</a >
+            <a href="@context.GitHubHandle" >@context.GitHubHandle</a >
+        </BodyContent>
+    </Card>
+</CollectionView>

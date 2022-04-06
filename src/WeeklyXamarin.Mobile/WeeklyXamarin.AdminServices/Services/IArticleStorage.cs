@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Azure.Data.Tables;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WeeklyXamarin.AdminServices.Entities;
 using WeeklyXamarin.Core.Models;

@@ -35,14 +35,21 @@ namespace WeeklyXamarin.Blazor.Server
         {
 
             var tableConnectString = Configuration.GetValue<string>("containerConnectionString");
+
             services.AddSingleton<TableClient<ArticleEntity>>(_ => new TableClient<ArticleEntity>(tableConnectString));
             services.AddTransient<ITableService<ArticleEntity>, TableService<ArticleEntity>>();
+            services.AddTransient<IArticleStorage, ArticleStorage>();
+
+            services.AddSingleton<TableClient<AuthorEntity>>(_ => new TableClient<AuthorEntity>(tableConnectString));
+            services.AddTransient<ITableService<AuthorEntity>, TableService<AuthorEntity>>();
+            services.AddTransient<IAuthorStorage, AuthorStorage>();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddTransient<IUrlService, UrlService>();
             services.AddTransient<IDataStore, GithubDataStore>();
             services.AddTransient<ICuratedService, CuratedService>();
-            services.AddTransient<IArticleStorage, ArticleStorage>();
+
             services.AddSingleton(_ => Barrel.Current);
             services.AddSingleton<IConnectivity, Connectivity>();
             services.AddSingleton<IAnalytics, WasmAnalytics>();

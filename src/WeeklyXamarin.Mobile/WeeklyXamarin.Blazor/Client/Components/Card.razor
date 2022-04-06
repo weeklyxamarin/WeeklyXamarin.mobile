@@ -3,8 +3,12 @@
         <NavLink @key="Url" href="@Url" target="@(OpenInNewTab ? "_blank" : "_self")">
             @Title
         </NavLink>
-            @Subtitle
-        <p>@Body</p>
+        @Subtitle
+        @if(!string.IsNullOrWhiteSpace(Body))
+        {
+            <p>@Body</p>
+        }
+        @BodyContent
         @if (!string.IsNullOrWhiteSpace(Category))
         {
             <span class="lozenge">@Category</span>
@@ -22,6 +26,8 @@
 
     [Parameter]
     public string Body { get; set; } = "";
+    [Parameter] 
+    public RenderFragment BodyContent { get; set; }
     [Parameter]
     public string Url { get; set; } = "";
     [Parameter]

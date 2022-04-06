@@ -42,7 +42,7 @@ namespace WeeklyXamarin.AdminServices.Services
 
         public async Task<T> GetAsync(string id)
         {
-            var article = await tableClient.GetEntityAsync<T>("Article", id);
+            var article = await tableClient.GetEntityAsync<T>("PartitionKey", id);
             return article;
         }
 
