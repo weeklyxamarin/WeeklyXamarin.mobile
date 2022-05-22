@@ -17,5 +17,6 @@ namespace WeeklyXamarin.AdminServices.Entities
 
         [IgnoreDataMember]
         public new string TwitterUrl => base.TwitterUrl;
+        
     }
 }

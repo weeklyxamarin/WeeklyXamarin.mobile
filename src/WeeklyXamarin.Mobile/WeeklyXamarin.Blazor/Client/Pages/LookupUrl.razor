@@ -36,23 +36,16 @@
                 </MatSelectItem>
             }
             
+            <div style="display: flex; flex-direction: row; justify-content: space-around;" >
+                <MatButton OnClick="PostToCurated" Label="Post To Curated" Class="wx-field"></MatButton>
+                <MatButton OnClick="PostToStorage" Label="Post To Storage" Class="wx-field"></MatButton>
+            </div>
+
+            <pre>@CuratedStatusMessage</pre>
             <pre>@Article.ToJson()</pre>
         }
     </div>
 </div>
-
-    <h2>Curated</h2>
-
-<div class="wx-card">
-    <div class="wx-container search-box" style="display: flex; flex-direction: column;">
-@*        <MatTextField Label="Curated API Key" @bind-Value="@CuratedKey" Style="flex-grow: 1;" Class="wx-field" Icon="lock_outline" IconTrailing="true" FullWidth="true" Required="true" Type="password"></MatTextField>
-        <MatTextField Label="Curated Publication ID" @bind-Value="@CuratedPublicationId" Style="flex-grow: 1;" Class="wx-field" Icon="lock_outline" IconTrailing="true" FullWidth="true" Required="true" Type="password"></MatTextField>
-*@
-        <MatButton OnClick="PostToCurated" Label="Post To Curated" Class="wx-field"></MatButton>
-        <MatButton OnClick="PostToStorage" Label="Post To Storage" Class="wx-field"></MatButton>
-
-        <pre>@CuratedStatusMessage</pre>
-</div>
-</div>
+    
 
 

@@ -12,5 +12,6 @@ namespace WeeklyXamarin.AdminServices.Services
         Task<List<ArticleEntity>> GetArticles();
         Task<ArticleEntity> GetArticle(string id);
         Task<bool> DeleteArticle(string id);
+        Task<List<ArticleEntity>> SearchArticle(string url);
     }
 }

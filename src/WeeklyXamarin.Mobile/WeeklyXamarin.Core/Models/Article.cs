@@ -19,6 +19,10 @@ namespace WeeklyXamarin.Core.Models
         public string Category { get; set; }
         [JsonIgnore]
         public bool IsSaved { get => isSaved; set => SetProperty(ref isSaved, value); }
+        [JsonIgnore]
+        public bool IsPublished => !string.IsNullOrEmpty(EditionId) ;
+        [JsonIgnore]
+        public bool IsProcessed { get; set; }
 
         private string SearchIndex 
         { 

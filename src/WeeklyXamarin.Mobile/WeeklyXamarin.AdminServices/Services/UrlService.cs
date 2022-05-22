@@ -15,10 +15,12 @@ namespace WeeklyXamarin.AdminServices.Services
     public class UrlService : IUrlService
     {
         private IDataStore _dataStore;
+        private IArticleStorage _articleStore;
 
-        public UrlService(IDataStore dataStore)
+        public UrlService(IDataStore dataStore, IArticleStorage articleStore)
         {
             _dataStore = dataStore;
+            _articleStore = articleStore;
         }
 
         public async Task<Article> GetArticleDetailsFromUrl(string url)
@@ -26,8 +28,13 @@ namespace WeeklyXamarin.AdminServices.Services
             if (string.IsNullOrEmpty(url))
                 throw new ArgumentNullException(nameof(url));
 
+            // check if article already in Github
             var article = await _dataStore.GetArticleForUrl(url);
             if (article != null) return article;
+
+            // check if article in TableStorage
+            var storageArticles = await _articleStore.SearchArticle(url);
+            if (storageArticles.Any()) return storageArticles.FirstOrDefault();
 
             MetaInformation meta;
 

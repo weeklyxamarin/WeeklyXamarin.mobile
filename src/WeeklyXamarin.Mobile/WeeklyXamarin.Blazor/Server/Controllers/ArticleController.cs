@@ -48,6 +48,7 @@ namespace WeeklyXamarin.Blazor.Server.Controllers
             ArgumentNullException.ThrowIfNull(urlRequest.Url);
 
             var a = await urlService.GetArticleDetailsFromUrl(urlRequest.Url);
+
             return a;
         }
 

@@ -44,7 +44,17 @@ namespace WeeklyXamarin.AdminServices.Services
         public async Task<Article> PostArticle(Article article)
         {
             ArticleEntity entity = article as ArticleEntity;
+            entity.IsProcessed = true;
             return await tableService.SaveAsync(entity);
+        }
+
+        public async Task<List<ArticleEntity>> SearchArticle(string url)
+        {
+            //var articles = await tableService.SearchAsync($"Url eq {url}");
+
+            var articles = await tableService.SearchAsync(x => x.Url == url);
+
+            return articles;
         }
     }
 }
