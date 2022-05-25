@@ -65,7 +65,10 @@ namespace WeeklyXamarin.Blazor.Client.Pages.Admin
             if(await MatDialogService.ConfirmAsync("Delete this article?"))
             {
                 var result = await ArticleRestService.DeleteArticle(Id);
-                await NavigationService.GoToAsync("/Admin/Articles");
+                if (result)
+                    await NavigationService.GoToAsync("/Admin/Articles");
+                else
+                    await MatDialogService.AlertAsync("Failed to delete article");
             }
             StatusMessage = string.Empty;
         }

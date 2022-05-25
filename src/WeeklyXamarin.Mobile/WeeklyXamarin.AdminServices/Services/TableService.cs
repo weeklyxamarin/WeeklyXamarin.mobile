@@ -31,7 +31,7 @@ namespace WeeklyXamarin.AdminServices.Services
 
         public async Task<bool> DeleteAsync(string id)
         {
-            var response = await tableClient.DeleteEntityAsync("Article", id);
+            var response = await tableClient.DeleteEntityAsync("PartitionKey", id);
             return !response.IsError;
 
         }

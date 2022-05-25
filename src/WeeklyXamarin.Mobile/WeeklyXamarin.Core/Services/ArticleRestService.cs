@@ -66,7 +66,7 @@ namespace WeeklyXamarin.Core.Services
         {
             var url = $"{baseUrl}/article/{id}";
 
-            var response = await httpClient.DeleteAsync(url);
+            var response = await httpClient.DeleteAsync(url).ConfigureAwait(false);
             return response.IsSuccessStatusCode;
 
         }

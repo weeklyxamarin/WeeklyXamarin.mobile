@@ -68,9 +68,14 @@ namespace WeeklyXamarin.Blazor.Server.Controllers
 
         // DELETE api/<ArticleController>/5
         [HttpDelete("{id}")]
-        public void Delete(string id)
+        public async Task<ActionResult> Delete(string id)
         {
-            articleStorage.DeleteArticle(id);
+            var success = await articleStorage.DeleteArticle(id);
+
+            if(success)
+                return NoContent();
+            else 
+                return BadRequest($"{id} could not be deleted");
         }
     }
 }
