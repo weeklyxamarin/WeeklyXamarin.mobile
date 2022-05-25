@@ -1,0 +1,62 @@
+﻿@using WeeklyXamarin.Core.Services
+
+<Toolbar>
+    <LeftContent>
+        <h2>Pending Articles</h2>
+    </LeftContent>
+    <RightContent>
+        <MatButton OnClick="NewArticle" Label="New Article" Class="wx-field"></MatButton>
+    </RightContent>
+</Toolbar>
+
+
+<CollectionView ItemsSource="Articles"
+                TItem="@Article">
+    <Card Url="@($"/Admin/Articles/{context.Id}")" >
+        <Title>
+            <h2 class="wx-card-title">@context.Title</h2>
+        </Title>
+        <ActionButtons>
+            @*Is There a way to extract this into the calling page, but let it have access to content. Showing/Hding works but isn't very reusable*@
+            @if(OnAddArticle.HasDelegate)
+            {
+                <MatButton OnClick="@(() => AddArticle(context))" Label=">" Class="wx-field"></MatButton>
+            }
+        </ActionButtons>
+    </Card>
+</CollectionView>
+
+@code {
+    [Inject] INavigationService NavigationService { get; set; }
+    [Inject] IArticleRestService ArticleRestService { get; set; } = default!;
+    [Parameter] public EventCallback<Article> OnAddArticle { get; set; }
+    [Parameter] public RenderFragment ActionButtons { get;set; }
+
+    List<Article>? Articles { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await  base.OnAfterRenderAsync(firstRender);
+        if(firstRender)
+        {
+            Articles = await ArticleRestService.GetDraftArticles();
+            StateHasChanged();
+        }
+    }
+
+    public async Task NewArticle()
+    {
+        await NavigationService.GoToAsync($"/Admin/LookupUrl");
+
+    }
+
+    public async Task AddArticle(Article article)
+    {
+        await OnAddArticle.InvokeAsync(article);
+    }
+
+    public async Task Edit(Article article)
+    {
+        await NavigationService.GoToAsync($"/Admin/Articles/{article.Id}");
+    }
+}

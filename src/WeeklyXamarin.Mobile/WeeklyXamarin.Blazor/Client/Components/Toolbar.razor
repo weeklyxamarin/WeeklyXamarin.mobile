@@ -1,0 +1,15 @@
+﻿<div style="display:flex;     margin: 20px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto; justify-content: space-between;" >
+    <div>@LeftContent</div>
+    <div>@CenterContent</div>
+    <div>@RightContent</div>
+</div>
+
+@code {
+    [Parameter] public RenderFragment LeftContent { get; set; }
+    [Parameter] public RenderFragment CenterContent { get; set; }
+    [Parameter] public RenderFragment RightContent { get; set; }
+
+}

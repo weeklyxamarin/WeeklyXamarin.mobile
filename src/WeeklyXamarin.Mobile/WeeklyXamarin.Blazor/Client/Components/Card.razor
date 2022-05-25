@@ -1,8 +1,15 @@
 ﻿<div class="wx-card" style="--category-color: var(--@CategoryColor, black);">
     <div class="wx-container">
-        <NavLink @key="Url" href="@Url" target="@(OpenInNewTab ? "_blank" : "_self")">
-            @Title
-        </NavLink>
+        <Toolbar>
+            <LeftContent>
+                <NavLink @key="Url" href="@Url" target="@(OpenInNewTab ? "_blank" : "_self")">
+                    @Title
+                </NavLink>
+            </LeftContent>
+            <RightContent>
+                @ActionButtons
+            </RightContent>
+        </Toolbar>
         @Subtitle
         @if(!string.IsNullOrWhiteSpace(Body))
         {
@@ -13,7 +20,6 @@
         {
             <span class="lozenge">@Category</span>
         }
-        @ActionButtons
     </div>
 </div>
 @code {

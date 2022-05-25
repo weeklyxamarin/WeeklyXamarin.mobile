@@ -44,6 +44,10 @@ namespace WeeklyXamarin.Blazor.Server
             services.AddTransient<ITableService<AuthorEntity>, TableService<AuthorEntity>>();
             services.AddTransient<IAuthorStorage, AuthorStorage>();
 
+            services.AddSingleton<TableClient<EditionEntity>>(_ => new TableClient<EditionEntity>(tableConnectString));
+            services.AddTransient<ITableService<EditionEntity>, TableService<EditionEntity>>();
+            services.AddTransient<IEditionStorage, EditionStorage>();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddTransient<IUrlService, UrlService>();

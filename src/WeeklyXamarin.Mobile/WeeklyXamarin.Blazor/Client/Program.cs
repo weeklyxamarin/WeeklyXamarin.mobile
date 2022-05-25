@@ -43,6 +43,7 @@ namespace WeeklyXamarin.Blazor.Client
             builder.Services.AddScoped<IDataStore, GithubDataStore>();
             builder.Services.AddScoped<IArticleRestService, ArticleRestService> ();
             builder.Services.AddScoped<IAuthorRestService, AuthorRestService> ();
+            builder.Services.AddScoped<IEditionRestService, EditionRestService> ();
             builder.Services.AddScoped<ICuratedRestService, CuratedRestService> ();
             builder.Services.AddSingleton<IConnectivity, WasmConnectivity>();
             builder.Services.AddSingleton<IAnalytics, WasmAnalytics>();

@@ -1,0 +1,17 @@
+﻿@page "/Admin/Edition"
+
+<h3>EditionDetailPage</h3>
+
+<ArticlesListComponent OnAddArticle="AddArticle" >
+
+</ArticlesListComponent>
+
+<CollectionView TItem="Article"
+                ItemsSource="SelectedArticles"    
+>
+    <p>@context.Title</p>
+</CollectionView>
+
+@code {
+
+}

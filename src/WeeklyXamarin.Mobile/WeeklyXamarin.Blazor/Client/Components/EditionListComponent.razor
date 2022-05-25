@@ -1,0 +1,43 @@
+﻿@using WeeklyXamarin.Core.Services
+
+<Toolbar>
+    <LeftContent>
+        <h2>Editions</h2>
+    </LeftContent>
+    <RightContent>
+        <MatButton OnClick="NewEdition" Label="New Edition" Class="wx-field"></MatButton>
+    </RightContent>
+</Toolbar>
+
+@if(CurrentEdition != null)
+{
+    <Card Url="@($"/Admin/Edition/{CurrentEdition.Id}")" >
+        <Title>
+            <h2 class="wx-card-title"> @CurrentEdition.Id - @CurrentEdition.Name - @CurrentEdition.PublishDate</h2>
+        </Title>
+    </Card>
+}
+
+@code {
+    [Inject] INavigationService NavigationService { get; set; }
+    [Inject] IArticleRestService ArticleRestService { get; set; } = default!;
+    List<Article>? Articles { get; set; }
+    Edition CurrentEdition { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await  base.OnAfterRenderAsync(firstRender);
+        if(firstRender)
+        {
+            Articles = await ArticleRestService.GetDraftArticles();
+            StateHasChanged();
+        }
+    }
+
+    public async Task NewEdition()
+    {
+        await NavigationService.GoToAsync($"/Admin/Edition");
+        
+    }
+
+}
