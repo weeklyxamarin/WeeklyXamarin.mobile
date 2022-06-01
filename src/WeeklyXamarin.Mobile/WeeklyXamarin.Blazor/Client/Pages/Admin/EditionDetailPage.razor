@@ -1,16 +1,40 @@
-﻿@page "/Admin/Edition"
+﻿@page "/Admin/Edition/{Id}"
 
 <h3>EditionDetailPage</h3>
 
-<ArticlesListComponent OnAddArticle="AddArticle" >
+<div style="display:grid; grid-template-columns: 1fr 1fr; grid-auto-flow:column">
+    <div>
+        <ArticlesListComponent Articles="UnassignedArticles" OnAddArticle="AddArticle" >
 
-</ArticlesListComponent>
-
-<CollectionView TItem="Article"
-                ItemsSource="SelectedArticles"    
->
-    <p>@context.Title</p>
-</CollectionView>
+        </ArticlesListComponent>
+    </div>
+    <div>
+        <p>@Edition?.Id</p>
+        <p>@Edition?.Articles.Count</p>
+        <p>@Edition?.IsPublished</p>
+        <MatButton>Save</MatButton>
+        <CollectionView TItem="Article"
+                        ItemsSource="Edition?.Articles"    
+        >
+            <Card Body="@context.Description"
+                  Category="@context.Category"
+                  OpenInNewTab="true"
+                  Url="@context.Url">
+                <Title>
+                    <h2 class="wx-card-title">@context.Title</h2>
+                </Title>
+                <Subtitle>
+                    <NavLink>
+                        <h3>@context.Author</h3>
+                    </NavLink>
+                </Subtitle>
+                <ActionButtons>
+                    <MatButton OnClick="@(() => RemoveArticle(context))" Label="<" Class="wx-field"></MatButton>
+                </ActionButtons>
+            </Card>
+        </CollectionView>
+    </div>
+</div>
 
 @code {
 

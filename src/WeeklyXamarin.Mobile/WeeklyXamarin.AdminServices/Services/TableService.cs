@@ -51,7 +51,7 @@ namespace WeeklyXamarin.AdminServices.Services
 
         public async Task<T> SaveAsync(T item)
         {
-            await tableClient.UpsertEntityAsync(item);
+            var success = await tableClient.UpsertEntityAsync(item);
             return item;
         }
 

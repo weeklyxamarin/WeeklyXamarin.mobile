@@ -32,17 +32,9 @@
     [Parameter] public EventCallback<Article> OnAddArticle { get; set; }
     [Parameter] public RenderFragment ActionButtons { get;set; }
 
-    List<Article>? Articles { get; set; }
+    [Parameter] public List<Article>? Articles { get; set; }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await  base.OnAfterRenderAsync(firstRender);
-        if(firstRender)
-        {
-            Articles = await ArticleRestService.GetDraftArticles();
-            StateHasChanged();
-        }
-    }
+   
 
     public async Task NewArticle()
     {

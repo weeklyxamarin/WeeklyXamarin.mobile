@@ -16,9 +16,9 @@ namespace WeeklyXamarin.AdminServices.Services
     public class ArticleStorage : IArticleStorage
     {
 
-        private ITableService<ArticleEntity> tableService;
+        private ITableService<Entities.ArticleEntity> tableService;
 
-        public ArticleStorage(ITableService<ArticleEntity> tableService)
+        public ArticleStorage(ITableService<Entities.ArticleEntity> tableService)
         {
             this.tableService = tableService;
         }
@@ -28,27 +28,27 @@ namespace WeeklyXamarin.AdminServices.Services
             return await tableService.DeleteAsync(id);
         }
 
-        public async Task<ArticleEntity> GetArticle(string id)
+        public async Task<Entities.ArticleEntity> GetArticle(string id)
         {
             var article = await tableService.GetAsync(id);
             return article;
         }
 
-        public async Task<List<ArticleEntity>> GetArticles()
+        public async Task<List<Entities.ArticleEntity>> GetArticles()
         {
             // TODO: Get the list of articles from table storage
             var articles = await tableService.GetAllAsync();
             return articles;
         }
 
-        public async Task<Article> PostArticle(Article article)
+        public async Task<ArticleEntity> PostArticle(ArticleEntity article)
         {
-            ArticleEntity entity = article as ArticleEntity;
+            Entities.ArticleEntity entity = article as Entities.ArticleEntity;
             entity.IsProcessed = true;
             return await tableService.SaveAsync(entity);
         }
 
-        public async Task<List<ArticleEntity>> SearchArticle(string url)
+        public async Task<List<Entities.ArticleEntity>> SearchArticle(string url)
         {
             //var articles = await tableService.SearchAsync($"Url eq {url}");
 

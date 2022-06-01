@@ -8,7 +8,7 @@ namespace WeeklyXamarin.AdminServices.Services
 {
     public interface IArticleStorage
     {
-        Task<Article> PostArticle(Article article);
+        Task<ArticleEntity> PostArticle(ArticleEntity article);
         Task<List<ArticleEntity>> GetArticles();
         Task<ArticleEntity> GetArticle(string id);
         Task<bool> DeleteArticle(string id);

@@ -11,6 +11,7 @@
 
 @if(CurrentEdition != null)
 {
+
     <Card Url="@($"/Admin/Edition/{CurrentEdition.Id}")" >
         <Title>
             <h2 class="wx-card-title"> @CurrentEdition.Id - @CurrentEdition.Name - @CurrentEdition.PublishDate</h2>
@@ -19,24 +20,46 @@
 }
 
 @code {
-    [Inject] INavigationService NavigationService { get; set; }
-    [Inject] IArticleRestService ArticleRestService { get; set; } = default!;
-    List<Article>? Articles { get; set; }
-    Edition CurrentEdition { get; set; }
+    [Inject] INavigationService NavigationService { get; set; } = default!;
+    [Inject] IEditionRestService EditionRestService { get; set; } = default!;
+    List<Edition> Editions { get; set; }
+    Edition? CurrentEdition { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await  base.OnAfterRenderAsync(firstRender);
         if(firstRender)
         {
-            Articles = await ArticleRestService.GetDraftArticles();
+            Editions = await EditionRestService.GetAllEditions();
+            CurrentEdition = Editions.FirstOrDefault();
             StateHasChanged();
         }
     }
 
     public async Task NewEdition()
     {
-        await NavigationService.GoToAsync($"/Admin/Edition");
+        var latest = Editions.OrderBy(x => x.PublishDate).LastOrDefault();
+        string newEditionId = "0";
+        if (latest != null)
+        {
+            if (int.TryParse(latest.Id, out var id))
+            {
+                newEditionId = id++.ToString();
+            }
+        }
+        else
+        {
+            newEditionId = "352";
+        }
+
+        var edition = new Edition
+        {
+            Id = newEditionId,
+        };
+
+
+        await EditionRestService.PostEdition(edition);
+        await NavigationService.GoToAsync($"/Admin/Edition/{newEditionId}");
         
     }
 
